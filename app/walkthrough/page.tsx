@@ -1,0 +1,32 @@
+import { Suspense } from "react";
+import InteriorPanoWalkthrough from "@/components/tour/InteriorPanoWalkthrough";
+import { buildPageMetadata } from "@/lib/metadata";
+import { getAssetWorkerDomain } from "@/lib/server/r2-signed-assets";
+import { getPublishedDeveloperRuntimeConfig } from "@/lib/developer-config";
+
+export const metadata = buildPageMetadata({
+  title: "Interior Walkthrough",
+  description:
+    "Browse Laurels villa interiors with a room-by-room panoramic walkthrough, minimap navigation, and furnished or bare-shell viewing modes.",
+  keywords: [
+    "interior walkthrough",
+    "panoramic apartment tour",
+    "room by room tour",
+    "Laurels villa interiors",
+  ],
+});
+
+export default async function Page() {
+  const workerDomain = getAssetWorkerDomain();
+  const runtimeConfig = await getPublishedDeveloperRuntimeConfig();
+
+  return (
+    <main className="h-dvh w-full bg-[#0a0a0a]">
+      <link rel="preconnect" href={workerDomain} crossOrigin="anonymous" />
+      <link rel="dns-prefetch" href={workerDomain} />
+      <Suspense fallback={<div className="h-full w-full bg-[#0a0a0a]" />}>
+        <InteriorPanoWalkthrough config={runtimeConfig.interior} className="h-full w-full" />
+      </Suspense>
+    </main>
+  );
+}

@@ -1,0 +1,322 @@
+[
+  {
+    "id": 201,
+    "name": "Stonehill International School",
+    "category": "school",
+    "lng": 77.5962816,
+    "lat": 13.171081,
+    "distanceLabel": "6.1 km",
+    "timeLabel": "12 min",
+    "image": "/images/poi/201-stonehill-international-school.avif"
+  },
+  {
+    "id": 202,
+    "name": "Ryan International School, Yelahanka",
+    "category": "school",
+    "lng": 77.6014673,
+    "lat": 13.1238472,
+    "distanceLabel": "6.9 km",
+    "timeLabel": "13 min",
+    "image": "/images/poi/202-ryan-international-school-yelahanka.avif"
+  },
+  {
+    "id": 203,
+    "name": "Presidency School Bengaluru North",
+    "category": "school",
+    "lng": 77.5586513,
+    "lat": 13.1332246,
+    "distanceLabel": "8 km",
+    "timeLabel": "15 min",
+    "image": "/images/poi/203-presidency-school-bengaluru-north.avif"
+  },
+  {
+    "id": 204,
+    "name": "Canadian International School",
+    "category": "school",
+    "lng": 77.5951035,
+    "lat": 13.1189911,
+    "distanceLabel": "8 km",
+    "timeLabel": "15 min",
+    "image": "/images/poi/204-canadian-international-school.avif"
+  },
+  {
+    "id": 205,
+    "name": "The School of Raya",
+    "category": "school",
+    "lng": 77.6707877,
+    "lat": 13.1181277,
+    "distanceLabel": "8.4 km",
+    "timeLabel": "16 min",
+    "image": "/images/poi/205-the-school-of-raya.avif"
+  },
+  {
+    "id": 206,
+    "name": "EuroSchool North Campus",
+    "category": "school",
+    "lng": 77.6249132,
+    "lat": 13.1032534,
+    "distanceLabel": "8.6 km",
+    "timeLabel": "17 min",
+    "image": "/images/poi/206-euroschool-north-campus.avif"
+  },
+  {
+    "id": 207,
+    "name": "Vishwa Vidyapeeth Vikramashila",
+    "category": "school",
+    "lng": 77.5687527,
+    "lat": 13.1423582,
+    "distanceLabel": "9.9 km",
+    "timeLabel": "18 min",
+    "image": "/images/poi/207-vishwa-vidyapeeth-vikramashila.avif"
+  },
+  {
+    "id": 208,
+    "name": "Vidyashilp Academy",
+    "category": "school",
+    "lng": 77.5888943,
+    "lat": 13.1332405,
+    "distanceLabel": "11 km",
+    "timeLabel": "20 min",
+    "image": "/images/poi/208-vidyashilp-academy.avif"
+  },
+  {
+    "id": 209,
+    "name": "ORCHIDS The International School, Jakkur",
+    "category": "school",
+    "lng": 77.6197557,
+    "lat": 13.0826398,
+    "distanceLabel": "11.2 km",
+    "timeLabel": "20 min",
+    "image": "/images/poi/209-orchids-international-school-jakkur.avif"
+  },
+  {
+    "id": 210,
+    "name": "New Horizon International School",
+    "category": "school",
+    "lng": 77.6520917,
+    "lat": 13.0728173,
+    "distanceLabel": "12 km",
+    "timeLabel": "22 min",
+    "image": "/images/poi/210-new-horizon-international-school.avif"
+  },
+  {
+    "id": 211,
+    "name": "Mallya Aditi International School",
+    "category": "school",
+    "lng": 77.5837356,
+    "lat": 13.1017306,
+    "distanceLabel": "14 km",
+    "timeLabel": "25 min",
+    "image": "/images/poi/211-mallya-aditi-international-school.avif"
+  },
+  {
+    "id": 212,
+    "name": "Manipal Hospital Yelahanka",
+    "category": "hospital",
+    "lng": 77.6031632,
+    "lat": 13.1076453,
+    "distanceLabel": "6.9 km",
+    "timeLabel": "13 min",
+    "image": "/images/poi/212-manipal-hospital-yelahanka.avif"
+  },
+  {
+    "id": 213,
+    "name": "SPARSH Hospital Yelahanka",
+    "category": "hospital",
+    "lng": 77.598389,
+    "lat": 13.0950922,
+    "distanceLabel": "8.2 km",
+    "timeLabel": "15 min",
+    "image": "/images/poi/213-sparsh-hospital-yelahanka.avif"
+  },
+  {
+    "id": 214,
+    "name": "Rainbow Children's Hospital & BirthRight, Hebbal",
+    "category": "hospital",
+    "lng": 77.593718,
+    "lat": 13.065631,
+    "distanceLabel": "11.7 km",
+    "timeLabel": "22 min",
+    "image": "/images/poi/214-rainbow-childrens-hospital-hebbal.avif"
+  },
+  {
+    "id": 215,
+    "name": "Cloudnine Hospital, Sahakarnagar",
+    "category": "hospital",
+    "lng": 77.5884272,
+    "lat": 13.0582831,
+    "distanceLabel": "13.2 km",
+    "timeLabel": "25 min",
+    "image": "/images/poi/215-cloudnine-hospital-sahakarnagar.avif"
+  },
+  {
+    "id": 216,
+    "name": "Aster CMI Hospital",
+    "category": "hospital",
+    "lng": 77.5915659,
+    "lat": 13.054497,
+    "distanceLabel": "13.4 km",
+    "timeLabel": "26 min",
+    "image": "/images/poi/216-aster-cmi-hospital.avif"
+  },
+  {
+    "id": 217,
+    "name": "Prestige Forum Mall, Chikkajala",
+    "category": "mall",
+    "lng": 77.6471249,
+    "lat": 13.1903311,
+    "distanceLabel": "5.8 km",
+    "timeLabel": "12 min",
+    "image": "/images/poi/217-prestige-forum-mall-chikkajala.avif"
+  },
+  {
+    "id": 218,
+    "name": "Esteem Mall",
+    "category": "mall",
+    "lng": 77.5933678,
+    "lat": 13.0491249,
+    "distanceLabel": "11.5 km",
+    "timeLabel": "22 min",
+    "image": "/images/poi/218-esteem-mall.avif"
+  },
+  {
+    "id": 219,
+    "name": "The Galleria Mall",
+    "category": "mall",
+    "lng": 77.5953103,
+    "lat": 13.0949493,
+    "distanceLabel": "11.6 km",
+    "timeLabel": "22 min",
+    "image": "/images/poi/219-the-galleria-mall.avif"
+  },
+  {
+    "id": 220,
+    "name": "Phoenix Mall of Asia",
+    "category": "mall",
+    "lng": 77.5914188,
+    "lat": 13.0706257,
+    "distanceLabel": "11.9 km",
+    "timeLabel": "23 min",
+    "image": "/images/poi/220-phoenix-mall-of-asia.avif"
+  },
+  {
+    "id": 221,
+    "name": "Rio Football Academy",
+    "category": "sports",
+    "lng": 77.6309204,
+    "lat": 13.1524906,
+    "distanceLabel": "50 m",
+    "timeLabel": "1 min",
+    "image": "/images/poi/221-rio-football-academy.avif"
+  },
+  {
+    "id": 222,
+    "name": "Decathlon Anubhava",
+    "category": "sports",
+    "lng": 77.6322506,
+    "lat": 13.1689717,
+    "distanceLabel": "2.8 km",
+    "timeLabel": "7 min",
+    "image": "/images/poi/222-decathlon-anubhava.avif"
+  },
+  {
+    "id": 223,
+    "name": "Padukone-Dravid Centre for Sports Excellence",
+    "category": "sports",
+    "lng": 77.5976224,
+    "lat": 13.1679409,
+    "distanceLabel": "5.9 km",
+    "timeLabel": "12 min",
+    "image": "/images/poi/223-padukone-dravid-centre-for-sports-excellence.avif"
+  },
+  {
+    "id": 224,
+    "name": "Purva Aerocity",
+    "category": "IT Company",
+    "lng": 77.6271149,
+    "lat": 13.1673075,
+    "distanceLabel": "4.8 km",
+    "timeLabel": "10 min",
+    "image": "/images/poi/224-purva-aerocity.avif"
+  },
+  {
+    "id": 225,
+    "name": "Sattva City",
+    "category": "IT Company",
+    "lng": 77.6427804,
+    "lat": 13.1851509,
+    "distanceLabel": "5.7 km",
+    "timeLabel": "11 min",
+    "image": "/images/poi/225-sattva-city.avif"
+  },
+  {
+    "id": 226,
+    "name": "Prestige Tech Cloud",
+    "category": "IT Company",
+    "lng": 77.6446454,
+    "lat": 13.1933401,
+    "distanceLabel": "6.2 km",
+    "timeLabel": "12 min",
+    "image": "/images/poi/226-prestige-tech-cloud.avif"
+  },
+  {
+    "id": 227,
+    "name": "North Gate Tech Park",
+    "category": "IT Company",
+    "lng": 77.6067077,
+    "lat": 13.1151183,
+    "distanceLabel": "6.4 km",
+    "timeLabel": "13 min",
+    "image": "/images/poi/227-north-gate-tech-park.avif"
+  },
+  {
+    "id": 228,
+    "name": "Philips Innovation Campus, Yelahanka",
+    "category": "IT Company",
+    "lng": 77.6033659,
+    "lat": 13.1101795,
+    "distanceLabel": "7.1 km",
+    "timeLabel": "14 min",
+    "image": "/images/poi/228-philips-innovation-campus-yelahanka.avif"
+  },
+  {
+    "id": 229,
+    "name": "Sattva Horizon",
+    "category": "IT Company",
+    "lng": 77.6112851,
+    "lat": 13.1206568,
+    "distanceLabel": "7.3 km",
+    "timeLabel": "14 min",
+    "image": "/images/poi/229-sattva-horizon.avif"
+  },
+  {
+    "id": 230,
+    "name": "Embassy Business Hub Phase 2",
+    "category": "IT Company",
+    "lng": 77.6020409,
+    "lat": 13.1103129,
+    "distanceLabel": "7.6 km",
+    "timeLabel": "15 min",
+    "image": "/images/poi/230-embassy-business-hub-phase-2.avif"
+  },
+  {
+    "id": 231,
+    "name": "L&T Tech Park",
+    "category": "IT Company",
+    "lng": 77.589599,
+    "lat": 13.0692202,
+    "distanceLabel": "12 km",
+    "timeLabel": "24 min",
+    "image": "/images/poi/231-l-and-t-tech-park.avif"
+  },
+  {
+    "id": 232,
+    "name": "Manyata Tech Park",
+    "category": "IT Company",
+    "lng": 77.6199596,
+    "lat": 13.0474758,
+    "distanceLabel": "15.6 km",
+    "timeLabel": "30 min",
+    "image": "/images/poi/232-manyata-tech-park.avif"
+  }
+]

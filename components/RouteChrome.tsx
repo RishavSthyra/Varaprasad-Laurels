@@ -1,0 +1,121 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import QuoteRequestController from "@/components/QuoteRequestController";
+import DesktopSiteRail from "@/components/DesktopSiteRail";
+import MobileSiteNav from "@/components/MobileSiteNav";
+import { isAnyWalkthroughPath } from "@/lib/site-navigation";
+
+export default function RouteChrome() {
+  const pathname = usePathname();
+  const [isMasterPlanFlatOpen, setIsMasterPlanFlatOpen] = useState(false);
+  const [shouldMergeDockIntoCta, setShouldMergeDockIntoCta] = useState(false);
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isHomeRoute = pathname === "/";
+  const isAmenitiesRoute = pathname === "/amenities";
+  const isAreaMapRoute = pathname === "/area-map";
+  const isProjectOverviewRoute = pathname === "/project-overview";
+  const isMasterPlanRoute =
+    pathname === "/master-plan" || pathname === "/master-plan-new";
+  const isWalkthroughRoute = isAnyWalkthroughPath(pathname);
+  const isImmersiveRoute =
+    pathname === "/tower-hover-test" ||
+    pathname === "/project-layout" ||
+    pathname === "/landscape-free-roam";
+  const isDocklessRoute = pathname === "/test";
+  const shouldMergeLinksForRoute =
+    shouldMergeDockIntoCta || isWalkthroughRoute || isProjectOverviewRoute;
+  const shouldHideMasterPlanNavigation =
+    isMasterPlanRoute && isMasterPlanFlatOpen;
+  const shouldHideDock =
+    isHomeRoute ||
+    isAmenitiesRoute ||
+    isDocklessRoute ||
+    shouldMergeLinksForRoute ||
+    shouldHideMasterPlanNavigation;
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const compactViewportMedia = window.matchMedia("(max-width: 1279px)");
+    const touchViewportMedia = window.matchMedia("(pointer: coarse)");
+    const finePointerMedia = window.matchMedia("(pointer: fine)");
+    const anyFinePointerMedia = window.matchMedia("(any-pointer: fine)");
+    const syncTouchViewport = () => {
+      setShouldMergeDockIntoCta(
+        compactViewportMedia.matches ||
+          (touchViewportMedia.matches &&
+            !finePointerMedia.matches &&
+            !anyFinePointerMedia.matches),
+      );
+    };
+
+    syncTouchViewport();
+    compactViewportMedia.addEventListener("change", syncTouchViewport);
+    touchViewportMedia.addEventListener("change", syncTouchViewport);
+    finePointerMedia.addEventListener("change", syncTouchViewport);
+    anyFinePointerMedia.addEventListener("change", syncTouchViewport);
+
+    return () => {
+      compactViewportMedia.removeEventListener("change", syncTouchViewport);
+      touchViewportMedia.removeEventListener("change", syncTouchViewport);
+      finePointerMedia.removeEventListener("change", syncTouchViewport);
+      anyFinePointerMedia.removeEventListener("change", syncTouchViewport);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMasterPlanRoute || typeof document === "undefined") {
+      return;
+    }
+
+    const syncDockVisibility = () => {
+      setIsMasterPlanFlatOpen(
+        document.body.dataset.masterPlanFlatOpen === "true",
+      );
+    };
+
+    syncDockVisibility();
+
+    const observer = new MutationObserver(syncDockVisibility);
+    observer.observe(document.body, {
+      attributeFilter: ["data-master-plan-flat-open"],
+      attributes: true,
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isMasterPlanRoute, pathname]);
+
+  if (isAdminRoute || isImmersiveRoute) {
+    return null;
+  }
+
+  return (
+    <>
+      <DesktopSiteRail
+        className={`fixed left-6 top-1/2 z-50 -translate-y-1/2 2xl:left-7 ${shouldHideDock ? "!hidden" : ""}`}
+      />
+
+      {!isDocklessRoute &&
+      !isAmenitiesRoute &&
+      !shouldHideMasterPlanNavigation ? (
+        <MobileSiteNav />
+      ) : null}
+
+      <QuoteRequestController
+        mergeRouteLinks={!shouldMergeDockIntoCta && shouldMergeLinksForRoute}
+        showCta={
+          !shouldMergeDockIntoCta &&
+          !isAmenitiesRoute &&
+          !isHomeRoute &&
+          !isAreaMapRoute
+        }
+      />
+    </>
+  );
+}

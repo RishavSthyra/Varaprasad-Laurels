@@ -1,0 +1,100 @@
+{
+  "dummy": {
+    "x": 90.098,
+    "y": 57.59,
+    "z": 1.284
+  },
+  "video": {
+    "assetKey": "https://cdn.sthyra.com/TULA/Videos/360final2LAST2_GOP3_HQ.mp4",
+    "fps": 60,
+    "height": 2160,
+    "totalFrames": 360,
+    "width": 3840
+  },
+  "fallbackImageKey": "https://cdn.sthyra.com/TULA/Videos/360final2LAST2_GOP3_HQ_first_frame.avif",
+  "modelAssetKey": "local:models/without balcony.glb",
+  "hotspot": {
+    "frame": 1,
+    "key": "A1"
+  },
+  "secondaryDummy": {
+    "x": -72.062,
+    "y": 77.919,
+    "z": 1.284
+  },
+  "camera": {
+    "fov": 75,
+    "filmGateMm": 36,
+    "position": {
+      "x": 20.782,
+      "y": -159.331,
+      "z": 50
+    },
+    "target": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotationDegrees": {
+      "x": 82.467,
+      "y": 0,
+      "z": 0.006
+    },
+    "dollyDistance": 190.706,
+    "targetDistance": 190.708
+  },
+  "cameraStops": [
+    {
+      "frame": 0,
+      "position": {
+        "x": 20.782,
+        "y": -159.331,
+        "z": 50
+      },
+      "rotationDegrees": {
+        "x": 82.467,
+        "y": 0,
+        "z": 0.006
+      }
+    },
+    {
+      "frame": 90,
+      "position": {
+        "x": 243.325,
+        "y": 29.78,
+        "z": 50
+      },
+      "rotationDegrees": {
+        "x": 83.59,
+        "y": 0,
+        "z": 90.013
+      }
+    },
+    {
+      "frame": 180,
+      "position": {
+        "x": 20.675,
+        "y": 218.794,
+        "z": 50
+      },
+      "rotationDegrees": {
+        "x": 82.467,
+        "y": 0,
+        "z": -179.962
+      }
+    },
+    {
+      "frame": 270,
+      "position": {
+        "x": -201.868,
+        "y": 29.683,
+        "z": 50
+      },
+      "rotationDegrees": {
+        "x": 83.594,
+        "y": 0,
+        "z": -89.987
+      }
+    }
+  ]
+}
