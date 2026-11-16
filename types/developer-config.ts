@@ -77,11 +77,23 @@ export type MasterPlanDeveloperConfig = {
     position: [number, number, number];
     quaternion: QuaternionConfig;
     scale: number;
+    matrix?: [
+      number, number, number, number,
+      number, number, number, number,
+      number, number, number, number,
+      number, number, number, number,
+    ];
   };
   towerBTransform: {
     position: [number, number, number];
     quaternion: QuaternionConfig;
     scale: number;
+    matrix?: [
+      number, number, number, number,
+      number, number, number, number,
+      number, number, number, number,
+      number, number, number, number,
+    ];
   };
   unitViewVideos: Record<
     string,

@@ -14,7 +14,7 @@ export type ExteriorMinimapLocation = {
 };
 
 export const EXTERIOR_MINIMAP_IMAGE_URL =
-  "https://cdn.sthyra.com/TULA/Images/Tula%20Master%20Plan%20Legend-without-text.jpg.avif";
+  "/without%20text%20Tula_Master-Plan.avif";
 
 // Maps exterior render-world metres to the replacement 16:9 minimap.
 export const EXTERIOR_MINIMAP_PROJECTION = {

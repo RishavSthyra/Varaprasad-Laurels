@@ -1,6 +1,6 @@
 import ExteriorPanoWalkthrough from "@/components/tour/ExteriorPanoWalkthrough";
 import { exteriorAmenities as canonicalExteriorAmenities } from "@/data/exteriorAmenities";
-import exteriorNodes from "@/data/TULA Landscape 2026-10-15_pano_walkthrough_data.json";
+import exteriorNodes from "@/data/Varaprasad_Exterior_Pano_Data_v1.json";
 import { buildPageMetadata } from "@/lib/metadata";
 import {
   getAssetWorkerDomain,
@@ -9,8 +9,9 @@ import {
 import type { ExteriorPanoNodeSource } from "@/lib/exterior-tour/types";
 import { getPublishedDeveloperRuntimeConfig } from "@/lib/developer-config";
 import {
-  EXTERIOR_INITIAL_PREVIEW_KEY,
-  EXTERIOR_PANO_CDN_BASE_PATH,
+  EXTERIOR_ASSET_INITIAL_NODE_ID,
+  EXTERIOR_ASSET_INITIAL_PREVIEW_KEY,
+  EXTERIOR_PANO_ASSET_BASE_URL,
 } from "@/lib/exterior-tour/assets";
 
 function isIgnoredExteriorPano(node: ExteriorPanoNodeSource) {
@@ -32,9 +33,8 @@ export const metadata = buildPageMetadata({
   ],
 });
 
-function ExteriorWalkthroughHead({ initialPreviewKey }: { initialPreviewKey?: string }) {
+function ExteriorWalkthroughHead({ initialPreviewUrl }: { initialPreviewUrl?: string }) {
   const workerDomain = getAssetWorkerDomain();
-  const initialPreviewUrl = initialPreviewKey ? signR2AssetKey(initialPreviewKey) : null;
 
   return (
     <>
@@ -50,6 +50,7 @@ function ExteriorWalkthroughHead({ initialPreviewKey }: { initialPreviewKey?: st
         rel="preload"
         as="image"
         href={initialPreviewUrl}
+        crossOrigin="anonymous"
         fetchPriority="high"
       /> : null}
     </>
@@ -60,24 +61,28 @@ export default async function ExteriorTourPage() {
   const runtimeConfig = await getPublishedDeveloperRuntimeConfig();
   const exterior = {
     ...runtimeConfig.exterior,
-    panoBasePath: EXTERIOR_PANO_CDN_BASE_PATH,
-    initialPreviewKey: EXTERIOR_INITIAL_PREVIEW_KEY,
+    panoBasePath: EXTERIOR_PANO_ASSET_BASE_URL,
+    initialNodeId: EXTERIOR_ASSET_INITIAL_NODE_ID,
     nodes: exteriorNodes,
   };
   const exteriorTourNodes = exterior.nodes.filter((node) => !isIgnoredExteriorPano(node));
   const preferredInitialNodeId =
     (exterior.initialNodeId && exteriorTourNodes.find((node) => node.id === exterior.initialNodeId)?.id) ??
     exteriorTourNodes[0]?.id;
-  const signedExteriorMenuAssets = Object.fromEntries(
-    canonicalExteriorAmenities.map((amenity) => [
-      amenity.image,
-      signR2AssetKey(amenity.image),
-    ]),
-  );
+  const initialPreviewUrl = signR2AssetKey(EXTERIOR_ASSET_INITIAL_PREVIEW_KEY);
+  const signedExteriorMenuAssets = {
+    [EXTERIOR_ASSET_INITIAL_PREVIEW_KEY]: initialPreviewUrl,
+    ...Object.fromEntries(
+      canonicalExteriorAmenities.map((amenity) => [
+        amenity.image,
+        signR2AssetKey(amenity.image),
+      ]),
+    ),
+  };
 
   return (
     <main className="relative h-[100svh] min-h-[100svh] w-full overflow-hidden bg-[#040608]">
-      <ExteriorWalkthroughHead initialPreviewKey={exterior.initialPreviewKey} />
+      <ExteriorWalkthroughHead initialPreviewUrl={initialPreviewUrl} />
 
       <div className="absolute inset-0">
         <ExteriorPanoWalkthrough

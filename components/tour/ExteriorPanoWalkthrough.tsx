@@ -135,16 +135,17 @@ const PREMIUM_OLIVE_GRADIENT = "walkthrough-glass-accent";
 const PREMIUM_PANEL_SURFACE = "walkthrough-glass-panel";
 const PREMIUM_PILL_SURFACE = "walkthrough-glass-chip";
 
-function getExteriorPanoNodeId(frame: number) {
-  return `PANO_Spline_F${String(frame).padStart(4, "0")}`;
+function getExteriorPanoNodeId(frame: number, graph: ExteriorTourGraph) {
+  const frameId = String(frame).padStart(4, "0");
+  const currentNodeId = `Exterior_PANO_Spline_F${frameId}`;
+  const legacyNodeId = `PANO_Spline_F${frameId}`;
+
+  return graph.byId[currentNodeId] ? currentNodeId : legacyNodeId;
 }
 
-function getPublicExteriorAssetBase(cdnBaseUrl: string) {
-  if (/^https?:\/\//i.test(cdnBaseUrl)) {
-    return cdnBaseUrl.replace(/\/+$/, "");
-  }
-
-  return `https://cdn.sthyra.com/${cdnBaseUrl.replace(/^\/+|\/+$/g, "")}`;
+function getExteriorAssetBase(cdnBaseUrl: string) {
+  // Keep R2 keys relative so panorama-derived menu images are signed too.
+  return cdnBaseUrl.replace(/\/+$/, "");
 }
 
 function getAmenityMenuImageSrc(
@@ -1080,14 +1081,15 @@ export default function ExteriorPanoWalkthrough({
     const amenityMetadataById = new Map(
       amenities.map((amenity) => [amenity.id, amenity]),
     );
-    const publicAssetBase = getPublicExteriorAssetBase(cdnBaseUrl);
+    const publicAssetBase = getExteriorAssetBase(cdnBaseUrl);
 
     return EXTERIOR_MINIMAP_LOCATIONS.flatMap((location) => {
       const nodeIds = location.panoFrames
-        .map(getExteriorPanoNodeId)
+        .map((frame) => getExteriorPanoNodeId(frame, graph))
         .filter((nodeId) => Boolean(graph.byId[nodeId]));
       const preferredStartingNodeId = getExteriorPanoNodeId(
         location.startingPanoFrame,
+        graph,
       );
       const primaryNodeId = graph.byId[preferredStartingNodeId]
         ? preferredStartingNodeId

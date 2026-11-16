@@ -5,6 +5,7 @@ import {
   PanoAssetStore,
   selectPriorityTiles,
 } from "./pano";
+import { exteriorImageFilenameToPanoId } from "./nodes";
 import type { PanoMeta } from "./types";
 
 const meta: PanoMeta = {
@@ -78,6 +79,18 @@ test("panorama loading shares requests, batches signing, and retries failures", 
     assert.deepEqual(signingBatches.slice(before), [["pano-test/preview/room/preview.jpg"]]);
   });
 
+  await t.test("local public panoramas bypass URL signing", async () => {
+    const store = new PanoAssetStore("/varaprasad_exterior_panos");
+    const before = signingBatches.length;
+    const resolved = await store.getPanorama("EP.00000", false);
+
+    assert.equal(
+      resolved.previewUrl,
+      "/varaprasad_exterior_panos/EP.00000/preview.jpg",
+    );
+    assert.equal(signingBatches.length, before);
+  });
+
   await t.test("metadata errors do not poison the panorama cache", async () => {
     const store = new PanoAssetStore("pano-test/retry-meta/");
     failMetadataOnce = true;
@@ -100,6 +113,17 @@ test("tile descriptors use the real filenames from metadata", () => {
   const descriptors = buildTileDescriptors("room", meta, "panos/");
   assert.equal(descriptors.find((tile) => tile.col === 1 && tile.row === 0)?.url, "panos/room/tiles/custom-name.webp");
   assert.equal(descriptors.find((tile) => tile.col === 0 && tile.row === 0)?.url, "panos/room/tiles/tile_0_0.jpg");
+});
+
+test("Varaprasad exterior frames map to EP panorama folders", () => {
+  assert.equal(
+    exteriorImageFilenameToPanoId("LS_Exterior_PANO_Spline_F0027.jpeg"),
+    "EP.00027",
+  );
+  assert.equal(
+    exteriorImageFilenameToPanoId("LS_PANO_Spline_F0027.jpeg"),
+    "PANO.00027",
+  );
 });
 
 test("priority prefetch follows the view, including the panorama seam", () => {

@@ -2,6 +2,7 @@
 
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Cormorant_Garamond } from "next/font/google";
+import mapSidebarStyles from "./MapSidebar.module.css";
 import pLimit from "p-limit";
 import poidata from "@/data/poi.json";
 import { Map as MapView,
@@ -123,13 +124,13 @@ const ROUTE_ANIMATION_DURATION = 2600;
 const ROUTE_ANIMATION_WINDOW_SIZE = 30;
 const provisionalRouteCache = new Map<number, RouteData>();
 const PREMIUM_OLIVE_GRADIENT =
-  "bg-[radial-gradient(circle_at_32%_25%,#69895e_0%,#45603c_58%,#2a452d_100%)]";
+  "border border-[#fce190]/45 bg-[radial-gradient(circle_at_32%_20%,#12395f_0%,#062542_48%,#00142b_100%)] text-[#fce190]";
 const PREMIUM_OLIVE_BUTTON =
-  "bg-[radial-gradient(circle_at_32%_25%,#69895e_0%,#45603c_58%,#2a452d_100%)]";
+  "border border-[#fce190]/55 bg-[radial-gradient(circle_at_32%_20%,#12395f_0%,#062542_48%,#00142b_100%)] text-[#fce190]";
 const FLOATING_PANEL =
-  "rounded-[1.6rem] border border-[rgba(75,95,60,0.14)] bg-[rgba(251,249,243,0.94)] shadow-[0_8px_30px_rgba(41,52,35,0.08),0_2px_8px_rgba(41,52,35,0.04)] backdrop-blur-xl";
+  "rounded-[1.6rem] border border-[#fce190]/30 bg-[#00142b]/92 text-[#fce190] shadow-[0_18px_42px_rgba(0,20,43,0.26),inset_0_1px_0_rgba(252,225,144,0.12)] backdrop-blur-xl";
 const FLOATING_BUTTON =
-  "inline-flex items-center justify-center rounded-full border border-[rgba(75,95,60,0.14)] bg-[rgba(251,249,243,0.94)] text-[#304638] shadow-[0_8px_30px_rgba(41,52,35,0.08),0_2px_8px_rgba(41,52,35,0.04)] backdrop-blur-xl transition hover:bg-white";
+  "inline-flex items-center justify-center rounded-full border border-[#fce190]/35 bg-[#00142b]/92 text-[#fce190] shadow-[0_18px_42px_rgba(0,20,43,0.26),inset_0_1px_0_rgba(252,225,144,0.12)] backdrop-blur-xl transition hover:border-[#fce190]/60 hover:bg-[#082846]/95";
 const FLOATING_GHOST_PANEL =
   "rounded-[1.6rem] border border-transparent bg-transparent shadow-none backdrop-blur-0";
 const OVERLAY_TRANSITION =
@@ -514,99 +515,99 @@ const categoryMeta: Record<
 > = {
   park: {
     label: "Parks",
-    color: "text-emerald-600",
-    glow: "bg-emerald-400/20",
-    panelClass: "border-emerald-300/70 bg-emerald-50/85",
-    pinColor: "text-emerald-600",
-    routeColor: "#10b981",
+    color: "text-[#fce190]",
+    glow: "bg-[#fce190]/20",
+    panelClass: "border-[#fce190]/40 bg-[#00142b]/90",
+    pinColor: "text-[#fce190]",
+    routeColor: "#fce190",
     icon: Trees,
-    badgeBg: "bg-emerald-500",
-    badgeRing: "ring-emerald-200/80",
-    badgeIcon: "text-white",
+    badgeBg: "bg-[#00142b]",
+    badgeRing: "ring-[#fce190]/60",
+    badgeIcon: "text-[#fce190]",
   },
   mall: {
     label: "Malls",
-    color: "text-fuchsia-600",
-    glow: "bg-fuchsia-400/20",
-    panelClass: "border-fuchsia-300/70 bg-fuchsia-50/85",
-    pinColor: "text-fuchsia-600",
-    routeColor: "#d946ef",
+    color: "text-[#fce190]",
+    glow: "bg-[#fce190]/20",
+    panelClass: "border-[#fce190]/40 bg-[#00142b]/90",
+    pinColor: "text-[#fce190]",
+    routeColor: "#fce190",
     icon: Store,
-    badgeBg: "bg-fuchsia-500",
-    badgeRing: "ring-fuchsia-200/80",
-    badgeIcon: "text-white",
+    badgeBg: "bg-[#00142b]",
+    badgeRing: "ring-[#fce190]/60",
+    badgeIcon: "text-[#fce190]",
   },
   bus_stop: {
     label: "Bus Stops",
-    color: "text-amber-600",
-    glow: "bg-amber-400/20",
-    panelClass: "border-amber-300/70 bg-amber-50/85",
-    pinColor: "text-amber-600",
-    routeColor: "#f59e0b",
+    color: "text-[#fce190]",
+    glow: "bg-[#fce190]/20",
+    panelClass: "border-[#fce190]/40 bg-[#00142b]/90",
+    pinColor: "text-[#fce190]",
+    routeColor: "#fce190",
     icon: BusFront,
-    badgeBg: "bg-amber-500",
-    badgeRing: "ring-amber-200/80",
-    badgeIcon: "text-white",
+    badgeBg: "bg-[#00142b]",
+    badgeRing: "ring-[#fce190]/60",
+    badgeIcon: "text-[#fce190]",
   },
   school: {
     label: "Schools",
-    color: "text-sky-600",
-    glow: "bg-sky-400/20",
-    panelClass: "border-sky-300/70 bg-sky-50/85",
-    pinColor: "text-sky-600",
-    routeColor: "#0ea5e9",
+    color: "text-[#fce190]",
+    glow: "bg-[#fce190]/20",
+    panelClass: "border-[#fce190]/40 bg-[#00142b]/90",
+    pinColor: "text-[#fce190]",
+    routeColor: "#fce190",
     icon: School,
-    badgeBg: "bg-sky-500",
-    badgeRing: "ring-sky-200/80",
-    badgeIcon: "text-white",
+    badgeBg: "bg-[#00142b]",
+    badgeRing: "ring-[#fce190]/60",
+    badgeIcon: "text-[#fce190]",
   },
   hospital: {
     label: "Hospitals",
-    color: "text-rose-600",
-    glow: "bg-rose-400/20",
-    panelClass: "border-rose-300/70 bg-rose-50/85",
-    pinColor: "text-rose-600",
-    routeColor: "#f43f5e",
+    color: "text-[#fce190]",
+    glow: "bg-[#fce190]/20",
+    panelClass: "border-[#fce190]/40 bg-[#00142b]/90",
+    pinColor: "text-[#fce190]",
+    routeColor: "#fce190",
     icon: Cross,
-    badgeBg: "bg-rose-500",
-    badgeRing: "ring-rose-200/80",
-    badgeIcon: "text-white",
+    badgeBg: "bg-[#00142b]",
+    badgeRing: "ring-[#fce190]/60",
+    badgeIcon: "text-[#fce190]",
   },
   landmark: {
     label: "Landmarks",
-    color: "text-violet-600",
-    glow: "bg-violet-400/20",
-    panelClass: "border-violet-300/70 bg-violet-50/85",
-    pinColor: "text-violet-600",
-    routeColor: "#8b5cf6",
+    color: "text-[#fce190]",
+    glow: "bg-[#fce190]/20",
+    panelClass: "border-[#fce190]/40 bg-[#00142b]/90",
+    pinColor: "text-[#fce190]",
+    routeColor: "#fce190",
     icon: Landmark,
-    badgeBg: "bg-violet-500",
-    badgeRing: "ring-violet-200/80",
-    badgeIcon: "text-white",
+    badgeBg: "bg-[#00142b]",
+    badgeRing: "ring-[#fce190]/60",
+    badgeIcon: "text-[#fce190]",
   },
   sports: {
     label: "Sports",
-    color: "text-amber-700",
-    glow: "bg-amber-400/20",
-    panelClass: "border-amber-300/70 bg-amber-50/85",
-    pinColor: "text-amber-700",
-    routeColor: "#d97706",
+    color: "text-[#fce190]",
+    glow: "bg-[#fce190]/20",
+    panelClass: "border-[#fce190]/40 bg-[#00142b]/90",
+    pinColor: "text-[#fce190]",
+    routeColor: "#fce190",
     icon: Trophy,
-    badgeBg: "bg-amber-600",
-    badgeRing: "ring-amber-200/80",
-    badgeIcon: "text-white",
+    badgeBg: "bg-[#00142b]",
+    badgeRing: "ring-[#fce190]/60",
+    badgeIcon: "text-[#fce190]",
   },
   "IT Company": {
     label: "Business",
-    color: "text-emerald-700",
-    glow: "bg-emerald-500/20",
-    panelClass: "border-emerald-300/70 bg-emerald-50/85",
-    pinColor: "text-emerald-700",
-    routeColor: "#059669",
+    color: "text-[#fce190]",
+    glow: "bg-[#fce190]/20",
+    panelClass: "border-[#fce190]/40 bg-[#00142b]/90",
+    pinColor: "text-[#fce190]",
+    routeColor: "#fce190",
     icon: BriefcaseBusiness,
-    badgeBg: "bg-teal-600",
-    badgeRing: "ring-teal-200/80",
-    badgeIcon: "text-white",
+    badgeBg: "bg-[#00142b]",
+    badgeRing: "ring-[#fce190]/60",
+    badgeIcon: "text-[#fce190]",
   },
 };
 
@@ -632,19 +633,19 @@ const PoiMarker = memo(function PoiMarker({
           aria-label={poi.name}
         >
           <span
-            className={`relative flex items-center justify-center rounded-full border shadow-[0_8px_18px_rgba(47,73,50,0.18)] transition ${
+            className={`relative flex items-center justify-center rounded-full border shadow-[0_8px_18px_rgba(0,20,43,0.3)] transition ${
               isSelected
-                ? `h-9 w-9 border-[rgba(229,219,190,0.9)] ${PREMIUM_OLIVE_GRADIENT}`
-                : "h-8 w-8 border-[rgba(229,219,190,0.82)] bg-[#fffaf0]"
+                ? `h-9 w-9 border-[#fce190]/80 ${PREMIUM_OLIVE_GRADIENT}`
+                : "h-8 w-8 border-[#fce190]/55 bg-[#00142b]/92"
             }`}
           >
-            <Icon className={`size-4 ${isSelected ? "text-white" : "text-[#41593e]"}`} />
+            <Icon className="size-4 text-[#fce190]" />
           </span>
         </button>
       </MarkerContent>
       <MarkerTooltip
         offset={10}
-        className={`rounded-full border border-[#e4d8b7] bg-[#fffaf0] px-3 py-1 text-[0.68rem] font-semibold text-[#31482d] shadow-[0_10px_24px_rgba(43,52,37,0.12)] ${isSelected ? "opacity-100" : ""}`}
+        className={`rounded-full border border-[#fce190]/45 bg-[#00142b]/94 px-3 py-1 text-[0.68rem] font-semibold text-[#fce190] shadow-[0_10px_24px_rgba(0,20,43,0.3)] ${isSelected ? "opacity-100" : ""}`}
       >
         {poi.name}
       </MarkerTooltip>
@@ -945,8 +946,8 @@ function MetricPill({
   children: React.ReactNode;
 }) {
   return (
-    <span className="inline-flex h-7 items-center gap-1.5 rounded-full border border-[#e8e0d2] bg-[#fffdf7]/88 px-2.5 text-[0.68rem] font-medium text-[#3e4b3d] shadow-[inset_0_1px_0_rgba(255,255,255,0.88)] sm:h-8 sm:gap-2 sm:px-3 sm:text-[0.78rem]">
-      <Icon className="size-3 text-[#38583b] sm:size-3.5" />
+    <span className="inline-flex h-7 items-center gap-1.5 rounded-full border border-[#fce190]/30 bg-[#082846]/72 px-2.5 text-[0.68rem] font-medium text-[#fce190] shadow-[inset_0_1px_0_rgba(252,225,144,0.1)] sm:h-8 sm:gap-2 sm:px-3 sm:text-[0.78rem]">
+      <Icon className="size-3 text-[#fce190] sm:size-3.5" />
       {children}
     </span>
   );
@@ -974,27 +975,27 @@ function PremiumSelect({
   return (
     <div className={`relative ${className ?? ""}`}>
       <Icon
-        className={`pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-[#55684a] ${iconClassName ?? ""}`}
+        className={`pointer-events-none absolute left-4 top-1/2 z-10 size-4 -translate-y-1/2 text-[#00142b] ${iconClassName ?? ""}`}
       />
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
         aria-label={ariaLabel}
         style={{ colorScheme: "light" }}
-        className={`h-11 w-full appearance-none rounded-full border border-[#e2d8c4] bg-[rgba(255,253,248,0.96)] pl-10 pr-10 text-sm font-medium text-[#304238] outline-none transition focus:border-[#cbbd8c] ${selectClassName ?? ""}`}
+        className={`${mapSidebarStyles.control} h-11 w-full appearance-none rounded-full border pl-10 pr-10 text-sm font-medium outline-none transition ${selectClassName ?? ""}`}
       >
         {options.map((option) => (
           <option
             key={option.value}
             value={option.value}
-            style={{ backgroundColor: "#fffdf8", color: "#304238" }}
+            style={{ backgroundColor: "#efebe4", color: "#00142b" }}
           >
             {option.label}
           </option>
         ))}
       </select>
       <ChevronDown
-        className={`pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-[#55684a] ${iconClassName ?? ""}`}
+        className={`pointer-events-none absolute right-4 top-1/2 z-10 size-4 -translate-y-1/2 text-[#00142b] ${iconClassName ?? ""}`}
       />
     </div>
   );
@@ -1624,9 +1625,11 @@ export function CustomStyleExample() {
   const desktopSidebarControlHeightClass = isTabletLayout ? "h-10" : "h-12";
   const desktopSidebarControlTextClass = isTabletLayout ? "text-[0.95rem]" : "text-sm";
   const desktopSidebarControlRadiusClass = isTabletLayout ? "rounded-[1rem]" : "rounded-[1.1rem]";
-  const desktopSidebarControlIconClass = isTabletLayout ? "text-[#d7dfcb] size-3.5" : "text-[#d7dfcb]";
+  const desktopSidebarControlIconClass = isTabletLayout ? "text-[#00142b] size-3.5" : "text-[#00142b]";
   const activeMapStyle = mapDisplayMode === "carto" ? CARTO_MAP_STYLE : MAP_STYLE;
   const activeProjection = { type: "mercator" } as const;
+  const mapControlsThemeClass =
+    "[&>div]:border-[#fce190]/30 [&>div]:bg-[#00142b]/92 [&>div]:text-[#fce190] [&>div]:shadow-[0_12px_28px_rgba(0,20,43,0.25)] [&_button]:text-[#fce190] [&_button:hover]:bg-[#082846] [&>div>button:not(:last-child)]:border-[#fce190]/18";
   const popularPanelPaddingClass = isTabletLayout ? "p-3.5" : "p-4";
   const popularPanelTitleClass = isTabletLayout ? "text-[1.5rem]" : "text-lg";
   const popularPanelDescriptionClass = isTabletLayout ? "text-[0.72rem]" : "text-xs";
@@ -1739,7 +1742,7 @@ export function CustomStyleExample() {
   }, [mapDisplayMode]);
 
   return (
-    <main className="relative h-[100dvh] w-full overflow-hidden bg-[#f3efe6] text-[#263b2b]">
+    <main className="relative h-[100dvh] w-full overflow-hidden bg-[#00142b] text-[#fce190]">
       <div className="absolute inset-0">
         <MapView
           ref={mapRef}
@@ -1760,19 +1763,19 @@ export function CustomStyleExample() {
             showCompass
             showLocate
             onLocate={handleUserLocate}
-            className={
+            className={`${mapControlsThemeClass} ${
               isCompactLayout
                 ? showFilters
                   ? "hidden"
                   : `right-3 sm:right-5 ${showPoiDetails || mobilePopularExpanded ? "bottom-auto top-[4.75rem] sm:top-[5.5rem]" : "bottom-[7rem] sm:bottom-[7.75rem]"}`
                 : `right-6 ${showPoiDetails ? "bottom-[26rem]" : "bottom-8"}`
-            }
+            }`}
           />
           <MapClickClearRoute onClear={clearActiveRoute} suppressRef={suppressNextMapClearRef} />
           {userLocation ? <UserLocationAccuracyLayer location={userLocation} /> : null}
           {userRoute ? (
             <>
-              <MapRoute id="user-route-outline" coordinates={userRoute.coordinates} color="#ffffff" width={3} opacity={0.6} />
+              <MapRoute id="user-route-outline" coordinates={userRoute.coordinates} color="#00142b" width={3} opacity={0.7} />
               <MapRoute id="user-route-base" coordinates={userRoute.coordinates} color={userRouteColor} width={6} opacity={0.18} />
             </>
           ) : null}
@@ -1781,7 +1784,7 @@ export function CustomStyleExample() {
           ) : null}
           {activeRoute ? (
             <>
-              <MapRoute id="poi-route-outline" coordinates={activeRoute.coordinates} color="#ffffff" width={3} opacity={0.55} />
+              <MapRoute id="poi-route-outline" coordinates={activeRoute.coordinates} color="#00142b" width={3} opacity={0.7} />
               <MapRoute id="poi-route-base" coordinates={activeRoute.coordinates} color={activeRouteColor} width={6} opacity={0.16} />
             </>
           ) : null}
@@ -1793,9 +1796,9 @@ export function CustomStyleExample() {
               data={clusterData}
               clusterRadius={POI_CLUSTER_RADIUS}
               clusterMaxZoom={POI_CLUSTER_MAX_ZOOM}
-              clusterColors={["#7a8f5a", "#5d7445", "#455933"]}
+              clusterColors={["#12395f", "#062542", "#00142b"]}
               clusterThresholds={[12, 28]}
-              pointColor="#5d7445"
+              pointColor="#fce190"
               onPointClick={handleClusterPointClick}
             />
           ) : null}
@@ -1820,8 +1823,8 @@ export function CustomStyleExample() {
             <MapMarker longitude={userLocation.longitude} latitude={userLocation.latitude}>
               <MarkerContent>
                 <div className="relative flex items-center justify-center">
-                  <div className="absolute size-8 animate-ping rounded-full bg-[#315238]/20" />
-                  <div className="relative size-4 rounded-full border-2 border-white bg-[#315238] shadow-[0_0_0_6px_rgba(49,82,56,0.18)]" />
+                  <div className="absolute size-8 animate-ping rounded-full bg-[#fce190]/25" />
+                  <div className="relative size-4 rounded-full border-2 border-[#fce190] bg-[#00142b] shadow-[0_0_0_6px_rgba(252,225,144,0.2)]" />
                 </div>
               </MarkerContent>
             </MapMarker>
@@ -1838,7 +1841,7 @@ export function CustomStyleExample() {
             : null}
         </MapView>
 
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_86%,rgba(248,245,236,0.58)_0%,rgba(248,245,236,0.18)_24%,transparent_48%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[#00142b]/8 bg-[radial-gradient(circle_at_80%_86%,rgba(0,20,43,0.3)_0%,rgba(0,20,43,0.12)_30%,transparent_54%)]" />
       </div>
 
       <div className="pointer-events-none absolute inset-0 z-20">
@@ -1851,7 +1854,7 @@ export function CustomStyleExample() {
                   setMobilePopularExpanded(false);
                   setShowFilters(true);
                 }}
-                className={`absolute right-3 top-[max(env(safe-area-inset-top),1rem)] pointer-events-auto inline-flex min-h-11 items-center gap-2 px-3.5 text-[0.78rem] font-semibold sm:right-5 sm:min-h-12 sm:px-4 sm:text-sm ${FLOATING_BUTTON}`}
+                className={`${mapSidebarStyles.control} absolute right-3 top-[max(env(safe-area-inset-top),1rem)] pointer-events-auto inline-flex min-h-11 items-center gap-2 px-3.5 text-[0.78rem] font-semibold sm:right-5 sm:min-h-12 sm:px-4 sm:text-sm ${FLOATING_BUTTON}`}
                 aria-label="Open map filters"
                 aria-expanded={showFilters}
                 aria-controls="compact-map-filter-drawer"
@@ -1859,7 +1862,7 @@ export function CustomStyleExample() {
                 <ListFilter className="size-4" />
                 <span>Filters</span>
                 {hasActiveFilters ? (
-                  <span className="size-1.5 rounded-full bg-[#5b764f]" aria-hidden="true" />
+                  <span className="size-1.5 rounded-full bg-[#fce190]" aria-hidden="true" />
                 ) : null}
               </button>
             ) : null}
@@ -1868,7 +1871,7 @@ export function CustomStyleExample() {
               <div className="pointer-events-auto absolute inset-0 z-30">
                 <button
                   type="button"
-                  className="absolute inset-0 cursor-default bg-[#142218]/38 backdrop-blur-[3px]"
+                  className="absolute inset-0 cursor-default bg-[#00142b]/55 backdrop-blur-[3px]"
                   onClick={() => setShowFilters(false)}
                   aria-label="Close map filters"
                 />
@@ -1877,17 +1880,17 @@ export function CustomStyleExample() {
                   role="dialog"
                   aria-modal="true"
                   aria-labelledby="compact-map-filter-title"
-                  className="absolute inset-x-0 bottom-0 max-h-[78dvh] overflow-y-auto overscroll-contain rounded-t-[1.75rem] border-t border-[#dfcfac]/85 bg-[linear-gradient(180deg,rgba(255,252,245,0.995)_0%,rgba(244,238,226,0.985)_100%)] px-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-3.5 text-[#263b2b] shadow-[0_-24px_64px_rgba(28,44,30,0.22)] [scrollbar-width:none] sm:bottom-4 sm:left-1/2 sm:right-auto sm:w-[min(44rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:rounded-[2rem] sm:border sm:p-6 [&::-webkit-scrollbar]:hidden"
+                  className={`${mapSidebarStyles.panel} absolute inset-x-0 bottom-0 max-h-[78dvh] overflow-y-auto overscroll-contain rounded-t-[1.75rem] border-t px-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-3.5 [scrollbar-width:none] sm:bottom-4 sm:left-1/2 sm:right-auto sm:w-[min(44rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:rounded-[2rem] sm:border sm:p-6 [&::-webkit-scrollbar]:hidden`}
                 >
-                  <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-[#cec5b2] sm:mb-4" />
+                  <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-[#fce190]/45 sm:mb-4" />
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className="text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#63725d] sm:text-[0.68rem]">
+                      <p className="text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#00142b]/70 sm:text-[0.68rem]">
                         Explore nearby
                       </p>
                       <h2
                         id="compact-map-filter-title"
-                        className={`${displaySerif.className} mt-1 text-lg font-semibold leading-none text-[#263b2b] sm:text-xl`}
+                        className={`${displaySerif.className} mt-1 text-lg font-semibold leading-none text-[#00142b] sm:text-xl`}
                       >
                         Map Filters
                       </h2>
@@ -1895,7 +1898,7 @@ export function CustomStyleExample() {
                     <button
                       type="button"
                       onClick={() => setShowFilters(false)}
-                      className="flex size-11 shrink-0 items-center justify-center rounded-full border border-[#dfcfac]/80 bg-white/78 text-[#40543f] sm:size-12"
+                      className="flex size-11 shrink-0 items-center justify-center rounded-full border border-[#00142b]/35 bg-[#efebe4]/50 text-[#00142b] sm:size-12"
                       aria-label="Close map filters"
                     >
                       <X className="size-4" />
@@ -1909,6 +1912,7 @@ export function CustomStyleExample() {
                         <button
                           key={item.id}
                           type="button"
+                          aria-pressed={item.active}
                           onClick={() => {
                             if (item.id === "all") {
                               clearPoiSelection();
@@ -1918,11 +1922,7 @@ export function CustomStyleExample() {
 
                             toggleCategory(item.id as PoiCategory);
                           }}
-                          className={`flex min-h-11 min-w-0 items-center gap-2 rounded-[0.95rem] border px-3 text-left text-[0.78rem] font-semibold transition sm:min-h-12 sm:px-3.5 sm:text-sm ${
-                            item.active
-                              ? `${PREMIUM_OLIVE_GRADIENT} border-[#51663f] text-[#f8f5ec]`
-                              : "border-[rgba(75,95,60,0.12)] bg-white/72 text-[#43533f] hover:bg-white"
-                          }`}
+                          className={`${mapSidebarStyles.choice} flex min-h-11 min-w-0 items-center gap-2 rounded-[0.95rem] border px-3 text-left text-[0.78rem] font-semibold transition sm:min-h-12 sm:px-3.5 sm:text-sm`}
                         >
                           <Icon className="size-4 shrink-0" />
                           <span className="truncate">{item.label}</span>
@@ -1980,7 +1980,7 @@ export function CustomStyleExample() {
                     <button
                       type="button"
                       onClick={resetFilters}
-                      className="min-h-11 rounded-full border border-[#dfcfac]/80 bg-white/72 px-4 text-[0.78rem] font-semibold text-[#43533f] sm:min-h-12 sm:text-sm"
+                      className="min-h-11 rounded-full border border-[#00142b]/30 bg-[#efebe4]/50 px-4 text-[0.78rem] font-semibold text-[#00142b] sm:min-h-12 sm:text-sm"
                     >
                       Clear All
                     </button>
@@ -1990,7 +1990,7 @@ export function CustomStyleExample() {
                         setShowFilters(false);
                         setMobilePopularExpanded(true);
                       }}
-                      className={`min-h-11 rounded-full px-4 text-[0.78rem] font-semibold text-white shadow-[0_10px_20px_rgba(50,79,45,0.2)] sm:min-h-12 sm:text-sm ${PREMIUM_OLIVE_BUTTON}`}
+                      className={`${mapSidebarStyles.primary} min-h-11 rounded-full px-4 text-[0.78rem] font-semibold sm:min-h-12 sm:text-sm`}
                     >
                       Show {visiblePois.length} Places
                     </button>
@@ -2006,23 +2006,23 @@ export function CustomStyleExample() {
           >
             <div className="flex h-full flex-col gap-6 overflow-y-auto overscroll-contain pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <div className={`pointer-events-auto ${FLOATING_GHOST_PANEL} p-0`}>
-                <div className={`relative overflow-hidden rounded-[2rem] border border-[#d8bd78]/55 bg-[linear-gradient(180deg,rgba(35,65,42,0.96),rgba(28,54,36,0.98))] text-[#f5ecd7] shadow-[0_18px_38px_rgba(25,55,34,0.22),inset_0_1px_0_rgba(255,255,255,0.14)] ${desktopSidebarPanelPaddingClass}`}>
-                  <div className="pointer-events-none absolute inset-[8px] rounded-[1.65rem] border border-[#d9c28a]/18" />
+                <div className={`${mapSidebarStyles.panel} relative overflow-hidden rounded-[2rem] border ${desktopSidebarPanelPaddingClass}`}>
+                  <div className="pointer-events-none absolute inset-[8px] rounded-[1.65rem] border border-[#00142b]/12" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/flowerUI.png"
                     alt=""
-                    className="pointer-events-none absolute -right-6 -top-3 z-0 h-88 w-auto opacity-40 select-none"
+                    className={`${mapSidebarStyles.flower} pointer-events-none absolute -right-6 -top-3 z-0 h-88 w-auto select-none`}
                   />
                   <div className="relative mb-5 flex items-start justify-between gap-3">
                     <div>
-                      <p className={`font-semibold uppercase text-[#d7dfcb] ${desktopSidebarHeaderEyebrowClass}`}>
+                      <p className={`font-semibold uppercase text-[#00142b]/72 ${desktopSidebarHeaderEyebrowClass}`}>
                         Discover Nearby
                       </p>
-                      <h2 className={`${displaySerif.className} mt-2 font-semibold text-[#f7f3e8] ${desktopSidebarTitleClass}`}>
+                      <h2 className={`${displaySerif.className} mt-2 font-semibold text-[#00142b] ${desktopSidebarTitleClass}`}>
                         Explore Places
                       </h2>
-                      <p className={`mt-3 text-[#d7dfcb]/80 ${desktopSidebarBodyCopyClass}`}>
+                      <p className={`mt-3 text-[#00142b]/68 ${desktopSidebarBodyCopyClass}`}>
                         Everything you need, just moments away.
                       </p>
                     </div>
@@ -2030,14 +2030,14 @@ export function CustomStyleExample() {
                       <button
                         type="button"
                         onClick={resetFilters}
-                        className={`whitespace-nowrap px-2 font-medium text-[#eef2e7] transition hover:text-white ${desktopSidebarActionTextClass}`}
+                        className={`whitespace-nowrap px-2 font-medium text-[#00142b]/82 transition hover:text-[#00142b] ${desktopSidebarActionTextClass}`}
                       >
                         Clear All
                       </button>
                       <button
                         type="button"
                         onClick={() => setShowDesktopSidebar(false)}
-                        className={`flex shrink-0 items-center justify-center rounded-full border border-[rgba(235,239,229,0.18)] bg-white/10 text-[#f4f7ee] ${desktopSidebarCloseButtonClass}`}
+                        className={`flex shrink-0 items-center justify-center rounded-full border border-[#00142b]/28 bg-[#efebe4]/50 text-[#00142b] ${desktopSidebarCloseButtonClass}`}
                         aria-label="Close sidebar"
                       >
                         <X className="size-4" />
@@ -2052,14 +2052,11 @@ export function CustomStyleExample() {
                           key={item.id}
                           type="button"
                           onClick={() => toggleCategory(item.id as PoiCategory)}
-                          className={`group aspect-square border transition ${desktopSidebarTileClass} ${
-                            item.active
-                              ? "border-[rgba(225,234,212,0.28)] bg-white/14 text-[#fbf8ef] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-                              : "border-[rgba(225,234,212,0.12)] bg-white/5 text-[#d6dec9] hover:bg-white/9"
-                          }`}
+                          aria-pressed={item.active}
+                          className={`${mapSidebarStyles.choice} group aspect-square border transition ${desktopSidebarTileClass}`}
                         >
                           <span className="flex h-full flex-col items-center justify-center gap-1.5 text-center">
-                            <span className={`flex items-center justify-center ${desktopSidebarTileIconWrapClass} ${item.active ? "bg-white/12" : "bg-transparent"}`}>
+                            <span className={`${mapSidebarStyles.choiceIcon} flex items-center justify-center ${desktopSidebarTileIconWrapClass}`}>
                               <Icon className={desktopSidebarTileIconClass} />
                             </span>
                             <span className={`leading-tight ${desktopSidebarTileLabelClass}`}>{item.label}</span>
@@ -2069,7 +2066,7 @@ export function CustomStyleExample() {
                     })}
                   </div>
                   <div className="mt-5">
-                    <p className={`font-semibold uppercase text-[#d7dfcb] ${desktopSidebarFilterLabelClass}`}>
+                    <p className={`font-semibold uppercase text-[#00142b]/72 ${desktopSidebarFilterLabelClass}`}>
                       Quick Filters
                     </p>
                   </div>
@@ -2081,7 +2078,7 @@ export function CustomStyleExample() {
                       ariaLabel="Filter nearby places by distance"
                       icon={LocateFixed}
                       iconClassName={desktopSidebarControlIconClass}
-                      selectClassName={`${desktopSidebarControlHeightClass} ${desktopSidebarControlRadiusClass} border-[rgba(225,234,212,0.14)] bg-white/7 text-[#f7f3e8] focus:border-[rgba(225,234,212,0.28)] ${desktopSidebarControlTextClass}`}
+                      selectClassName={`${desktopSidebarControlHeightClass} ${desktopSidebarControlRadiusClass} border-[#00142b]/24 bg-[#efebe4]/50 text-[#00142b] focus:border-[#00142b]/55 ${desktopSidebarControlTextClass}`}
                       options={[
                         { value: "5km", label: "Within 5 km" },
                         { value: "10km", label: "Within 10 km" },
@@ -2095,7 +2092,7 @@ export function CustomStyleExample() {
                       ariaLabel="Sort nearby places"
                       icon={ChevronUp}
                       iconClassName={desktopSidebarControlIconClass}
-                      selectClassName={`${desktopSidebarControlHeightClass} ${desktopSidebarControlRadiusClass} border-[rgba(225,234,212,0.14)] bg-white/7 text-[#f7f3e8] focus:border-[rgba(225,234,212,0.28)] ${desktopSidebarControlTextClass}`}
+                      selectClassName={`${desktopSidebarControlHeightClass} ${desktopSidebarControlRadiusClass} border-[#00142b]/24 bg-[#efebe4]/50 text-[#00142b] focus:border-[#00142b]/55 ${desktopSidebarControlTextClass}`}
                       options={[
                         { value: "popularity", label: "Sort by: Popularity" },
                         { value: "nearest", label: "Sort by: Nearby" },
@@ -2109,7 +2106,7 @@ export function CustomStyleExample() {
                       ariaLabel="Change map style"
                       icon={Layers3}
                       iconClassName={desktopSidebarControlIconClass}
-                      selectClassName={`${desktopSidebarControlHeightClass} ${desktopSidebarControlRadiusClass} border-[rgba(225,234,212,0.14)] bg-white/7 text-[#f7f3e8] focus:border-[rgba(225,234,212,0.28)] ${desktopSidebarControlTextClass}`}
+                      selectClassName={`${desktopSidebarControlHeightClass} ${desktopSidebarControlRadiusClass} border-[#00142b]/24 bg-[#efebe4]/50 text-[#00142b] focus:border-[#00142b]/55 ${desktopSidebarControlTextClass}`}
                       options={[
                         { value: "normal", label: "Map: Normal" },
                         { value: "carto", label: "Map: Carto" },
@@ -2121,16 +2118,16 @@ export function CustomStyleExample() {
               </div>
 
               <div className={`pointer-events-auto ${FLOATING_GHOST_PANEL} p-0`}>
-                <div className={`rounded-[1.8rem] border border-[rgba(255,255,255,0.55)] bg-[rgba(251,249,243,0.9)] shadow-[0_18px_44px_rgba(32,44,27,0.12)] backdrop-blur-xl ${popularPanelPaddingClass}`}>
+                <div className={`${mapSidebarStyles.panel} rounded-[1.8rem] border ${popularPanelPaddingClass}`}>
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <div>
-                      <h2 className={`font-semibold text-[#223326] ${popularPanelTitleClass}`}>Popular Nearby</h2>
-                      <p className={`mt-1 text-[#6d746b] ${popularPanelDescriptionClass}`}>Browse the best-rated places around the project.</p>
+                      <h2 className={`font-semibold text-[#00142b] ${popularPanelTitleClass}`}>Popular Nearby</h2>
+                      <p className={`mt-1 text-[#00142b]/62 ${popularPanelDescriptionClass}`}>Browse the best-rated places around the project.</p>
                     </div>
                     <button
                       type="button"
                       onClick={() => setSelectedCategories(DEFAULT_SELECTED_CATEGORIES)}
-                      className={`whitespace-nowrap font-medium text-[#4c6047] ${desktopSidebarActionTextClass}`}
+                      className={`whitespace-nowrap font-medium text-[#00142b]/82 ${desktopSidebarActionTextClass}`}
                     >
                       View all
                     </button>
@@ -2149,31 +2146,31 @@ export function CustomStyleExample() {
                           onClick={() => handleFilteredPoiSelection(poi)}
                           className={`group flex w-full items-center gap-3 rounded-[1.2rem] border px-3 py-3 text-left transition ${
                             isSelected
-                              ? "border-[#9fb587] bg-white/88"
-                              : "border-[rgba(75,95,60,0.08)] bg-white/72 hover:border-[rgba(75,95,60,0.12)] hover:bg-white/88"
+                              ? "border-[#00142b]/55 bg-[#fce190]/42"
+                              : "border-[#00142b]/12 bg-[#efebe4]/50 hover:border-[#00142b]/28 hover:bg-[#efebe4]/50"
                           }`}
                         >
-                          <div className={`relative shrink-0 overflow-hidden rounded-[1rem] border border-[rgba(75,95,60,0.14)] bg-[#e9e1d3] ${popularItemImageClass}`}>
+                          <div className={`relative shrink-0 overflow-hidden rounded-[1rem] border border-[#00142b]/24 bg-[#efebe4]/50 ${popularItemImageClass}`}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={getPoiImage(poi)} alt={poi.name} className="h-full w-full object-cover" />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className={`truncate font-semibold text-[#243428] ${popularItemTitleClass}`}>{poi.name}</p>
-                            <p className="mt-0.5 text-xs text-[#6f766a]">{meta.label}</p>
-                            <div className={`mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[#4e5e49] ${popularItemMetaClass}`}>
+                            <p className={`truncate font-semibold text-[#00142b] ${popularItemTitleClass}`}>{poi.name}</p>
+                            <p className="mt-0.5 text-xs text-[#00142b]/58">{meta.label}</p>
+                            <div className={`mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[#00142b]/72 ${popularItemMetaClass}`}>
                               <span>{metrics.distance}</span>
                               <span>{metrics.duration}</span>
                               {poi.rating ? <span>{poi.rating.toFixed(1)} ★</span> : null}
                             </div>
                           </div>
-                          <span className={`flex shrink-0 items-center justify-center rounded-full border border-[rgba(75,95,60,0.12)] bg-white/82 text-[#445642] ${popularItemArrowClass}`}>
+                          <span className={`flex shrink-0 items-center justify-center rounded-full border border-[#00142b]/24 bg-[#efebe4]/50 text-[#00142b] ${popularItemArrowClass}`}>
                             <ChevronRight className="size-4" />
                           </span>
                         </button>
                       );
                     })}
                     {!visiblePois.length ? (
-                      <div className="rounded-2xl border border-[#e8dfd0] bg-white/70 p-6 text-center text-sm text-[#73796f]">
+                      <div className="rounded-2xl border border-[#00142b]/20 bg-[#efebe4]/50 p-6 text-center text-sm text-[#00142b]/65">
                         No places match your current filters.
                       </div>
                     ) : null}
@@ -2186,7 +2183,7 @@ export function CustomStyleExample() {
           <button
             type="button"
             onClick={openDesktopSidebar}
-            className={`absolute right-6 top-6 pointer-events-auto size-12 ${FLOATING_BUTTON}`}
+            className={`${mapSidebarStyles.control} absolute right-6 top-6 pointer-events-auto size-12 ${FLOATING_BUTTON}`}
             aria-label="Open sidebar"
             title="Open sidebar"
           >
@@ -2201,14 +2198,14 @@ export function CustomStyleExample() {
           >
             <div className="pointer-events-auto p-4">
               <div className="mb-4 flex items-center justify-between">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(75,95,60,0.12)] bg-white/76 px-3 py-1.5 text-xs font-semibold text-[#41533f]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#fce190]/28 bg-[#082846]/70 px-3 py-1.5 text-xs font-semibold text-[#fce190]">
                   <SelectedIcon className="size-3.5" />
                   {selectedMeta.label}
                 </span>
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[rgba(75,95,60,0.12)] bg-white/78 text-[#4e5e49]"
+                    className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#fce190]/25 bg-[#082846]/72 text-[#fce190]"
                     aria-label="Save this place"
                   >
                     <Heart className="size-4" />
@@ -2216,7 +2213,7 @@ export function CustomStyleExample() {
                   <button
                     type="button"
                     onClick={clearActiveRoute}
-                    className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[rgba(75,95,60,0.12)] bg-white/78 text-[#4e5e49]"
+                    className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#fce190]/25 bg-[#082846]/72 text-[#fce190]"
                     aria-label="Close selected place details"
                   >
                     <X className="size-4" />
@@ -2225,14 +2222,14 @@ export function CustomStyleExample() {
               </div>
 
               <div className={`grid gap-3 ${sidePreviewImages.length > 0 || extraImageCount > 0 ? "grid-cols-[minmax(0,1fr)_5.25rem]" : "grid-cols-1"}`}>
-                <div className="relative overflow-hidden rounded-[1.2rem] border border-[rgba(75,95,60,0.14)] bg-[#e9e1d3]">
+                <div className="relative overflow-hidden rounded-[1.2rem] border border-[#fce190]/28 bg-[#082846]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={selectedMainImage}
                     alt={selectedDisplayPoi.name}
                     className="h-[13rem] w-full object-cover"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(42,69,45,0.12))]" />
+                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(252,225,144,0.03),rgba(0,20,43,0.18))]" />
                 </div>
                 {sidePreviewImages.length > 0 || extraImageCount > 0 ? (
                   <div className="flex flex-col gap-3">
@@ -2246,14 +2243,14 @@ export function CustomStyleExample() {
                             image,
                           })
                         }
-                        className="overflow-hidden rounded-[1rem] border border-[rgba(75,95,60,0.14)] bg-[#e9e1d3]"
+                        className="overflow-hidden rounded-[1rem] border border-[#fce190]/28 bg-[#082846]"
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={image} alt="" className="h-[5rem] w-full object-cover" />
                       </button>
                     ))}
                     {extraImageCount > 0 ? (
-                      <div className={`flex flex-1 items-center justify-center rounded-[1rem] text-sm font-semibold text-[#f8f5ec] ${PREMIUM_OLIVE_GRADIENT}`}>
+                      <div className={`flex flex-1 items-center justify-center rounded-[1rem] text-sm font-semibold text-[#fce190] ${PREMIUM_OLIVE_GRADIENT}`}>
                         +{extraImageCount}
                       </div>
                     ) : null}
@@ -2262,22 +2259,22 @@ export function CustomStyleExample() {
               </div>
 
               <div className="mt-5">
-                <h2 className={`${displaySerif.className} text-[2rem] font-semibold leading-tight text-[#253529]`}>
+                <h2 className={`${displaySerif.className} text-[2rem] font-semibold leading-tight text-[#fce190]`}>
                   {selectedDisplayPoi.name}
                 </h2>
-                <p className="mt-1 text-sm text-[#70766d]">Bengaluru, Karnataka</p>
+                <p className="mt-1 text-sm text-[#fce190]/58">Bengaluru, Karnataka</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <MetricPill icon={LocateFixed}>{selectedRouteMetrics.distance}</MetricPill>
                   <MetricPill icon={Clock3}>{selectedRouteMetrics.duration}</MetricPill>
                   <MetricPill icon={Star}>{selectedDisplayPoi.rating?.toFixed(1) ?? "4.4"}</MetricPill>
                 </div>
-                <p className="mt-4 text-sm leading-6 text-[#72786f]">{detailDescription}</p>
+                <p className="mt-4 text-sm leading-6 text-[#fce190]/64">{detailDescription}</p>
               </div>
 
               <button
                 type="button"
                 onClick={() => handleViewRoute(selectedDisplayPoi)}
-                className={`mt-5 inline-flex h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-[0.98rem] font-semibold text-white shadow-[0_10px_20px_rgba(50,79,45,0.24)] ${PREMIUM_OLIVE_BUTTON}`}
+                className={`mt-5 inline-flex h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-[0.98rem] font-semibold shadow-[0_10px_20px_rgba(0,20,43,0.32)] ${PREMIUM_OLIVE_BUTTON}`}
               >
                 <Navigation className="size-4" />
                 Get Directions
@@ -2290,7 +2287,7 @@ export function CustomStyleExample() {
           <>
             {showPopular && !showPoiDetails && !showFilters ? (
               <section
-                className={`absolute inset-x-3 sm:left-1/2 sm:right-auto sm:w-[min(40rem,calc(100vw-2.5rem))] sm:-translate-x-1/2 ${FLOATING_PANEL} ${OVERLAY_TRANSITION}`}
+                className={`${mapSidebarStyles.panel} absolute inset-x-3 sm:left-1/2 sm:right-auto sm:w-[min(40rem,calc(100vw-2.5rem))] sm:-translate-x-1/2 ${FLOATING_PANEL} ${OVERLAY_TRANSITION}`}
                 style={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}
                 data-state="open"
               >
@@ -2302,10 +2299,10 @@ export function CustomStyleExample() {
                     aria-expanded={mobilePopularExpanded}
                   >
                     <div>
-                      <p className="text-[0.88rem] font-semibold text-[#223326] sm:text-base">Popular Nearby</p>
-                      <p className="text-[0.68rem] text-[#6d746b] sm:text-xs">{mobilePopularExpanded ? "Tap to collapse" : "Best places around the project"}</p>
+                      <p className="text-[0.88rem] font-semibold text-[#00142b] sm:text-base">Popular Nearby</p>
+                      <p className="text-[0.68rem] text-[#00142b]/58 sm:text-xs">{mobilePopularExpanded ? "Tap to collapse" : "Best places around the project"}</p>
                     </div>
-                    <ChevronUp className={`size-3.5 text-[#445642] transition ${mobilePopularExpanded ? "" : "rotate-180"}`} />
+                    <ChevronUp className={`size-3.5 text-[#00142b] transition ${mobilePopularExpanded ? "" : "rotate-180"}`} />
                   </button>
                   {mobilePopularExpanded ? (
                     <div className="mt-1.5 max-h-[48dvh] space-y-1 overflow-y-auto overscroll-contain pr-1 [scrollbar-width:none] sm:max-h-[44dvh] [&::-webkit-scrollbar]:hidden">
@@ -2319,22 +2316,22 @@ export function CustomStyleExample() {
                             key={poi.id}
                             type="button"
                             onClick={() => handleFilteredPoiSelection(poi)}
-                            className="flex w-full items-center gap-2 rounded-[0.9rem] border border-transparent bg-white/55 px-2 py-1.5 text-left sm:gap-2.5 sm:py-2"
+                            className="flex w-full items-center gap-2 rounded-[0.9rem] border border-[#00142b]/12 bg-[#efebe4]/50 px-2 py-1.5 text-left sm:gap-2.5 sm:py-2"
                           >
-                            <div className="relative h-12 w-14 shrink-0 overflow-hidden rounded-[0.8rem] border border-[rgba(75,95,60,0.14)] bg-[#e9e1d3] sm:h-14 sm:w-16">
+                            <div className="relative h-12 w-14 shrink-0 overflow-hidden rounded-[0.8rem] border border-[#00142b]/24 bg-[#efebe4]/50 sm:h-14 sm:w-16">
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img src={getPoiImage(poi)} alt={poi.name} className="h-full w-full object-cover" />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-[0.78rem] font-semibold text-[#243428] sm:text-sm">{poi.name}</p>
-                              <p className="text-[0.66rem] text-[#6f766a] sm:text-xs">{meta.label}</p>
-                              <div className="mt-0.5 flex flex-wrap gap-x-2 text-[0.62rem] text-[#4e5e49] sm:text-[0.7rem]">
+                              <p className="truncate text-[0.78rem] font-semibold text-[#00142b] sm:text-sm">{poi.name}</p>
+                              <p className="text-[0.66rem] text-[#00142b]/56 sm:text-xs">{meta.label}</p>
+                              <div className="mt-0.5 flex flex-wrap gap-x-2 text-[0.62rem] text-[#00142b]/70 sm:text-[0.7rem]">
                                 <span>{metrics.distance}</span>
                                 <span>{metrics.duration}</span>
                                 {poi.rating ? <span>{poi.rating.toFixed(1)} ★</span> : null}
                               </div>
                             </div>
-                            <ChevronRight className="size-3.5 text-[#4d5c49]" />
+                            <ChevronRight className="size-3.5 text-[#00142b]" />
                           </button>
                         );
                       })}
@@ -2351,27 +2348,27 @@ export function CustomStyleExample() {
                 data-state="open"
               >
                 <div className="pointer-events-auto p-3 sm:p-4">
-                  <div className="mx-auto mb-2.5 h-1 w-10 rounded-full bg-[#d8d1c0] sm:mb-3" />
+                  <div className="mx-auto mb-2.5 h-1 w-10 rounded-full bg-[#fce190]/40 sm:mb-3" />
                   <div className="mb-2.5 flex items-center justify-between sm:mb-3">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(75,95,60,0.12)] bg-white/80 px-2.5 py-1 text-[0.68rem] font-semibold text-[#41533f] sm:px-3 sm:text-xs">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[#fce190]/28 bg-[#082846]/72 px-2.5 py-1 text-[0.68rem] font-semibold text-[#fce190] sm:px-3 sm:text-xs">
                       <SelectedIcon className="size-3.5" />
                       {selectedMeta.label}
                     </span>
                     <button
                       type="button"
                       onClick={hideCompactPoiDetails}
-                      className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[rgba(75,95,60,0.12)] bg-white/78 text-[#4e5e49]"
+                      className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#fce190]/25 bg-[#082846]/72 text-[#fce190]"
                       aria-label="Close selected place details"
                     >
                       <X className="size-4" />
                     </button>
                   </div>
-                  <div className="overflow-hidden rounded-[1rem] border border-[rgba(75,95,60,0.14)] bg-[#e9e1d3] sm:rounded-[1.2rem]">
+                  <div className="overflow-hidden rounded-[1rem] border border-[#fce190]/28 bg-[#082846] sm:rounded-[1.2rem]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={selectedMainImage} alt={selectedDisplayPoi.name} className="h-32 w-full object-cover sm:h-44" />
                   </div>
                   <div className="mt-3 sm:mt-4">
-                    <h2 className={`${displaySerif.className} text-[1.35rem] font-semibold leading-tight text-[#253529] sm:text-[1.65rem]`}>
+                    <h2 className={`${displaySerif.className} text-[1.35rem] font-semibold leading-tight text-[#fce190] sm:text-[1.65rem]`}>
                       {selectedDisplayPoi.name}
                     </h2>
                     <div className="mt-2 flex flex-wrap gap-1.5 sm:mt-3 sm:gap-2">
@@ -2379,12 +2376,12 @@ export function CustomStyleExample() {
                       <MetricPill icon={Clock3}>{selectedRouteMetrics.duration}</MetricPill>
                       <MetricPill icon={Star}>{selectedDisplayPoi.rating?.toFixed(1) ?? "4.4"}</MetricPill>
                     </div>
-                    <p className="mt-2 text-xs leading-5 text-[#72786f] sm:mt-3 sm:text-[0.82rem] sm:leading-5">{detailDescription}</p>
+                    <p className="mt-2 text-xs leading-5 text-[#fce190]/64 sm:mt-3 sm:text-[0.82rem] sm:leading-5">{detailDescription}</p>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleViewRoute(selectedDisplayPoi)}
-                    className={`mt-2 inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-[0.76rem] font-semibold text-white shadow-[0_10px_20px_rgba(50,79,45,0.24)] sm:mt-3 sm:h-12 sm:text-sm ${PREMIUM_OLIVE_BUTTON}`}
+                    className={`mt-2 inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-[0.76rem] font-semibold shadow-[0_10px_20px_rgba(0,20,43,0.32)] sm:mt-3 sm:h-12 sm:text-sm ${PREMIUM_OLIVE_BUTTON}`}
                   >
                     <Navigation className="size-4" />
                     Get Directions
@@ -2398,10 +2395,10 @@ export function CustomStyleExample() {
 
       {(isLoading || isUserRouteLoading) && (
         <div className="pointer-events-none absolute inset-x-0 top-[4.75rem] z-30 flex justify-center px-3 sm:top-4 sm:px-4">
-          <div className="max-w-full rounded-full border border-[#e3dacb] bg-[#fffdf8]/92 px-4 py-2.5 text-[#263b2b] shadow-xl backdrop-blur-2xl sm:px-5 sm:py-3">
+          <div className="max-w-full rounded-full border border-[#fce190]/32 bg-[#00142b]/92 px-4 py-2.5 text-[#fce190] shadow-xl backdrop-blur-2xl sm:px-5 sm:py-3">
             <div className="flex items-center gap-3">
-              <Loader2 className="size-4 shrink-0 animate-spin text-[#41683f] sm:size-5" />
-              <span className="truncate text-xs text-[#596659] sm:text-sm">
+              <Loader2 className="size-4 shrink-0 animate-spin text-[#fce190] sm:size-5" />
+              <span className="truncate text-xs text-[#fce190]/72 sm:text-sm">
                 {isUserRouteLoading
                   ? "Tracing your route to Trifecta Veranza..."
                   : "Loading Whisper of Trees Map..."}

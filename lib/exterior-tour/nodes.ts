@@ -35,6 +35,10 @@ export function exteriorImageFilenameToPanoId(filename: string) {
     return imageFilenameToPanoId(filename);
   }
 
+  if (/Exterior_PANO/i.test(filename)) {
+    return `EP.${frameMatch[1].padStart(5, "0")}`;
+  }
+
   return `PANO.${frameMatch[1].padStart(5, "0")}`;
 }
 

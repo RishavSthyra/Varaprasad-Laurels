@@ -17,8 +17,9 @@ export default function SignedImage({
   src,
   ...props
 }: SignedImageProps) {
-  const signedSrc = useSignedAssetUrl(src ?? undefined);
-  const resolvedSrc = signedSrc ?? placeholderSrc;
+  const isLocalAsset = typeof src === "string" && src.startsWith("/");
+  const signedSrc = useSignedAssetUrl(isLocalAsset ? undefined : src);
+  const resolvedSrc = isLocalAsset ? src : signedSrc ?? placeholderSrc;
 
   if (!resolvedSrc) {
     return null;

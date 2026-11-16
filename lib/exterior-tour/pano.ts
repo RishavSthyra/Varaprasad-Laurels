@@ -18,6 +18,19 @@ type ResolvedPanoramaAssets = {
   previewUrl: string;
 };
 const joinedPanoPathCache = new Map<string, string>();
+const LEGACY_SIGNED_ASSET_ORIGIN = "https://cdn.sthyra.com";
+
+function isPublicPanoAssetPath(assetPath: string) {
+  if (assetPath.startsWith("/")) {
+    return true;
+  }
+
+  if (!/^https?:\/\//i.test(assetPath)) {
+    return false;
+  }
+
+  return new URL(assetPath).origin !== LEGACY_SIGNED_ASSET_ORIGIN;
+}
 
 function ensureTrailingSlash(value: string) {
   return value.endsWith("/") ? value : `${value}/`;
@@ -304,6 +317,10 @@ export class PanoAssetStore {
   }
 
   async getSignedUrl(assetPath: string) {
+    if (isPublicPanoAssetPath(assetPath)) {
+      return assetPath;
+    }
+
     const cachedPromise = this.signedUrlPromises.get(assetPath);
     if (cachedPromise) {
       return cachedPromise;
@@ -329,6 +346,11 @@ export class PanoAssetStore {
     const missingAssetPaths: string[] = [];
 
     uniqueAssetPaths.forEach((assetPath) => {
+      if (isPublicPanoAssetPath(assetPath)) {
+        resolvedUrls[assetPath] = assetPath;
+        return;
+      }
+
       const cachedPromise = this.signedUrlPromises.get(assetPath);
 
       if (cachedPromise) {
@@ -379,7 +401,7 @@ export class PanoAssetStore {
       return cachedPromise;
     }
 
-    const promise = getSignedAssetUrls(
+    const promise = this.getSignedUrls(
       buildTileDescriptors(panoId, meta, this.baseUrl).map((tile) => tile.url),
     ).catch((error) => {
       this.signedTileUrlMaps.delete(cacheKey);

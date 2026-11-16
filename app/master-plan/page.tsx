@@ -1,8 +1,6 @@
 import { buildPageMetadata } from "@/lib/metadata";
 import MasterPlanLayout from "@/components/MasterPlanLayout";
-import { getInventoryApartments } from "@/lib/inventory";
-import type { InventoryApartment } from "@/types/inventory";
-import { unstable_cache } from "next/cache";
+import { getVillaInventoryApartments } from "@/lib/villas";
 import {
   getAssetWorkerDomain,
   signR2AssetKeys,
@@ -13,9 +11,8 @@ import {
   isRemoteAssetUrl,
   toLocalPublicAssetPath,
 } from "@/lib/master-plan-asset-keys";
-import { getThreeDsMaxMasterPlanConfig } from "@/lib/master-plan-3dsmax-trial";
-import { getOrbitPreviewMasterPlanConfig } from "@/lib/master-plan-orbit-preview";
 import { TOWER_SELECTION_IMAGE_URL } from "@/lib/tower-selection-assets";
+import { getVillasMasterPlanConfig } from "@/lib/villas-master-plan-config";
 
 export const metadata = buildPageMetadata({
   title: "Master Plan",
@@ -30,30 +27,6 @@ export const metadata = buildPageMetadata({
 });
 
 export const revalidate = 30;
-
-const getCachedInventoryApartments = unstable_cache(
-  getInventoryApartments,
-  ["master-plan-inventory"],
-  {
-    revalidate: 30,
-    tags: ["inventory"],
-  },
-);
-
-type MasterPlanSearchParams = Record<string, string | string[] | undefined>;
-
-function readSearchParam(searchParams: MasterPlanSearchParams, key: string) {
-  const value = searchParams[key];
-  return Array.isArray(value) ? value[0] : value;
-}
-
-function readFiniteSearchNumber(
-  searchParams: MasterPlanSearchParams,
-  key: string,
-) {
-  const value = Number(readSearchParam(searchParams, key));
-  return Number.isFinite(value) ? value : undefined;
-}
 
 function resolveMasterPlanAssetUrl(
   key: string,
@@ -70,50 +43,11 @@ function resolveMasterPlanAssetUrl(
   return signedUrls[key] ?? key;
 }
 
-export default async function MasterPlanPage({
-  searchParams,
-}: {
-  searchParams: Promise<MasterPlanSearchParams>;
-}) {
-  let initialApartments: InventoryApartment[] = [];
-
-  try {
-    initialApartments = await getCachedInventoryApartments();
-  } catch {
-    console.error("Failed to load master plan inventory.");
-  }
+export default async function MasterPlanPage() {
+  const initialApartments = getVillaInventoryApartments();
 
   const workerDomain = getAssetWorkerDomain();
-  const resolvedSearchParams = await searchParams;
-  const allowOrbitDebug = process.env.NODE_ENV === "development";
-  let masterPlan = getThreeDsMaxMasterPlanConfig();
-
-  try {
-    masterPlan = getOrbitPreviewMasterPlanConfig(
-      allowOrbitDebug
-        ? {
-            debugModel:
-              readSearchParam(resolvedSearchParams, "orbitDebug") === "1",
-            fov: readFiniteSearchNumber(resolvedSearchParams, "orbitFov"),
-            modelOffset: {
-              x: readFiniteSearchNumber(resolvedSearchParams, "modelX"),
-              y: readFiniteSearchNumber(resolvedSearchParams, "modelY"),
-              z: readFiniteSearchNumber(resolvedSearchParams, "modelZ"),
-            },
-            modelScaleMultiplier: readFiniteSearchNumber(
-              resolvedSearchParams,
-              "modelScale",
-            ),
-            modelYawOffsetDegrees: readFiniteSearchNumber(
-              resolvedSearchParams,
-              "modelYaw",
-            ),
-          }
-        : undefined,
-    );
-  } catch (error) {
-    console.error("Failed to load the master-plan orbit configuration.", error);
-  }
+  const masterPlan = getVillasMasterPlanConfig();
   const criticalAssetKeys = filterSignableAssetKeys([
     masterPlan.fallbackImageKey,
     masterPlan.scrubVideoKey,
@@ -147,6 +81,22 @@ export default async function MasterPlanPage({
       <link rel="preload" as="video" href={masterPlanVideoUrl} />
       <link
         rel="preload"
+        as="fetch"
+        href="/models/villa%2001.glb"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/villa%20center%20image2.avif"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/villa%20corner%20image.avif"
+      />
+      <link
+        rel="preload"
         as="image"
         href={TOWER_SELECTION_IMAGE_URL}
         fetchPriority="high"
@@ -156,6 +106,7 @@ export default async function MasterPlanPage({
           initialApartments={initialApartments}
           initialSignedAssetUrls={signedMasterPlanCriticalAssets}
           masterPlanConfig={masterPlan}
+          inventoryMode="villas"
         />
       </div>
     </div>

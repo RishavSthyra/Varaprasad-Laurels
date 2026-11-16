@@ -22,7 +22,7 @@ import {
   type Easing,
 } from "framer-motion";
 import MasterPlanTopViewStage from "./MasterPlanTopViewStage";
-import MasterPlanFrameHoverStage from "./MasterPlanFrameHoverStage";
+import MasterPlanFrameHoverStage from "./VillasMasterPlanStage";
 import SelectedFlatDetailsPanel from "./SelectedFlatDetailsPanel";
 import {
   ArrowLeft,
@@ -63,7 +63,7 @@ import MatteVelvetSurface from "@/components/ui/MatteVelvetSurface";
 
 const facingOptions = ["All", "North", "South", "East", "West"] as const;
 const statusOptions = ["All", "Available", "Reserved", "Sold"] as const;
-const bhkOptions = ["All", "2", "3", "3.5", "4"] as const;
+const bhkOptions = ["All", "2", "3", "3.5", "4", "5"] as const;
 type BhkFilterValue = (typeof bhkOptions)[number] | null;
 type FacingFilterValue = (typeof facingOptions)[number] | null;
 type StatusFilterValue = (typeof statusOptions)[number] | null;
@@ -207,6 +207,7 @@ type MasterPlanLayoutProps = {
   initialApartments?: InventoryApartment[];
   initialSignedAssetUrls?: Record<string, string>;
   masterPlanConfig?: MasterPlanDeveloperConfig;
+  inventoryMode?: "apartments" | "villas";
 };
 
 type FloorFilterOption = {
@@ -715,8 +716,9 @@ export default function MasterPlanLayout({
   initialApartments = [],
   initialSignedAssetUrls = {},
   masterPlanConfig,
+  inventoryMode = "apartments",
 }: MasterPlanLayoutProps) {
-  const router = useRouter();
+  const isVillaInventory = inventoryMode === "villas";
   const masterPlanHotspotFrames = useMemo(
     () =>
       masterPlanConfig?.hotspotFrames?.length
@@ -792,6 +794,12 @@ export default function MasterPlanLayout({
   const [selectedAreaRange, setSelectedAreaRange] = useState<SelectedAreaRange>(
     { min: null, max: null },
   );
+  const [villaTypeFilter, setVillaTypeFilter] = useState("all");
+  const [villaPlotAreaFilter, setVillaPlotAreaFilter] = useState<
+    number | "all"
+  >("all");
+  const [villaPositionFilter, setVillaPositionFilter] =
+    useState<VillaPositionFilter>("all");
 
   const isLeaving = false;
   const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(true);
@@ -1115,6 +1123,12 @@ export default function MasterPlanLayout({
   }, []);
 
   useEffect(() => {
+    if (isVillaInventory) {
+      setIsInventoryLoading(false);
+      setInventoryError(null);
+      return;
+    }
+
     let isMounted = true;
     let refreshTimeoutId: number | null = null;
     const isVisibleRef = {
@@ -1230,7 +1244,7 @@ export default function MasterPlanLayout({
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("focus", handleWindowFocus);
     };
-  }, [initialApartments.length, isStageInteracting]);
+  }, [initialApartments.length, isStageInteracting, isVillaInventory]);
 
   const normalizedDeferredSearch = useMemo(
     () => deferredSearch.trim().toLowerCase(),
@@ -1379,13 +1393,15 @@ export default function MasterPlanLayout({
   );
   const filteredApartments = useMemo(
     () =>
-      allFilteredApartments.filter((apartment) =>
-        isInventoryApartmentAllowedAtHotspot(
-          apartment,
-          activeInventoryHotspot,
-        ),
-      ),
-    [activeInventoryHotspot, allFilteredApartments],
+      isVillaInventory
+        ? allFilteredApartments
+        : allFilteredApartments.filter((apartment) =>
+            isInventoryApartmentAllowedAtHotspot(
+              apartment,
+              activeInventoryHotspot,
+            ),
+          ),
+    [activeInventoryHotspot, allFilteredApartments, isVillaInventory],
   );
   const desktopResidenceApartments = useMemo(() => {
     if (hasExplicitUnitFilter) {
@@ -1398,12 +1414,14 @@ export default function MasterPlanLayout({
           ?.map(({ apartment }) => apartment) ?? []
       : apartments;
 
-    return candidates.filter((apartment) =>
-      isInventoryApartmentAllowedAtHotspot(
-        apartment,
-        activeInventoryHotspot,
-      ),
-    );
+    return isVillaInventory
+      ? candidates
+      : candidates.filter((apartment) =>
+          isInventoryApartmentAllowedAtHotspot(
+            apartment,
+            activeInventoryHotspot,
+          ),
+        );
   }, [
     activeInventoryHotspot,
     apartments,
@@ -1411,7 +1429,49 @@ export default function MasterPlanLayout({
     filterableApartmentsByTower,
     filteredApartments,
     hasExplicitUnitFilter,
+    isVillaInventory,
   ]);
+  const villaTypeOptions = useMemo(
+    () => Array.from(new Set(apartments.map((apartment) => apartment.unitType))),
+    [apartments],
+  );
+  const villaPlotAreaOptions = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          apartments.map((apartment) => Math.round(apartment.carpetAreaSqft)),
+        ),
+      ).sort((left, right) => left - right),
+    [apartments],
+  );
+  const villaResidenceApartments = useMemo(
+    () =>
+      isVillaInventory
+        ? desktopResidenceApartments.filter(
+            (apartment) =>
+              (villaTypeFilter === "all" ||
+                apartment.unitType === villaTypeFilter) &&
+              (villaPlotAreaFilter === "all" ||
+                Math.round(apartment.carpetAreaSqft) ===
+                  villaPlotAreaFilter) &&
+              (villaPositionFilter === "all" ||
+                apartment.floorRange.toLowerCase() === villaPositionFilter),
+          )
+        : desktopResidenceApartments,
+    [
+      desktopResidenceApartments,
+      isVillaInventory,
+      villaPlotAreaFilter,
+      villaPositionFilter,
+      villaTypeFilter,
+    ],
+  );
+  const hasActiveVillaFilters =
+    isVillaInventory &&
+    (hasExplicitUnitFilter ||
+      villaTypeFilter !== "all" ||
+      villaPlotAreaFilter !== "all" ||
+      villaPositionFilter !== "all");
   const cameraFilterSignature = useMemo(
     () =>
       [
@@ -1499,6 +1559,13 @@ export default function MasterPlanLayout({
     () => filterTower !== null && hasExplicitUnitFilter,
     [filterTower, hasExplicitUnitFilter],
   );
+  const stageFilteredApartments = isVillaInventory
+    ? hasActiveVillaFilters
+      ? villaResidenceApartments
+      : []
+    : hasActiveInventoryFilters
+      ? filteredApartments
+      : [];
 
   const resetFilters = () => {
     setSearch("");
@@ -1508,6 +1575,9 @@ export default function MasterPlanLayout({
     setStatus(null);
     setFloor(FLOOR_ALL_VALUE);
     setSelectedAreaRange({ min: null, max: null });
+    setVillaTypeFilter("all");
+    setVillaPlotAreaFilter("all");
+    setVillaPositionFilter("all");
   };
 
   const handleTowerSelect = (tower: TowerType) => {
@@ -2102,9 +2172,7 @@ export default function MasterPlanLayout({
             apartments={apartments}
             currentFrame={currentFrame}
             dragEnabled
-            filteredApartments={
-              hasActiveInventoryFilters ? filteredApartments : []
-            }
+            filteredApartments={stageFilteredApartments}
             inventoryError={inventoryError}
             inventoryState={
               isInventoryLoading
@@ -2227,9 +2295,7 @@ export default function MasterPlanLayout({
                     apartments={apartments}
                     currentFrame={currentFrame}
                     dragEnabled={shouldEnableCompactStageScrubbing}
-                    filteredApartments={
-                      hasActiveInventoryFilters ? filteredApartments : []
-                    }
+                    filteredApartments={stageFilteredApartments}
                     inventoryError={inventoryError}
                     inventoryState={
                       isInventoryLoading
@@ -2454,7 +2520,7 @@ export default function MasterPlanLayout({
                   <div className="h-full min-h-0 w-full" data-scroll-area="sidebar">
                     {showMasterPlanFilters ? (
                       <MasterPlanResidenceDock
-                        apartments={desktopResidenceApartments}
+                        apartments={villaResidenceApartments}
                         search={search}
                         onSearchChange={setSearch}
                         selectedTower={filterTower}
@@ -2485,6 +2551,15 @@ export default function MasterPlanLayout({
                         onApartmentSelect={handleApartmentListSelect}
                         selectedApartmentId={selectedApartmentInventoryId}
                         compact={isDesktopCompactViewport}
+                        villaMode={isVillaInventory}
+                        villaType={villaTypeFilter}
+                        villaTypeOptions={villaTypeOptions}
+                        onVillaTypeChange={setVillaTypeFilter}
+                        villaPlotArea={villaPlotAreaFilter}
+                        villaPlotAreaOptions={villaPlotAreaOptions}
+                        onVillaPlotAreaChange={setVillaPlotAreaFilter}
+                        villaPosition={villaPositionFilter}
+                        onVillaPositionChange={setVillaPositionFilter}
                       />
                     ) : (
                       <div className="ml-auto h-full max-w-[320px]">
@@ -2788,7 +2863,29 @@ export default function MasterPlanLayout({
   );
 }
 
-type ResidenceDockSort = "unit" | "price-asc" | "price-desc" | "area-desc";
+type ResidenceDockSort =
+  | "unit"
+  | "price-asc"
+  | "price-desc"
+  | "area-desc"
+  | "plot-area";
+
+type VillaPositionFilter = "all" | "center" | "corner";
+
+function formatVillaTypeLabel(typeId: string) {
+  const match = /^type-([a-z])-([0-9]+)-(east|west)$/i.exec(typeId);
+
+  if (!match) {
+    return typeId;
+  }
+
+  return `Type ${match[1].toUpperCase()} · ${match[2]} sq yd · ${match[3][0].toUpperCase()}${match[3].slice(1)}`;
+}
+
+function formatVillaTypeName(typeId: string) {
+  const match = /^type-([a-z])-/i.exec(typeId);
+  return match ? `Type ${match[1].toUpperCase()}` : typeId;
+}
 
 function formatResidencePrice(priceLakhs: number) {
   if (!Number.isFinite(priceLakhs) || priceLakhs <= 0) {
@@ -2848,6 +2945,15 @@ function MasterPlanResidenceDock({
   onApartmentSelect,
   selectedApartmentId,
   compact,
+  villaMode,
+  villaType,
+  villaTypeOptions,
+  onVillaTypeChange,
+  villaPlotArea,
+  villaPlotAreaOptions,
+  onVillaPlotAreaChange,
+  villaPosition,
+  onVillaPositionChange,
 }: {
   apartments: InventoryApartment[];
   search: string;
@@ -2877,6 +2983,15 @@ function MasterPlanResidenceDock({
   onApartmentSelect: (apartment: InventoryApartment) => void;
   selectedApartmentId: string | null;
   compact: boolean;
+  villaMode: boolean;
+  villaType: string;
+  villaTypeOptions: string[];
+  onVillaTypeChange: (value: string) => void;
+  villaPlotArea: number | "all";
+  villaPlotAreaOptions: number[];
+  onVillaPlotAreaChange: (value: number | "all") => void;
+  villaPosition: VillaPositionFilter;
+  onVillaPositionChange: (value: VillaPositionFilter) => void;
 }) {
   const router = useRouter();
   const scrollableId = useId();
@@ -2894,6 +3009,11 @@ function MasterPlanResidenceDock({
     if (sort === "area-desc") {
       return next.sort((left, right) => right.areaSqft - left.areaSqft);
     }
+    if (sort === "plot-area") {
+      return next.sort(
+        (left, right) => right.carpetAreaSqft - left.carpetAreaSqft,
+      );
+    }
 
     return next.sort(compareMasterPlanApartments);
   }, [apartments, sort]);
@@ -2905,9 +3025,13 @@ function MasterPlanResidenceDock({
     "Tower D",
   ];
 
-  useEffect(() => {
-    setVisibleCount(MATCHING_FLATS_PAGE_SIZE);
-  }, [apartments, sort]);
+  const handleReset = () => {
+    onVillaTypeChange("all");
+    onVillaPlotAreaChange("all");
+    onVillaPositionChange("all");
+    setSort("unit");
+    onReset();
+  };
 
   return (
     <motion.div
@@ -2971,14 +3095,26 @@ function MasterPlanResidenceDock({
               <ArrowUpDown className="h-3.5 w-3.5" />
               <select
                 value={sort}
-                onChange={(event) => setSort(event.target.value as ResidenceDockSort)}
+                onChange={(event) => {
+                  setSort(event.target.value as ResidenceDockSort);
+                  setVisibleCount(MATCHING_FLATS_PAGE_SIZE);
+                }}
                 className="appearance-none bg-transparent pr-4 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#00142b] outline-none"
                 aria-label="Sort residences"
               >
                 <option value="unit">Unit</option>
-                <option value="price-asc">Price low to high</option>
-                <option value="price-desc">Price high to low</option>
-                <option value="area-desc">Largest area</option>
+                {villaMode ? (
+                  <>
+                    <option value="plot-area">Largest plot</option>
+                    <option value="area-desc">Largest built-up area</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="price-asc">Price low to high</option>
+                    <option value="price-desc">Price high to low</option>
+                    <option value="area-desc">Largest area</option>
+                  </>
+                )}
               </select>
               <ChevronDown className="pointer-events-none absolute right-2 h-3 w-3" />
             </label>
@@ -3005,7 +3141,7 @@ function MasterPlanResidenceDock({
           <div className="mt-4 flex items-end justify-between gap-3">
             <div>
               <p className="text-[8px] font-semibold uppercase tracking-[0.28em] text-[#00142b]/60">
-                Available floor plans
+                {villaMode ? "Villa collection" : "Available floor plans"}
               </p>
               <h2 className={`${masterPlanSerif.className} mt-1.5 text-[1.85rem] font-medium leading-none text-[#00142b]`}>
                 Residences
@@ -3058,55 +3194,98 @@ function MasterPlanResidenceDock({
                       type="button"
                       layout="position"
                       onClick={() => onApartmentSelect(apartment)}
-                      className={`mp-liquid-card relative aspect-[158/217] min-w-0 overflow-hidden rounded-[16px] border text-left ${
+                      className={`mp-liquid-card relative aspect-[158/217] min-w-0 overflow-hidden rounded-[16px] border p-0 text-left ${villaMode ? "grid grid-rows-2" : ""} ${
                         isSelected
                           ? "mp-liquid-card--selected border-[#fce190]/75"
                           : "border-[#fce190]/22"
                       }`}
                     >
-                      <div className="flex items-center justify-between gap-2 px-3.5 pt-3.5">
-                        <span className={`rounded-full border px-2.5 py-0.5 text-[7px] font-bold uppercase tracking-[0.12em] ${
-                          apartment.status === "Available"
-                            ? "border-[#00142b]/32 bg-[#fce190]/42 text-[#00142b]"
-                            : apartment.status === "Reserved"
-                              ? "border-[#00142b]/22 bg-[#fce190]/24 text-[#00142b]/68"
-                              : "border-white/14 bg-white/5 text-white/45"
-                        }`}>
-                          {apartment.status}
-                        </span>
-                        <span className="text-[7px] font-semibold uppercase tracking-[0.12em] text-[#00142b]/52">
-                          {formatBlockLabel(apartment.tower)}
-                        </span>
-                      </div>
+                      {villaMode ? (
+                        <div className="relative h-full min-h-0 w-full overflow-hidden">
+                          <SignedImage
+                            src={apartment.floorPlanImage}
+                            placeholderSrc={null}
+                            alt={`${apartment.title} exterior`}
+                            fill
+                            sizes="(min-width: 1536px) 260px, 220px"
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3">
+                            <span className="rounded-full border border-white/70 bg-[#efebe4]/88 px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.12em] text-[#00142b] shadow-[0_5px_18px_rgba(0,7,20,0.16)] backdrop-blur-md">
+                              {apartment.status}
+                            </span>
+                            <span className="rounded-full border border-white/70 bg-[#efebe4]/88 px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.12em] text-[#00142b] shadow-[0_5px_18px_rgba(0,7,20,0.16)] backdrop-blur-md">
+                              {formatVillaTypeName(apartment.unitType)}
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="flex items-center justify-between gap-2 px-3.5 pt-3.5">
+                            <span className={`rounded-full border px-2.5 py-0.5 text-[7px] font-bold uppercase tracking-[0.12em] ${
+                              apartment.status === "Available"
+                                ? "border-[#00142b]/32 bg-[#fce190]/42 text-[#00142b]"
+                                : apartment.status === "Reserved"
+                                  ? "border-[#00142b]/22 bg-[#fce190]/24 text-[#00142b]/68"
+                                  : "border-white/14 bg-white/5 text-white/45"
+                            }`}>
+                              {apartment.status}
+                            </span>
+                            <span className="text-[7px] font-semibold uppercase tracking-[0.12em] text-[#00142b]/52">
+                              {formatBlockLabel(apartment.tower)}
+                            </span>
+                          </div>
+                          <div className="relative mx-3.5 mt-2.5 h-[49%]">
+                            <SignedImage
+                              src={apartment.floorPlanImage}
+                              placeholderSrc={null}
+                              alt={`${apartment.title} floor plan`}
+                              fill
+                              sizes="(min-width: 1536px) 260px, 220px"
+                              className="object-contain"
+                            />
+                          </div>
+                        </>
+                      )}
 
-                      <div className="relative mx-3.5 mt-2.5 h-[49%]">
-                        <SignedImage
-                          src={apartment.floorPlanImage}
-                          placeholderSrc={null}
-                          alt={`${apartment.title} floor plan`}
-                          fill
-                          sizes="(min-width: 1536px) 260px, 220px"
-                          className="object-contain"
-                        />
-                      </div>
-
-                      <div className="px-3.5 pb-3.5 pt-3">
+                      <div
+                        className={
+                          villaMode
+                            ? "min-h-0 border-t border-[#00142b]/12 bg-[#efebe4]/48 px-4 pb-4 pt-4"
+                            : "px-3.5 pb-3.5 pt-3"
+                        }
+                      >
                         <p className={`${masterPlanSerif.className} truncate text-[1.2rem] font-semibold leading-none text-[#00142b]`}>
-                          {apartment.flatNumber || apartment.title}
+                          {villaMode
+                            ? apartment.title
+                            : apartment.flatNumber || apartment.title}
                         </p>
                         <div className="mt-2.5 flex flex-wrap gap-x-2 gap-y-1 text-[8px] text-[#00142b]/58">
-                          <span>{apartment.bhk} BHK</span>
+                          <span>
+                            {apartment.bhk} {villaMode ? "Bedrooms" : "BHK"}
+                          </span>
                           <span>·</span>
-                          <span>{formatAreaSqft(apartment.areaSqft)} sqft</span>
+                          <span>
+                            {villaMode
+                              ? `${formatAreaSqft(apartment.carpetAreaSqft)} sq yd`
+                              : `${formatAreaSqft(apartment.areaSqft)} sqft`}
+                          </span>
                           <span>·</span>
                           <span>{apartment.facing}</span>
                         </div>
+                        {villaMode ? (
+                          <p className="mt-3 text-[8px] font-bold uppercase tracking-[0.14em] text-[#00142b]/58">
+                            {apartment.floorRange} villa
+                          </p>
+                        ) : null}
                         <p className="mt-3 truncate text-[11px] font-semibold text-[#00142b]">
-                          {formatResidencePrice(apartment.priceLakhs)}
+                          {villaMode
+                            ? `${formatAreaSqft(apartment.areaSqft)} sqft built-up`
+                            : formatResidencePrice(apartment.priceLakhs)}
                         </p>
                         <span className="mt-3 inline-flex items-center gap-1.5 text-[7px] font-semibold uppercase tracking-[0.12em] text-[#00142b]/52">
                           <SquarePlus className="h-3 w-3" />
-                          Select residence
+                          {villaMode ? "Explore villa" : "Select residence"}
                         </span>
                       </div>
                     </motion.button>
@@ -3118,7 +3297,9 @@ function MasterPlanResidenceDock({
             <div className="grid h-full min-h-[240px] place-items-center px-8 text-center">
               <div>
                 <p className={`${masterPlanSerif.className} text-2xl text-[#00142b]`}>No matching villas</p>
-                <p className="mt-2 text-xs text-[#00142b]/58">Adjust the filters to see more floor plans.</p>
+                <p className="mt-2 text-xs text-[#00142b]/58">
+                  Adjust the filters to see more villas.
+                </p>
               </div>
             </div>
           )}
@@ -3159,6 +3340,123 @@ function MasterPlanResidenceDock({
         </div>
 
         <div className="mp-residence-scroll mt-6 min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain">
+          {villaMode ? (
+            <>
+              <ResidenceDockField label="Villa type">
+                <div className="relative">
+                  <Building2 className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#00142b]/55" />
+                  <select
+                    value={villaType}
+                    onChange={(event) => {
+                      onVillaTypeChange(event.target.value);
+                      setVisibleCount(MATCHING_FLATS_PAGE_SIZE);
+                    }}
+                    className="mp-liquid-control h-11 w-full appearance-none rounded-[11px] border border-[#00142b]/22 pl-10 pr-9 text-[11px] font-semibold text-[#00142b] outline-none focus:border-[#00142b]/50"
+                  >
+                    <option value="all">All 5 villa types</option>
+                    {villaTypeOptions.map((typeId) => (
+                      <option key={typeId} value={typeId}>
+                        {formatVillaTypeLabel(typeId)}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#00142b]/52" />
+                </div>
+              </ResidenceDockField>
+
+              <ResidenceDockField label="Plot area (sq.yd)">
+                <div className="grid grid-cols-4 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onVillaPlotAreaChange("all");
+                      setVisibleCount(MATCHING_FLATS_PAGE_SIZE);
+                    }}
+                    className={`mp-liquid-choice h-11 rounded-[10px] border text-[10px] font-semibold ${villaPlotArea === "all" ? "mp-liquid-choice--active border-[#00142b]/42" : "border-[#00142b]/20 text-[#00142b]/66"}`}
+                  >
+                    Any
+                  </button>
+                  {villaPlotAreaOptions.map((plotArea) => (
+                    <button
+                      key={plotArea}
+                      type="button"
+                      onClick={() => {
+                        onVillaPlotAreaChange(plotArea);
+                        setVisibleCount(MATCHING_FLATS_PAGE_SIZE);
+                      }}
+                      className={`mp-liquid-choice h-11 rounded-[10px] border text-[10px] font-semibold ${villaPlotArea === plotArea ? "mp-liquid-choice--active border-[#00142b]/42" : "border-[#00142b]/20 text-[#00142b]/66"}`}
+                    >
+                      {plotArea}
+                    </button>
+                  ))}
+                </div>
+              </ResidenceDockField>
+
+              <ResidenceDockField label="Road position">
+                <div className="grid grid-cols-3 gap-2">
+                  {(["all", "center", "corner"] as const).map((position) => (
+                    <button
+                      key={position}
+                      type="button"
+                      onClick={() => {
+                        onVillaPositionChange(position);
+                        setVisibleCount(MATCHING_FLATS_PAGE_SIZE);
+                      }}
+                      className={`mp-liquid-choice h-11 rounded-[10px] border text-[9px] font-semibold capitalize ${villaPosition === position ? "mp-liquid-choice--active border-[#00142b]/42" : "border-[#00142b]/20 text-[#00142b]/66"}`}
+                    >
+                      {position === "all" ? "Any" : position}
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-2 text-[8px] leading-relaxed text-[#00142b]/52">
+                  Corner villas have two road-facing plot boundaries.
+                </p>
+              </ResidenceDockField>
+
+              <ResidenceDockField label="Facing">
+                <div className="relative">
+                  <select
+                    value={facing ?? ""}
+                    onChange={(event) =>
+                      onFacingChange(
+                        (event.target.value || null) as FacingFilterValue,
+                      )
+                    }
+                    className="mp-liquid-control h-11 w-full appearance-none rounded-[11px] border border-[#00142b]/20 px-3.5 pr-9 text-[11px] font-semibold text-[#00142b] outline-none focus:border-[#00142b]/50"
+                  >
+                    <option value="">Any facing</option>
+                    <option value="East">East</option>
+                    <option value="West">West</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#00142b]/52" />
+                </div>
+              </ResidenceDockField>
+
+              <ResidenceDockField label="Availability">
+                <div className="grid grid-cols-2 gap-2">
+                  {statusOptions.map((option) => {
+                    const active =
+                      status === option || (option === "All" && status === null);
+
+                    return (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => {
+                          onStatusChange(option === "All" ? null : option);
+                          setVisibleCount(MATCHING_FLATS_PAGE_SIZE);
+                        }}
+                        className={`mp-liquid-choice h-10 rounded-[10px] border text-[8px] font-semibold uppercase tracking-[0.08em] ${active ? "mp-liquid-choice--active border-[#00142b]/42 text-[#00142b]" : "border-[#00142b]/20 text-[#00142b]/62"}`}
+                      >
+                        {option}
+                      </button>
+                    );
+                  })}
+                </div>
+              </ResidenceDockField>
+            </>
+          ) : (
+            <>
           <ResidenceDockField label="Collection">
             <div className="relative">
               <Building2 className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#00142b]/55" />
@@ -3245,11 +3543,13 @@ function MasterPlanResidenceDock({
               })}
             </div>
           </ResidenceDockField>
+            </>
+          )}
         </div>
 
         <button
           type="button"
-          onClick={onReset}
+          onClick={handleReset}
           className="mp-liquid-clear mt-5 inline-flex h-11 shrink-0 items-center justify-center gap-2.5 rounded-[11px] border border-[#00142b]/28 text-[9px] font-bold uppercase tracking-[0.16em] text-[#00142b]"
         >
           <RotateCcw className="h-3.5 w-3.5" />

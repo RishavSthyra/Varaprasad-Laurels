@@ -10,7 +10,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import {
   AnimatePresence,
   motion,
@@ -29,16 +28,6 @@ import {
   Play,
 } from "lucide-react";
 import { scheduleAmenityVideoWarmup } from "@/lib/amenity-video-warmup";
-
-const displaySerif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
-
-const interfaceSans = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 export type AmenityPageItem = {
   id: string;
@@ -827,7 +816,7 @@ export default function AmenitiesPageClient({
       ref={stageRef}
       onPointerDown={revealDeck}
       onPointerMove={revealDeck}
-      className={`${interfaceSans.className} relative isolate h-[100dvh] min-h-[100dvh] w-full overflow-hidden bg-[#050706] text-white`}
+      className="font-montserrat relative isolate h-[100dvh] min-h-[100dvh] w-full overflow-hidden bg-[#050706] text-white"
     >
       {/* Full-screen amenity media */}
       <motion.div
@@ -904,7 +893,7 @@ export default function AmenitiesPageClient({
         ) : (
           <div className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_72%_26%,rgba(120,201,149,0.12),transparent_31%),linear-gradient(135deg,#101511,#030504_58%)]">
             <span
-              className={`${displaySerif.className} text-5xl text-white/80 sm:text-8xl`}
+              className="font-cormorant text-5xl text-white/80 sm:text-8xl"
             >
               {displayedAmenity.title}
             </span>
@@ -942,7 +931,7 @@ export default function AmenitiesPageClient({
           <span className="mx-4 h-[40px] w-px bg-[linear-gradient(180deg,transparent,rgba(255,255,255,0.28),transparent)] sm:ml-[26px] sm:mr-[38px] sm:h-[51px]" />
 
           <span
-            className={`${displaySerif.className} hidden text-[28px] tracking-[0.015em] text-white/92 drop-shadow-[0_4px_18px_rgba(0,0,0,0.5)] sm:block lg:text-[32px]`}
+            className="font-cormorant hidden text-[28px] tracking-[0.015em] text-white/92 drop-shadow-[0_4px_18px_rgba(0,0,0,0.5)] sm:block lg:text-[32px]"
           >
             {data.title || "Amenities"}
           </span>
