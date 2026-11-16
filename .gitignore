@@ -20,6 +20,13 @@
 # production
 /build
 
+# Panorama images are hosted on Cloudflare, not in Git.
+/public/varaprasad_exterior_panos/
+/Exterior Panos 12k/
+
+# Local visual verification screenshots
+/.tmp-*.png
+
 # misc
 .DS_Store
 *.pem
