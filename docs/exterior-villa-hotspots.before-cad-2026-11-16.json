@@ -1,0 +1,87 @@
+{
+  "numbering": "player-counter",
+  "panos": [
+    {
+      "panoNumber": 193,
+      "pointers": [
+        {
+          "id": "villa-8-entrance",
+          "villaNumber": 8,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 272,
+            "pitchDegrees": -10.5,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    }, 
+    {
+      "panoNumber": 192,
+      "pointers": [
+        {
+          "id": "villa-9-entrance",
+          "villaNumber": 8,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 104,
+            "pitchDegrees": -10.5,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        },
+                {
+          "id": "villa-10-entrance",
+          "villaNumber": 10,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 200,
+            "pitchDegrees": -10.7,
+            "distanceMetres": 9
+          },
+          "rotation": {
+            "yawDegrees": 210,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2238 @@
+{
+  "numbering": "player-counter",
+  "panos": [
+    {
+      "panoNumber": 16,
+      "pointers": [
+        {
+          "id": "villa-39-entrance",
+          "villaNumber": 39,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 56.438,
+            "pitchDegrees": -8.9173,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 17,
+      "pointers": [
+        {
+          "id": "villa-27-entrance",
+          "villaNumber": 27,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 272.2383,
+            "pitchDegrees": -11.3098,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 19,
+      "pointers": [
+        {
+          "id": "villa-38-entrance",
+          "villaNumber": 38,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 94.392,
+            "pitchDegrees": -10.6311,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 20,
+      "pointers": [
+        {
+          "id": "villa-28-entrance",
+          "villaNumber": 28,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 225.3334,
+            "pitchDegrees": -9.1908,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 21,
+      "pointers": [
+        {
+          "id": "villa-37-entrance",
+          "villaNumber": 37,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 78.7009,
+            "pitchDegrees": -10.4577,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 22,
+      "pointers": [
+        {
+          "id": "villa-29-entrance",
+          "villaNumber": 29,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 244.8517,
+            "pitchDegrees": -10.2734,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 23,
+      "pointers": [
+        {
+          "id": "villa-36-entrance",
+          "villaNumber": 36,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 64.5308,
+            "pitchDegrees": -9.6425,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 24,
+      "pointers": [
+        {
+          "id": "villa-30-entrance",
+          "villaNumber": 30,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 259.6258,
+            "pitchDegrees": -11.1444,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 25,
+      "pointers": [
+        {
+          "id": "villa-31-entrance",
+          "villaNumber": 31,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 319.8465,
+            "pitchDegrees": -7.36,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 26,
+      "pointers": [
+        {
+          "id": "villa-35-entrance",
+          "villaNumber": 35,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 104.9807,
+            "pitchDegrees": -10.3015,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 28,
+      "pointers": [
+        {
+          "id": "villa-34-entrance",
+          "villaNumber": 34,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 89.4899,
+            "pitchDegrees": -10.6534,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 30,
+      "pointers": [
+        {
+          "id": "villa-33-entrance",
+          "villaNumber": 33,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 74.077,
+            "pitchDegrees": -10.252,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 33,
+      "pointers": [
+        {
+          "id": "villa-32-entrance",
+          "villaNumber": 32,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 57.1556,
+            "pitchDegrees": -27.3486,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 42,
+      "pointers": [
+        {
+          "id": "villa-57-entrance",
+          "villaNumber": 57,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 82.7163,
+            "pitchDegrees": -10.7195,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 44,
+      "pointers": [
+        {
+          "id": "villa-58-entrance",
+          "villaNumber": 58,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 295.0843,
+            "pitchDegrees": -9.82,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 45,
+      "pointers": [
+        {
+          "id": "villa-56-entrance",
+          "villaNumber": 56,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 121.8819,
+            "pitchDegrees": -9.2049,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 46,
+      "pointers": [
+        {
+          "id": "villa-55-entrance",
+          "villaNumber": 55,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 51.0366,
+            "pitchDegrees": -7.2066,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 47,
+      "pointers": [
+        {
+          "id": "villa-59-entrance",
+          "villaNumber": 59,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 250.9693,
+            "pitchDegrees": -10.0422,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 49,
+      "pointers": [
+        {
+          "id": "villa-60-entrance",
+          "villaNumber": 60,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 266.0159,
+            "pitchDegrees": -10.5849,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 50,
+      "pointers": [
+        {
+          "id": "villa-54-entrance",
+          "villaNumber": 54,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 137.6347,
+            "pitchDegrees": -7.3281,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 51,
+      "pointers": [
+        {
+          "id": "villa-61-entrance",
+          "villaNumber": 61,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 281.6195,
+            "pitchDegrees": -10.3973,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 52,
+      "pointers": [
+        {
+          "id": "villa-53-entrance",
+          "villaNumber": 53,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 129.4246,
+            "pitchDegrees": -8.3861,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 53,
+      "pointers": [
+        {
+          "id": "villa-62-entrance",
+          "villaNumber": 62,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 299.6813,
+            "pitchDegrees": -9.8166,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 54,
+      "pointers": [
+        {
+          "id": "villa-52-entrance",
+          "villaNumber": 52,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 121.644,
+            "pitchDegrees": -8.2469,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 56,
+      "pointers": [
+        {
+          "id": "villa-63-entrance",
+          "villaNumber": 63,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 255.6652,
+            "pitchDegrees": -10.2868,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 57,
+      "pointers": [
+        {
+          "id": "villa-51-entrance",
+          "villaNumber": 51,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 142.3589,
+            "pitchDegrees": -6.6479,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 58,
+      "pointers": [
+        {
+          "id": "villa-64-entrance",
+          "villaNumber": 64,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 271.1303,
+            "pitchDegrees": -10.6079,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 59,
+      "pointers": [
+        {
+          "id": "villa-50-entrance",
+          "villaNumber": 50,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 137.6696,
+            "pitchDegrees": -7.5157,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 60,
+      "pointers": [
+        {
+          "id": "villa-65-entrance",
+          "villaNumber": 65,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 286.4363,
+            "pitchDegrees": -10.1856,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 61,
+      "pointers": [
+        {
+          "id": "villa-49-entrance",
+          "villaNumber": 49,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 126.3634,
+            "pitchDegrees": -8.7369,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 68,
+      "pointers": [
+        {
+          "id": "villa-67-entrance",
+          "villaNumber": 67,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 254.4185,
+            "pitchDegrees": -10.6308,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 69,
+      "pointers": [
+        {
+          "id": "villa-78-entrance",
+          "villaNumber": 78,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 91.1985,
+            "pitchDegrees": -10.3829,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 70,
+      "pointers": [
+        {
+          "id": "villa-68-entrance",
+          "villaNumber": 68,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 270.4298,
+            "pitchDegrees": -11.0263,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 71,
+      "pointers": [
+        {
+          "id": "villa-77-entrance",
+          "villaNumber": 77,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 77.6086,
+            "pitchDegrees": -9.8639,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 72,
+      "pointers": [
+        {
+          "id": "villa-69-entrance",
+          "villaNumber": 69,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 286.3754,
+            "pitchDegrees": -10.5896,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 77,
+      "pointers": [
+        {
+          "id": "villa-71-entrance",
+          "villaNumber": 71,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 259.4706,
+            "pitchDegrees": -10.8453,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 78,
+      "pointers": [
+        {
+          "id": "villa-74-entrance",
+          "villaNumber": 74,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 85.2839,
+            "pitchDegrees": -10.0609,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 79,
+      "pointers": [
+        {
+          "id": "villa-72-entrance",
+          "villaNumber": 72,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 275.7377,
+            "pitchDegrees": -10.9727,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 84,
+      "pointers": [
+        {
+          "id": "villa-73-entrance",
+          "villaNumber": 73,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 74.7524,
+            "pitchDegrees": -10.2458,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 90,
+      "pointers": [
+        {
+          "id": "villa-75-entrance",
+          "villaNumber": 75,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 260.6968,
+            "pitchDegrees": -10.3377,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 91,
+      "pointers": [
+        {
+          "id": "villa-70-entrance",
+          "villaNumber": 70,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 85.0472,
+            "pitchDegrees": -10.5726,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 92,
+      "pointers": [
+        {
+          "id": "villa-76-entrance",
+          "villaNumber": 76,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 277.0034,
+            "pitchDegrees": -10.396,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 104,
+      "pointers": [
+        {
+          "id": "villa-66-entrance",
+          "villaNumber": 66,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 272.7071,
+            "pitchDegrees": -10.993,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 113,
+      "pointers": [
+        {
+          "id": "villa-48-entrance",
+          "villaNumber": 48,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 286.1614,
+            "pitchDegrees": -10.215,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 114,
+      "pointers": [
+        {
+          "id": "villa-40-entrance",
+          "villaNumber": 40,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 131.9669,
+            "pitchDegrees": -8.2102,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 115,
+      "pointers": [
+        {
+          "id": "villa-47-entrance",
+          "villaNumber": 47,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 245.3766,
+            "pitchDegrees": -9.3852,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 116,
+      "pointers": [
+        {
+          "id": "villa-41-entrance",
+          "villaNumber": 41,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 114.4173,
+            "pitchDegrees": -9.8581,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 117,
+      "pointers": [
+        {
+          "id": "villa-46-entrance",
+          "villaNumber": 46,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 259.3896,
+            "pitchDegrees": -8.6843,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 118,
+      "pointers": [
+        {
+          "id": "villa-42-entrance",
+          "villaNumber": 42,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 100.1281,
+            "pitchDegrees": -10.6401,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 119,
+      "pointers": [
+        {
+          "id": "villa-45-entrance",
+          "villaNumber": 45,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 275.2516,
+            "pitchDegrees": -10.2625,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 120,
+      "pointers": [
+        {
+          "id": "villa-43-entrance",
+          "villaNumber": 43,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 84.1603,
+            "pitchDegrees": -10.7499,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 122,
+      "pointers": [
+        {
+          "id": "villa-44-entrance",
+          "villaNumber": 44,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 66.2927,
+            "pitchDegrees": -7.2209,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 158,
+      "pointers": [
+        {
+          "id": "villa-22-entrance",
+          "villaNumber": 22,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 122.8934,
+            "pitchDegrees": -10.8884,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 160,
+      "pointers": [
+        {
+          "id": "villa-23-entrance",
+          "villaNumber": 23,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 100.8285,
+            "pitchDegrees": -10.4793,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 161,
+      "pointers": [
+        {
+          "id": "villa-20-entrance",
+          "villaNumber": 20,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 317.8373,
+            "pitchDegrees": -7.2612,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 162,
+      "pointers": [
+        {
+          "id": "villa-24-entrance",
+          "villaNumber": 24,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 85.1154,
+            "pitchDegrees": -10.6272,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 163,
+      "pointers": [
+        {
+          "id": "villa-19-entrance",
+          "villaNumber": 19,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 324.1351,
+            "pitchDegrees": -6.3458,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 164,
+      "pointers": [
+        {
+          "id": "villa-25-entrance",
+          "villaNumber": 25,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 66.3869,
+            "pitchDegrees": -11.2506,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 166,
+      "pointers": [
+        {
+          "id": "villa-18-entrance",
+          "villaNumber": 18,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 302.4761,
+            "pitchDegrees": -9.0978,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 167,
+      "pointers": [
+        {
+          "id": "villa-26-entrance",
+          "villaNumber": 26,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 117.5651,
+            "pitchDegrees": -12.0478,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 178,
+      "pointers": [
+        {
+          "id": "villa-16-entrance",
+          "villaNumber": 16,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 242.5347,
+            "pitchDegrees": -6.4606,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 180,
+      "pointers": [
+        {
+          "id": "villa-15-entrance",
+          "villaNumber": 15,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 277.7846,
+            "pitchDegrees": -11.2641,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 183,
+      "pointers": [
+        {
+          "id": "villa-17-entrance",
+          "villaNumber": 17,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 107.1101,
+            "pitchDegrees": -9.5112,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 191,
+      "pointers": [
+        {
+          "id": "villa-13-entrance",
+          "villaNumber": 13,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 25.6959,
+            "pitchDegrees": -5.7301,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 192,
+      "pointers": [
+        {
+          "id": "villa-14-entrance",
+          "villaNumber": 14,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 103.679,
+            "pitchDegrees": -10.6794,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 193,
+      "pointers": [
+        {
+          "id": "villa-12-entrance",
+          "villaNumber": 12,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 271.9096,
+            "pitchDegrees": -10.4587,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 201,
+      "pointers": [
+        {
+          "id": "villa-11-entrance",
+          "villaNumber": 11,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 318.036,
+            "pitchDegrees": -21.3225,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 204,
+      "pointers": [
+        {
+          "id": "villa-10-entrance",
+          "villaNumber": 10,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 174.6278,
+            "pitchDegrees": -16.766,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 205,
+      "pointers": [
+        {
+          "id": "villa-09-entrance",
+          "villaNumber": 9,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 268.2334,
+            "pitchDegrees": -11.0581,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 207,
+      "pointers": [
+        {
+          "id": "villa-08-entrance",
+          "villaNumber": 8,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 284.3585,
+            "pitchDegrees": -10.7258,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 216,
+      "pointers": [
+        {
+          "id": "villa-02-entrance",
+          "villaNumber": 2,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 69.6903,
+            "pitchDegrees": -9.1047,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 219,
+      "pointers": [
+        {
+          "id": "villa-06-entrance",
+          "villaNumber": 6,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 243.6758,
+            "pitchDegrees": -12.0789,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 221,
+      "pointers": [
+        {
+          "id": "villa-05-entrance",
+          "villaNumber": 5,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 264.9569,
+            "pitchDegrees": -11.3625,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 222,
+      "pointers": [
+        {
+          "id": "villa-04-entrance",
+          "villaNumber": 4,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 258.0188,
+            "pitchDegrees": -10.7652,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 224,
+      "pointers": [
+        {
+          "id": "villa-03-entrance",
+          "villaNumber": 3,
+          "facing": "West",
+          "position": {
+            "yawDegrees": 282.155,
+            "pitchDegrees": -10.7583,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 227,
+      "pointers": [
+        {
+          "id": "villa-07-entrance",
+          "villaNumber": 7,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 112.1692,
+            "pitchDegrees": -12.2442,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    },
+    {
+      "panoNumber": 235,
+      "pointers": [
+        {
+          "id": "villa-01-entrance",
+          "villaNumber": 1,
+          "facing": "East",
+          "position": {
+            "yawDegrees": 315.655,
+            "pitchDegrees": -14.5748,
+            "distanceMetres": 8.5
+          },
+          "rotation": {
+            "yawDegrees": 90,
+            "pitchDegrees": 0,
+            "rollDegrees": 0
+          },
+          "heightMetres": 0.6,
+          "bounceHeightMetres": 0.07,
+          "bouncePeriodSeconds": 1.8,
+          "rotationPeriodSeconds": 5.5,
+          "color": "#ffffff",
+          "interior": {
+            "path": "/interior-kitchen-foyer",
+            "nodeId": "spline_pano_03_F0018"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -13,11 +13,20 @@ export const metadata = buildPageMetadata({
   ],
 });
 
-export default function InteriorKitchenFoyerPage() {
+export default async function InteriorKitchenFoyerPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ node?: string | string[] }>;
+}) {
+  const query = await searchParams;
+  const initialNodeId = typeof query.node === "string" && /^[a-zA-Z0-9_-]+$/.test(query.node)
+    ? query.node : undefined;
   return (
     <main className="h-dvh w-full bg-[#0a0a0a]">
       <Suspense fallback={<div className="h-full w-full bg-[#0a0a0a]" />}>
         <InteriorPanoWalkthrough
+          key={initialNodeId ?? "default"}
+          initialNodeId={initialNodeId}
           className="h-full w-full rounded-none border-0"
         />
       </Suspense>

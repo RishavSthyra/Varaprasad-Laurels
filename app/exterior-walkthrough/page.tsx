@@ -8,6 +8,8 @@ import {
 } from "@/lib/server/r2-signed-assets";
 import type { ExteriorPanoNodeSource } from "@/lib/exterior-tour/types";
 import { getPublishedDeveloperRuntimeConfig } from "@/lib/developer-config";
+import { exteriorImageFilenameToPanoId } from "@/lib/exterior-tour/nodes";
+import { getVillaPointers } from "@/lib/exterior-tour/villa-hotspots";
 import {
   EXTERIOR_ASSET_INITIAL_NODE_ID,
   EXTERIOR_ASSET_INITIAL_PREVIEW_KEY,
@@ -57,7 +59,12 @@ function ExteriorWalkthroughHead({ initialPreviewUrl }: { initialPreviewUrl?: st
   );
 }
 
-export default async function ExteriorTourPage() {
+export default async function ExteriorTourPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ pano?: string | string[] }>;
+}) {
+  const query = await searchParams;
   const runtimeConfig = await getPublishedDeveloperRuntimeConfig();
   const exterior = {
     ...runtimeConfig.exterior,
@@ -66,12 +73,22 @@ export default async function ExteriorTourPage() {
     nodes: exteriorNodes,
   };
   const exteriorTourNodes = exterior.nodes.filter((node) => !isIgnoredExteriorPano(node));
+  const requestedPanoNumber = typeof query.pano === "string" && /^\d{1,4}$/.test(query.pano)
+    ? Number(query.pano) : null;
+  // Match the visible player counter, not the zero-based asset folder number.
+  const requestedNode = requestedPanoNumber === null ? undefined
+    : exteriorTourNodes[requestedPanoNumber - 1];
+  const previewPointer = requestedNode ? getVillaPointers(requestedNode.id)[0] : undefined;
   const preferredInitialNodeId =
+    requestedNode?.id ??
     (exterior.initialNodeId && exteriorTourNodes.find((node) => node.id === exterior.initialNodeId)?.id) ??
     exteriorTourNodes[0]?.id;
-  const initialPreviewUrl = signR2AssetKey(EXTERIOR_ASSET_INITIAL_PREVIEW_KEY);
+  const initialPreviewKey = requestedNode
+    ? `${exterior.panoBasePath}/${exteriorImageFilenameToPanoId(requestedNode.image_filename)}/preview.jpg`
+    : EXTERIOR_ASSET_INITIAL_PREVIEW_KEY;
+  const initialPreviewUrl = signR2AssetKey(initialPreviewKey);
   const signedExteriorMenuAssets = {
-    [EXTERIOR_ASSET_INITIAL_PREVIEW_KEY]: initialPreviewUrl,
+    [initialPreviewKey]: initialPreviewUrl,
     ...Object.fromEntries(
       canonicalExteriorAmenities.map((amenity) => [
         amenity.image,
@@ -86,10 +103,13 @@ export default async function ExteriorTourPage() {
 
       <div className="absolute inset-0">
         <ExteriorPanoWalkthrough
+          key={preferredInitialNodeId}
           nodes={exteriorTourNodes}
           cdnBaseUrl={exterior.panoBasePath}
           initialNodeId={preferredInitialNodeId}
-          initialYawOffsetDegrees={172}
+          initialYawOffsetDegrees={requestedNode
+            ? (previewPointer ? previewPointer.position.yawDegrees - requestedNode.yaw : 0)
+            : 172}
           initialSignedAssetUrls={signedExteriorMenuAssets}
           amenities={canonicalExteriorAmenities}
           className="h-full w-full rounded-none"

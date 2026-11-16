@@ -1,0 +1,3517 @@
+{
+  "schemaVersion": 1,
+  "excludedVillaNumbers": [
+    21
+  ],
+  "villaCount": 77,
+  "distinctPanoCount": 77,
+  "numbering": "Player counter is one-based; source frame = panoNumber - 1.",
+  "sourceDrawings": [
+    {
+      "file": "20260528-FLOOR PLAN-R0.bak",
+      "sha256": "eaec5fc07f23103c445cb947a8f27db3f943042f9f9dc88ac8871a2b596d1224"
+    },
+    {
+      "file": "20260528-FLOOR PLAN-R0.dwg",
+      "sha256": "423032c0d70445b002d2753193c268452deec6893a5d43365cb2e02305ff9608"
+    },
+    {
+      "file": "20260810-ELEVATIONS-R1.dwg",
+      "sha256": "b73c9e707ef72731fb6838bba34a341b0e3fdcfdfb6c15896fd7f0b240b096e5"
+    },
+    {
+      "file": "20260818 - UPDATED LANDSCAPE MASTERPLAN 1.dwg",
+      "sha256": "64d5abfe56a86e6c0cfffd24fbd1f1a0b99b9e5199ed88bdf0dee9fc6feae351"
+    }
+  ],
+  "sourceGlb": {
+    "file": "public/models/villa 01.glb",
+    "sha256": "83694644f44b76139a470ef9a2dc1e3750db4bdb8e32c122daf65cabe1c0254a"
+  },
+  "method": {
+    "numbering": "CAD BOUNDRY labels matched against the existing masterplan flattened GLB groups. All 77 included labels agree with their nearest corresponding GLB group after CAD/model translation.",
+    "modelToPanoCoordinates": "GLB X/Z metres correspond to exterior node x/y centimetres divided by 100; model Y is vertical and node z is vertical centimetres.",
+    "heading": "Viewer-local yaw = world bearing atan2(-deltaX, deltaZ), minus the source pano yaw, plus 90 degrees; wrap into [0,360). Source pano yaw is NOT zero on every image.",
+    "placement": "Parking-floor mesh bounds provide the initial anchor. Individual Cloudflare previews were rectilinearly projected for visual review. 18 anchors were adjusted within their parking-floor bounds to avoid vehicles and foreground planting.",
+    "virtualDistance": "8.5 metres for every marker, inside the panorama sphere. Pitch/yaw follow the real garage direction. The 0.60 m pointer is an interface marker, not a surveyed architectural dimension.",
+    "interior": "All pointers link to the existing shared interior-kitchen-foyer tour. Villa/facing are context parameters, not 77 different interior datasets.",
+    "exception74": "The final flattened GLB group does not export its parking-floor mesh. Its same-template parking floor was located from Villa 77 by the shared entrance-step mesh transform, then visually checked in pano 78.",
+    "precision": "CAD plot identity is checked; placements are visually calibrated against rendered panoramas, not claimed to be survey-grade or pixel-perfect at every zoom."
+  },
+  "cadNumberingCheck": {
+    "matched": 77,
+    "medianTranslation": {
+      "x": 658.3973422378265,
+      "y": -694.5277804599318
+    },
+    "maxLabelToGroupCenterResidualMetres": 2.163890759223141,
+    "note": "Text insertion points are not plot centroids; this residual measures label-to-center placement, not arrow calibration accuracy."
+  },
+  "placements": [
+    {
+      "villaNumber": 1,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 235,
+      "sourceFrame": 234,
+      "sourceNodeId": "Exterior_PANO_Spline_F0234",
+      "sourcePanoHeadingDegrees": -74.7434,
+      "sourceCadLabelPositionMetres": [
+        753.8764,
+        -696.2263,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 924,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          98.9688,
+          -0.1553,
+          -7.6618
+        ],
+        "max": [
+          105.1288,
+          0.0047,
+          -1.0268
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 104.0031,
+        "y": 0.0847,
+        "z": -1.8193
+      },
+      "cameraPositionModelMetres": {
+        "x": 106.92983,
+        "y": 1.65,
+        "z": 3.4415899999999997
+      },
+      "worldDistanceMetres": 6.2204,
+      "viewerLocalYawDegrees": 315.655,
+      "viewerPitchDegrees": -14.5748,
+      "previewAsset": "EP.00234/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 2,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 216,
+      "sourceFrame": 215,
+      "sourceNodeId": "Exterior_PANO_Spline_F0215",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        738.2322,
+        -695.7669,
+        0
+      ],
+      "garageMeshIndex": 110,
+      "garageRootIndex": 594,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          71.5034,
+          -0.1553,
+          -7.9054
+        ],
+        "max": [
+          78.5084,
+          0.0147,
+          -1.5144
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 74.0953,
+        "y": 0.0947,
+        "z": -2.7926
+      },
+      "cameraPositionModelMetres": {
+        "x": 64.99349000000001,
+        "y": 1.65,
+        "z": 0.5759799999999999
+      },
+      "worldDistanceMetres": 9.829,
+      "viewerLocalYawDegrees": 69.6903,
+      "viewerPitchDegrees": -9.1047,
+      "previewAsset": "EP.00215/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 3,
+      "facing": "West",
+      "typeId": "type-b-450-west",
+      "panoNumber": 224,
+      "sourceFrame": 223,
+      "sourceNodeId": "Exterior_PANO_Spline_F0223",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        741.3271,
+        -676.2598,
+        0
+      ],
+      "garageMeshIndex": 110,
+      "garageRootIndex": 477,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          71.5034,
+          -0.1553,
+          -28.2354
+        ],
+        "max": [
+          78.5084,
+          0.0147,
+          -21.8444
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 74.0953,
+        "y": 0.0947,
+        "z": -23.1226
+      },
+      "cameraPositionModelMetres": {
+        "x": 66.09315,
+        "y": 1.65,
+        "z": -24.846149999999998
+      },
+      "worldDistanceMetres": 8.3321,
+      "viewerLocalYawDegrees": 282.155,
+      "viewerPitchDegrees": -10.7583,
+      "previewAsset": "EP.00223/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 4,
+      "facing": "West",
+      "typeId": "type-b-450-west",
+      "panoNumber": 222,
+      "sourceFrame": 221,
+      "sourceNodeId": "Exterior_PANO_Spline_F0221",
+      "sourcePanoHeadingDegrees": 90.0002,
+      "sourceCadLabelPositionMetres": [
+        741.0223,
+        -656.5983,
+        0
+      ],
+      "garageMeshIndex": 110,
+      "garageRootIndex": 130,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          71.5034,
+          -0.1553,
+          -48.5654
+        ],
+        "max": [
+          78.5084,
+          0.0147,
+          -42.1744
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 74.0953,
+        "y": 0.0947,
+        "z": -43.4526
+      },
+      "cameraPositionModelMetres": {
+        "x": 66.09315,
+        "y": 1.65,
+        "z": -41.75449
+      },
+      "worldDistanceMetres": 8.3268,
+      "viewerLocalYawDegrees": 258.0188,
+      "viewerPitchDegrees": -10.7652,
+      "previewAsset": "EP.00221/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 5,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 221,
+      "sourceFrame": 220,
+      "sourceNodeId": "Exterior_PANO_Spline_F0220",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        711.225,
+        -657.3721,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 814,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          53.3534,
+          -0.1553,
+          -46.3179
+        ],
+        "max": [
+          59.5134,
+          0.0047,
+          -39.6829
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 57.2342,
+        "y": 0.0847,
+        "z": -41.0099
+      },
+      "cameraPositionModelMetres": {
+        "x": 64.99349000000001,
+        "y": 1.65,
+        "z": -41.69465
+      },
+      "worldDistanceMetres": 7.9451,
+      "viewerLocalYawDegrees": 264.9569,
+      "viewerPitchDegrees": -11.3625,
+      "previewAsset": "EP.00220/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 6,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 219,
+      "sourceFrame": 218,
+      "sourceNodeId": "Exterior_PANO_Spline_F0218",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        711.225,
+        -676.5721,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 705,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          53.3534,
+          -0.1553,
+          -27.093
+        ],
+        "max": [
+          59.5134,
+          0.0047,
+          -20.458
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 58.4373,
+        "y": 0.0847,
+        "z": -21.5426
+      },
+      "cameraPositionModelMetres": {
+        "x": 64.99349000000001,
+        "y": 1.65,
+        "z": -24.786350000000002
+      },
+      "worldDistanceMetres": 7.4803,
+      "viewerLocalYawDegrees": 243.6758,
+      "viewerPitchDegrees": -12.0789,
+      "previewAsset": "EP.00218/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 7,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 227,
+      "sourceFrame": 226,
+      "sourceNodeId": "Exterior_PANO_Spline_F0226",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        711.225,
+        -695.7721,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 236,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          53.3534,
+          -0.1553,
+          -7.8692
+        ],
+        "max": [
+          59.5134,
+          0.0047,
+          -1.2342
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 59.4134,
+        "y": 0.0847,
+        "z": -2.2055
+      },
+      "cameraPositionModelMetres": {
+        "x": 66.09313,
+        "y": 1.65,
+        "z": 0.51623
+      },
+      "worldDistanceMetres": 7.3808,
+      "viewerLocalYawDegrees": 112.1692,
+      "viewerPitchDegrees": -12.2442,
+      "previewAsset": "EP.00226/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 8,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 207,
+      "sourceFrame": 206,
+      "sourceNodeId": "Exterior_PANO_Spline_F0206",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        696.1577,
+        -696.2705,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 359,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          29.0172,
+          -0.1553,
+          -7.8887
+        ],
+        "max": [
+          35.1772,
+          0.0047,
+          -1.2537
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 31.2964,
+        "y": 0.0847,
+        "z": -2.5807
+      },
+      "cameraPositionModelMetres": {
+        "x": 23.29075,
+        "y": 1.65,
+        "z": -4.63002
+      },
+      "worldDistanceMetres": 8.4107,
+      "viewerLocalYawDegrees": 284.3585,
+      "viewerPitchDegrees": -10.7258,
+      "previewAsset": "EP.00206/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 9,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 205,
+      "sourceFrame": 204,
+      "sourceNodeId": "Exterior_PANO_Spline_F0204",
+      "sourcePanoHeadingDegrees": 89.9999,
+      "sourceCadLabelPositionMetres": [
+        696.1577,
+        -677.0705,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 1030,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          29.0172,
+          -0.1553,
+          -27.0933
+        ],
+        "max": [
+          35.1772,
+          0.0047,
+          -20.4583
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 31.2964,
+        "y": 0.0847,
+        "z": -21.7853
+      },
+      "cameraPositionModelMetres": {
+        "x": 23.29075,
+        "y": 1.65,
+        "z": -21.538330000000002
+      },
+      "worldDistanceMetres": 8.161,
+      "viewerLocalYawDegrees": 268.2334,
+      "viewerPitchDegrees": -11.0581,
+      "previewAsset": "EP.00204/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 10,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 204,
+      "sourceFrame": 203,
+      "sourceNodeId": "Exterior_PANO_Spline_F0203",
+      "sourcePanoHeadingDegrees": -20.8408,
+      "sourceCadLabelPositionMetres": [
+        667.9735,
+        -672.9825,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 1257,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          10.8734,
+          -0.1553,
+          -29.9447
+        ],
+        "max": [
+          17.0334,
+          0.0047,
+          -23.3097
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 14.7542,
+        "y": 0.0847,
+        "z": -24.6367
+      },
+      "cameraPositionModelMetres": {
+        "x": 19.41562,
+        "y": 1.65,
+        "z": -26.9317
+      },
+      "worldDistanceMetres": 5.4264,
+      "viewerLocalYawDegrees": 174.6278,
+      "viewerPitchDegrees": -16.766,
+      "previewAsset": "EP.00203/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 11,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 201,
+      "sourceFrame": 200,
+      "sourceNodeId": "Exterior_PANO_Spline_F0200",
+      "sourcePanoHeadingDegrees": -90.0001,
+      "sourceCadLabelPositionMetres": [
+        667.9735,
+        -692.1825,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 1480,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          10.8734,
+          -0.1553,
+          -10.7131
+        ],
+        "max": [
+          17.0334,
+          0.0047,
+          -4.0781
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": 15.1406,
+        "y": 0.0847,
+        "z": -5.3272
+      },
+      "cameraPositionModelMetres": {
+        "x": 17.82204,
+        "y": 1.65,
+        "z": -2.34538
+      },
+      "worldDistanceMetres": 4.3049,
+      "viewerLocalYawDegrees": 318.036,
+      "viewerPitchDegrees": -21.3225,
+      "previewAsset": "EP.00200/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 12,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 193,
+      "sourceFrame": 192,
+      "sourceNodeId": "Exterior_PANO_Spline_F0192",
+      "sourcePanoHeadingDegrees": 90.0001,
+      "sourceCadLabelPositionMetres": [
+        652.722,
+        -693.0716,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 1141,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -13.4628,
+          -0.1553,
+          -10.7326
+        ],
+        "max": [
+          -7.3028,
+          0.0047,
+          -4.0976
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -11.1836,
+        "y": 0.0847,
+        "z": -5.4246
+      },
+      "cameraPositionModelMetres": {
+        "x": -19.65866,
+        "y": 1.65,
+        "z": -5.70716
+      },
+      "worldDistanceMetres": 8.623,
+      "viewerLocalYawDegrees": 271.9096,
+      "viewerPitchDegrees": -10.4587,
+      "previewAsset": "EP.00192/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 13,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 191,
+      "sourceFrame": 190,
+      "sourceNodeId": "Exterior_PANO_Spline_F0190",
+      "sourcePanoHeadingDegrees": -62.3084,
+      "sourceCadLabelPositionMetres": [
+        652.9259,
+        -673.7404,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 1364,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -13.4628,
+          -0.1553,
+          -29.9449
+        ],
+        "max": [
+          -7.3028,
+          0.0047,
+          -23.3099
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -11.9739,
+        "y": 0.0847,
+        "z": -26.1739
+      },
+      "cameraPositionModelMetres": {
+        "x": -24.49542,
+        "y": 1.65,
+        "z": -16.870440000000002
+      },
+      "worldDistanceMetres": 15.6778,
+      "viewerLocalYawDegrees": 25.6959,
+      "viewerPitchDegrees": -5.7301,
+      "previewAsset": "EP.00190/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 14,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 192,
+      "sourceFrame": 191,
+      "sourceNodeId": "Exterior_PANO_Spline_F0191",
+      "sourcePanoHeadingDegrees": 89.9431,
+      "sourceCadLabelPositionMetres": [
+        625.4976,
+        -682.3921,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 1588,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -31.6066,
+          -0.1553,
+          -21.4242
+        ],
+        "max": [
+          -25.4466,
+          0.0047,
+          -14.7892
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -27.7258,
+        "y": 0.0847,
+        "z": -16.1162
+      },
+      "cameraPositionModelMetres": {
+        "x": -19.65866,
+        "y": 1.65,
+        "z": -14.16131
+      },
+      "worldDistanceMetres": 8.4469,
+      "viewerLocalYawDegrees": 103.679,
+      "viewerPitchDegrees": -10.6794,
+      "previewAsset": "EP.00191/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 15,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 180,
+      "sourceFrame": 179,
+      "sourceNodeId": "Exterior_PANO_Spline_F0179",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        610.1888,
+        -682.3816,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 1695,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -55.9428,
+          -0.1553,
+          -21.4245
+        ],
+        "max": [
+          -49.7828,
+          0.0047,
+          -14.7895
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -53.6636,
+        "y": 0.0847,
+        "z": -16.1165
+      },
+      "cameraPositionModelMetres": {
+        "x": -61.45042,
+        "y": 1.65,
+        "z": -17.18103
+      },
+      "worldDistanceMetres": 8.0136,
+      "viewerLocalYawDegrees": 277.7846,
+      "viewerPitchDegrees": -11.2641,
+      "previewAsset": "EP.00179/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 16,
+      "facing": "East",
+      "typeId": "type-b-450-east",
+      "panoNumber": 178,
+      "sourceFrame": 177,
+      "sourceNodeId": "Exterior_PANO_Spline_F0177",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        581.9946,
+        -675.6969,
+        0
+      ],
+      "garageMeshIndex": 13,
+      "garageRootIndex": 1793,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -74.7178,
+          -0.1553,
+          -14.5837
+        ],
+        "max": [
+          -67.9878,
+          0.0147,
+          -8.1737
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -74.6178,
+        "y": 0.0947,
+        "z": -10.7224
+      },
+      "cameraPositionModelMetres": {
+        "x": -62.43104,
+        "y": 1.65,
+        "z": -17.05706
+      },
+      "worldDistanceMetres": 13.8226,
+      "viewerLocalYawDegrees": 242.5347,
+      "viewerPitchDegrees": -6.4606,
+      "previewAsset": "EP.00177/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 17,
+      "facing": "East",
+      "typeId": "type-b-450-east",
+      "panoNumber": 183,
+      "sourceFrame": 182,
+      "sourceNodeId": "Exterior_PANO_Spline_F0182",
+      "sourcePanoHeadingDegrees": 86.3645,
+      "sourceCadLabelPositionMetres": [
+        581.9946,
+        -694.9781,
+        0
+      ],
+      "garageMeshIndex": 13,
+      "garageRootIndex": 15,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -74.7178,
+          -0.1553,
+          4.7363
+        ],
+        "max": [
+          -67.9878,
+          0.0147,
+          11.1463
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -70.4779,
+        "y": 0.0947,
+        "z": 6.0183
+      },
+      "cameraPositionModelMetres": {
+        "x": -61.45042,
+        "y": 1.65,
+        "z": 8.18137
+      },
+      "worldDistanceMetres": 9.4124,
+      "viewerLocalYawDegrees": 107.1101,
+      "viewerPitchDegrees": -9.5112,
+      "previewAsset": "EP.00182/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 18,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 166,
+      "sourceFrame": 165,
+      "sourceNodeId": "Exterior_PANO_Spline_F0165",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        563.3933,
+        -696.2018,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 1920,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -102.7278,
+          -0.1553,
+          -7.8587
+        ],
+        "max": [
+          -96.5678,
+          0.0047,
+          -1.2237
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -100.4486,
+        "y": 0.0847,
+        "z": -2.5507
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69496,
+        "y": 1.65,
+        "z": -7.79935
+      },
+      "worldDistanceMetres": 9.8995,
+      "viewerLocalYawDegrees": 302.4761,
+      "viewerPitchDegrees": -9.0978,
+      "previewAsset": "EP.00165/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 19,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 163,
+      "sourceFrame": 162,
+      "sourceNodeId": "Exterior_PANO_Spline_F0162",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        563.3933,
+        -677.0018,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 2029,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -102.7278,
+          -0.1553,
+          -27.0633
+        ],
+        "max": [
+          -96.5678,
+          0.0047,
+          -20.4283
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -100.4486,
+        "y": 0.0847,
+        "z": -21.7553
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69497,
+        "y": 1.65,
+        "z": -33.16182
+      },
+      "worldDistanceMetres": 14.162,
+      "viewerLocalYawDegrees": 324.1351,
+      "viewerPitchDegrees": -6.3458,
+      "previewAsset": "EP.00162/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 20,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 161,
+      "sourceFrame": 160,
+      "sourceNodeId": "Exterior_PANO_Spline_F0160",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        563.3933,
+        -657.8018,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 2138,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -102.7278,
+          -0.1553,
+          -46.2718
+        ],
+        "max": [
+          -96.5678,
+          0.0047,
+          -39.6368
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -100.4486,
+        "y": 0.0847,
+        "z": -40.9638
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69497,
+        "y": 1.65,
+        "z": -50.070150000000005
+      },
+      "worldDistanceMetres": 12.3846,
+      "viewerLocalYawDegrees": 317.8373,
+      "viewerPitchDegrees": -7.2612,
+      "previewAsset": "EP.00160/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 22,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 158,
+      "sourceFrame": 157,
+      "sourceNodeId": "Exterior_PANO_Spline_F0157",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        535.5464,
+        -619.449,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 2247,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          -84.6308
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          -77.9958
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -115.5279,
+        "y": 0.0847,
+        "z": -79.8518
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69497,
+        "y": 1.65,
+        "z": -75.43251000000001
+      },
+      "worldDistanceMetres": 8.2867,
+      "viewerLocalYawDegrees": 122.8934,
+      "viewerPitchDegrees": -10.8884,
+      "previewAsset": "EP.00157/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 23,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 160,
+      "sourceFrame": 159,
+      "sourceNodeId": "Exterior_PANO_Spline_F0159",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        535.5625,
+        -638.7189,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 2353,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          -65.4222
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          -58.7872
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -117.007,
+        "y": 0.0847,
+        "z": -60.1142
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69497,
+        "y": 1.65,
+        "z": -58.52430999999999
+      },
+      "worldDistanceMetres": 8.6063,
+      "viewerLocalYawDegrees": 100.8285,
+      "viewerPitchDegrees": -10.4793,
+      "previewAsset": "EP.00159/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 24,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 162,
+      "sourceFrame": 161,
+      "sourceNodeId": "Exterior_PANO_Spline_F0161",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        535.5787,
+        -657.9887,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 2459,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          -46.2136
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          -39.5786
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -117.007,
+        "y": 0.0847,
+        "z": -40.9056
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69497,
+        "y": 1.65,
+        "z": -41.615990000000004
+      },
+      "worldDistanceMetres": 8.4879,
+      "viewerLocalYawDegrees": 85.1154,
+      "viewerPitchDegrees": -10.6272,
+      "previewAsset": "EP.00161/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 25,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 164,
+      "sourceFrame": 163,
+      "sourceNodeId": "Exterior_PANO_Spline_F0163",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        535.5949,
+        -677.2586,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 2565,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          -27.0051
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          -20.3701
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -115.9051,
+        "y": 0.0847,
+        "z": -21.5557
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69497,
+        "y": 1.65,
+        "z": -24.707669999999997
+      },
+      "worldDistanceMetres": 8.0231,
+      "viewerLocalYawDegrees": 66.3869,
+      "viewerPitchDegrees": -11.2506,
+      "previewAsset": "EP.00163/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 26,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 167,
+      "sourceFrame": 166,
+      "sourceNodeId": "Exterior_PANO_Spline_F0166",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        535.6111,
+        -696.5285,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 2671,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          -7.8308
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          -1.1958
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -115.1966,
+        "y": 0.0847,
+        "z": -2.7392
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69496,
+        "y": 1.65,
+        "z": 0.65469
+      },
+      "worldDistanceMetres": 7.4993,
+      "viewerLocalYawDegrees": 117.5651,
+      "viewerPitchDegrees": -12.0478,
+      "previewAsset": "EP.00166/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 27,
+      "facing": "West",
+      "typeId": "type-c-530-west",
+      "panoNumber": 17,
+      "sourceFrame": 16,
+      "sourceNodeId": "Exterior_PANO_Spline_F0016",
+      "sourcePanoHeadingDegrees": 89.9954,
+      "sourceCadLabelPositionMetres": [
+        565.5539,
+        -727.7612,
+        0
+      ],
+      "garageMeshIndex": 381,
+      "garageRootIndex": 7974,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -102.7227,
+          -0.1628,
+          23.3711
+        ],
+        "max": [
+          -97.7232,
+          0.0047,
+          34.0579
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -100.8729,
+        "y": 0.0847,
+        "z": 31.9205
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69364999999999,
+        "y": 1.65,
+        "z": 31.61546
+      },
+      "worldDistanceMetres": 7.9817,
+      "viewerLocalYawDegrees": 272.2383,
+      "viewerPitchDegrees": -11.3098,
+      "previewAsset": "EP.00016/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 28,
+      "facing": "West",
+      "typeId": "type-c-530-west",
+      "panoNumber": 20,
+      "sourceFrame": 19,
+      "sourceNodeId": "Exterior_PANO_Spline_F0019",
+      "sourcePanoHeadingDegrees": 89.9952,
+      "sourceCadLabelPositionMetres": [
+        565.5739,
+        -746.8987,
+        0
+      ],
+      "garageMeshIndex": 381,
+      "garageRootIndex": 8019,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -102.7227,
+          -0.1628,
+          42.4416
+        ],
+        "max": [
+          -97.7232,
+          0.0047,
+          53.1283
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -101.8116,
+        "y": 0.0847,
+        "z": 50.1763
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69157999999999,
+        "y": 1.65,
+        "z": 56.97788
+      },
+      "worldDistanceMetres": 9.8003,
+      "viewerLocalYawDegrees": 225.3334,
+      "viewerPitchDegrees": -9.1908,
+      "previewAsset": "EP.00019/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 29,
+      "facing": "West",
+      "typeId": "type-c-530-west",
+      "panoNumber": 22,
+      "sourceFrame": 21,
+      "sourceNodeId": "Exterior_PANO_Spline_F0021",
+      "sourcePanoHeadingDegrees": 89.9954,
+      "sourceCadLabelPositionMetres": [
+        565.5739,
+        -766.0362,
+        0
+      ],
+      "garageMeshIndex": 381,
+      "garageRootIndex": 8138,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -102.7227,
+          -0.1628,
+          61.666
+        ],
+        "max": [
+          -97.7232,
+          0.0047,
+          72.3528
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -100.8729,
+        "y": 0.0847,
+        "z": 70.2155
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.6902,
+        "y": 1.65,
+        "z": 73.88616
+      },
+      "worldDistanceMetres": 8.7769,
+      "viewerLocalYawDegrees": 244.8517,
+      "viewerPitchDegrees": -10.2734,
+      "previewAsset": "EP.00021/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 30,
+      "facing": "West",
+      "typeId": "type-c-530-west",
+      "panoNumber": 24,
+      "sourceFrame": 23,
+      "sourceNodeId": "Exterior_PANO_Spline_F0023",
+      "sourcePanoHeadingDegrees": 89.9954,
+      "sourceCadLabelPositionMetres": [
+        565.5739,
+        -785.1736,
+        0
+      ],
+      "garageMeshIndex": 381,
+      "garageRootIndex": 8258,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -102.7227,
+          -0.1628,
+          80.8135
+        ],
+        "max": [
+          -97.7232,
+          0.0047,
+          91.5003
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -100.8729,
+        "y": 0.0847,
+        "z": 89.3629
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.68880999999999,
+        "y": 1.65,
+        "z": 90.79444
+      },
+      "worldDistanceMetres": 8.0986,
+      "viewerLocalYawDegrees": 259.6258,
+      "viewerPitchDegrees": -11.1444,
+      "previewAsset": "EP.00023/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 31,
+      "facing": "West",
+      "typeId": "type-b-450-west",
+      "panoNumber": 25,
+      "sourceFrame": 24,
+      "sourceNodeId": "Exterior_PANO_Spline_F0024",
+      "sourcePanoHeadingDegrees": 89.9954,
+      "sourceCadLabelPositionMetres": [
+        565.1775,
+        -804.4244,
+        0
+      ],
+      "garageMeshIndex": 381,
+      "garageRootIndex": 8378,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -102.7227,
+          -0.1628,
+          99.961
+        ],
+        "max": [
+          -97.7232,
+          0.0047,
+          110.6478
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -100.8729,
+        "y": 0.0847,
+        "z": 108.5104
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.68812,
+        "y": 1.65,
+        "z": 99.24860000000001
+      },
+      "worldDistanceMetres": 12.2192,
+      "viewerLocalYawDegrees": 319.8465,
+      "viewerPitchDegrees": -7.36,
+      "previewAsset": "EP.00024/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 32,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 33,
+      "sourceFrame": 32,
+      "sourceNodeId": "Exterior_PANO_Spline_F0032",
+      "sourcePanoHeadingDegrees": 109.2782,
+      "sourceCadLabelPositionMetres": [
+        536.2806,
+        -861.7931,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 3519,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          157.7607
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          164.3957
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -117.007,
+        "y": 0.0847,
+        "z": 163.0687
+      },
+      "cameraPositionModelMetres": {
+        "x": -114.06501,
+        "y": 1.65,
+        "z": 162.35878
+      },
+      "worldDistanceMetres": 3.4073,
+      "viewerLocalYawDegrees": 57.1556,
+      "viewerPitchDegrees": -27.3486,
+      "previewAsset": "EP.00032/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 33,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 30,
+      "sourceFrame": 29,
+      "sourceNodeId": "Exterior_PANO_Spline_F0029",
+      "sourcePanoHeadingDegrees": 89.9954,
+      "sourceCadLabelPositionMetres": [
+        536.2806,
+        -842.5931,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 3413,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          138.5863
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          145.2213
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -117.007,
+        "y": 0.0847,
+        "z": 143.8943
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.68466000000001,
+        "y": 1.65,
+        "z": 141.51932
+      },
+      "worldDistanceMetres": 8.795,
+      "viewerLocalYawDegrees": 74.077,
+      "viewerPitchDegrees": -10.252,
+      "previewAsset": "EP.00029/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 34,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 28,
+      "sourceFrame": 27,
+      "sourceNodeId": "Exterior_PANO_Spline_F0027",
+      "sourcePanoHeadingDegrees": 89.9954,
+      "sourceCadLabelPositionMetres": [
+        536.2806,
+        -823.3931,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 3307,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          119.3778
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          126.0128
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -117.007,
+        "y": 0.0847,
+        "z": 124.6858
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.68603999999999,
+        "y": 1.65,
+        "z": 124.61103999999999
+      },
+      "worldDistanceMetres": 8.4673,
+      "viewerLocalYawDegrees": 89.4899,
+      "viewerPitchDegrees": -10.6534,
+      "previewAsset": "EP.00027/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 35,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 26,
+      "sourceFrame": 25,
+      "sourceNodeId": "Exterior_PANO_Spline_F0025",
+      "sourcePanoHeadingDegrees": 89.9954,
+      "sourceCadLabelPositionMetres": [
+        536.2806,
+        -804.1931,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 3201,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          100.1692
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          106.8042
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -117.007,
+        "y": 0.0847,
+        "z": 105.4772
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.68743,
+        "y": 1.65,
+        "z": 107.70275
+      },
+      "worldDistanceMetres": 8.7532,
+      "viewerLocalYawDegrees": 104.9807,
+      "viewerPitchDegrees": -10.3015,
+      "previewAsset": "EP.00025/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 36,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 23,
+      "sourceFrame": 22,
+      "sourceNodeId": "Exterior_PANO_Spline_F0022",
+      "sourcePanoHeadingDegrees": 89.9954,
+      "sourceCadLabelPositionMetres": [
+        536.2806,
+        -784.9931,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 3095,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          80.9949
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          87.6299
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -117.007,
+        "y": 0.0847,
+        "z": 86.3029
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.68950999999998,
+        "y": 1.65,
+        "z": 82.34030000000001
+      },
+      "worldDistanceMetres": 9.3452,
+      "viewerLocalYawDegrees": 64.5308,
+      "viewerPitchDegrees": -9.6425,
+      "previewAsset": "EP.00022/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 37,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 21,
+      "sourceFrame": 20,
+      "sourceNodeId": "Exterior_PANO_Spline_F0020",
+      "sourcePanoHeadingDegrees": 89.9952,
+      "sourceCadLabelPositionMetres": [
+        536.2806,
+        -765.7931,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 2989,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          61.7863
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          68.4213
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -117.007,
+        "y": 0.0847,
+        "z": 67.0943
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69089,
+        "y": 1.65,
+        "z": 65.43202000000001
+      },
+      "worldDistanceMetres": 8.6239,
+      "viewerLocalYawDegrees": 78.7009,
+      "viewerPitchDegrees": -10.4577,
+      "previewAsset": "EP.00020/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 38,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 19,
+      "sourceFrame": 18,
+      "sourceNodeId": "Exterior_PANO_Spline_F0018",
+      "sourcePanoHeadingDegrees": 89.9954,
+      "sourceCadLabelPositionMetres": [
+        536.2806,
+        -746.5931,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 2883,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          42.5778
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          49.2128
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -117.007,
+        "y": 0.0847,
+        "z": 47.8858
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69229,
+        "y": 1.65,
+        "z": 48.52374
+      },
+      "worldDistanceMetres": 8.4848,
+      "viewerLocalYawDegrees": 94.392,
+      "viewerPitchDegrees": -10.6311,
+      "previewAsset": "EP.00018/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 39,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 16,
+      "sourceFrame": 15,
+      "sourceNodeId": "Exterior_PANO_Spline_F0015",
+      "sourcePanoHeadingDegrees": 89.9954,
+      "sourceCadLabelPositionMetres": [
+        536.2806,
+        -727.3931,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 2777,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -120.8878,
+          -0.1553,
+          23.3692
+        ],
+        "max": [
+          -114.7278,
+          0.0047,
+          30.0042
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -117.007,
+        "y": 0.0847,
+        "z": 28.6772
+      },
+      "cameraPositionModelMetres": {
+        "x": -108.69436,
+        "y": 1.65,
+        "z": 23.16131
+      },
+      "worldDistanceMetres": 10.0983,
+      "viewerLocalYawDegrees": 56.438,
+      "viewerPitchDegrees": -8.9173,
+      "previewAsset": "EP.00015/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 40,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 114,
+      "sourceFrame": 113,
+      "sourceNodeId": "Exterior_PANO_Spline_F0113",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.7288,
+        -696.0342,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 3622,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          -7.8393
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          -1.2043
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -143.0642,
+        "y": 0.0847,
+        "z": -1.3043
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": -8.55897
+      },
+      "worldDistanceMetres": 10.9612,
+      "viewerLocalYawDegrees": 131.9669,
+      "viewerPitchDegrees": -8.2102,
+      "previewAsset": "EP.00113/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 41,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 116,
+      "sourceFrame": 115,
+      "sourceNodeId": "Exterior_PANO_Spline_F0115",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        521.043,
+        -676.6143,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 3731,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          -27.0517
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          -20.4167
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -142.9287,
+        "y": 0.0847,
+        "z": -21.7437
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": -25.46729
+      },
+      "worldDistanceMetres": 9.1427,
+      "viewerLocalYawDegrees": 114.4173,
+      "viewerPitchDegrees": -9.8581,
+      "previewAsset": "EP.00115/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 42,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 118,
+      "sourceFrame": 117,
+      "sourceNodeId": "Exterior_PANO_Spline_F0117",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6965,
+        -657.4944,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 3840,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          -46.2184
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          -39.5834
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -142.9287,
+        "y": 0.0847,
+        "z": -40.9104
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": -42.37555999999999
+      },
+      "worldDistanceMetres": 8.4777,
+      "viewerLocalYawDegrees": 100.1281,
+      "viewerPitchDegrees": -10.6401,
+      "previewAsset": "EP.00117/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 43,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 120,
+      "sourceFrame": 119,
+      "sourceNodeId": "Exterior_PANO_Spline_F0119",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6803,
+        -638.2245,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 3949,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          -65.4308
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          -58.7958
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -142.9287,
+        "y": 0.0847,
+        "z": -60.1228
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": -59.283879999999996
+      },
+      "worldDistanceMetres": 8.3921,
+      "viewerLocalYawDegrees": 84.1603,
+      "viewerPitchDegrees": -10.7499,
+      "previewAsset": "EP.00119/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 44,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 122,
+      "sourceFrame": 121,
+      "sourceNodeId": "Exterior_PANO_Spline_F0121",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6641,
+        -618.9547,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 4058,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          -84.6308
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          -77.9958
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -139.8187,
+        "y": 0.0847,
+        "z": -81.1595
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": -76.19212
+      },
+      "worldDistanceMetres": 12.4533,
+      "viewerLocalYawDegrees": 66.2927,
+      "viewerPitchDegrees": -7.2209,
+      "previewAsset": "EP.00121/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 45,
+      "facing": "East",
+      "typeId": "type-b-450-east",
+      "panoNumber": 119,
+      "sourceFrame": 118,
+      "sourceNodeId": "Exterior_PANO_Spline_F0118",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        492.1151,
+        -638.0604,
+        0
+      ],
+      "garageMeshIndex": 13,
+      "garageRootIndex": 5247,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.9249,
+          -0.1553,
+          -52.898
+        ],
+        "max": [
+          -157.1949,
+          0.0147,
+          -46.488
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -159.685,
+        "y": 0.0947,
+        "z": -51.616
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": -50.8297
+      },
+      "worldDistanceMetres": 8.73,
+      "viewerLocalYawDegrees": 275.2516,
+      "viewerPitchDegrees": -10.2625,
+      "previewAsset": "EP.00118/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 46,
+      "facing": "East",
+      "typeId": "type-b-450-east",
+      "panoNumber": 117,
+      "sourceFrame": 116,
+      "sourceNodeId": "Exterior_PANO_Spline_F0116",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        492.1874,
+        -657.194,
+        0
+      ],
+      "garageMeshIndex": 13,
+      "garageRootIndex": 5134,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.9249,
+          -0.1553,
+          -33.578
+        ],
+        "max": [
+          -157.1949,
+          0.0147,
+          -27.168
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -161.1394,
+        "y": 0.0947,
+        "z": -32.0464
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": -33.92139
+      },
+      "worldDistanceMetres": 10.3008,
+      "viewerLocalYawDegrees": 259.3896,
+      "viewerPitchDegrees": -8.6843,
+      "previewAsset": "EP.00116/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 47,
+      "facing": "East",
+      "typeId": "type-b-450-east",
+      "panoNumber": 115,
+      "sourceFrame": 114,
+      "sourceNodeId": "Exterior_PANO_Spline_F0114",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        492.1874,
+        -676.4751,
+        0
+      ],
+      "garageMeshIndex": 13,
+      "garageRootIndex": 5360,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.9249,
+          -0.1553,
+          -14.3745
+        ],
+        "max": [
+          -157.1949,
+          0.0147,
+          -7.9645
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -159.685,
+        "y": 0.0947,
+        "z": -13.0925
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": -17.01313
+      },
+      "worldDistanceMetres": 9.5376,
+      "viewerLocalYawDegrees": 245.3766,
+      "viewerPitchDegrees": -9.3852,
+      "previewAsset": "EP.00114/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 48,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 113,
+      "sourceFrame": 112,
+      "sourceNodeId": "Exterior_PANO_Spline_F0112",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        493.1248,
+        -695.9591,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 5490,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.3549,
+          -0.1553,
+          -7.8308
+        ],
+        "max": [
+          -157.1949,
+          0.0047,
+          -1.1958
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -159.4741,
+        "y": 0.0847,
+        "z": -2.5228
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": -0.10488
+      },
+      "worldDistanceMetres": 8.8265,
+      "viewerLocalYawDegrees": 286.1614,
+      "viewerPitchDegrees": -10.215,
+      "previewAsset": "EP.00112/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 49,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 61,
+      "sourceFrame": 60,
+      "sourceNodeId": "Exterior_PANO_Spline_F0060",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6631,
+        -727.5789,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 4603,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          23.4192
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          30.0542
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -142.9287,
+        "y": 0.0847,
+        "z": 28.7272
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 22.68824
+      },
+      "worldDistanceMetres": 10.305,
+      "viewerLocalYawDegrees": 126.3634,
+      "viewerPitchDegrees": -8.7369,
+      "previewAsset": "EP.00060/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 50,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 59,
+      "sourceFrame": 58,
+      "sourceNodeId": "Exterior_PANO_Spline_F0058",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6631,
+        -746.7789,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 4494,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          42.6193
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          49.2543
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -143.141,
+        "y": 0.0847,
+        "z": 48.3678
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 39.59654
+      },
+      "worldDistanceMetres": 11.9675,
+      "viewerLocalYawDegrees": 137.6696,
+      "viewerPitchDegrees": -7.5157,
+      "previewAsset": "EP.00058/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 51,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 57,
+      "sourceFrame": 56,
+      "sourceNodeId": "Exterior_PANO_Spline_F0056",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6631,
+        -765.9789,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 4385,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          61.8316
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          68.4666
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -142.9287,
+        "y": 0.0847,
+        "z": 67.1396
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 56.504799999999996
+      },
+      "worldDistanceMetres": 13.5212,
+      "viewerLocalYawDegrees": 142.3589,
+      "viewerPitchDegrees": -6.6479,
+      "previewAsset": "EP.00056/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 52,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 54,
+      "sourceFrame": 53,
+      "sourceNodeId": "Exterior_PANO_Spline_F0053",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6631,
+        -785.1789,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 4276,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          80.9983
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          87.6333
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -141.9365,
+        "y": 0.0847,
+        "z": 87.5333
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 81.86727
+      },
+      "worldDistanceMetres": 10.9128,
+      "viewerLocalYawDegrees": 121.644,
+      "viewerPitchDegrees": -8.2469,
+      "previewAsset": "EP.00053/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 53,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 52,
+      "sourceFrame": 51,
+      "sourceNodeId": "Exterior_PANO_Spline_F0051",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6631,
+        -804.3789,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 4167,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          100.2107
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          106.8457
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -142.9287,
+        "y": 0.0847,
+        "z": 105.5187
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 98.77555000000001
+      },
+      "worldDistanceMetres": 10.7329,
+      "viewerLocalYawDegrees": 129.4246,
+      "viewerPitchDegrees": -8.3861,
+      "previewAsset": "EP.00051/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 54,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 50,
+      "sourceFrame": 49,
+      "sourceNodeId": "Exterior_PANO_Spline_F0049",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6631,
+        -823.5789,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 5039,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          119.3692
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          126.0042
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -142.9287,
+        "y": 0.0847,
+        "z": 124.6772
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 115.68387000000001
+      },
+      "worldDistanceMetres": 12.2721,
+      "viewerLocalYawDegrees": 137.6347,
+      "viewerPitchDegrees": -7.3281,
+      "previewAsset": "EP.00049/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 55,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 46,
+      "sourceFrame": 45,
+      "sourceNodeId": "Exterior_PANO_Spline_F0045",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6631,
+        -842.7789,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 4930,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          138.5816
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          145.2166
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -141.5052,
+        "y": 0.0847,
+        "z": 141.716
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 149.50042
+      },
+      "worldDistanceMetres": 12.4779,
+      "viewerLocalYawDegrees": 51.0366,
+      "viewerPitchDegrees": -7.2066,
+      "previewAsset": "EP.00045/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 56,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 45,
+      "sourceFrame": 44,
+      "sourceNodeId": "Exterior_PANO_Spline_F0044",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6631,
+        -861.9789,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 4821,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          157.7483
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          164.3833
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -142.9287,
+        "y": 0.0847,
+        "z": 163.0563
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 157.95459
+      },
+      "worldDistanceMetres": 9.7853,
+      "viewerLocalYawDegrees": 121.8819,
+      "viewerPitchDegrees": -9.2049,
+      "previewAsset": "EP.00044/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 57,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 42,
+      "sourceFrame": 41,
+      "sourceNodeId": "Exterior_PANO_Spline_F0041",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        520.6631,
+        -881.1789,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 4712,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -145.2079,
+          -0.1553,
+          176.9607
+        ],
+        "max": [
+          -139.0479,
+          0.0047,
+          183.5957
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -142.9287,
+        "y": 0.0847,
+        "z": 182.2687
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 183.31701
+      },
+      "worldDistanceMetres": 8.4157,
+      "viewerLocalYawDegrees": 82.7163,
+      "viewerPitchDegrees": -10.7195,
+      "previewAsset": "EP.00041/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 58,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 44,
+      "sourceFrame": 43,
+      "sourceNodeId": "Exterior_PANO_Spline_F0043",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        493.5245,
+        -861.7354,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 7693,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.3677,
+          -0.1553,
+          157.8291
+        ],
+        "max": [
+          -157.2077,
+          0.0047,
+          164.4641
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -159.3212,
+        "y": 0.0847,
+        "z": 162.5747
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 166.40870999999999
+      },
+      "worldDistanceMetres": 9.1779,
+      "viewerLocalYawDegrees": 295.0843,
+      "viewerPitchDegrees": -9.82,
+      "previewAsset": "EP.00043/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 59,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 47,
+      "sourceFrame": 46,
+      "sourceNodeId": "Exterior_PANO_Spline_F0046",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        493.5245,
+        -842.5354,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 7587,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.3677,
+          -0.1553,
+          138.6206
+        ],
+        "max": [
+          -157.2077,
+          0.0047,
+          145.2556
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -159.4869,
+        "y": 0.0847,
+        "z": 143.9286
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 141.04628
+      },
+      "worldDistanceMetres": 8.9768,
+      "viewerLocalYawDegrees": 250.9693,
+      "viewerPitchDegrees": -10.0422,
+      "previewAsset": "EP.00046/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 60,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 49,
+      "sourceFrame": 48,
+      "sourceNodeId": "Exterior_PANO_Spline_F0048",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        493.5245,
+        -823.3354,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 7481,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.3677,
+          -0.1553,
+          119.412
+        ],
+        "max": [
+          -157.2077,
+          0.0047,
+          126.047
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -159.4869,
+        "y": 0.0847,
+        "z": 124.72
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 124.13799999999999
+      },
+      "worldDistanceMetres": 8.5214,
+      "viewerLocalYawDegrees": 266.0159,
+      "viewerPitchDegrees": -10.5849,
+      "previewAsset": "EP.00048/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 61,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 51,
+      "sourceFrame": 50,
+      "sourceNodeId": "Exterior_PANO_Spline_F0050",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        493.5245,
+        -804.1354,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 7375,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.3677,
+          -0.1553,
+          100.2034
+        ],
+        "max": [
+          -157.2077,
+          0.0047,
+          106.8384
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -159.4869,
+        "y": 0.0847,
+        "z": 105.5114
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 107.22968999999999
+      },
+      "worldDistanceMetres": 8.6734,
+      "viewerLocalYawDegrees": 281.6195,
+      "viewerPitchDegrees": -10.3973,
+      "previewAsset": "EP.00050/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 62,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 53,
+      "sourceFrame": 52,
+      "sourceNodeId": "Exterior_PANO_Spline_F0052",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        493.5245,
+        -784.9354,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 7269,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.3677,
+          -0.1553,
+          80.9949
+        ],
+        "max": [
+          -157.2077,
+          0.0047,
+          87.6299
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -158.9903,
+        "y": 0.0847,
+        "z": 85.8418
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 90.32139
+      },
+      "worldDistanceMetres": 9.181,
+      "viewerLocalYawDegrees": 299.6813,
+      "viewerPitchDegrees": -9.8166,
+      "previewAsset": "EP.00052/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": true
+    },
+    {
+      "villaNumber": 63,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 56,
+      "sourceFrame": 55,
+      "sourceNodeId": "Exterior_PANO_Spline_F0055",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        493.5245,
+        -765.7354,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 7163,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.3677,
+          -0.1553,
+          61.7863
+        ],
+        "max": [
+          -157.2077,
+          0.0047,
+          68.4213
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -159.4869,
+        "y": 0.0847,
+        "z": 67.0943
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 64.95897
+      },
+      "worldDistanceMetres": 8.7656,
+      "viewerLocalYawDegrees": 255.6652,
+      "viewerPitchDegrees": -10.2868,
+      "previewAsset": "EP.00055/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 64,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 58,
+      "sourceFrame": 57,
+      "sourceNodeId": "Exterior_PANO_Spline_F0057",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        493.5245,
+        -746.5354,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 7057,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.3677,
+          -0.1553,
+          42.5778
+        ],
+        "max": [
+          -157.2077,
+          0.0047,
+          49.2128
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -159.4869,
+        "y": 0.0847,
+        "z": 47.8858
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 48.05067
+      },
+      "worldDistanceMetres": 8.5031,
+      "viewerLocalYawDegrees": 271.1303,
+      "viewerPitchDegrees": -10.6079,
+      "previewAsset": "EP.00057/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 65,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 60,
+      "sourceFrame": 59,
+      "sourceNodeId": "Exterior_PANO_Spline_F0059",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        493.5245,
+        -727.3354,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 6502,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -163.3677,
+          -0.1553,
+          23.3692
+        ],
+        "max": [
+          -157.2077,
+          0.0047,
+          30.0042
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -159.4869,
+        "y": 0.0847,
+        "z": 28.6772
+      },
+      "cameraPositionModelMetres": {
+        "x": -151.13073,
+        "y": 1.65,
+        "z": 31.14237
+      },
+      "worldDistanceMetres": 8.8517,
+      "viewerLocalYawDegrees": 286.4363,
+      "viewerPitchDegrees": -10.1856,
+      "previewAsset": "EP.00059/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 66,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 104,
+      "sourceFrame": 103,
+      "sourceNodeId": "Exterior_PANO_Spline_F0103",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        478.2084,
+        -696.1224,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 5595,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -187.6717,
+          -0.1553,
+          -7.8393
+        ],
+        "max": [
+          -181.5117,
+          0.0047,
+          -1.2043
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -185.3925,
+        "y": 0.0847,
+        "z": -2.5313
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.44155999999998,
+        "y": 1.65,
+        "z": -2.91189
+      },
+      "worldDistanceMetres": 8.2087,
+      "viewerLocalYawDegrees": 272.7071,
+      "viewerPitchDegrees": -10.993,
+      "previewAsset": "EP.00103/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 67,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 68,
+      "sourceFrame": 67,
+      "sourceNodeId": "Exterior_PANO_Spline_F0067",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        478.3321,
+        -727.6108,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 5709,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -187.6879,
+          -0.1553,
+          23.3692
+        ],
+        "max": [
+          -181.5279,
+          0.0047,
+          30.0042
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -185.4087,
+        "y": 0.0847,
+        "z": 28.6772
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.44155999999998,
+        "y": 1.65,
+        "z": 30.91728
+      },
+      "worldDistanceMetres": 8.485,
+      "viewerLocalYawDegrees": 254.4185,
+      "viewerPitchDegrees": -10.6308,
+      "previewAsset": "EP.00067/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 68,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 70,
+      "sourceFrame": 69,
+      "sourceNodeId": "Exterior_PANO_Spline_F0069",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        478.3321,
+        -746.8108,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 5822,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -187.6878,
+          -0.1553,
+          42.5778
+        ],
+        "max": [
+          -181.5278,
+          0.0047,
+          49.2128
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -185.4086,
+        "y": 0.0847,
+        "z": 47.8858
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.44155999999998,
+        "y": 1.65,
+        "z": 47.825540000000004
+      },
+      "worldDistanceMetres": 8.1842,
+      "viewerLocalYawDegrees": 270.4298,
+      "viewerPitchDegrees": -11.0263,
+      "previewAsset": "EP.00069/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 69,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 72,
+      "sourceFrame": 71,
+      "sourceNodeId": "Exterior_PANO_Spline_F0071",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        478.3321,
+        -766.0108,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 5935,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -187.6878,
+          -0.1553,
+          61.7863
+        ],
+        "max": [
+          -181.5278,
+          0.0047,
+          68.4213
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -185.4086,
+        "y": 0.0847,
+        "z": 67.0943
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.44155999999998,
+        "y": 1.65,
+        "z": 64.73386
+      },
+      "worldDistanceMetres": 8.5176,
+      "viewerLocalYawDegrees": 286.3754,
+      "viewerPitchDegrees": -10.5896,
+      "previewAsset": "EP.00071/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 70,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 91,
+      "sourceFrame": 90,
+      "sourceNodeId": "Exterior_PANO_Spline_F0090",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        478.3321,
+        -785.2108,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 6048,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -187.6878,
+          -0.1553,
+          80.9949
+        ],
+        "max": [
+          -181.5278,
+          0.0047,
+          87.6299
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -185.4086,
+        "y": 0.0847,
+        "z": 86.3029
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.76365,
+        "y": 1.65,
+        "z": 87.02693
+      },
+      "worldDistanceMetres": 8.5312,
+      "viewerLocalYawDegrees": 85.0472,
+      "viewerPitchDegrees": -10.5726,
+      "previewAsset": "EP.00090/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 71,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 77,
+      "sourceFrame": 76,
+      "sourceNodeId": "Exterior_PANO_Spline_F0076",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        478.3321,
+        -804.4108,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 6161,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -187.6878,
+          -0.1553,
+          100.2034
+        ],
+        "max": [
+          -181.5278,
+          0.0047,
+          106.8384
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -185.4086,
+        "y": 0.0847,
+        "z": 105.5114
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.44155999999998,
+        "y": 1.65,
+        "z": 107.00452999999999
+      },
+      "worldDistanceMetres": 8.3191,
+      "viewerLocalYawDegrees": 259.4706,
+      "viewerPitchDegrees": -10.8453,
+      "previewAsset": "EP.00076/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 72,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 79,
+      "sourceFrame": 78,
+      "sourceNodeId": "Exterior_PANO_Spline_F0078",
+      "sourcePanoHeadingDegrees": 90.0002,
+      "sourceCadLabelPositionMetres": [
+        478.3321,
+        -823.6108,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 6274,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -187.6878,
+          -0.1553,
+          119.412
+        ],
+        "max": [
+          -181.5278,
+          0.0047,
+          126.047
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -185.4086,
+        "y": 0.0847,
+        "z": 124.72
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.44151999999997,
+        "y": 1.65,
+        "z": 123.91284
+      },
+      "worldDistanceMetres": 8.2237,
+      "viewerLocalYawDegrees": 275.7377,
+      "viewerPitchDegrees": -10.9727,
+      "previewAsset": "EP.00078/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 73,
+      "facing": "West",
+      "typeId": "type-a-351-west",
+      "panoNumber": 84,
+      "sourceFrame": 83,
+      "sourceNodeId": "Exterior_PANO_Spline_F0083",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        478.3321,
+        -842.8108,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 6387,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -187.6878,
+          -0.1553,
+          138.6205
+        ],
+        "max": [
+          -181.5278,
+          0.0047,
+          145.2555
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -185.4086,
+        "y": 0.0847,
+        "z": 143.9285
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.76365,
+        "y": 1.65,
+        "z": 146.20600000000002
+      },
+      "worldDistanceMetres": 8.8002,
+      "viewerLocalYawDegrees": 74.7524,
+      "viewerPitchDegrees": -10.2458,
+      "previewAsset": "EP.00083/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 74,
+      "facing": "East",
+      "typeId": "type-b-450-east",
+      "panoNumber": 78,
+      "sourceFrame": 77,
+      "sourceNodeId": "Exterior_PANO_Spline_F0077",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        449.6222,
+        -814.8197,
+        0
+      ],
+      "garageMeshIndex": 13,
+      "garageRootIndex": null,
+      "derivedFromVilla": 77,
+      "garageBoundsModelMetres": {
+        "min": [
+          -206.4179,
+          -0.1553,
+          111.0514
+        ],
+        "max": [
+          -199.6879,
+          0.0147,
+          117.4614
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -202.178,
+        "y": 0.0947,
+        "z": 116.1794
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.44151999999997,
+        "y": 1.65,
+        "z": 115.45869
+      },
+      "worldDistanceMetres": 8.9031,
+      "viewerLocalYawDegrees": 85.2839,
+      "viewerPitchDegrees": -10.0609,
+      "previewAsset": "EP.00077/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 75,
+      "facing": "East",
+      "typeId": "type-b-450-east",
+      "panoNumber": 90,
+      "sourceFrame": 89,
+      "sourceNodeId": "Exterior_PANO_Spline_F0089",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        449.6239,
+        -795.9065,
+        0
+      ],
+      "garageMeshIndex": 13,
+      "garageRootIndex": 7027,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -206.4179,
+          -0.1553,
+          91.7315
+        ],
+        "max": [
+          -199.6879,
+          0.0147,
+          98.1415
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -202.178,
+        "y": 0.0947,
+        "z": 96.8595
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.76365,
+        "y": 1.65,
+        "z": 95.48108
+      },
+      "worldDistanceMetres": 8.6672,
+      "viewerLocalYawDegrees": 260.6968,
+      "viewerPitchDegrees": -10.3377,
+      "previewAsset": "EP.00089/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 76,
+      "facing": "East",
+      "typeId": "type-b-450-east",
+      "panoNumber": 92,
+      "sourceFrame": 91,
+      "sourceNodeId": "Exterior_PANO_Spline_F0091",
+      "sourcePanoHeadingDegrees": -90,
+      "sourceCadLabelPositionMetres": [
+        449.1235,
+        -776.3077,
+        0
+      ],
+      "garageMeshIndex": 13,
+      "garageRootIndex": 6814,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -206.4179,
+          -0.1553,
+          72.4112
+        ],
+        "max": [
+          -199.6879,
+          0.0147,
+          78.8212
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -202.178,
+        "y": 0.0947,
+        "z": 77.5392
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.76365,
+        "y": 1.65,
+        "z": 78.57284
+      },
+      "worldDistanceMetres": 8.6191,
+      "viewerLocalYawDegrees": 277.0034,
+      "viewerPitchDegrees": -10.396,
+      "previewAsset": "EP.00091/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 77,
+      "facing": "East",
+      "typeId": "type-b-450-east",
+      "panoNumber": 71,
+      "sourceFrame": 70,
+      "sourceNodeId": "Exterior_PANO_Spline_F0070",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        449.3377,
+        -757.0666,
+        0
+      ],
+      "garageMeshIndex": 13,
+      "garageRootIndex": 6701,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -206.4179,
+          -0.1553,
+          53.0712
+        ],
+        "max": [
+          -199.6879,
+          0.0147,
+          59.4812
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -202.178,
+        "y": 0.0947,
+        "z": 58.1992
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.44155999999998,
+        "y": 1.65,
+        "z": 56.279700000000005
+      },
+      "worldDistanceMetres": 9.0791,
+      "viewerLocalYawDegrees": 77.6086,
+      "viewerPitchDegrees": -9.8639,
+      "previewAsset": "EP.00070/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    },
+    {
+      "villaNumber": 78,
+      "facing": "East",
+      "typeId": "type-a-351-east",
+      "panoNumber": 69,
+      "sourceFrame": 68,
+      "sourceNodeId": "Exterior_PANO_Spline_F0068",
+      "sourcePanoHeadingDegrees": 90,
+      "sourceCadLabelPositionMetres": [
+        451.5486,
+        -737.6479,
+        0
+      ],
+      "garageMeshIndex": 190,
+      "garageRootIndex": 6609,
+      "derivedFromVilla": null,
+      "garageBoundsModelMetres": {
+        "min": [
+          -205.8636,
+          -0.1553,
+          33.8847
+        ],
+        "max": [
+          -199.7036,
+          0.0047,
+          40.5197
+        ]
+      },
+      "garageAnchorModelMetres": {
+        "x": -201.9828,
+        "y": 0.0847,
+        "z": 39.1927
+      },
+      "cameraPositionModelMetres": {
+        "x": -193.44155999999998,
+        "y": 1.65,
+        "z": 39.37144
+      },
+      "worldDistanceMetres": 8.6853,
+      "viewerLocalYawDegrees": 91.1985,
+      "viewerPitchDegrees": -10.3829,
+      "previewAsset": "EP.00068/preview.jpg",
+      "visualReview": "Garage paving checked against Cloudflare preview",
+      "visuallyAdjusted": false
+    }
+  ]
+}

@@ -12,6 +12,19 @@ import type {
 } from "@/lib/exterior-tour/types";
 
 export type ExteriorPanoramaSource = string | EquirectangularTilesPanorama;
+
+export function asTiledPanorama(panorama: ExteriorPanoramaSource): EquirectangularTilesPanorama {
+  if (typeof panorama !== "string") return panorama;
+  // A preview-only fallback still needs the tiled adapter's object shape. Keep
+  // one adapter for the session so a temporary metadata failure cannot strand
+  // subsequent high-resolution panoramas on the plain-image adapter.
+  return { width: 2048, cols: 1, rows: 1, baseUrl: panorama, tileUrl: () => null };
+}
+export type PanoImageLoader = (
+  src: string,
+  priority: "high" | "low" | "auto",
+  cacheKey?: string,
+) => Promise<string>;
 type ResolvedPanoramaAssets = {
   meta: PanoMeta;
   panorama: ExteriorPanoramaSource;
@@ -277,7 +290,10 @@ export class PanoAssetStore {
   private signedTileUrlMaps = new Map<string, Promise<Record<string, string>>>();
   private panoramaPromises = new Map<string, Promise<ResolvedPanoramaAssets>>();
 
-  constructor(private readonly baseUrl: string) {}
+  constructor(
+    private readonly baseUrl: string,
+    private readonly imageLoader: PanoImageLoader = loadImage,
+  ) {}
 
   getPanorama(panoId: string, preferTiles = true): Promise<ResolvedPanoramaAssets> {
     const key = `${panoId}|${preferTiles ? "tiles" : "preview"}`;
@@ -286,7 +302,15 @@ export class PanoAssetStore {
       return cached;
     }
 
-    const promise = this.getMeta(panoId)
+    // Authorize metadata and the conventional preview together. The preview can
+    // then download while metadata and tile authorization are being prepared.
+    const authorization = this.metaCache.has(panoId)
+      ? Promise.resolve()
+      : this.getSignedUrls([
+          getPanoMetaUrl(panoId, this.baseUrl),
+          getPanoPreviewUrl(panoId, "preview.jpg", this.baseUrl),
+        ]);
+    const promise = authorization.then(() => this.getMeta(panoId))
       .then(async (meta) => {
         const previewPath = getResolvedPreviewUrl(
           panoId, this.baseUrl, meta.preview ?? "preview.jpg",
@@ -455,19 +479,56 @@ export class PanoAssetStore {
     return promise;
   }
 
-  preloadImage(src: string, fetchPriority: "high" | "low" | "auto" = "auto") {
+  preloadImage(
+    src: string,
+    fetchPriority: "high" | "low" | "auto" = "auto",
+    cacheKey?: string,
+  ) {
     const cached = this.imagePromises.get(src);
     if (cached) {
       return cached;
     }
 
-    const promise = loadImage(src, fetchPriority).catch((error) => {
-      this.imagePromises.delete(src);
-      throw error;
-    });
+    const promise = this.imageLoader(src, fetchPriority, cacheKey).then(
+      (url) => {
+        // External loaders own their bounded cache. Settled promises must not
+        // claim evicted images are warm. Preserve the legacy interior loader.
+        if (this.imageLoader !== loadImage) this.imagePromises.delete(src);
+        return url;
+      },
+      (error) => {
+        this.imagePromises.delete(src);
+        throw error;
+      },
+    );
 
     this.imagePromises.set(src, promise);
     return promise;
+  }
+
+  async preloadPanoramaPreview(
+    panoId: string,
+    fetchPriority: "high" | "low" | "auto" = "high",
+  ) {
+    const defaultPreview = getPanoPreviewUrl(panoId, "preview.jpg", this.baseUrl);
+    const urls = await this.getSignedUrls([
+      getPanoMetaUrl(panoId, this.baseUrl),
+      defaultPreview,
+    ]);
+    // Attach a rejection handler immediately: a custom preview may legitimately
+    // have no preview.jpg. Never let that speculative request reject unhandled.
+    const defaultWarmup = this.preloadImage(urls[defaultPreview], fetchPriority)
+      .then((url) => ({ url, error: null }))
+      .catch((error: unknown) => ({ url: null, error }));
+    const meta = await this.getMeta(panoId).catch(() => null);
+    if (meta?.preview && meta.preview !== "preview.jpg") {
+      return this.preloadPreview(panoId, meta.preview, fetchPriority);
+    }
+    const result = await defaultWarmup;
+    if (!result.url) {
+      throw result.error;
+    }
+    return result.url;
   }
 
   async preloadPreview(

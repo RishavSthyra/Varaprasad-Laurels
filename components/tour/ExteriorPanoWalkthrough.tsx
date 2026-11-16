@@ -62,17 +62,23 @@ import {
   type Vec3,
 } from "@/lib/exterior-tour/math";
 import { useSnapListViewport } from "@/lib/useSnapListViewport";
+import { createPanoImageLoader } from "@/lib/exterior-tour/image-cache";
+import { useExteriorGroundPointer } from "./useExteriorGroundPointer";
+import { getVillaPointers } from "@/lib/exterior-tour/villa-hotspots";
+import {
+  getPanoTravelPose,
+  PANO_TRAVEL_DEPART_MS,
+  PANO_TRAVEL_ARRIVE_MS,
+  PANO_TRAVEL_EASING,
+} from "@/lib/exterior-tour/travel-motion";
 import {
   buildExteriorTourGraph,
   getSequentialNodeIds,
   preserveViewYawBetweenNodes,
 } from "@/lib/exterior-tour/nodes";
 import {
-  buildTileDescriptors,
-  buildPhotoSpherePanorama,
-  canUseTiledPanorama,
+  asTiledPanorama,
   PanoAssetStore,
-  getResolvedPreviewUrl,
   selectPriorityTiles,
   type ExteriorPanoramaSource,
 } from "@/lib/exterior-tour/pano";
@@ -99,7 +105,9 @@ const uiFont = Manrope({
 const DEFAULT_ZOOM = 0;
 const MIN_PITCH = -Math.PI / 2 + 0.08;
 const MAX_PITCH = Math.PI / 2 - 0.08;
-const EXTERIOR_SPHERE_RESOLUTION = 128;
+// The adapter's standard 64-segment sphere preserves the same 12K image tiles
+// without quadrupling sphere geometry just for desktop transitions.
+const EXTERIOR_SPHERE_RESOLUTION = 64;
 const EXTERIOR_COMPACT_SPHERE_RESOLUTION = 64;
 const EXTERIOR_APPLE_TOUCH_SPHERE_RESOLUTION = 64;
 const EXTERIOR_MIN_FOV = 36;
@@ -108,16 +116,12 @@ const IOS_PREVIEW_OVERLAY_FADE_MS = 180;
 const PANO_TRANSITION_MS = 200;
 const REDUCED_MOTION_CROSSFADE_MS = 120;
 const RESOLVED_PANO_CACHE_LIMIT = 10;
-const CACHE_MAX_ITEMS = 320;
-const CACHE_TTL_MS = 1000 * 60 * 10;
+// Photo Sphere Viewer counts panorama groups (not individual tiles), and its
+// TTL is in seconds. Keep decoded images bounded on long walkthroughs.
+const CACHE_MAX_PANOS = 6;
+const CACHE_TTL_SECONDS = 60 * 10;
 const AUTOROTATE_IDLE_MS = 4000;
 const TRAIL_ADVANCE_MS = 15000;
-const DIRECTIONS: NavigationDirection[] = [
-  "forward",
-  "left",
-  "right",
-  "backward",
-];
 // Keep directional arrows inside a forward-facing cone. A low threshold lets
 // a nearby side node beat the node that is actually in front of the viewer.
 const VIEW_DIRECTION_ALIGNMENT_FLOOR = 0.5;
@@ -159,32 +163,20 @@ function getAmenityMenuImageSrc(
 }
 
 const DESKTOP_WARMUP_PROFILE = {
-  activeFocusLimit: 20,
-  activeFocusConcurrency: 6,
-  activeSweepLimit: 12,
-  activeSweepConcurrency: 3,
-  neighborNodeLimit: 2,
-  neighborFocusLimit: 8,
+  neighborNodeLimit: 4,
+  neighborFocusLimit: 4,
   neighborFocusConcurrency: 3,
   transitionSpeed: 520,
 };
 const COMPACT_WARMUP_PROFILE = {
-  activeFocusLimit: 12,
-  activeFocusConcurrency: 3,
-  activeSweepLimit: 6,
-  activeSweepConcurrency: 2,
-  neighborNodeLimit: 1,
-  neighborFocusLimit: 4,
+  neighborNodeLimit: 2,
+  neighborFocusLimit: 2,
   neighborFocusConcurrency: 2,
   transitionSpeed: 360,
 };
 const IOS_WARMUP_PROFILE = {
-  activeFocusLimit: 12,
-  activeFocusConcurrency: 2,
-  activeSweepLimit: 4,
-  activeSweepConcurrency: 1,
-  neighborNodeLimit: 1,
-  neighborFocusLimit: 4,
+  neighborNodeLimit: 2,
+  neighborFocusLimit: 2,
   neighborFocusConcurrency: 1,
   transitionSpeed: 300,
 };
@@ -217,7 +209,7 @@ type ViewSnapshot = {
   zoom: number;
 };
 
-type FlythroughPhase = "idle" | "swap";
+type FlythroughPhase = "idle" | "depart" | "swap" | "arrive";
 
 type MinimapPoint = {
   leftPercent: number;
@@ -345,6 +337,7 @@ async function preloadTileBatch(
   concurrency: number,
   fetchPriority: "high" | "low" | "auto" = "low",
   shouldContinue: () => boolean = () => true,
+  cacheKey?: string,
 ) {
   if (tiles.length === 0 || !shouldContinue()) {
     return;
@@ -376,40 +369,10 @@ async function preloadTileBatch(
           return;
         }
 
-        await assetStore.preloadImage(tile.url, fetchPriority);
+        await assetStore.preloadImage(tile.url, fetchPriority, cacheKey);
       }
     }),
   );
-}
-
-function buildSweepTiles(
-  panoId: string,
-  meta: PanoMeta,
-  baseUrl: string,
-  excludeKeys: Set<string>,
-  limit: number,
-) {
-  if (limit <= 0) {
-    return [] as PanoTileDescriptor[];
-  }
-
-  const rows = meta.actualRows ?? meta.rows;
-  const horizon = (rows - 1) / 2;
-
-  return buildTileDescriptors(panoId, meta, baseUrl)
-    .filter((tile) => !excludeKeys.has(tile.key))
-    .sort((a, b) => {
-      const aRowScore = Math.abs(a.row - horizon);
-      const bRowScore = Math.abs(b.row - horizon);
-      if (aRowScore !== bRowScore) {
-        return aRowScore - bRowScore;
-      }
-
-      const aSpread = (a.col * 17 + a.row * 13) % 31;
-      const bSpread = (b.col * 17 + b.row * 13) % 31;
-      return aSpread - bSpread;
-    })
-    .slice(0, limit);
 }
 
 function getWarmupProfile(isCompactExperience: boolean) {
@@ -554,12 +517,8 @@ function buildPreviewOnlyFallback(
     return null;
   }
 
-  if (typeof panorama === "string" || !("tileUrl" in panorama)) {
-    return previewUrl;
-  }
-
   return {
-    ...panorama,
+    ...asTiledPanorama(panorama),
     baseUrl: previewUrl,
     tileUrl: () => null,
   };
@@ -570,17 +529,22 @@ function ArrowButton({
   label,
   onClick,
   disabled,
+  onIntent,
 }: {
   icon: LucideIcon;
   label: string;
   onClick: () => void;
   disabled: boolean;
+  onIntent?: () => void;
 }) {
   return (
     <button
       type="button"
       aria-label={label}
       onClick={onClick}
+      onPointerEnter={onIntent}
+      onFocus={onIntent}
+      onTouchStart={onIntent}
       disabled={disabled}
       className={`walkthrough-direction-button walkthrough-glass-button group flex h-10 w-10 touch-manipulation items-center justify-center rounded-full text-white/84 transition duration-200 active:scale-95 sm:h-11 sm:w-11 disabled:cursor-not-allowed disabled:opacity-28 ${PREMIUM_PILL_SURFACE}`}
     >
@@ -1200,11 +1164,14 @@ export default function ExteriorPanoWalkthrough({
   });
 
   const assetStore = useMemo(
-    () => new PanoAssetStore(cdnBaseUrl),
+    () => new PanoAssetStore(cdnBaseUrl, createPanoImageLoader(Cache)),
     [cdnBaseUrl],
   );
   const walkthroughRootRef = useRef<HTMLElement | null>(null);
   const viewerHostRef = useRef<HTMLDivElement | null>(null);
+  const travelLayerRef = useRef<HTMLDivElement | null>(null);
+  const travelAnimationsRef = useRef<Animation[]>([]);
+  const travelPoseRef = useRef("none");
   const viewerRef = useRef<Viewer | null>(null);
   const navigationLockRef = useRef(false);
   const autorotatePluginRef = useRef<AutorotatePlugin | null>(null);
@@ -1245,6 +1212,7 @@ export default function ExteriorPanoWalkthrough({
   const previewOverlayLoadIdRef = useRef(0);
   const warmupRunIdRef = useRef(0);
   const navigationPrimeRunIdRef = useRef(0);
+  const lastNavigationPrimeRef = useRef<{ nodeId: string; yaw: number } | null>(null);
   const previewOverlayHideTimeoutRef = useRef<ReturnType<
     typeof globalThis.setTimeout
   > | null>(null);
@@ -1262,6 +1230,7 @@ export default function ExteriorPanoWalkthrough({
   });
 
   const activeNode = graph.byId[activeNodeId];
+  useExteriorGroundPointer(viewerRef, activeNodeId, isInitialPanoReady && !isTransitioning);
   const sequential = useMemo(
     () => getSequentialNodeIds(graph, activeNodeId),
     [activeNodeId, graph],
@@ -1536,9 +1505,45 @@ export default function ExteriorPanoWalkthrough({
     [],
   );
 
-  const beginFlythrough = useCallback(async (showPreviewOverlay = true) => {
-    const runId = ++flythroughRunIdRef.current;
+  const resetTravelMotion = useCallback(() => {
+    travelAnimationsRef.current.forEach((animation) => animation.cancel());
+    travelAnimationsRef.current = [];
+    travelPoseRef.current = "none";
+    travelLayerRef.current?.style.removeProperty("will-change");
+  }, []);
 
+  const beginFlythrough = useCallback(async (
+    fromNode: ExteriorTourNode,
+    toNode: ExteriorTourNode,
+    sourceYaw: number,
+    showPreviewOverlay = true,
+  ) => {
+    const runId = ++flythroughRunIdRef.current;
+    resetTravelMotion();
+    // Read synchronously too: a preference change and click can occur before
+    // the matchMedia change listener gets its turn on the event loop.
+    prefersReducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const layer = travelLayerRef.current;
+    const pose = getPanoTravelPose(
+      fromNode.rawPosition,
+      toNode.rawPosition,
+      getViewForwardVector(fromNode, sourceYaw),
+    );
+    // Move only the panorama. Chrome stays fixed and there is no screenshot,
+    // canvas readback, blur pass, extra image download, or permanent FOV change.
+    if (!prefersReducedMotionRef.current && layer?.animate && pose.transform !== "none") {
+      travelPoseRef.current = pose.transform;
+      layer.style.willChange = "transform";
+      flythroughPhaseRef.current = "depart";
+      setFlythroughPhase("depart");
+      const departure = layer.animate(
+        [{ transform: "none" }, { transform: pose.transform }],
+        { duration: PANO_TRAVEL_DEPART_MS, easing: PANO_TRAVEL_EASING, fill: "forwards" },
+      );
+      travelAnimationsRef.current.push(departure);
+      await departure.finished.catch(() => undefined);
+    }
+    if (flythroughRunIdRef.current !== runId) return null;
     setIsPreviewOverlayVisible(showPreviewOverlay);
     flythroughPhaseRef.current = "swap";
     setFlythroughPhase("swap");
@@ -1546,7 +1551,7 @@ export default function ExteriorPanoWalkthrough({
     await waitForAnimationFrame();
 
     return runId;
-  }, []);
+  }, [resetTravelMotion]);
 
   const finishFlythrough = useCallback(async (runId: number | null) => {
     if (runId === null || flythroughRunIdRef.current !== runId) {
@@ -1554,16 +1559,31 @@ export default function ExteriorPanoWalkthrough({
     }
 
     setIsPreviewOverlayVisible(false);
+    prefersReducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const layer = travelLayerRef.current;
+    if (!prefersReducedMotionRef.current && layer?.animate && travelPoseRef.current !== "none") {
+      flythroughPhaseRef.current = "arrive";
+      setFlythroughPhase("arrive");
+      const arrival = layer.animate(
+        [{ transform: travelPoseRef.current }, { transform: "none" }],
+        { duration: PANO_TRAVEL_ARRIVE_MS, easing: PANO_TRAVEL_EASING, fill: "forwards" },
+      );
+      travelAnimationsRef.current.push(arrival);
+      await arrival.finished.catch(() => undefined);
+    }
+    if (flythroughRunIdRef.current !== runId) return;
+    resetTravelMotion();
     flythroughPhaseRef.current = "idle";
     setFlythroughPhase("idle");
-  }, []);
+  }, [resetTravelMotion]);
 
   const cancelFlythrough = useCallback(() => {
     flythroughRunIdRef.current += 1;
+    resetTravelMotion();
     setIsPreviewOverlayVisible(false);
     flythroughPhaseRef.current = "idle";
     setFlythroughPhase("idle");
-  }, []);
+  }, [resetTravelMotion]);
 
   const resolvePano = useCallback(
     async (
@@ -1589,102 +1609,41 @@ export default function ExteriorPanoWalkthrough({
       }
 
       const promise = (async () => {
-        let meta: PanoMeta | null = null;
-        let previewFile = "preview.jpg";
-        let signedPreviewUrl: string | null = null;
-
-        try {
-          meta = await assetStore.getMeta(node.panoId);
-        } catch {
-          meta = null;
-        }
-
-        if (meta?.preview) {
-          previewFile = meta.preview;
-        }
-
-        const previewUrl = getResolvedPreviewUrl(
+        // Preview download overlaps metadata and tile signing. Neither full-res
+        // tile downloads nor a second preview request belongs on the click path.
+        const previewWarmup = assetStore.preloadPanoramaPreview(
           node.panoId,
-          cdnBaseUrl,
-          previewFile,
-        );
-
+          options?.previewPriority ?? "high",
+        ).catch(() => null);
         try {
-          signedPreviewUrl = await assetStore.preloadPreview(
-            node.panoId,
-            previewFile,
-            options?.previewPriority ?? "high",
-          );
-        } catch (error) {
-          if (!meta) {
-            throw error;
-          }
-          console.warn(
-            `Exterior preview warmup failed for ${node.panoId}`,
-            error,
-          );
-        }
-
-        if (!signedPreviewUrl) {
-          signedPreviewUrl = await assetStore.getSignedUrl(previewUrl);
-        }
-
-        if (meta) {
-          const supportsTiles = canUseTiledPanorama(meta);
-
-          if (!supportsTiles) {
-            const resolved = {
-              nodeId,
-              panoId: node.panoId,
-              meta,
-              panorama: signedPreviewUrl,
-              previewUrl: signedPreviewUrl,
-              mode: "preview",
-            } satisfies ResolvedPano;
-
-            availabilityRef.current.set(nodeId, "available");
-            rememberResolvedPano(resolved);
-            return resolved;
-          }
-
-          const signedTileUrls = await assetStore.getSignedTileUrlMap(
-            node.panoId,
-            meta,
-          );
-
+          const assets = await assetStore.getPanorama(node.panoId);
+          await previewWarmup;
           const resolved = {
             nodeId,
             panoId: node.panoId,
-            meta,
-            panorama: buildPhotoSpherePanorama(
-              node.panoId,
-              meta,
-              cdnBaseUrl,
-              true,
-              signedPreviewUrl,
-              signedTileUrls,
-            ),
-            previewUrl: signedPreviewUrl,
-            mode: "tiles",
+            ...assets,
+            mode: typeof assets.panorama === "string" ? "preview" : "tiles",
           } satisfies ResolvedPano;
-
+          availabilityRef.current.set(nodeId, "available");
+          rememberResolvedPano(resolved);
+          return resolved;
+        } catch (error) {
+          const previewUrl = await previewWarmup;
+          if (!previewUrl) {
+            throw error;
+          }
+          const resolved = {
+            nodeId,
+            panoId: node.panoId,
+            meta: null,
+            panorama: previewUrl,
+            previewUrl,
+            mode: "preview",
+          } satisfies ResolvedPano;
           availabilityRef.current.set(nodeId, "available");
           rememberResolvedPano(resolved);
           return resolved;
         }
-
-        const resolved = {
-          nodeId,
-          panoId: node.panoId,
-          meta: null,
-          panorama: signedPreviewUrl,
-          previewUrl: signedPreviewUrl,
-          mode: "preview",
-        } satisfies ResolvedPano;
-
-        availabilityRef.current.set(nodeId, "available");
-        rememberResolvedPano(resolved);
-        return resolved;
       })()
         .catch((error) => {
           availabilityRef.current.set(nodeId, "missing");
@@ -1697,11 +1656,13 @@ export default function ExteriorPanoWalkthrough({
       availabilityPromiseRef.current.set(nodeId, promise);
       return promise;
     },
-    [assetStore, cdnBaseUrl, graph, rememberResolvedPano],
+    [assetStore, graph, rememberResolvedPano],
   );
 
   const startWarmupRun = useCallback(() => {
     warmupRunIdRef.current += 1;
+    navigationPrimeRunIdRef.current += 1;
+    lastNavigationPrimeRef.current = null;
     return warmupRunIdRef.current;
   }, []);
 
@@ -1718,15 +1679,7 @@ export default function ExteriorPanoWalkthrough({
         throw new Error(`Unknown exterior node: ${nodeId}`);
       }
 
-      let previewFile = "preview.jpg";
-      try {
-        const meta = await assetStore.getMeta(node.panoId);
-        previewFile = meta.preview ?? previewFile;
-      } catch {
-        // The preview can still be available when metadata is temporarily unavailable.
-      }
-
-      return assetStore.preloadPreview(node.panoId, previewFile, fetchPriority);
+      return assetStore.preloadPanoramaPreview(node.panoId, fetchPriority);
     },
     [assetStore, graph],
   );
@@ -1765,6 +1718,7 @@ export default function ExteriorPanoWalkthrough({
         concurrency,
         fetchPriority,
         shouldContinue,
+        resolved.previewUrl,
       );
     },
     [assetStore, cdnBaseUrl],
@@ -1772,9 +1726,11 @@ export default function ExteriorPanoWalkthrough({
 
   useEffect(() => {
     Cache.enabled = true;
-    Cache.maxItems = Math.max(Cache.maxItems, CACHE_MAX_ITEMS);
-    Cache.ttl = Math.max(Cache.ttl, CACHE_TTL_MS);
+    Cache.maxItems = window.matchMedia("(max-width: 1279px), (pointer: coarse)").matches
+      ? 3 : CACHE_MAX_PANOS;
+    Cache.ttl = CACHE_TTL_SECONDS;
     Cache.init();
+    Cache.purge();
   }, []);
 
   useEffect(() => {
@@ -1782,12 +1738,13 @@ export default function ExteriorPanoWalkthrough({
       warmupRunIdRef.current += 1;
       navigationPrimeRunIdRef.current += 1;
       flythroughRunIdRef.current += 1;
+      resetTravelMotion();
       flythroughPhaseRef.current = "idle";
       if (previewOverlayHideTimeoutRef.current !== null) {
         globalThis.clearTimeout(previewOverlayHideTimeoutRef.current);
       }
     };
-  }, []);
+  }, [resetTravelMotion]);
 
   useEffect(() => {
     if (hasCompletedInitialPano) {
@@ -1882,6 +1839,8 @@ export default function ExteriorPanoWalkthrough({
       viewerHostRef.current!.style.touchAction = "none";
       // viewerHostRef.current!.style.webkitTapHighlightColor = "transparent";
 
+      // Rebind scene markers after viewer recreation (including JSON hot edits).
+      setIsInitialPanoReady(false);
       setLoadState(createLoadState("preview", "Loading panorama"));
 
       let initialResolved: ResolvedPano | null = null;
@@ -1944,21 +1903,17 @@ export default function ExteriorPanoWalkthrough({
 
       localViewer = new Viewer({
         container: viewerHostRef.current,
-        ...(initialResolved.mode === "tiles"
-          ? {
-              adapter: EquirectangularTilesAdapter.withConfig({
-                resolution: isAppleTouchDevice
-                  ? EXTERIOR_APPLE_TOUCH_SPHERE_RESOLUTION
-                  : isCompactExperienceRef.current
-                    ? EXTERIOR_COMPACT_SPHERE_RESOLUTION
-                    : EXTERIOR_SPHERE_RESOLUTION,
-                showErrorTile: false,
-                baseBlur: true,
-                antialias: true,
-              }),
-            }
-          : {}),
-        panorama: initialResolved.panorama,
+        adapter: EquirectangularTilesAdapter.withConfig({
+          resolution: isAppleTouchDevice
+            ? EXTERIOR_APPLE_TOUCH_SPHERE_RESOLUTION
+            : isCompactExperienceRef.current
+              ? EXTERIOR_COMPACT_SPHERE_RESOLUTION
+              : EXTERIOR_SPHERE_RESOLUTION,
+          showErrorTile: false,
+          baseBlur: true,
+          antialias: true,
+        }),
+        panorama: asTiledPanorama(initialResolved.panorama),
         navbar: false,
         plugins: [
           AutorotatePlugin.withConfig({
@@ -2111,226 +2066,100 @@ export default function ExteriorPanoWalkthrough({
     updateMinimapHeading,
   ]);
 
-  useEffect(() => {
-    if (!isInitialPanoReady || !activeNode || isAppleTouchFallbackMode) {
-      return;
-    }
-
-    const runId = startWarmupRun();
-    let cancelled = false;
-    const shouldContinue = () => !cancelled && warmupRunIdRef.current === runId;
-
-    const cancelIdle = scheduleIdle(() => {
-      void (async () => {
-        try {
-          const warmupProfile = getWarmupProfile(
-            isCompactExperienceRef.current,
-          );
-          const resolved = await resolvePano(activeNode.id, {
-            previewPriority: "high",
-          });
-          if (!shouldContinue()) {
-            return;
-          }
-
-          if (resolved.mode === "tiles" && resolved.meta) {
-            const focusTiles = selectPriorityTiles(
-              resolved.panoId,
-              resolved.meta,
-              cdnBaseUrl,
-              {
-                yaw: viewRef.current.yaw,
-                pitch: viewRef.current.pitch,
-                zoom: viewRef.current.zoom,
-              },
-              warmupProfile.activeFocusLimit,
-            );
-
-            await preloadTileBatch(
-              assetStore,
-              focusTiles,
-              warmupProfile.activeFocusConcurrency,
-              "high",
-              shouldContinue,
-            );
-
-            if (!shouldContinue()) {
-              return;
-            }
-
-            const sweepTiles = buildSweepTiles(
-              resolved.panoId,
-              resolved.meta,
-              cdnBaseUrl,
-              new Set(focusTiles.map((tile) => tile.key)),
-              warmupProfile.activeSweepLimit,
-            );
-
-            await preloadTileBatch(
-              assetStore,
-              sweepTiles,
-              warmupProfile.activeSweepConcurrency,
-              "auto",
-              shouldContinue,
-            );
-          }
-
-          if (!shouldContinue()) {
-            return;
-          }
-
-          const warmupIds = [
-            ...new Set(
-              DIRECTIONS.flatMap((direction) =>
-                getViewDirectionalCandidates(
-                  graph,
-                  activeNode.id,
-                  direction,
-                  viewRef.current.yaw,
-                  forceSequentialForwardBack,
-                )
-                  .slice(0, 1)
-                  .map((candidate) => candidate.node.id),
-              ),
-            ),
-          ]
-            .filter((nodeId): nodeId is string => Boolean(nodeId))
-            .slice(0, warmupProfile.neighborNodeLimit);
-
-          for (const nodeId of warmupIds) {
-            if (!shouldContinue()) {
-              return;
-            }
-
-            const neighbor = graph.byId[nodeId];
-            const neighborResolved = await resolvePano(nodeId, {
-              previewPriority: "low",
-            });
-
-            await preloadResolvedFocusTiles(
-              neighborResolved,
-              {
-                yaw: neighbor
-                  ? preserveViewYawBetweenNodes(
-                      activeNode,
-                      neighbor,
-                      viewRef.current.yaw,
-                    )
-                  : 0,
-                pitch: neighbor
-                  ? clamp(degToRad(neighbor.pitch), MIN_PITCH, MAX_PITCH)
-                  : 0,
-                zoom: DEFAULT_ZOOM,
-              },
-              warmupProfile.neighborFocusLimit,
-              warmupProfile.neighborFocusConcurrency,
-              "low",
-              runId,
-            );
-          }
-        } catch {
-          // Warmups are opportunistic and must never block the walkthrough.
-        }
-      })();
-    });
-
-    return () => {
-      cancelled = true;
-      if (warmupRunIdRef.current === runId) {
-        warmupRunIdRef.current += 1;
-      }
-      cancelIdle();
-    };
-  }, [
-    activeNode,
-    assetStore,
-    cdnBaseUrl,
-    graph,
-    forceSequentialForwardBack,
-    isInitialPanoReady,
-    isAppleTouchFallbackMode,
-    preloadResolvedFocusTiles,
-    resolvePano,
-    startWarmupRun,
-  ]);
-
   const primePanoNavigationNeighbors = useCallback(
     (sourceNode: ExteriorTourNode, sourceYaw: number) => {
-      const runId = navigationPrimeRunIdRef.current + 1;
-      navigationPrimeRunIdRef.current = runId;
-      const shouldContinue = () =>
-        navigationPrimeRunIdRef.current === runId;
-      const warmupProfile = getWarmupProfile(
-        isCompactExperienceRef.current,
-      );
-      const neighborIds = ["forward", "backward"]
-        .flatMap((direction) =>
-          getViewDirectionalCandidates(
-            graph,
-            sourceNode.id,
-            direction as NavigationDirection,
-            sourceYaw,
-            forceSequentialForwardBack,
-          )
-            .slice(0, 1)
-            .map((candidate) => candidate.node.id),
-        )
-        .filter(
-          (nodeId, index, allNodeIds) =>
-            nodeId !== sourceNode.id && allNodeIds.indexOf(nodeId) === index,
-        );
+      const last = lastNavigationPrimeRef.current;
+      if (last?.nodeId === sourceNode.id &&
+          Math.abs(wrapAngleRad(sourceYaw - last.yaw)) < degToRad(20)) {
+        return;
+      }
+      lastNavigationPrimeRef.current = { nodeId: sourceNode.id, yaw: sourceYaw };
+      const runId = ++navigationPrimeRunIdRef.current;
+      const shouldContinue = () => navigationPrimeRunIdRef.current === runId;
+      const profile = getWarmupProfile(isCompactExperienceRef.current);
+      const directionalIds = (["forward", "backward", "left", "right"] as const)
+        .map((direction) => getViewDirectionalCandidates(
+          graph, sourceNode.id, direction, sourceYaw, forceSequentialForwardBack,
+        )[0]?.node.id);
+      const sequentialIds = getSequentialNodeIds(graph, sourceNode.id);
+      const neighborIds = [...new Set([
+        directionalIds[0], sequentialIds.nextId, directionalIds[1],
+        sequentialIds.previousId, ...directionalIds.slice(2),
+      ])].filter((id): id is string => Boolean(id) && id !== sourceNode.id)
+        .slice(0, profile.neighborNodeLimit);
 
-      void Promise.all(
-        neighborIds.map(async (nodeId) => {
+      // ALL neighboring previews take priority over speculative detail tiles.
+      // Preparing current-view sweep tiles first used to starve the next click.
+      void (async () => {
+        const neighbors = await Promise.all(neighborIds.map(async (nodeId) => {
           try {
             await preloadNodePreview(nodeId, "high");
-            if (!shouldContinue()) {
-              return;
-            }
-
-            const neighborNode = graph.byId[nodeId];
-            const resolved = await resolvePano(nodeId, {
-              previewPriority: "high",
-            });
-            if (!neighborNode || !shouldContinue()) {
-              return;
-            }
-
+            if (!shouldContinue()) return null;
+            return await resolvePano(nodeId, { previewPriority: "low" });
+          } catch {
+            return null;
+          }
+        }));
+        if (!shouldContinue()) return;
+        await Promise.all(neighbors.slice(0, isCompactExperienceRef.current ? 1 : 2)
+          .map(async (resolved) => {
+            if (!resolved || !shouldContinue()) return;
+            const neighbor = graph.byId[resolved.nodeId];
             await preloadResolvedFocusTiles(
               resolved,
               {
-                yaw: preserveViewYawBetweenNodes(
-                  sourceNode,
-                  neighborNode,
-                  sourceYaw,
-                ),
-                pitch: clamp(
-                  degToRad(neighborNode.pitch),
-                  MIN_PITCH,
-                  MAX_PITCH,
-                ),
-                zoom: DEFAULT_ZOOM,
+                yaw: preserveViewYawBetweenNodes(sourceNode, neighbor, sourceYaw),
+                pitch: viewRef.current.pitch,
+                zoom: viewRef.current.zoom,
               },
-              Math.max(warmupProfile.neighborFocusLimit, 8),
-              warmupProfile.neighborFocusConcurrency,
-              "high",
+              profile.neighborFocusLimit,
+              profile.neighborFocusConcurrency,
+              "low",
               runId,
               shouldContinue,
-            );
-          } catch {
-            // Directional warmup is opportunistic; navigation remains available.
-          }
-        }),
-      );
+            ).catch(() => undefined);
+          }));
+      })();
     },
-    [
-      forceSequentialForwardBack,
-      graph,
-      preloadNodePreview,
-      preloadResolvedFocusTiles,
-      resolvePano,
-    ],
+    [forceSequentialForwardBack, graph, preloadNodePreview,
+      preloadResolvedFocusTiles, resolvePano],
   );
+
+  useEffect(() => {
+    if (!isInitialPanoReady || !activeNode || isAppleTouchFallbackMode) return;
+    const viewer = viewerRef.current;
+    let headingTimer: ReturnType<typeof setTimeout> | null = null;
+    primePanoNavigationNeighbors(activeNode, viewRef.current.yaw);
+    const onPositionUpdated = () => {
+      if (headingTimer !== null || navigationLockRef.current) return;
+      // Throttle heading updates without React renders or per-frame requests.
+      headingTimer = setTimeout(() => {
+        headingTimer = null;
+        if (!navigationLockRef.current) {
+          primePanoNavigationNeighbors(activeNode, viewRef.current.yaw);
+        }
+      }, 250);
+    };
+    viewer?.addEventListener("position-updated", onPositionUpdated);
+    return () => {
+      viewer?.removeEventListener("position-updated", onPositionUpdated);
+      if (headingTimer !== null) clearTimeout(headingTimer);
+      navigationPrimeRunIdRef.current += 1;
+      lastNavigationPrimeRef.current = null;
+    };
+  }, [activeNode, isInitialPanoReady, isAppleTouchFallbackMode,
+    primePanoNavigationNeighbors]);
+
+  const primeNavigationDirection = useCallback((direction: NavigationDirection) => {
+    const sourceNode = graph.byId[activeNodeIdRef.current];
+    if (!sourceNode || navigationLockRef.current) return;
+    const target = getViewDirectionalCandidates(
+      graph, sourceNode.id, direction, viewRef.current.yaw, forceSequentialForwardBack,
+    )[0]?.node;
+    if (target) {
+      void resolvePano(target.id, { previewPriority: "high" }).catch(() => undefined);
+    }
+  }, [forceSequentialForwardBack, graph, resolvePano]);
 
   const pushNavigationHistory = useCallback((nodeId: string) => {
     try {
@@ -2437,7 +2266,7 @@ export default function ExteriorPanoWalkthrough({
           if (isAppleTouchFallbackMode) {
             await preparePreviewOverlay(target.previewUrl);
           }
-          flythroughRunId = await beginFlythrough();
+          flythroughRunId = await beginFlythrough(fromNode, targetNode, viewRef.current.yaw);
 
           if (options.recordHistory !== false) {
             pushNavigationHistory(fromNode.id);
@@ -2460,10 +2289,8 @@ export default function ExteriorPanoWalkthrough({
           setLoadState(createLoadState("error", "Panorama unavailable"));
           return false;
         } finally {
-          globalThis.setTimeout(() => {
-            navigationLockRef.current = false;
-            setIsTransitioning(false);
-          }, 120);
+          navigationLockRef.current = false;
+          setIsTransitioning(false);
         }
       }
 
@@ -2497,26 +2324,12 @@ export default function ExteriorPanoWalkthrough({
               )
             : degToRad(options.viewYawDegrees);
 
-        const targetPromise = resolvePano(targetId, {
+        const target = await resolvePano(targetId, {
           previewPriority: "high",
         });
-        await preloadNodePreview(targetId, "high").catch(() => null);
-
-        const target = await targetPromise;
-        const targetWarmupRunId = startWarmupRun();
-        flythroughRunId = await beginFlythrough(false);
-        void preloadResolvedFocusTiles(
-          target,
-          {
-            yaw: targetYaw,
-            pitch: targetPitch,
-            zoom: targetZoom,
-          },
-          warmupProfile.activeFocusLimit,
-          warmupProfile.activeFocusConcurrency,
-          "high",
-          targetWarmupRunId,
-        );
+        flythroughRunId = await beginFlythrough(fromNode, targetNode, currentPosition.yaw, false);
+        // The adapter shows the warm preview first and streams visible detail
+        // itself. Speculative tile downloads must never delay this swap.
         const panoramaOptions = {
           position: {
             yaw: targetYaw,
@@ -2535,7 +2348,7 @@ export default function ExteriorPanoWalkthrough({
         let completed: boolean | void;
         try {
           completed = await viewer.setPanorama(
-            target.panorama,
+            asTiledPanorama(target.panorama),
             panoramaOptions,
           );
         } catch (previewTransitionError) {
@@ -2584,10 +2397,8 @@ export default function ExteriorPanoWalkthrough({
         setLoadState(createLoadState("error", "Panorama unavailable"));
         return false;
       } finally {
-        globalThis.setTimeout(() => {
-          navigationLockRef.current = false;
-          setIsTransitioning(false);
-        }, 120);
+        navigationLockRef.current = false;
+        setIsTransitioning(false);
       }
     },
     [
@@ -2597,8 +2408,6 @@ export default function ExteriorPanoWalkthrough({
       graph,
       isAppleTouchFallbackMode,
       isTransitioning,
-      preloadNodePreview,
-      preloadResolvedFocusTiles,
       preparePreviewOverlay,
       primePanoNavigationNeighbors,
       pushNavigationHistory,
@@ -2744,10 +2553,7 @@ export default function ExteriorPanoWalkthrough({
   );
 
   const navigateTo = useCallback(
-    async (
-      direction: NavigationDirection,
-      options: { primeTargetTiles?: boolean } = {},
-    ) => {
+    async (direction: NavigationDirection) => {
       if (isTransitioning || navigationLockRef.current) {
         return;
       }
@@ -2792,7 +2598,7 @@ export default function ExteriorPanoWalkthrough({
               if (isAppleTouchFallbackMode) {
                 await preparePreviewOverlay(target.previewUrl);
               }
-              flythroughRunId = await beginFlythrough();
+              flythroughRunId = await beginFlythrough(fromNode, candidate.node, viewRef.current.yaw);
             } catch {
               cancelFlythrough();
               availabilityRef.current.set(targetId, "missing");
@@ -2824,10 +2630,8 @@ export default function ExteriorPanoWalkthrough({
           cancelFlythrough();
           setLoadState(createLoadState("error", "Panorama unavailable"));
         } finally {
-          globalThis.setTimeout(() => {
-            navigationLockRef.current = false;
-            setIsTransitioning(false);
-          }, 120);
+          navigationLockRef.current = false;
+          setIsTransitioning(false);
         }
         return;
       }
@@ -2871,41 +2675,16 @@ export default function ExteriorPanoWalkthrough({
           let flythroughRunId: number | null = null;
 
           try {
-            const targetPromise = resolvePano(targetId, {
+            target = await resolvePano(targetId, {
               previewPriority: "high",
             });
-            await preloadNodePreview(targetId, "high").catch(() => null);
-
-            target = await targetPromise;
           } catch {
             cancelFlythrough();
             availabilityRef.current.set(targetId, "missing");
             continue;
           }
 
-          const targetWarmupRunId = startWarmupRun();
-          const targetTileWarmup = preloadResolvedFocusTiles(
-            target,
-            {
-              yaw: targetYaw,
-              pitch: targetPitch,
-              zoom: targetZoom,
-            },
-            options.primeTargetTiles
-              ? Math.min(warmupProfile.activeFocusLimit, 8)
-              : warmupProfile.activeFocusLimit,
-            warmupProfile.activeFocusConcurrency,
-            "high",
-            targetWarmupRunId,
-          );
-
-          if (options.primeTargetTiles) {
-            await targetTileWarmup.catch(() => undefined);
-          } else {
-            void targetTileWarmup.catch(() => undefined);
-          }
-
-          flythroughRunId = await beginFlythrough(false);
+          flythroughRunId = await beginFlythrough(fromNode, candidate.node, currentPosition.yaw, false);
 
           try {
             const panoramaOptions = {
@@ -2924,7 +2703,7 @@ export default function ExteriorPanoWalkthrough({
               showLoader: false,
             } as const;
             const completed = await viewer.setPanorama(
-              target.panorama,
+              asTiledPanorama(target.panorama),
               panoramaOptions,
             );
 
@@ -3034,10 +2813,8 @@ export default function ExteriorPanoWalkthrough({
         cancelFlythrough();
         setLoadState(createLoadState("error", "Panorama unavailable"));
       } finally {
-        globalThis.setTimeout(() => {
-          navigationLockRef.current = false;
-          setIsTransitioning(false);
-        }, 120);
+        navigationLockRef.current = false;
+        setIsTransitioning(false);
       }
     },
     [
@@ -3048,8 +2825,6 @@ export default function ExteriorPanoWalkthrough({
       graph,
       isAppleTouchFallbackMode,
       isTransitioning,
-      preloadNodePreview,
-      preloadResolvedFocusTiles,
       preparePreviewOverlay,
       pushNavigationHistory,
       resolvePano,
@@ -3067,7 +2842,7 @@ export default function ExteriorPanoWalkthrough({
       event.preventDefault();
       event.stopPropagation();
 
-      void navigateTo("forward", { primeTargetTiles: true });
+      void navigateTo("forward");
     };
 
     const handlePointerDown = (event: PointerEvent) => {
@@ -3120,7 +2895,7 @@ export default function ExteriorPanoWalkthrough({
         event.preventDefault();
         event.stopPropagation();
         tapState.lastTapAt = 0;
-        void navigateTo(direction, { primeTargetTiles: true });
+        void navigateTo(direction);
       }
     };
 
@@ -3409,9 +3184,13 @@ export default function ExteriorPanoWalkthrough({
         ) : null}
       </AnimatePresence>
       <div className="sr-only">{subtitle}</div>
+      {getVillaPointers(activeNodeId).length > 0 ? (
+        <a className="sr-only" href="/models/arrow.license.txt">3D arrow model by Pun1shR — license and credits</a>
+      ) : null}
 
       <div className="absolute inset-0 overflow-hidden rounded-none md:rounded-[2.25rem]">
         <div
+          ref={travelLayerRef}
           className="absolute inset-0"
           data-flythrough-phase={flythroughPhase}
         >
@@ -3433,18 +3212,18 @@ export default function ExteriorPanoWalkthrough({
               isAppleTouchFallbackMode ? "opacity-0" : "opacity-100"
             }`}
           />
+          {previewOverlayUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={previewOverlayUrl}
+              alt=""
+              aria-hidden
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+              draggable={false}
+              style={previewMotionStyle}
+            />
+          ) : null}
         </div>
-        {previewOverlayUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={previewOverlayUrl}
-            alt=""
-            aria-hidden
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-            draggable={false}
-            style={previewMotionStyle}
-          />
-        ) : null}
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,7,0.18)_0%,rgba(4,8,7,0.03)_26%,rgba(4,8,7,0.05)_70%,rgba(4,8,7,0.24)_100%)]" />
         <div
           className={`pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,rgba(0,0,0,0.1)_72%,rgba(0,0,0,0.18)_100%)] transition-opacity duration-200 ${
@@ -3601,33 +3380,29 @@ export default function ExteriorPanoWalkthrough({
           <ArrowButton
             icon={ArrowUp}
             label="Move forward"
-            onClick={() =>
-              void navigateTo("forward", { primeTargetTiles: true })
-            }
+            onIntent={() => primeNavigationDirection("forward")}
+            onClick={() => void navigateTo("forward")}
             disabled={isTransitioning}
           />
           <ArrowButton
             icon={ArrowLeft}
             label="Move left"
-            onClick={() =>
-              void navigateTo("left", { primeTargetTiles: true })
-            }
+            onIntent={() => primeNavigationDirection("left")}
+            onClick={() => void navigateTo("left")}
             disabled={isTransitioning}
           />
           <ArrowButton
             icon={ArrowRight}
             label="Move right"
-            onClick={() =>
-              void navigateTo("right", { primeTargetTiles: true })
-            }
+            onIntent={() => primeNavigationDirection("right")}
+            onClick={() => void navigateTo("right")}
             disabled={isTransitioning}
           />
           <ArrowButton
             icon={ArrowDown}
             label="Move back"
-            onClick={() =>
-              void navigateTo("backward", { primeTargetTiles: true })
-            }
+            onIntent={() => primeNavigationDirection("backward")}
+            onClick={() => void navigateTo("backward")}
             disabled={isTransitioning}
           />
         </div>

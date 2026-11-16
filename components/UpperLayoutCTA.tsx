@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./UpperLayoutCTA.module.css";
-import { RoyalJewel, RoyalOrnament, RoyalShield } from "./RoyalNavigationDetails";
+import {RoyalJewel, RoyalShield} from "./RoyalNavigationDetails";
 import {
   Building2, Download, Footprints, House, LayoutGrid, Map, Menu, Phone, Sparkles, X,
 } from "lucide-react";
@@ -705,8 +705,8 @@ export default function UpperLayoutCTA({
       <nav aria-label="Quick navigation"
         className={`${styles.navigation} ${buttons.length <= 3 ? styles.compact : ""}`}
         style={paletteStyle}>
-        <RoyalOrnament />
-        <RoyalOrnament mirrored />
+        {/* <RoyalOrnament />
+        <RoyalOrnament mirrored /> */}
         <div className={styles.surface} aria-hidden="true">
           <svg className={styles.frame}>
             <defs>

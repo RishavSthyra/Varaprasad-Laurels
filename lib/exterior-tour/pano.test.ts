@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  asTiledPanorama,
   buildTileDescriptors,
   PanoAssetStore,
   selectPriorityTiles,
@@ -76,7 +77,10 @@ test("panorama loading shares requests, batches signing, and retries failures", 
     const before = signingBatches.length;
     const resolved = await store.getPanorama("room", false);
     assert.equal(resolved.panorama, resolved.previewUrl);
-    assert.deepEqual(signingBatches.slice(before), [["pano-test/preview/room/preview.jpg"]]);
+    assert.deepEqual(signingBatches.slice(before), [[
+      "pano-test/preview/room/meta.json",
+      "pano-test/preview/room/preview.jpg",
+    ]]);
   });
 
   await t.test("local public panoramas bypass URL signing", async () => {
@@ -107,12 +111,94 @@ test("panorama loading shares requests, batches signing, and retries failures", 
     const resolved = await store.getPanorama("room");
     assert(resolved.previewUrl.includes("retry-signing"));
   });
+
+  await t.test("preview downloads before metadata finishes and shares authorization", async () => {
+    const baseFetch = globalThis.fetch;
+    let releaseMetadata!: () => void;
+    const metadataGate = new Promise<void>((resolve) => { releaseMetadata = resolve; });
+    let imageStarted!: () => void;
+    const imageGate = new Promise<void>((resolve) => { imageStarted = resolve; });
+    globalThis.fetch = async (input, init) => {
+      if (String(input).includes("parallel/room/meta.json")) await metadataGate;
+      return baseFetch(input, init);
+    };
+    const store = new PanoAssetStore("pano-test/parallel/", async (url) => {
+      imageStarted();
+      return url;
+    });
+    const before = signingBatches.length;
+    const preview = store.preloadPanoramaPreview("room");
+    const panorama = store.getPanorama("room");
+    try {
+      await imageGate;
+      assert.equal(signingBatches.length - before, 1);
+      assert.deepEqual(signingBatches[before], [
+        "pano-test/parallel/room/meta.json",
+        "pano-test/parallel/room/preview.jpg",
+      ]);
+    } finally {
+      releaseMetadata();
+      globalThis.fetch = baseFetch;
+    }
+    assert((await preview).endsWith("/preview.jpg"));
+    assert.equal((await panorama).meta.cols, 4);
+    assert.equal(metadataRequests.filter((url) => url.includes("parallel/")).length, 1);
+  });
+
+  await t.test("custom previews work even when speculative preview.jpg is absent", async () => {
+    const baseFetch = globalThis.fetch;
+    globalThis.fetch = async (input, init) => String(input).endsWith("custom/room/meta.json")
+      ? Response.json({ ...meta, preview: "small.webp" })
+      : baseFetch(input, init);
+    const store = new PanoAssetStore("pano-test/custom/", async (url) => {
+      if (url.endsWith("preview.jpg")) throw new Error("Missing default preview");
+      return url;
+    });
+    try {
+      assert((await store.preloadPanoramaPreview("room")).endsWith("small.webp"));
+    } finally {
+      globalThis.fetch = baseFetch;
+    }
+  });
+
+  await t.test("working previews survive unavailable metadata", async () => {
+    const store = new PanoAssetStore("pano-test/preview-fallback/", async (url) => url);
+    failMetadataOnce = true;
+    assert((await store.preloadPanoramaPreview("room")).endsWith("preview.jpg"));
+    assert.equal((await store.getMeta("room")).cols, 4);
+  });
+
+  await t.test("image warmups deduplicate in-flight work but allow cache eviction and retries", async () => {
+    let calls = 0;
+    let release!: (url: string) => void;
+    const store = new PanoAssetStore("/local", () => {
+      calls += 1;
+      if (calls === 1) return new Promise<string>((resolve) => { release = resolve; });
+      if (calls === 2) return Promise.reject(new Error("Temporary download failure"));
+      return Promise.resolve("/image.jpg");
+    });
+    const first = store.preloadImage("/image.jpg");
+    assert.equal(store.preloadImage("/image.jpg"), first);
+    assert.equal(calls, 1);
+    release("/image.jpg");
+    await first;
+    await assert.rejects(store.preloadImage("/image.jpg"), /Temporary download failure/);
+    await store.preloadImage("/image.jpg");
+    assert.equal(calls, 3);
+  });
 });
 
 test("tile descriptors use the real filenames from metadata", () => {
   const descriptors = buildTileDescriptors("room", meta, "panos/");
   assert.equal(descriptors.find((tile) => tile.col === 1 && tile.row === 0)?.url, "panos/room/tiles/custom-name.webp");
   assert.equal(descriptors.find((tile) => tile.col === 0 && tile.row === 0)?.url, "panos/room/tiles/tile_0_0.jpg");
+});
+
+test("preview fallbacks retain compatibility with the tiled adapter", () => {
+  const fallback = asTiledPanorama("/preview.jpg");
+  assert.equal(fallback.baseUrl, "/preview.jpg");
+  assert.equal(fallback.tileUrl(0, 0), null);
+  assert.equal(asTiledPanorama(fallback), fallback);
 });
 
 test("Varaprasad exterior frames map to EP panorama folders", () => {
