@@ -1,6 +1,7 @@
 "use client";
 
 import NextImage from "next/image";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import {
   startTransition,
@@ -60,6 +61,14 @@ import SignedImage from "@/src/components/common/SignedImage";
 import { primeSignedAssetUrls } from "@/src/lib/signed-assets";
 import { useSignedAssetUrls } from "@/src/lib/use-signed-assets";
 import MatteVelvetSurface from "@/components/ui/MatteVelvetSurface";
+import { warmVillaPano } from "@/lib/villa-pano-preload";
+import { getVillaPano } from "@/lib/villa-residence";
+
+const VillaResidenceExperience = dynamic(() => import("./VillaResidenceExperience"), { ssr: false });
+function warmVillaResidence(villaNumber: number) {
+  warmVillaPano(villaNumber);
+  void import("./VillaResidenceExperience").catch(() => undefined);
+}
 
 const facingOptions = ["All", "North", "South", "East", "West"] as const;
 const statusOptions = ["All", "Available", "Reserved", "Sold"] as const;
@@ -1821,7 +1830,7 @@ export default function MasterPlanLayout({
   }, [apartments, selectedApartment]);
 
   useEffect(() => {
-    if (!selectedApartment || shouldUseCompactLayout) {
+    if (!selectedApartment || shouldUseCompactLayout || isVillaInventory) {
       return;
     }
 
@@ -1859,7 +1868,7 @@ export default function MasterPlanLayout({
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown, true);
     };
-  }, [clearSelectedApartment, selectedApartment, shouldUseCompactLayout]);
+  }, [clearSelectedApartment, selectedApartment, shouldUseCompactLayout, isVillaInventory]);
 
   useEffect(() => {
     if (!isSpecialVideoOpen || !shouldAutoplaySpecialVideo) {
@@ -2109,6 +2118,7 @@ export default function MasterPlanLayout({
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (isVillaInventory && selectedApartment) return;
       if (leavingRef.current) {
         const blockedKeys = ["ArrowUp", "PageUp", "Home", " "];
 
@@ -2155,13 +2165,16 @@ export default function MasterPlanLayout({
         blockAllScrollLikeActions as EventListener,
       );
     };
-  }, [goToHotspot]);
+  }, [goToHotspot, isVillaInventory, selectedApartment]);
 
   return (
     <div
       ref={rootRef}
       className="relative app-screen w-full bg-[#00142b] text-zinc-900 [overflow-anchor:none] dark:text-white"
     >
+      {isVillaInventory && selectedApartment ? (
+        <VillaResidenceExperience key={selectedApartment.id} apartment={selectedApartment} onClose={clearSelectedApartment} />
+      ) : null}
       {shouldShowTopViewFullscreen ? <MasterPlanTopViewStage /> : null}
 
       {!shouldUseCompactLayout && !shouldShowTopViewFullscreen ? (
@@ -2182,6 +2195,7 @@ export default function MasterPlanLayout({
                   : "ready"
             }
             onApartmentSelect={handleApartmentSelect}
+            onApartmentIntent={isVillaInventory ? warmVillaResidence : undefined}
             onInteractionChange={(isInteracting) => {
               setIsStageInteracting(isInteracting);
             }}
@@ -2305,6 +2319,7 @@ export default function MasterPlanLayout({
                           : "ready"
                     }
                     onApartmentSelect={handleApartmentSelect}
+                    onApartmentIntent={isVillaInventory ? warmVillaResidence : undefined}
                     onInteractionChange={setIsStageInteracting}
                     onSetFrame={setWrappedFrame}
                     selectedApartmentId={selectedApartmentMeshId}
@@ -2343,7 +2358,7 @@ export default function MasterPlanLayout({
                   : "surface-contain flex h-full min-h-0 flex-col overflow-hidden rounded-[28px] border border-white/60 bg-white/92 shadow-[0_24px_64px_rgba(15,23,42,0.16)] backdrop-blur-2xl dark:border-white/10 dark:bg-black/70"
               }
             >
-              {selectedApartment ? (
+              {selectedApartment && !isVillaInventory ? (
                 <div
                   className="custom-scrollbar flex min-h-0 flex-1 items-start justify-center overflow-y-auto overscroll-contain px-0 pb-[max(env(safe-area-inset-bottom),0rem)] pt-0 [-webkit-overflow-scrolling:touch] touch-pan-y"
                   data-scroll-area="compact-panel"
@@ -2446,7 +2461,7 @@ export default function MasterPlanLayout({
             ) : null}
 
             <AnimatePresence>
-              {selectedApartment ? (
+              {selectedApartment && !isVillaInventory ? (
                 <motion.div
                   initial={{ opacity: 0, x: 24, y: 12 }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
@@ -2463,7 +2478,7 @@ export default function MasterPlanLayout({
             </AnimatePresence>
 
             <AnimatePresence>
-              {selectedApartment ? (
+              {selectedApartment && !isVillaInventory ? (
                 <motion.div
                   initial={{ opacity: 0, x: 24, y: 12 }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
@@ -3193,6 +3208,9 @@ function MasterPlanResidenceDock({
                       key={apartment.id}
                       type="button"
                       layout="position"
+                      aria-label={villaMode ? `Explore ${apartment.title}` : undefined}
+                      onPointerEnter={() => { if (villaMode) warmVillaResidence(Number(apartment.flatNumber)); }}
+                      onFocus={() => { if (villaMode) warmVillaResidence(Number(apartment.flatNumber)); }}
                       onClick={() => onApartmentSelect(apartment)}
                       className={`mp-liquid-card relative aspect-[158/217] min-w-0 overflow-hidden rounded-[16px] border p-0 text-left ${villaMode ? "grid grid-rows-2" : ""} ${
                         isSelected
@@ -3212,7 +3230,7 @@ function MasterPlanResidenceDock({
                           />
                           <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3">
                             <span className="rounded-full border border-white/70 bg-[#efebe4]/88 px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.12em] text-[#00142b] shadow-[0_5px_18px_rgba(0,7,20,0.16)] backdrop-blur-md">
-                              {apartment.status}
+                              {getVillaPano(Number(apartment.flatNumber)) ? apartment.status : "Pano unavailable"}
                             </span>
                             <span className="rounded-full border border-white/70 bg-[#efebe4]/88 px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.12em] text-[#00142b] shadow-[0_5px_18px_rgba(0,7,20,0.16)] backdrop-blur-md">
                               {formatVillaTypeName(apartment.unitType)}

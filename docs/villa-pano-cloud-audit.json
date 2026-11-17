@@ -1,0 +1,26 @@
+{
+  "auditedAt": "2026-11-17T13:03:01.621Z",
+  "bucket": "sthyra-assets",
+  "prefix": "Varaprasad_Laurels/Panos/varaprasad_villa_panos/",
+  "folders": 76,
+  "manifestEntries": 76,
+  "metadataFiles": 76,
+  "previews": 76,
+  "tiles": 9728,
+  "localFiles": 9880,
+  "remoteObjects": 9880,
+  "filesCompared": 9880,
+  "md5Compared": 9880,
+  "missingObjects": 0,
+  "extraRemoteObjects": 0,
+  "totalBytes": 2222760314,
+  "workerChecks": {
+    "requests": 228,
+    "coverage": "Metadata, preview and tile_0_0.jpg for each of the 76 villas",
+    "validated": ["HTTP success", "CORS", "Exact local bytes", "Image MIME and decoding", "JSON parsing"]
+  },
+  "failures": 0,
+  "details": [],
+  "unchangedExceptions": { "unavailableVillaNumbers": [7], "excludedVillaNumbers": [21] },
+  "readOnly": true
+}

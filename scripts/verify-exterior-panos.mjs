@@ -1,5 +1,6 @@
 // Read-only audit: only S3 ListObjectsV2 and signed Worker GETs are used.
 // No local files or cloud objects are written, uploaded, or deleted.
+// Add --villa to audit the villa manifest/local tiles and every villa's Worker assets.
 import { createHash, createHmac } from "node:crypto";
 import { readFile, readdir, stat } from "node:fs/promises";
 import { homedir } from "node:os";
@@ -17,8 +18,10 @@ function argument(name, fallback) {
 const endpoint = argument("--endpoint", process.env.R2_ENDPOINT);
 const profile = argument("--profile", "r2");
 const bucket = argument("--bucket", "sthyra-assets");
-const prefix = "Varaprasad_Laurels/Panos/varaprasad_exterior_panos/";
-const localRoot = path.resolve("public/varaprasad_exterior_panos");
+const villaMode = process.argv.includes("--villa");
+const assetFolder = villaMode ? "varaprasad_villa_panos" : "varaprasad_exterior_panos";
+const prefix = `Varaprasad_Laurels/Panos/${assetFolder}/`;
+const localRoot = path.resolve("public", assetFolder);
 const inventoryOnly = process.argv.includes("--inventory-only");
 const failures = [];
 
@@ -128,7 +131,7 @@ async function checkWorkerAsset(relative) {
   const origin = (process.env.ASSET_WORKER_DOMAIN ?? "https://curly-leaf-d240.aasish.workers.dev").replace(/\/+$/, "");
   const url = `${origin}/${key.split("/").map(encode).join("/")}?sig=${hmac(secret, key, "hex")}`;
   const response = await fetch(url, {
-    headers: { Origin: "http://localhost:3000", Referer: "http://localhost:3000/exterior-walkthrough" },
+    headers: { Origin: "http://localhost:3000", Referer: `http://localhost:3000/${villaMode ? "master-plan" : "exterior-walkthrough"}` },
     signal: AbortSignal.timeout(30000),
   });
   if (!response.ok) throw new Error(`${relative}: Worker HTTP ${response.status}`);
@@ -187,10 +190,12 @@ async function main() {
     if (++checked % 5000 === 0) console.log(`Compared ${checked}/${localFiles.length} files`);
   });
 
-  const nodes = JSON.parse(await readFile("data/Varaprasad_Exterior_Pano_Data_v1.json", "utf8"));
+  const nodes = villaMode
+    ? JSON.parse(await readFile("data/villa-panos.json", "utf8")).panos
+    : JSON.parse(await readFile("data/Varaprasad_Exterior_Pano_Data_v1.json", "utf8"));
   for (const node of nodes) {
-    const folder = `EP.${String(node.frame).padStart(5, "0")}`;
-    if (!folders.includes(folder)) failures.push(`${node.id}: missing panorama folder ${folder}`);
+    const folder = villaMode ? node.folder : `EP.${String(node.frame).padStart(5, "0")}`;
+    if (!folders.includes(folder)) failures.push(`${villaMode ? `Villa ${node.villaNumber}` : node.id}: missing panorama folder ${folder}`);
   }
   for (const folder of folders) {
     const meta = JSON.parse(await readFile(path.join(localRoot, folder, "meta.json"), "utf8"));
@@ -208,15 +213,18 @@ async function main() {
     }
   }
 
-  const sampleFolders = [...new Set([folders[0], folders[Math.floor(folders.length / 2)], folders.at(-1)])];
+  const sampleFolders = villaMode ? folders : [...new Set([folders[0], folders[Math.floor(folders.length / 2)], folders.at(-1)])];
   const samples = sampleFolders.flatMap((folder) => [`${folder}/meta.json`, `${folder}/preview.jpg`, `${folder}/tiles/tile_0_0.jpg`]);
+  let workerChecked = 0;
   await concurrent(samples, 3, async (relative) => {
     try { await checkWorkerAsset(relative); }
     catch (error) { failures.push(error.message); }
+    if (++workerChecked % 30 === 0) console.log(`Verified ${workerChecked}/${samples.length} Worker responses`);
   });
 
   const extra = [...remote.keys()].filter((key) => !expected.has(key));
   console.log(JSON.stringify({
+    auditedAt: new Date().toISOString(), prefix,
     folders: folders.length, nodes: nodes.length, localFiles: localFiles.length,
     remoteObjects: remote.size, filesCompared: checked, md5Compared: checksums,
     missingObjects: Object.values(missingByFolder).reduce((sum, count) => sum + count, 0),

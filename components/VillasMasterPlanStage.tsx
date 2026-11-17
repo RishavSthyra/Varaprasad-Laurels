@@ -91,6 +91,7 @@ type VillasMasterPlanStageProps = {
     apartmentId: string | null,
   ) => void;
   onInteractionChange?: (isInteracting: boolean) => void;
+  onApartmentIntent?: (villaNumber: number) => void;
   onSetFrame: (frame: number) => void;
   selectedApartmentId: string | null;
   selectedTower: TowerType | null;
@@ -407,6 +408,7 @@ function VillasModel({
   hoveredVillaId,
   modelUrl,
   onHover,
+  onSelect,
   selectedVillaId,
   villaStatusById,
 }: {
@@ -415,6 +417,7 @@ function VillasModel({
   hoveredVillaId: string | null;
   modelUrl: string;
   onHover: (id: string | null, label?: string, event?: ThreeEvent<PointerEvent>) => void;
+  onSelect: (id: string) => void;
   selectedVillaId: string | null;
   villaStatusById: ReadonlyMap<string, InventoryStatus>;
 }) {
@@ -547,6 +550,12 @@ function VillasModel({
       <primitive object={prepared.occlusionScene} />
       <primitive
         object={prepared.scene}
+        onClick={(event: ThreeEvent<MouseEvent>) => {
+          const id = event.object.userData.masterPlanVillaId as string | undefined;
+          if (!id || event.delta > 5) return;
+          event.stopPropagation();
+          onSelect(id);
+        }}
         onPointerOver={handlePointerMove}
         onPointerMove={handlePointerMove}
         onPointerOut={handlePointerOut}
@@ -573,6 +582,8 @@ export default function VillasMasterPlanStage({
   apartments,
   config,
   filteredApartments,
+  onApartmentSelect,
+  onApartmentIntent,
   onInteractionChange,
   selectedApartmentId,
 }: VillasMasterPlanStageProps) {
@@ -624,6 +635,13 @@ export default function VillasMasterPlanStage({
     label: string;
   } | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const handleSelect = useCallback((id: string) => {
+    const villaNumber = Number(id.replace(/^villa-/, ""));
+    if (!Number.isInteger(villaNumber) || EXCLUDED_VILLA_NUMBERS.has(villaNumber)) return;
+    const apartment = apartments.find((item) =>
+      Number(item.flatNumber.replace(/\D/g, "")) === villaNumber);
+    if (apartment) onApartmentSelect?.(apartment, id);
+  }, [apartments, onApartmentSelect]);
 
   const handleHover = useCallback(
     (
@@ -642,6 +660,13 @@ export default function VillasMasterPlanStage({
     },
     [],
   );
+
+  const hoveredVillaId = hoveredVilla?.id;
+  useEffect(() => {
+    if (!hoveredVillaId || !onApartmentIntent) return;
+    const timer = setTimeout(() => onApartmentIntent(Number(hoveredVillaId.replace(/^villa-/, ""))), 180);
+    return () => clearTimeout(timer);
+  }, [hoveredVillaId, onApartmentIntent]);
 
   useEffect(() => {
     onInteractionChange?.(Boolean(hoveredVilla));
@@ -687,6 +712,7 @@ export default function VillasMasterPlanStage({
             hoveredVillaId={hoveredVilla?.id ?? null}
             modelUrl={modelUrl}
             onHover={handleHover}
+            onSelect={handleSelect}
             selectedVillaId={selectedVillaId}
             villaStatusById={villaStatusById}
           />

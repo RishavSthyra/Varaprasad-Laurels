@@ -8,6 +8,7 @@ import {
 } from "./pano";
 import { exteriorImageFilenameToPanoId } from "./nodes";
 import type { PanoMeta } from "./types";
+import { getVillaPano, getVillaPanoBaseUrl } from "../villa-residence";
 
 const meta: PanoMeta = {
   width: 4096,
@@ -37,7 +38,7 @@ test("panorama loading shares requests, batches signing, and retries failures", 
           return Response.json({ error: "Temporary signing failure" }, { status: 503 });
         }
       }
-      const urls = Object.fromEntries(keys.map((key) => [key, `https://assets.example/${key}`]));
+      const urls = Object.fromEntries(keys.map((key) => [key, `https://assets.example/${key.split("/").map(encodeURIComponent).join("/")}`]));
       return Response.json(init?.method === "POST" ? { urls } : { url: urls[keys[0]] });
     }
     assert(url.endsWith("/meta.json"), `Unexpected asset download: ${url}`);
@@ -46,7 +47,9 @@ test("panorama loading shares requests, batches signing, and retries failures", 
       failMetadataOnce = false;
       return new Response("Unavailable", { status: 503 });
     }
-    return Response.json(meta);
+    return Response.json(url.includes("/varaprasad_villa_panos/")
+      ? { width: 12288, height: 6144, cols: 16, rows: 8, preview: "preview.jpg", tileUrl: "tiles/tile_{col}_{row}.jpg" }
+      : meta);
   };
   t.after(() => { globalThis.fetch = originalFetch; });
 
@@ -185,6 +188,29 @@ test("panorama loading shares requests, batches signing, and retries failures", 
     await assert.rejects(store.preloadImage("/image.jpg"), /Temporary download failure/);
     await store.preloadImage("/image.jpg");
     assert.equal(calls, 3);
+  });
+
+  await t.test("cloud villas batch-sign spaced folder names and all 128 tiles without local/raw requests", async () => {
+    const pano = getVillaPano(1)!;
+    const store = new PanoAssetStore(getVillaPanoBaseUrl());
+    const before = signingBatches.length;
+    const resolved = await store.getPanorama(pano.folder);
+    const key = `${getVillaPanoBaseUrl()}/${pano.folder}`;
+    assert.deepEqual(signingBatches[before], [`${key}/meta.json`, `${key}/preview.jpg`]);
+    assert.equal(signingBatches.length - before, 2);
+    assert.equal(signingBatches[before + 1].length, 128);
+    assert.equal(metadataRequests.filter((url) => url.includes("/varaprasad_villa_panos/")).length, 1);
+    assert.equal(resolved.meta.width, 12288);
+    assert.notEqual(typeof resolved.panorama, "string");
+    if (typeof resolved.panorama !== "string") {
+      assert.equal(resolved.panorama.cols, 16);
+      assert.equal(resolved.panorama.rows, 8);
+      const base = `https://assets.example/${key.split("/").map(encodeURIComponent).join("/")}`;
+      assert.equal(resolved.previewUrl, `${base}/preview.jpg`);
+      assert.equal(resolved.panorama.tileUrl(15, 7), `${base}/tiles/tile_15_7.jpg`);
+    }
+    assert.equal(await store.getPanorama(pano.folder), resolved);
+    assert.equal(signingBatches.length - before, 2, "Reopening reuses authorization and metadata");
   });
 });
 
