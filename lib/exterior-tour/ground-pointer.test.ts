@@ -6,8 +6,32 @@ import { getVillaPointers } from "./villa-hotspots";
 
 test("pointers use the player counter, including the CAD-corrected demo villa", () => {
   assert.equal(getVillaPointers("Exterior_PANO_Spline_F0192")[0].villaNumber, 12);
-  assert.equal(getVillaPointers("Exterior_PANO_Spline_F0193").length, 0);
+  assert(getVillaPointers("Exterior_PANO_Spline_F0193").some((pointer) => pointer.villaNumber === 12));
   assert.equal(getVillaPointers("Exterior_PANO_Spline_F0191")[0].villaNumber, 14);
+});
+
+test("two visible garages get independent pointer meshes and cleanup", () => {
+  const configs = getVillaPointers("Exterior_PANO_Spline_F0018");
+  assert.equal(configs.length, 2);
+  const source = new BoxGeometry(2, 10, 3);
+  const first = createGroundPointer(source, configs[0]);
+  const second = createGroundPointer(source, configs[1]);
+  assert.notEqual(first.group.name, second.group.name);
+  assert(first.group.position.distanceTo(second.group.position) > 1);
+  const firstArrow = first.group.getObjectByName("bouncing-arrow") as Mesh;
+  const secondArrow = second.group.getObjectByName("bouncing-arrow") as Mesh;
+  assert.notEqual(firstArrow.geometry, secondArrow.geometry);
+  assert.notEqual(firstArrow.material, secondArrow.material);
+  const before = secondArrow.position.y;
+  first.update(0.9);
+  assert.equal(secondArrow.position.y, before);
+  let secondDisposed = false;
+  secondArrow.geometry.addEventListener("dispose", () => { secondDisposed = true; });
+  first.dispose();
+  assert(!secondDisposed);
+  second.dispose();
+  assert(secondDisposed);
+  source.dispose();
 });
 
 test("bounce and rotation are smooth, periodic, and disabled for reduced motion", () => {

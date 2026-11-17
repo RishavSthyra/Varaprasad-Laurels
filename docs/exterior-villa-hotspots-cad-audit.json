@@ -4,7 +4,24 @@
     21
   ],
   "villaCount": 77,
-  "distinctPanoCount": 77,
+  "distinctPanoCount": 134,
+  "pointerCount": 218,
+  "visibilityReviewFile": "exterior-villa-visibility-review.json",
+  "supplementaryViews": [
+    {
+      "villaNumber": 78,
+      "facing": "East",
+      "panoNumber": 97,
+      "sourceFrame": 96,
+      "sourceNodeId": "Exterior_PANO_Spline_F0096",
+      "sourcePanoHeadingDegrees": -159.9204,
+      "primaryPanoNumber": 69,
+      "viewerLocalYawDegrees": 322.6519,
+      "viewerPitchDegrees": -12.918,
+      "previewAsset": "EP.00096/preview.jpg",
+      "visualReview": "User-reported missing pointer. Reprojected the existing Villa 78 garage anchor for frame 96 and checked Cloudflare preview: paving left of the yellow Beetle. Primary pano 69 retained."
+    }
+  ],
   "numbering": "Player counter is one-based; source frame = panoNumber - 1.",
   "sourceDrawings": [
     {

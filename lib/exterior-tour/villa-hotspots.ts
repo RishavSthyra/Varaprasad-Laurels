@@ -34,9 +34,12 @@ export const villaHotspotsSchema = z.object({
     for (const pano of panos) {
       if (numbers.has(pano.panoNumber)) ctx.addIssue({ code: "custom", message: "Use one pano entry with multiple pointers, not duplicate pano numbers." });
       numbers.add(pano.panoNumber);
+      const villas = new Set<number>();
       for (const pointer of pano.pointers) {
         if (ids.has(pointer.id)) ctx.addIssue({ code: "custom", message: `Duplicate pointer id: ${pointer.id}` });
         ids.add(pointer.id);
+        if (villas.has(pointer.villaNumber)) ctx.addIssue({ code: "custom", message: `Villa ${pointer.villaNumber} has duplicate entrances in pano ${pano.panoNumber}.` });
+        villas.add(pointer.villaNumber);
       }
     }
   }),
