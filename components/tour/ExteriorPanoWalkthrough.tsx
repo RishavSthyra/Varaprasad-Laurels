@@ -63,6 +63,7 @@ import {
 } from "@/lib/exterior-tour/math";
 import { useSnapListViewport } from "@/lib/useSnapListViewport";
 import { createPanoImageLoader } from "@/lib/exterior-tour/image-cache";
+import { waitForWarmup, warmNavigationCandidates } from "@/lib/exterior-tour/warmup";
 import { useExteriorGroundPointer } from "./useExteriorGroundPointer";
 import { getVillaPointers } from "@/lib/exterior-tour/villa-hotspots";
 import {
@@ -163,20 +164,20 @@ function getAmenityMenuImageSrc(
 }
 
 const DESKTOP_WARMUP_PROFILE = {
-  neighborNodeLimit: 4,
-  neighborFocusLimit: 4,
-  neighborFocusConcurrency: 3,
+  neighborNodeLimit: 2,
+  neighborFocusLimit: 12,
+  neighborFocusConcurrency: 2,
   transitionSpeed: 520,
 };
 const COMPACT_WARMUP_PROFILE = {
   neighborNodeLimit: 2,
-  neighborFocusLimit: 2,
-  neighborFocusConcurrency: 2,
+  neighborFocusLimit: 6,
+  neighborFocusConcurrency: 1,
   transitionSpeed: 360,
 };
 const IOS_WARMUP_PROFILE = {
   neighborNodeLimit: 2,
-  neighborFocusLimit: 2,
+  neighborFocusLimit: 4,
   neighborFocusConcurrency: 1,
   transitionSpeed: 300,
 };
@@ -300,51 +301,20 @@ function getWheelPixelDelta(event: WheelEvent) {
   };
 }
 
-function scheduleIdle(callback: () => void) {
-  if (typeof window === "undefined") {
-    return () => {};
-  }
-
-  const hostWindow = window as Window &
-    typeof globalThis & {
-      requestIdleCallback?: (
-        callback: IdleRequestCallback,
-        options?: IdleRequestOptions,
-      ) => number;
-      cancelIdleCallback?: (handle: number) => void;
-    };
-
-  if (typeof hostWindow.requestIdleCallback === "function") {
-    const id = hostWindow.requestIdleCallback(() => callback(), {
-      timeout: 800,
-    });
-    return () => hostWindow.cancelIdleCallback?.(id);
-  }
-
-  const id = globalThis.setTimeout(callback, 160);
-  return () => globalThis.clearTimeout(id);
-}
-
-function waitForIdle() {
-  return new Promise<void>((resolve) => {
-    scheduleIdle(resolve);
-  });
-}
-
 async function preloadTileBatch(
   assetStore: PanoAssetStore,
   tiles: PanoTileDescriptor[],
   concurrency: number,
   fetchPriority: "high" | "low" | "auto" = "low",
-  shouldContinue: () => boolean = () => true,
+  signal: AbortSignal,
   cacheKey?: string,
 ) {
-  if (tiles.length === 0 || !shouldContinue()) {
+  if (tiles.length === 0 || signal.aborted) {
     return;
   }
 
   const signedTiles = await assetStore.resolveSignedTiles(tiles);
-  if (!shouldContinue()) {
+  if (signal.aborted) {
     return;
   }
 
@@ -353,7 +323,7 @@ async function preloadTileBatch(
 
   await Promise.allSettled(
     Array.from({ length: workerCount }, async () => {
-      while (index < signedTiles.length && shouldContinue()) {
+      while (index < signedTiles.length && !signal.aborted) {
         const currentIndex = index;
         index += 1;
         const tile = signedTiles[currentIndex];
@@ -362,14 +332,14 @@ async function preloadTileBatch(
         }
 
         if (currentIndex > 0 && currentIndex % workerCount === 0) {
-          await waitForIdle();
+          await waitForWarmup(0, signal);
         }
 
-        if (!shouldContinue()) {
+        if (signal.aborted) {
           return;
         }
 
-        await assetStore.preloadImage(tile.url, fetchPriority, cacheKey);
+        await assetStore.preloadImage(tile.url, fetchPriority, cacheKey, signal);
       }
     }),
   );
@@ -1210,9 +1180,10 @@ export default function ExteriorPanoWalkthrough({
   const isCompactExperienceRef = useRef(false);
   const fallbackPreviewLoadIdRef = useRef(0);
   const previewOverlayLoadIdRef = useRef(0);
-  const warmupRunIdRef = useRef(0);
-  const navigationPrimeRunIdRef = useRef(0);
-  const lastNavigationPrimeRef = useRef<{ nodeId: string; yaw: number } | null>(null);
+  const navigationWarmupRef = useRef<AbortController | null>(null);
+  const lastNavigationPrimeRef = useRef<{
+    nodeId: string; yaw: number; pitch: number; zoom: number; preferredNodeId?: string;
+  } | null>(null);
   const previewOverlayHideTimeoutRef = useRef<ReturnType<
     typeof globalThis.setTimeout
   > | null>(null);
@@ -1660,17 +1631,17 @@ export default function ExteriorPanoWalkthrough({
   );
 
   const startWarmupRun = useCallback(() => {
-    warmupRunIdRef.current += 1;
-    navigationPrimeRunIdRef.current += 1;
+    navigationWarmupRef.current?.abort();
+    navigationWarmupRef.current = null;
     lastNavigationPrimeRef.current = null;
-    return warmupRunIdRef.current;
   }, []);
 
   const preloadNodePreview = useCallback(
-    async (nodeId: string, fetchPriority: "high" | "low" | "auto" = "high") => {
+    async (nodeId: string, signal: AbortSignal) => {
+      signal.throwIfAborted();
       const cached = cacheRef.current.get(nodeId);
       if (cached?.previewUrl) {
-        await assetStore.preloadImage(cached.previewUrl, fetchPriority);
+        await assetStore.preloadImage(cached.previewUrl, "low", undefined, signal);
         return cached.previewUrl;
       }
 
@@ -1679,7 +1650,7 @@ export default function ExteriorPanoWalkthrough({
         throw new Error(`Unknown exterior node: ${nodeId}`);
       }
 
-      return assetStore.preloadPanoramaPreview(node.panoId, fetchPriority);
+      return assetStore.preloadPanoramaPreview(node.panoId, "low", signal);
     },
     [assetStore, graph],
   );
@@ -1691,16 +1662,13 @@ export default function ExteriorPanoWalkthrough({
       limit: number,
       concurrency: number,
       fetchPriority: "high" | "low" | "auto",
-      runId: number,
-      shouldContinueOverride?: () => boolean,
+      signal: AbortSignal,
     ) => {
       if (resolved.mode !== "tiles" || !resolved.meta) {
         return;
       }
 
-      const shouldContinue =
-        shouldContinueOverride ?? (() => warmupRunIdRef.current === runId);
-      if (!shouldContinue()) {
+      if (signal.aborted) {
         return;
       }
 
@@ -1710,6 +1678,12 @@ export default function ExteriorPanoWalkthrough({
         cdnBaseUrl,
         view,
         limit,
+        {
+          aspect: (viewerHostRef.current?.clientWidth || 16) /
+            (viewerHostRef.current?.clientHeight || 9),
+          minFov: EXTERIOR_MIN_FOV,
+          maxFov: EXTERIOR_MAX_FOV,
+        },
       );
 
       await preloadTileBatch(
@@ -1717,7 +1691,7 @@ export default function ExteriorPanoWalkthrough({
         focusTiles,
         concurrency,
         fetchPriority,
-        shouldContinue,
+        signal,
         resolved.previewUrl,
       );
     },
@@ -1735,8 +1709,7 @@ export default function ExteriorPanoWalkthrough({
 
   useEffect(() => {
     return () => {
-      warmupRunIdRef.current += 1;
-      navigationPrimeRunIdRef.current += 1;
+      startWarmupRun();
       flythroughRunIdRef.current += 1;
       resetTravelMotion();
       flythroughPhaseRef.current = "idle";
@@ -1744,7 +1717,7 @@ export default function ExteriorPanoWalkthrough({
         globalThis.clearTimeout(previewOverlayHideTimeoutRef.current);
       }
     };
-  }, [resetTravelMotion]);
+  }, [resetTravelMotion, startWarmupRun]);
 
   useEffect(() => {
     if (hasCompletedInitialPano) {
@@ -2067,15 +2040,21 @@ export default function ExteriorPanoWalkthrough({
   ]);
 
   const primePanoNavigationNeighbors = useCallback(
-    (sourceNode: ExteriorTourNode, sourceYaw: number) => {
+    (sourceNode: ExteriorTourNode, sourceYaw: number, preferredNodeId?: string) => {
+      const sourceView = { ...viewRef.current, yaw: sourceYaw };
       const last = lastNavigationPrimeRef.current;
       if (last?.nodeId === sourceNode.id &&
-          Math.abs(wrapAngleRad(sourceYaw - last.yaw)) < degToRad(20)) {
+          last.preferredNodeId === preferredNodeId &&
+          Math.abs(wrapAngleRad(sourceYaw - last.yaw)) < degToRad(12) &&
+          Math.abs(sourceView.pitch - last.pitch) < degToRad(8) &&
+          Math.abs(sourceView.zoom - last.zoom) < 5) {
         return;
       }
-      lastNavigationPrimeRef.current = { nodeId: sourceNode.id, yaw: sourceYaw };
-      const runId = ++navigationPrimeRunIdRef.current;
-      const shouldContinue = () => navigationPrimeRunIdRef.current === runId;
+      startWarmupRun();
+      lastNavigationPrimeRef.current = { nodeId: sourceNode.id, ...sourceView, preferredNodeId };
+      const controller = new AbortController();
+      navigationWarmupRef.current = controller;
+      const { signal } = controller;
       const profile = getWarmupProfile(isCompactExperienceRef.current);
       const directionalIds = (["forward", "backward", "left", "right"] as const)
         .map((direction) => getViewDirectionalCandidates(
@@ -2083,46 +2062,68 @@ export default function ExteriorPanoWalkthrough({
         )[0]?.node.id);
       const sequentialIds = getSequentialNodeIds(graph, sourceNode.id);
       const neighborIds = [...new Set([
-        directionalIds[0], sequentialIds.nextId, directionalIds[1],
+        preferredNodeId, directionalIds[0], sequentialIds.nextId, directionalIds[1],
         sequentialIds.previousId, ...directionalIds.slice(2),
       ])].filter((id): id is string => Boolean(id) && id !== sourceNode.id)
         .slice(0, profile.neighborNodeLimit);
 
-      // ALL neighboring previews take priority over speculative detail tiles.
-      // Preparing current-view sweep tiles first used to starve the next click.
+      // Current visible detail belongs to the adapter. Do not compete with it:
+      // wait for a quiet view and its central tiles, then warm ONE likely exit
+      // at low priority before even starting another neighbour's preview.
       void (async () => {
-        const neighbors = await Promise.all(neighborIds.map(async (nodeId) => {
-          try {
-            await preloadNodePreview(nodeId, "high");
-            if (!shouldContinue()) return null;
-            return await resolvePano(nodeId, { previewPriority: "low" });
-          } catch {
-            return null;
+        await waitForWarmup(preferredNodeId ? 150 : 500, signal);
+        const deadline = performance.now() + 2000;
+        while (performance.now() < deadline) {
+          signal.throwIfAborted();
+          const current = cacheRef.current.get(sourceNode.id);
+          let focusReady = current?.mode !== "tiles";
+          if (current?.meta && typeof current.panorama !== "string") {
+            const panorama = current.panorama;
+            focusReady = selectPriorityTiles(current.panoId, current.meta,
+              cdnBaseUrl, sourceView, 4, {
+                aspect: (viewerHostRef.current?.clientWidth || 16) /
+                  (viewerHostRef.current?.clientHeight || 9),
+                minFov: EXTERIOR_MIN_FOV, maxFov: EXTERIOR_MAX_FOV,
+              }).every((tile) => {
+                const url = panorama.tileUrl(tile.col, tile.row);
+                return !url || Boolean(Cache.get(url, current.previewUrl));
+              });
           }
-        }));
-        if (!shouldContinue()) return;
-        await Promise.all(neighbors.slice(0, isCompactExperienceRef.current ? 1 : 2)
-          .map(async (resolved) => {
-            if (!resolved || !shouldContinue()) return;
-            const neighbor = graph.byId[resolved.nodeId];
+          if (!navigationLockRef.current && focusReady) break;
+          await waitForWarmup(100, signal);
+        }
+        signal.throwIfAborted();
+        if (navigationLockRef.current) return;
+        await warmNavigationCandidates(neighborIds, signal, preloadNodePreview,
+          async (nodeId) => {
+            const neighbor = graph.byId[nodeId];
+            // Shared metadata/signing can finish after cancellation, but no
+            // image download or availability failure is tied to that work.
+            const assets = await assetStore.getPanorama(neighbor.panoId);
+            signal.throwIfAborted();
+            const resolved: ResolvedPano = {
+              ...assets, nodeId, panoId: neighbor.panoId,
+              mode: typeof assets.panorama === "string" ? "preview" : "tiles",
+            };
             await preloadResolvedFocusTiles(
               resolved,
               {
                 yaw: preserveViewYawBetweenNodes(sourceNode, neighbor, sourceYaw),
-                pitch: viewRef.current.pitch,
-                zoom: viewRef.current.zoom,
+                pitch: sourceView.pitch,
+                // Arrow navigation currently arrives at DEFAULT_ZOOM. Predict
+                // that actual camera, not a zoom it will immediately discard.
+                zoom: DEFAULT_ZOOM,
               },
               profile.neighborFocusLimit,
               profile.neighborFocusConcurrency,
               "low",
-              runId,
-              shouldContinue,
-            ).catch(() => undefined);
-          }));
-      })();
+              signal,
+            );
+          });
+      })().catch(() => undefined);
     },
-    [forceSequentialForwardBack, graph, preloadNodePreview,
-      preloadResolvedFocusTiles, resolvePano],
+    [assetStore, cdnBaseUrl, forceSequentialForwardBack, graph, preloadNodePreview,
+      preloadResolvedFocusTiles, startWarmupRun],
   );
 
   useEffect(() => {
@@ -2131,8 +2132,15 @@ export default function ExteriorPanoWalkthrough({
     let headingTimer: ReturnType<typeof setTimeout> | null = null;
     primePanoNavigationNeighbors(activeNode, viewRef.current.yaw);
     const onPositionUpdated = () => {
-      if (headingTimer !== null || navigationLockRef.current) return;
-      // Throttle heading updates without React renders or per-frame requests.
+      if (navigationLockRef.current) return;
+      const last = lastNavigationPrimeRef.current;
+      const view = viewRef.current;
+      if (last && Math.abs(wrapAngleRad(view.yaw - last.yaw)) < degToRad(12) &&
+          Math.abs(view.pitch - last.pitch) < degToRad(8) &&
+          Math.abs(view.zoom - last.zoom) < 5) return;
+      // Abort immediately on a changed view; only restart after it settles.
+      startWarmupRun();
+      if (headingTimer !== null) clearTimeout(headingTimer);
       headingTimer = setTimeout(() => {
         headingTimer = null;
         if (!navigationLockRef.current) {
@@ -2141,14 +2149,15 @@ export default function ExteriorPanoWalkthrough({
       }, 250);
     };
     viewer?.addEventListener("position-updated", onPositionUpdated);
+    viewer?.addEventListener("zoom-updated", onPositionUpdated);
     return () => {
       viewer?.removeEventListener("position-updated", onPositionUpdated);
+      viewer?.removeEventListener("zoom-updated", onPositionUpdated);
       if (headingTimer !== null) clearTimeout(headingTimer);
-      navigationPrimeRunIdRef.current += 1;
-      lastNavigationPrimeRef.current = null;
+      startWarmupRun();
     };
   }, [activeNode, isInitialPanoReady, isAppleTouchFallbackMode,
-    primePanoNavigationNeighbors]);
+    primePanoNavigationNeighbors, startWarmupRun]);
 
   const primeNavigationDirection = useCallback((direction: NavigationDirection) => {
     const sourceNode = graph.byId[activeNodeIdRef.current];
@@ -2157,9 +2166,9 @@ export default function ExteriorPanoWalkthrough({
       graph, sourceNode.id, direction, viewRef.current.yaw, forceSequentialForwardBack,
     )[0]?.node;
     if (target) {
-      void resolvePano(target.id, { previewPriority: "high" }).catch(() => undefined);
+      primePanoNavigationNeighbors(sourceNode, viewRef.current.yaw, target.id);
     }
-  }, [forceSequentialForwardBack, graph, resolvePano]);
+  }, [forceSequentialForwardBack, graph, primePanoNavigationNeighbors]);
 
   const pushNavigationHistory = useCallback((nodeId: string) => {
     try {

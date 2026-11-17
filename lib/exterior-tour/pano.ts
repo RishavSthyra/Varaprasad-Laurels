@@ -24,6 +24,7 @@ export type PanoImageLoader = (
   src: string,
   priority: "high" | "low" | "auto",
   cacheKey?: string,
+  signal?: AbortSignal,
 ) => Promise<string>;
 type ResolvedPanoramaAssets = {
   meta: PanoMeta;
@@ -241,6 +242,7 @@ export function selectPriorityTiles(
   baseUrl: string,
   view: PanoViewState,
   limit = 48,
+  viewport?: { aspect: number; minFov: number; maxFov: number },
 ) {
   const cols = meta.actualCols ?? meta.cols;
   const rows = meta.actualRows ?? meta.rows;
@@ -248,8 +250,38 @@ export function selectPriorityTiles(
   const focusColumn = resolveFocusColumn(meta, undefined, undefined, view.yaw);
   const focusRow = clamp((0.5 - view.pitch / Math.PI) * rows, 0, rows - 1);
 
-  return descriptors
+  // Optional so interior tours keep their existing selection behaviour. Use
+  // spherical tile bounds against the predicted camera frustum, including the
+  // seam and poles; zoom is PSV's 0..100 vertical-FOV interpolation.
+  const verticalFov = viewport
+    ? (viewport.maxFov + clamp(view.zoom, 0, 100) / 100 *
+      (viewport.minFov - viewport.maxFov)) * Math.PI / 180
+    : Math.PI;
+  const horizontalFov = 2 * Math.atan(Math.tan(verticalFov / 2) *
+    Math.max(0.1, viewport?.aspect ?? 1));
+  const radius = Math.min(Math.PI / 2, Math.PI / cols + Math.PI / (2 * rows));
+  const margin = Math.sin(radius);
+  const viewScores = new Map<string, number>();
+  const visible = descriptors.filter((tile) => {
+    if (!viewport) return true;
+    const yaw = ((tile.col + 0.5) / cols - 0.5) * Math.PI * 2;
+    const pitch = (0.5 - (tile.row + 0.5) / rows) * Math.PI;
+    const delta = yaw - view.yaw;
+    const forward = Math.cos(pitch) * Math.cos(delta) * Math.cos(view.pitch) +
+      Math.sin(pitch) * Math.sin(view.pitch);
+    const right = Math.cos(pitch) * Math.sin(delta);
+    const up = Math.sin(pitch) * Math.cos(view.pitch) -
+      Math.cos(pitch) * Math.cos(delta) * Math.sin(view.pitch);
+    viewScores.set(tile.key, 1 - forward);
+    return forward * Math.sin(horizontalFov / 2) - Math.abs(right) *
+      Math.cos(horizontalFov / 2) >= -margin &&
+      forward * Math.sin(verticalFov / 2) - Math.abs(up) *
+      Math.cos(verticalFov / 2) >= -margin;
+  });
+
+  return visible
     .sort((a, b) => {
+      if (viewport) return viewScores.get(a.key)! - viewScores.get(b.key)!;
       const aColDistance = wrapColumnDistance(a.col - focusColumn, cols);
       const bColDistance = wrapColumnDistance(b.col - focusColumn, cols);
       const aRowDistance = Math.abs(a.row - focusRow);
@@ -483,7 +515,15 @@ export class PanoAssetStore {
     src: string,
     fetchPriority: "high" | "low" | "auto" = "auto",
     cacheKey?: string,
+    signal?: AbortSignal,
   ) {
+    // Cancellable callers have their own subscription. The exterior loader
+    // shares the network request without letting one cancelled subscriber kill
+    // a foreground download. Keep legacy interior promise behaviour unchanged.
+    if (signal) {
+      signal.throwIfAborted();
+      return this.imageLoader(src, fetchPriority, cacheKey, signal);
+    }
     const cached = this.imagePromises.get(src);
     if (cached) {
       return cached;
@@ -509,20 +549,24 @@ export class PanoAssetStore {
   async preloadPanoramaPreview(
     panoId: string,
     fetchPriority: "high" | "low" | "auto" = "high",
+    signal?: AbortSignal,
   ) {
+    signal?.throwIfAborted();
     const defaultPreview = getPanoPreviewUrl(panoId, "preview.jpg", this.baseUrl);
     const urls = await this.getSignedUrls([
       getPanoMetaUrl(panoId, this.baseUrl),
       defaultPreview,
     ]);
+    signal?.throwIfAborted();
     // Attach a rejection handler immediately: a custom preview may legitimately
     // have no preview.jpg. Never let that speculative request reject unhandled.
-    const defaultWarmup = this.preloadImage(urls[defaultPreview], fetchPriority)
+    const defaultWarmup = this.preloadImage(urls[defaultPreview], fetchPriority, undefined, signal)
       .then((url) => ({ url, error: null }))
       .catch((error: unknown) => ({ url: null, error }));
     const meta = await this.getMeta(panoId).catch(() => null);
+    signal?.throwIfAborted();
     if (meta?.preview && meta.preview !== "preview.jpg") {
-      return this.preloadPreview(panoId, meta.preview, fetchPriority);
+      return this.preloadPreview(panoId, meta.preview, fetchPriority, signal);
     }
     const result = await defaultWarmup;
     if (!result.url) {
@@ -535,10 +579,11 @@ export class PanoAssetStore {
     panoId: string,
     previewFile = "preview.jpg",
     fetchPriority: "high" | "low" | "auto" = "high",
+    signal?: AbortSignal,
   ) {
     const assetPath = getPanoPreviewUrl(panoId, previewFile, this.baseUrl);
     const signedSrc = await this.getSignedUrl(assetPath);
-    await this.preloadImage(signedSrc, fetchPriority);
+    await this.preloadImage(signedSrc, fetchPriority, undefined, signal);
     return signedSrc;
   }
 

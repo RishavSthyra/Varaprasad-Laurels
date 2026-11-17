@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import AppShell from "@/components/AppShell";
 import {
   DEFAULT_DESCRIPTION,
+  SITE_APPLE_ICON_URL,
   SITE_ICON_URL,
   SITE_NAME,
 } from "@/lib/metadata";
@@ -22,9 +23,9 @@ export const metadata: Metadata = {
   description: DEFAULT_DESCRIPTION,
   applicationName: SITE_NAME,
   icons: {
-    icon: SITE_ICON_URL,
+    icon: { url: SITE_ICON_URL, type: "image/png", sizes: "64x64" },
     shortcut: SITE_ICON_URL,
-    apple: SITE_ICON_URL,
+    apple: { url: SITE_APPLE_ICON_URL, type: "image/png", sizes: "180x180" },
   },
   openGraph: {
     title: SITE_NAME,

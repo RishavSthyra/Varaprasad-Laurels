@@ -219,3 +219,70 @@ test("priority prefetch follows the view, including the panorama seam", () => {
   assert.equal(rear[0].col, 0);
   assert.equal(front[0].row, 1);
 });
+
+test("exterior warmup is frustum-aware, zoom-aware, and excludes the rear hemisphere", () => {
+  const detailMeta = { width: 16384, height: 8192, cols: 32, rows: 16 };
+  const viewport = { aspect: 16 / 9, minFov: 36, maxFov: 74 };
+  const wide = selectPriorityTiles("room", detailMeta, "/panos",
+    { yaw: 0, pitch: 0, zoom: 0 }, 512, viewport);
+  const zoomed = selectPriorityTiles("room", detailMeta, "/panos",
+    { yaw: 0, pitch: 0, zoom: 100 }, 512, viewport);
+  assert(zoomed.length < wide.length);
+  assert(wide.every((tile) => tile.col > 0 && tile.col < 31));
+  const seam = selectPriorityTiles("room", detailMeta, "/panos",
+    { yaw: Math.PI, pitch: 0, zoom: 100 }, 512, viewport);
+  assert(seam.some((tile) => tile.col === 0));
+  assert(seam.some((tile) => tile.col === 31));
+  const portrait = selectPriorityTiles("room", detailMeta, "/panos",
+    { yaw: 0, pitch: 0, zoom: 0 }, 512, { ...viewport, aspect: 9 / 16 });
+  assert(portrait.length < wide.length);
+});
+
+test("conservative spherical bounds cover visible samples at seams and steep pitches", () => {
+  const detailMeta = { width: 16384, height: 8192, cols: 32, rows: 16 };
+  const viewport = { aspect: 16 / 9, minFov: 36, maxFov: 74 };
+  for (const yaw of [0, Math.PI - 0.01, -Math.PI + 0.01]) {
+    for (const pitch of [-1.3, 0, 1.3]) {
+      for (const zoom of [0, 100]) {
+        const selected = new Set(selectPriorityTiles("room", detailMeta, "/panos",
+          { yaw, pitch, zoom }, 512, viewport).map((tile) => tile.key));
+        const vFov = (74 - 38 * zoom / 100) * Math.PI / 180;
+        for (let x = -10; x <= 10; x += 1) {
+          for (let y = -6; y <= 6; y += 1) {
+            const right = x / 10 * Math.tan(vFov / 2) * viewport.aspect;
+            const up = y / 6 * Math.tan(vFov / 2);
+            const horizontal = Math.cos(pitch) - up * Math.sin(pitch);
+            const worldX = horizontal * Math.sin(yaw) + right * Math.cos(yaw);
+            const worldZ = horizontal * Math.cos(yaw) - right * Math.sin(yaw);
+            const worldY = Math.sin(pitch) + up * Math.cos(pitch);
+            const sampleYaw = Math.atan2(worldX, worldZ);
+            const samplePitch = Math.atan2(worldY, Math.hypot(worldX, worldZ));
+            const col = Math.min(31, Math.floor((sampleYaw / (2 * Math.PI) + 0.5) * 32));
+            const row = Math.min(15, Math.floor((0.5 - samplePitch / Math.PI) * 16));
+            assert(selected.has(`${col}:${row}`), `Missing ${col}:${row} at ${yaw}/${pitch}/${zoom}`);
+          }
+        }
+      }
+    }
+  }
+});
+
+test("a cancelled preview subscription is forwarded and never poisons later navigation", async (t) => {
+  const originalFetch = globalThis.fetch;
+  t.after(() => { globalThis.fetch = originalFetch; });
+  globalThis.fetch = async () => Response.json(meta);
+  const seenSignals: Array<AbortSignal | undefined> = [];
+  const store = new PanoAssetStore("/local", async (url, _priority, _key, signal) => {
+    seenSignals.push(signal);
+    signal?.throwIfAborted();
+    return url;
+  });
+  const controller = new AbortController();
+  await store.preloadPanoramaPreview("room", "low", controller.signal);
+  assert.equal(seenSignals[0], controller.signal);
+  controller.abort();
+  await assert.rejects(store.preloadPanoramaPreview("room", "low", controller.signal),
+    { name: "AbortError" });
+  assert((await store.preloadPanoramaPreview("room", "high")).endsWith("preview.jpg"));
+  assert.equal(seenSignals.at(-1), undefined);
+});
