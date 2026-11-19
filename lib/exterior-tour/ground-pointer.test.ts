@@ -1,8 +1,24 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { BoxGeometry, Mesh, MeshBasicMaterial, Vector3 } from "three";
-import { createGroundPointer, getGroundPointerMotion } from "./ground-pointer";
+import { createGroundPointer, getGroundPointerMotion, GROUND_POINTER_MODEL_URL } from "./ground-pointer";
 import { getVillaPointers } from "./villa-hotspots";
+
+test("the original floating arrow model and attribution are present in public", () => {
+  assert.equal(GROUND_POINTER_MODEL_URL, "/models/arrow.glb");
+  const model = readFileSync(`public${GROUND_POINTER_MODEL_URL}`);
+  assert.equal(model.toString("utf8", 0, 4), "glTF");
+  assert.equal(model.readUInt32LE(4), 2);
+  assert.equal(model.readUInt32LE(8), model.length);
+  // Git blob hash of the original, before the public-folder deletion.
+  const hash = createHash("sha1").update(`blob ${model.length}\0`).update(model).digest("hex");
+  assert.equal(hash, "f9bdda18194c5d59f0ca884a5382573c54481639");
+  const attribution = readFileSync("public/models/arrow.license.txt", "utf8");
+  assert(attribution.includes("Pun1shR"));
+  assert(attribution.includes("https://creativecommons.org/licenses/by/4.0/"));
+});
 
 test("pointers use the player counter, including the CAD-corrected demo villa", () => {
   assert.equal(getVillaPointers("Exterior_PANO_Spline_F0192")[0].villaNumber, 12);
