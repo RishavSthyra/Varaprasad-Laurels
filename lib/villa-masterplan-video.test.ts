@@ -11,7 +11,9 @@ test("villa orbit uses the verified Cloudflare GOP3 encode without depending on 
   assert.equal(config.interactionVideoKey, VILLA_MASTERPLAN_VIDEO_KEY);
   assert.equal(config.fps, 30);
   assert.equal(config.totalFrames, 309);
-  assert.equal(VILLA_MASTERPLAN_VIDEO_URL, "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/masterplan_scrub_gop3_60mb.mp4");
+  const videoUrl = new URL(VILLA_MASTERPLAN_VIDEO_URL);
+  assert.equal(videoUrl.origin + videoUrl.pathname, "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/masterplan_scrub_gop3_60mb.mp4");
+  assert.equal(videoUrl.searchParams.get("v"), "cors-20261119");
   assert(!VILLA_MASTERPLAN_VIDEO_KEY.startsWith("local:"));
   assert.equal(config.fallbackImageKey, "local:1.00000.avif");
 });

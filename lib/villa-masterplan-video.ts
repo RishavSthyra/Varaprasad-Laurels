@@ -1,4 +1,6 @@
-export const VILLA_MASTERPLAN_VIDEO_URL = "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/masterplan_scrub_gop3_60mb.mp4";
+// Bypass responses cached before production CORS was enabled. Warmup and the
+// stage share this stable revision, retaining one media element and buffer.
+export const VILLA_MASTERPLAN_VIDEO_URL = "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/masterplan_scrub_gop3_60mb.mp4?v=cors-20261119";
 export const VILLA_MASTERPLAN_VIDEO_KEY = VILLA_MASTERPLAN_VIDEO_URL;
 export const VILLA_MASTERPLAN_VIDEO_FPS = 30;
 export const VILLA_MASTERPLAN_VIDEO_FRAMES = 309;

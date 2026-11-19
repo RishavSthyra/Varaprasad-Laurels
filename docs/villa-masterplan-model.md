@@ -9,10 +9,12 @@ This model-only switch keeps the existing camera coordinates, rotation, FOV,
 dummy anchors, alignment transform and background image unchanged.
 
 The live background is now
-`https://cdn.sthyra.com/Varaprasad_Laurels/Videos/masterplan_scrub_gop3_60mb.mp4`:
+`https://cdn.sthyra.com/Varaprasad_Laurels/Videos/masterplan_scrub_gop3_60mb.mp4?v=cors-20261119`:
 the approved 58,057,110-byte H.264 High GOP3 encode. Cloud bytes are SHA-256
 checked against the local encode, and HTTP range (206), MIME and CORS are verified.
-Both early warmup and the stage use the same cloud URL/media element. The local
+Both early warmup and the stage use the same cloud URL/media element. The
+URL revision bypasses cached responses from before the production origin was
+allowed by CORS; no video bytes or camera calibration have changed. The local
 `public/masterplan_scrub_gop3_60mb.mp4` is optional and no longer used at runtime.
 It is 3840 x 2160, 30 fps, 309 frames, 10.3 seconds. The preloaded placeholder
 and video poster remain `public/1.00000.avif`; they stay visible until video data

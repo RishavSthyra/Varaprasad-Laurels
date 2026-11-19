@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   getCachedSignedAssetUrl,
   getCachedSignedAssetUrls,
@@ -63,16 +63,14 @@ export function useSignedAssetUrl(input?: string | null) {
 }
 
 export function useSignedAssetUrls(inputs: string[]) {
+  // Progress updates can pass a fresh array. Only changed contents should
+  // cancel a request; React Strict Mode must also be able to re-subscribe.
+  const inputsKey = JSON.stringify([...new Set(inputs.filter(Boolean))]);
   const normalizedInputs = useMemo(
-    () => [...new Set(inputs.filter(Boolean))],
-    [inputs],
+    () => JSON.parse(inputsKey) as string[],
+    [inputsKey],
   );
-  const normalizedInputsKey = normalizedInputs.join("\u0001");
-  const lastRequestedKeyRef = useRef<string>("");
-  const cachedSignedUrls = useMemo(
-    () => getCachedSignedAssetUrls(normalizedInputs),
-    [normalizedInputs],
-  );
+  const cachedSignedUrls = getCachedSignedAssetUrls(normalizedInputs);
   const [signedUrls, setSignedUrls] = useState<Record<string, string>>(
     cachedSignedUrls,
   );
@@ -81,15 +79,8 @@ export function useSignedAssetUrls(inputs: string[]) {
     let cancelled = false;
 
     if (normalizedInputs.length === 0) {
-      lastRequestedKeyRef.current = "";
       return;
     }
-
-    if (lastRequestedKeyRef.current === normalizedInputsKey) {
-      return;
-    }
-
-    lastRequestedKeyRef.current = normalizedInputsKey;
 
     void getSignedAssetUrls(normalizedInputs)
       .then((urls) => {
@@ -106,7 +97,7 @@ export function useSignedAssetUrls(inputs: string[]) {
     return () => {
       cancelled = true;
     };
-  }, [cachedSignedUrls, inputs, normalizedInputs, normalizedInputsKey]);
+  }, [normalizedInputs]);
 
   const resolvedSignedUrls = useMemo(
     () => ({

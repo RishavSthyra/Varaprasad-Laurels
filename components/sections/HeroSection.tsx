@@ -478,10 +478,6 @@ export default function HeroSection({
   }, [heroLoopVideoSrc, prepareHeroLoopVideo]);
 
   useEffect(() => {
-    router.prefetch("/master-plan");
-  }, [router]);
-
-  useEffect(() => {
     if (!videoReady) return;
 
     let timeoutId: TimeoutHandle | null = null;

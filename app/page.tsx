@@ -1,10 +1,8 @@
 import HomePageClient from "@/components/HomePageClient";
 import { getPublishedDeveloperRuntimeConfig } from "@/lib/developer-config";
 import { buildPageMetadata } from "@/lib/metadata";
-import { filterSignableAssetKeys } from "@/lib/master-plan-asset-keys";
 import { VILLA_MASTERPLAN_VIDEO_KEY } from "@/lib/villa-masterplan-video";
 import { signR2AssetKeys } from "@/lib/server/r2-signed-assets";
-import { TOWER_SELECTION_IMAGE_URL } from "@/lib/tower-selection-assets";
 
 const HOME_FORWARD_VIDEO_URL =
   "https://cdn.sthyra.com/TULA/Videos/Home%20Page2.mp4";
@@ -37,14 +35,22 @@ export default async function HomePage() {
     heroPosterKey: HOME_FIRST_FRAME_URL,
     masterPlanWarmupVideoKey: VILLA_MASTERPLAN_VIDEO_KEY,
   };
-  const signedHomeCriticalAssets = signR2AssetKeys(filterSignableAssetKeys(Object.values(home)));
+  // Seed CDN-backed R2 URLs on the server, without a hydration-time API trip.
+  const signedHomeCriticalAssets = signR2AssetKeys([
+    home.heroVideoKey,
+    home.heroLoopVideoKey,
+    home.heroMobileFallbackKey,
+    home.heroStageFallbackKey,
+    home.heroPosterKey,
+    home.heroLogoKey,
+  ]);
 
   return (
     <>
       <link
         rel="preload"
         as="image"
-        href={TOWER_SELECTION_IMAGE_URL}
+        href={signedHomeCriticalAssets[home.heroPosterKey]}
         fetchPriority="high"
       />
       <HomePageClient
