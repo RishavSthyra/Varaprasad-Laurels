@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { isSiteNavigationVisible, siteNavLabels } from "@/lib/site-navigation";
 import styles from "./UpperLayoutCTA.module.css";
 import {RoyalJewel, RoyalShield} from "./RoyalNavigationDetails";
 import {
@@ -194,7 +195,7 @@ export default function UpperLayoutCTA({
 
   if (isMasterPlanRoute) {
     primaryButtons.push({
-      name: "Home",
+      name: siteNavLabels["/"],
       link: "/",
       action: "link",
       isHighlight: isQuickRouteActive(pathname ?? "", "/"),
@@ -211,7 +212,7 @@ export default function UpperLayoutCTA({
 
     const buttons: CtaButtonType[] = [
       {
-        name: "Home",
+        name: siteNavLabels["/"],
         link: "/",
         action: "link",
         isHighlight: isQuickRouteActive(pathname ?? "", "/"),
@@ -220,7 +221,7 @@ export default function UpperLayoutCTA({
         ),
       },
       {
-        name: "Project Overview",
+        name: siteNavLabels["/project-overview"],
         link: "/project-overview",
         action: "link",
         isHighlight: isQuickRouteActive(pathname ?? "", "/project-overview"),
@@ -229,7 +230,7 @@ export default function UpperLayoutCTA({
         ),
       },
       {
-        name: "Master Plan",
+        name: siteNavLabels["/master-plan"],
         link: "/master-plan",
         action: "link",
         isHighlight: isQuickRouteActive(pathname ?? "", "/master-plan"),
@@ -238,7 +239,7 @@ export default function UpperLayoutCTA({
         ),
       },
       {
-        name: "Amenities",
+        name: siteNavLabels["/amenities"],
         link: "/amenities",
         action: "link",
         isHighlight: isQuickRouteActive(pathname ?? "", "/amenities"),
@@ -247,7 +248,7 @@ export default function UpperLayoutCTA({
         ),
       },
       {
-        name: "Map",
+        name: siteNavLabels["/area-map"],
         link: "/area-map",
         action: "link",
         isHighlight: isQuickRouteActive(pathname ?? "", "/area-map"),
@@ -256,7 +257,7 @@ export default function UpperLayoutCTA({
         ),
       },
       {
-        name: "Walkthrough",
+        name: siteNavLabels["/exterior-walkthrough"],
         link: "/exterior-walkthrough",
         action: "link",
         isHighlight: isQuickRouteActive(pathname ?? "", "/exterior-walkthrough"),
@@ -267,7 +268,7 @@ export default function UpperLayoutCTA({
     ];
 
     return buttons.filter(
-      (button) => !(isMasterPlanRoute && button.name === "Home"),
+      (button) => isSiteNavigationVisible(button.link) && !(isMasterPlanRoute && button.name === siteNavLabels["/"]),
     );
   }, [isMasterPlanRoute, mergeRouteLinks, pathname]);
 

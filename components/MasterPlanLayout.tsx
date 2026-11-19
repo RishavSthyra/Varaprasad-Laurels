@@ -19,6 +19,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {
   motion,
   AnimatePresence,
+  useReducedMotion,
   type Variants,
   type Easing,
 } from "framer-motion";
@@ -84,13 +85,13 @@ const MATCHING_FLATS_PAGE_SIZE = 24;
 const FALLBACK_AREA_RANGE = { min: 1376.73, max: 2801.81 } as const;
 const AREA_RANGE_STEP = 0.01;
 const TOTAL_MASTER_PLAN_FRAMES = 360;
-function normalizeMasterPlanSnapFrames(frames: readonly number[]) {
+function normalizeMasterPlanSnapFrames(frames: readonly number[], totalFrames = TOTAL_MASTER_PLAN_FRAMES) {
   return frames
     .map((frame) =>
       frame === 0
-        ? TOTAL_MASTER_PLAN_FRAMES
-        : ((frame - 1 + TOTAL_MASTER_PLAN_FRAMES) %
-            TOTAL_MASTER_PLAN_FRAMES) +
+        ? totalFrames
+        : ((frame - 1 + totalFrames) %
+            totalFrames) +
           1,
     )
     .sort((left, right) => left - right);
@@ -155,45 +156,24 @@ const panelVariants: Variants = {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.9,
+      duration: 0.36,
       ease: smoothEase,
-      delay: 0.2,
     },
   },
   exit: {
     opacity: 0,
     x: "100%",
     transition: {
-      duration: 0.75,
+      duration: 0.28,
       ease: smoothEase,
     },
   },
 };
 
-const staggerWrap: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.12,
-    },
-  },
-};
-
-const itemAnim: Variants = {
-  hidden: { opacity: 0, x: 30, scale: 0.98 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-    transition: { duration: 0.42, ease: smoothEase },
-  },
-  exit: {
-    opacity: 0,
-    x: 20,
-    scale: 0.98,
-    transition: { duration: 0.2 },
-  },
+const reducedPanelVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0 } },
+  exit: { opacity: 0, transition: { duration: 0 } },
 };
 
 function getApartmentMeshId(apartment: InventoryApartment) {
@@ -439,9 +419,7 @@ function MasterPlanHotspotControls({
   return (
     <div
       data-master-plan-stage-controls
-      className={`pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/35 bg-[linear-gradient(135deg,rgba(255,255,255,0.42),rgba(255,255,255,0.14))] shadow-[0_18px_46px_rgba(15,23,42,0.16)] backdrop-blur-2xl dark:border-white/10 dark:bg-[linear-gradient(135deg,rgba(20,20,24,0.46),rgba(20,20,24,0.2))] ${
-        compact ? "" : ""
-      } ${compact ? "p-1.5" : "p-2"}`}
+      className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-white/35 bg-[linear-gradient(135deg,rgba(255,255,255,0.42),rgba(255,255,255,0.14))] p-1 shadow-[0_8px_24px_rgba(15,23,42,0.16)] backdrop-blur-2xl dark:border-white/10 dark:bg-[linear-gradient(135deg,rgba(20,20,24,0.46),rgba(20,20,24,0.2))]"
     >
       <button
         type="button"
@@ -449,19 +427,19 @@ function MasterPlanHotspotControls({
         onContextMenu={(event) => event.preventDefault()}
         className={`group inline-flex touch-manipulation items-center justify-center rounded-full border border-white/45 bg-white/72 text-zinc-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_8px_24px_rgba(15,23,42,0.12)] transition duration-300 hover:bg-white/88 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-white/10 dark:text-white dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_8px_24px_rgba(0,0,0,0.22)] dark:hover:bg-white/14 ${
           compact
-            ? "h-9 w-9"
-            : "h-10 w-10 hover:-translate-x-0.5 sm:h-11 sm:w-11"
+            ? "h-8 w-8"
+            : "h-8 w-8 hover:-translate-x-0.5 sm:h-9 sm:w-9"
         }`}
         aria-label="Previous master plan hotspot"
       >
         <ArrowLeft
-          className={`h-4 w-4 transition duration-300 ${
+          className={`h-3.5 w-3.5 transition duration-300 ${
             compact ? "" : "group-hover:-translate-x-0.5"
           }`}
         />
       </button>
 
-      <div className="h-7 w-px bg-gradient-to-b from-white/0 via-white/35 to-white/0 dark:via-white/12 sm:h-8" />
+      <div className="h-5 w-px bg-gradient-to-b from-white/0 via-white/35 to-white/0 dark:via-white/12" />
 
       <button
         type="button"
@@ -469,13 +447,13 @@ function MasterPlanHotspotControls({
         onContextMenu={(event) => event.preventDefault()}
         className={`group inline-flex touch-manipulation items-center justify-center rounded-full border border-white/45 bg-white/72 text-zinc-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_8px_24px_rgba(15,23,42,0.12)] transition duration-300 hover:bg-white/88 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-white/10 dark:text-white dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_8px_24px_rgba(0,0,0,0.22)] dark:hover:bg-white/14 ${
           compact
-            ? "h-9 w-9"
-            : "h-10 w-10 hover:translate-x-0.5 sm:h-11 sm:w-11"
+            ? "h-8 w-8"
+            : "h-8 w-8 hover:translate-x-0.5 sm:h-9 sm:w-9"
         }`}
         aria-label="Next master plan hotspot"
       >
         <ArrowRight
-          className={`h-4 w-4 transition duration-300 ${
+          className={`h-3.5 w-3.5 transition duration-300 ${
             compact ? "" : "group-hover:translate-x-0.5"
           }`}
         />
@@ -727,7 +705,9 @@ export default function MasterPlanLayout({
   masterPlanConfig,
   inventoryMode = "apartments",
 }: MasterPlanLayoutProps) {
+  const reduceMotion = useReducedMotion();
   const isVillaInventory = inventoryMode === "villas";
+  const masterPlanTotalFrames = masterPlanConfig?.totalFrames ?? TOTAL_MASTER_PLAN_FRAMES;
   const masterPlanHotspotFrames = useMemo(
     () =>
       masterPlanConfig?.hotspotFrames?.length
@@ -736,8 +716,8 @@ export default function MasterPlanLayout({
     [masterPlanConfig?.hotspotFrames],
   );
   const masterPlanSnapFrames = useMemo(
-    () => normalizeMasterPlanSnapFrames(masterPlanHotspotFrames),
-    [masterPlanHotspotFrames],
+    () => normalizeMasterPlanSnapFrames(masterPlanHotspotFrames, masterPlanTotalFrames),
+    [masterPlanHotspotFrames, masterPlanTotalFrames],
   );
   const masterPlanHotspotKeys = useMemo(() => {
     const configuredKeys = masterPlanConfig?.hotspots
@@ -811,16 +791,17 @@ export default function MasterPlanLayout({
     useState<VillaPositionFilter>("all");
 
   const isLeaving = false;
-  const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(true);
+  const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
   const [isCompactViewport, setIsCompactViewport] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
   const [isDesktopCompactViewport, setIsDesktopCompactViewport] =
     useState(false);
-  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false);
   const [isDesktopResultsOpen, setIsDesktopResultsOpen] = useState(false);
   const [isTouchTabletViewport, setIsTouchTabletViewport] = useState(false);
   const [isTopViewMode, setIsTopViewMode] = useState(false);
   const [currentFrame, setCurrentFrame] = useState(1);
+  const [orbitMotion, setOrbitMotion] = useState<{ direction: 1 | -1; id: number } | null>(null);
   const [isStageInteracting, setIsStageInteracting] = useState(false);
   const [selectedApartment, setSelectedApartment] =
     useState<InventoryApartment | null>(null);
@@ -856,12 +837,14 @@ export default function MasterPlanLayout({
         masterPlanConfig?.reverseHotspotDirection,
         masterPlanHotspotFrames,
         masterPlanHotspotKeys,
+        masterPlanTotalFrames,
       ),
     [
       currentFrame,
       masterPlanConfig?.reverseHotspotDirection,
       masterPlanHotspotFrames,
       masterPlanHotspotKeys,
+      masterPlanTotalFrames,
     ],
   );
   const isSpecialVideoExperienceActive =
@@ -883,13 +866,15 @@ export default function MasterPlanLayout({
     isSpecialVideoLaunching ||
     isSpecialVideoOpen,
   );
-  const shouldEnableCompactStageScrubbing = !isMobileViewport;
+  const shouldEnableCompactStageScrubbing = true;
   const compactTouchHighlightProfile = isMobileViewport
     ? "mobile"
     : isTouchTabletViewport
       ? "tablet"
       : "desktop";
-  const compactStageHeightClassName = shouldUseCompactLayout
+  const compactStageHeightClassName = shouldUseCompactLayout && !isMobileSheetOpen && !selectedApartment
+    ? "h-dvh"
+    : shouldUseCompactLayout
     ? "h-[clamp(18.75rem,45svh,27rem)] sm:h-[clamp(20.5rem,48svh,31rem)]"
     : "h-[clamp(20rem,50svh,32rem)]";
   const compactLowerContentClassName = shouldUseCompactLayout
@@ -1392,11 +1377,13 @@ export default function MasterPlanLayout({
         masterPlanConfig?.reverseHotspotDirection,
         masterPlanHotspotFrames,
         masterPlanHotspotKeys,
+        masterPlanTotalFrames,
       ),
     [
       currentFrame,
       masterPlanHotspotKeys,
       masterPlanHotspotFrames,
+      masterPlanTotalFrames,
       masterPlanConfig?.reverseHotspotDirection,
     ],
   );
@@ -1943,13 +1930,14 @@ export default function MasterPlanLayout({
 
   const wrapFrame = useCallback(
     (frame: number) =>
-      ((frame - 1 + TOTAL_MASTER_PLAN_FRAMES) % TOTAL_MASTER_PLAN_FRAMES) + 1,
-    [],
+      ((Math.round(frame) - 1) % masterPlanTotalFrames + masterPlanTotalFrames) % masterPlanTotalFrames + 1,
+    [masterPlanTotalFrames],
   );
 
   const setWrappedFrame = useCallback(
     (frame: number) => {
       const nextFrame = wrapFrame(frame);
+      setOrbitMotion(null);
       currentFrameRef.current = nextFrame;
       setCurrentFrame(nextFrame);
     },
@@ -1989,6 +1977,7 @@ export default function MasterPlanLayout({
         return;
       }
       currentFrameRef.current = targetFrame;
+      setOrbitMotion(previous => ({ direction, id: (previous?.id ?? 0) + 1 }));
       setCurrentFrame(targetFrame);
     },
     [getNextHotspotFrame],
@@ -2020,6 +2009,7 @@ export default function MasterPlanLayout({
         masterPlanConfig?.reverseHotspotDirection,
         masterPlanHotspotFrames,
         masterPlanHotspotKeys,
+        masterPlanTotalFrames,
       );
       const matchCount = allFilteredApartments.reduce(
         (count, apartment) =>
@@ -2034,6 +2024,7 @@ export default function MasterPlanLayout({
         distance: getShortestMasterPlanFrameDistance(
           currentFrameValue,
           frame,
+          masterPlanTotalFrames,
         ),
       };
     })
@@ -2060,6 +2051,7 @@ export default function MasterPlanLayout({
     masterPlanHotspotFrames,
     masterPlanConfig?.reverseHotspotDirection,
     masterPlanSnapFrames,
+    masterPlanTotalFrames,
   ]);
 
   useEffect(() => {
@@ -2184,6 +2176,7 @@ export default function MasterPlanLayout({
           <MasterPlanFrameHoverStage
             apartments={apartments}
             currentFrame={currentFrame}
+            orbitMotion={orbitMotion}
             dragEnabled
             filteredApartments={stageFilteredApartments}
             inventoryError={inventoryError}
@@ -2208,18 +2201,17 @@ export default function MasterPlanLayout({
         )
       ) : null}
 
-      {!shouldUseCompactLayout &&
-      !isTopViewMode &&
+      {!isTopViewMode &&
       !isLeaving &&
-      !isSpecialVideoOpen ? (
+      !isSpecialVideoOpen &&
+      !shouldRenderCompactSpecialVideoStage ? (
         <div
-          className={`pointer-events-none absolute inset-x-0 z-40 flex justify-center px-4 ${
-            "top-[7.25rem]"
-          }`}
+          className="pointer-events-none absolute inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-40 flex justify-center px-4"
         >
           <MasterPlanHotspotControls
-            onPrevious={() => goToHotspot(1)}
-            onNext={() => goToHotspot(-1)}
+            compact={shouldUseCompactLayout}
+            onPrevious={() => goToHotspot(-1)}
+            onNext={() => goToHotspot(1)}
           />
         </div>
       ) : null}
@@ -2304,10 +2296,11 @@ export default function MasterPlanLayout({
                   </div>
                 ) : isTopViewMode && !selectedTower ? (
                   <MasterPlanTopViewStage />
-                ) : (
+                ) : shouldUseCompactLayout ? (
                   <MasterPlanFrameHoverStage
                     apartments={apartments}
                     currentFrame={currentFrame}
+                    orbitMotion={orbitMotion}
                     dragEnabled={shouldEnableCompactStageScrubbing}
                     filteredApartments={stageFilteredApartments}
                     inventoryError={inventoryError}
@@ -2327,26 +2320,9 @@ export default function MasterPlanLayout({
                     config={masterPlanConfig}
                     touchHighlightProfile={compactTouchHighlightProfile}
                   />
-                )}
+                ) : null}
               </div>
 
-              {!isTopViewMode &&
-              !isLeaving &&
-              !shouldRenderCompactSpecialVideoStage ? (
-                <div
-                  className={`pointer-events-none absolute inset-x-0 z-30 flex justify-center px-4 ${
-                    shouldUseCompactLayout
-                      ? "bottom-3"
-                      : "bottom-[max(env(safe-area-inset-bottom),1rem)]"
-                  }`}
-                >
-                  <MasterPlanHotspotControls
-                    compact
-                    onPrevious={() => goToHotspot(1)}
-                    onNext={() => goToHotspot(-1)}
-                  />
-                </div>
-              ) : null}
             </div>
           </div>
 
@@ -2502,12 +2478,12 @@ export default function MasterPlanLayout({
                 <motion.button
                   key="desktop-sidebar-open"
                   type="button"
-                  initial={{ opacity: 0, x: 16 }}
+                  initial={{ opacity: 0, x: reduceMotion ? 0 : 16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 16 }}
-                  transition={{ duration: 0.24, ease: smoothEase }}
+                  exit={{ opacity: 0, x: reduceMotion ? 0 : 16 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.16, ease: smoothEase }}
                   onClick={() => setIsDesktopSidebarOpen(true)}
-                  className="pointer-events-auto absolute right-0 top-1/2 z-[100] hidden h-40 w-11 -translate-y-1/2 flex-col items-center justify-center gap-3 rounded-l-[18px] border border-r-0 border-[#fce190]/45 bg-[#00142b] text-[9px] font-semibold uppercase tracking-[0.18em] text-[#fce190] shadow-[-14px_18px_36px_rgba(0,7,20,0.38),inset_0_1px_0_rgba(252,225,144,0.12)] transition hover:w-12 hover:bg-[#071d36] xl:inline-flex"
+                  className="pointer-events-auto absolute right-0 top-1/2 z-[100] hidden h-40 w-11 -translate-y-1/2 flex-col items-center justify-center gap-3 rounded-l-[18px] border border-r-0 border-[#fce190]/45 bg-[#00142b] text-[9px] font-semibold uppercase tracking-[0.18em] text-[#fce190] shadow-[-14px_18px_36px_rgba(0,7,20,0.38),inset_0_1px_0_rgba(252,225,144,0.12)] transition-colors duration-150 motion-reduce:transition-none hover:bg-[#071d36] xl:inline-flex"
                   aria-label="Open filters"
                 >
                   <SlidersHorizontal className="h-3.5 w-3.5" />
@@ -2520,11 +2496,11 @@ export default function MasterPlanLayout({
               {shouldShowDesktopSidebar && isDesktopSidebarOpen ? (
                 <motion.aside
                   key="sidebar"
-                  variants={panelVariants}
+                  variants={reduceMotion ? reducedPanelVariants : panelVariants}
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  className={`pointer-events-auto gpu-layer absolute bottom-6 right-5 top-6 z-[100] hidden overflow-visible transition-[width] duration-500 ease-out xl:block 2xl:right-7 ${
+                  className={`pointer-events-auto gpu-layer absolute bottom-6 right-5 top-6 z-[100] hidden overflow-visible xl:block 2xl:right-7 ${
                     showMasterPlanFilters && isDesktopResultsOpen
                       ? isDesktopCompactViewport
                         ? "w-[min(900px,calc(100vw-150px))]"
@@ -2638,7 +2614,7 @@ export default function MasterPlanLayout({
                       ? { y: 0, opacity: 1 }
                       : { y: "110%", opacity: 0 }
                   }
-                  transition={{ duration: 0.45, ease: smoothEase }}
+                  transition={{ duration: reduceMotion ? 0 : 0.24, ease: smoothEase }}
                   className={`gpu-layer absolute inset-x-0 z-30 ${
                     shouldUseCompactLayout ? "" : "xl:hidden"
                   } ${
@@ -3009,6 +2985,7 @@ function MasterPlanResidenceDock({
   onVillaPositionChange: (value: VillaPositionFilter) => void;
 }) {
   const router = useRouter();
+  const reduceMotion = useReducedMotion();
   const scrollableId = useId();
   const [sort, setSort] = useState<ResidenceDockSort>("unit");
   const [visibleCount, setVisibleCount] = useState(MATCHING_FLATS_PAGE_SIZE);
@@ -3049,48 +3026,23 @@ function MasterPlanResidenceDock({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 36, scale: 0.985 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
-      exit={{ opacity: 0, x: 32, scale: 0.985 }}
-      transition={{ duration: 0.44, ease: smoothEase }}
+    <div
       className="mp-residence-dock mp-liquid-shell relative flex h-full min-h-0 overflow-visible rounded-[24px] border text-[#00142b]"
     >
       <MatteVelvetFilterStyles />
-      <svg aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
-        <defs>
-          <filter id="mp-liquid-refraction" x="-18%" y="-18%" width="136%" height="136%">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.008 0.014"
-              numOctaves="2"
-              seed="19"
-              result="liquidNoise"
-            />
-            <feGaussianBlur in="liquidNoise" stdDeviation="0.7" result="softNoise" />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="softNoise"
-              scale="18"
-              xChannelSelector="R"
-              yChannelSelector="B"
-            />
-          </filter>
-        </defs>
-      </svg>
       <div aria-hidden="true" className="mp-liquid-optics">
         <span className="mp-liquid-optics__light mp-liquid-optics__light--blue" />
         <span className="mp-liquid-optics__light mp-liquid-optics__light--gold" />
       </div>
 
-      <AnimatePresence initial={false}>
+      <AnimatePresence initial={false} mode="popLayout">
         {resultsOpen ? (
       <motion.section
         key="residence-results"
-        initial={{ opacity: 0, x: 36 }}
+        initial={{ opacity: 0, x: reduceMotion ? 0 : 56 }}
         animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: 28 }}
-        transition={{ duration: 0.36, ease: smoothEase }}
+        exit={{ opacity: 0, x: reduceMotion ? 0 : 40 }}
+        transition={{ duration: reduceMotion ? 0 : 0.28, ease: smoothEase }}
         className="mp-liquid-pane mp-liquid-results relative z-10 flex min-w-0 flex-1 flex-col"
       >
         <div className={`mp-liquid-toolbar border-b border-[#fce190]/14 ${compact ? "p-3" : "p-4"}`}>
@@ -3200,14 +3152,14 @@ function MasterPlanResidenceDock({
                   compact ? "grid-cols-2" : "grid-cols-3"
                 }`}
               >
-                {visibleApartments.map((apartment) => {
+                {visibleApartments.map((apartment, index) => {
                   const isSelected = apartment.id === selectedApartmentId;
 
                   return (
-                    <motion.button
+                    <button
                       key={apartment.id}
                       type="button"
-                      layout="position"
+                      style={{ animationDelay: `${Math.min(index, 5) * 25}ms` }}
                       aria-label={villaMode ? `Explore ${apartment.title}` : undefined}
                       onPointerEnter={() => { if (villaMode) warmVillaResidence(Number(apartment.flatNumber)); }}
                       onFocus={() => { if (villaMode) warmVillaResidence(Number(apartment.flatNumber)); }}
@@ -3229,10 +3181,10 @@ function MasterPlanResidenceDock({
                             className="object-cover"
                           />
                           <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3">
-                            <span className="rounded-full border border-white/70 bg-[#efebe4]/88 px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.12em] text-[#00142b] shadow-[0_5px_18px_rgba(0,7,20,0.16)] backdrop-blur-md">
+                            <span className="rounded-full border border-white/70 bg-[#efebe4]/95 px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.12em] text-[#00142b] shadow-[0_5px_18px_rgba(0,7,20,0.16)]">
                               {getVillaPano(Number(apartment.flatNumber)) ? apartment.status : "Pano unavailable"}
                             </span>
-                            <span className="rounded-full border border-white/70 bg-[#efebe4]/88 px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.12em] text-[#00142b] shadow-[0_5px_18px_rgba(0,7,20,0.16)] backdrop-blur-md">
+                            <span className="rounded-full border border-white/70 bg-[#efebe4]/95 px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.12em] text-[#00142b] shadow-[0_5px_18px_rgba(0,7,20,0.16)]">
                               {formatVillaTypeName(apartment.unitType)}
                             </span>
                           </div>
@@ -3306,7 +3258,7 @@ function MasterPlanResidenceDock({
                           {villaMode ? "Explore villa" : "Select residence"}
                         </span>
                       </div>
-                    </motion.button>
+                    </button>
                   );
                 })}
               </div>
@@ -3325,7 +3277,6 @@ function MasterPlanResidenceDock({
       </motion.section>
         ) : null}
       </AnimatePresence>
-
       <aside className={`mp-liquid-pane mp-liquid-filter relative z-20 flex w-[clamp(320px,22vw,370px)] shrink-0 flex-col overflow-visible ${resultsOpen ? "rounded-r-[24px] border-l border-[#fce190]/18" : "rounded-[24px]"} ${compact ? "p-4" : "p-6"}`}>
         {!resultsOpen ? (
           <button
@@ -3580,15 +3531,16 @@ function MasterPlanResidenceDock({
           isolation: isolate;
           border-color: rgba(0, 20, 43, 0.24);
           color: #00142b;
-          background: rgba(239, 235, 228, 0.56);
+          background: rgba(239, 235, 228, 0.88);
           box-shadow:
             -28px 38px 88px rgba(0, 9, 25, 0.24),
             0 12px 42px rgba(0, 9, 25, 0.14),
             inset 0 1px 0 rgba(255, 255, 255, 0.92),
             inset 1px 0 0 rgba(255, 255, 255, 0.54),
             inset -1px -1px 0 rgba(0, 20, 43, 0.08);
-          -webkit-backdrop-filter: blur(34px) saturate(168%) contrast(108%);
-          backdrop-filter: blur(34px) saturate(168%) contrast(108%);
+          /* One shared glass layer avoids re-filtering every card and control. */
+          -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
         }
 
         .mp-liquid-shell,
@@ -3635,7 +3587,6 @@ function MasterPlanResidenceDock({
           overflow: hidden;
           border-radius: 22px;
           pointer-events: none;
-          filter: url("#mp-liquid-refraction");
           opacity: 0.26;
           mix-blend-mode: screen;
         }
@@ -3667,8 +3618,6 @@ function MasterPlanResidenceDock({
 
         .mp-liquid-pane {
           background: rgba(239, 235, 228, 0.34);
-          -webkit-backdrop-filter: blur(28px) saturate(145%) brightness(1.04);
-          backdrop-filter: blur(28px) saturate(145%) brightness(1.04);
         }
 
         .mp-liquid-results {
@@ -3689,8 +3638,6 @@ function MasterPlanResidenceDock({
             inset 0 1px 0 rgba(255, 255, 255, 0.72),
             0 12px 34px rgba(0, 6, 18, 0.08);
           border-color: rgba(0, 20, 43, 0.12);
-          -webkit-backdrop-filter: blur(20px) saturate(145%);
-          backdrop-filter: blur(20px) saturate(145%);
         }
 
         .mp-liquid-control,
@@ -3705,12 +3652,9 @@ function MasterPlanResidenceDock({
             inset 1px 0 0 rgba(255, 255, 255, 0.42),
             inset 0 -1px 0 rgba(0, 20, 43, 0.08),
             0 9px 24px rgba(0, 7, 20, 0.1);
-          -webkit-backdrop-filter: blur(22px) saturate(172%) brightness(1.05);
-          backdrop-filter: blur(22px) saturate(172%) brightness(1.05);
           transition:
-            border-color 180ms ease,
-            background 180ms ease,
-            box-shadow 180ms ease,
+            border-color 150ms ease,
+            background-color 150ms ease,
             transform 180ms ease;
         }
 
@@ -3736,8 +3680,6 @@ function MasterPlanResidenceDock({
             inset 0 -1px 0 rgba(112, 82, 12, 0.12),
             0 10px 26px rgba(0, 7, 20, 0.22),
             0 0 22px rgba(252, 225, 144, 0.08);
-          -webkit-backdrop-filter: blur(18px) saturate(150%);
-          backdrop-filter: blur(18px) saturate(150%);
         }
 
         .mp-liquid-compare {
@@ -3747,8 +3689,6 @@ function MasterPlanResidenceDock({
           box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.14),
             0 10px 26px rgba(0, 7, 20, 0.2);
-          -webkit-backdrop-filter: blur(18px) saturate(150%);
-          backdrop-filter: blur(18px) saturate(150%);
         }
 
         .mp-liquid-compare :where(*) {
@@ -3757,13 +3697,12 @@ function MasterPlanResidenceDock({
 
         .mp-liquid-card {
           contain: paint;
+          animation: mp-residence-enter 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
           border-color: rgba(0, 20, 43, 0.18);
           background: rgba(239, 235, 228, 0.5);
           box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.72),
             0 10px 24px rgba(0, 7, 20, 0.1);
-          -webkit-backdrop-filter: blur(12px) saturate(130%) brightness(1.04);
-          backdrop-filter: blur(12px) saturate(130%) brightness(1.04);
         }
 
         .mp-liquid-card::before {
@@ -3794,9 +3733,19 @@ function MasterPlanResidenceDock({
         }
 
         .mp-liquid-tab {
+          background: rgba(239, 235, 228, 0.94);
           box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.86),
             -12px 18px 34px rgba(0, 7, 20, 0.16);
+        }
+
+        .mp-liquid-tab:hover {
+          transform: translateX(-3px);
+        }
+
+        @keyframes mp-residence-enter {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         .mp-residence-dock option {
@@ -3821,8 +3770,6 @@ function MasterPlanResidenceDock({
           box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.86),
             0 8px 22px rgba(0, 7, 20, 0.08);
-          -webkit-backdrop-filter: blur(18px) saturate(155%);
-          backdrop-filter: blur(18px) saturate(155%);
         }
 
         .mp-residence-dock .mp-area-range > div:nth-child(2) {
@@ -3851,8 +3798,15 @@ function MasterPlanResidenceDock({
         .mp-residence-dock .mp-area-range + div {
           color: rgba(0, 20, 43, 0.62);
         }
+
+        @media (prefers-reduced-motion: reduce) {
+          .mp-residence-dock :where(*) {
+            transition: none !important;
+            animation: none !important;
+          }
+        }
       `}</style>
-    </motion.div>
+    </div>
   );
 }
 
@@ -4408,10 +4362,7 @@ function MasterPlanResultsCard({
         </span>
       </div>
 
-      <motion.div
-        variants={staggerWrap}
-        initial="hidden"
-        animate="visible"
+      <div
         className={`custom-scrollbar min-h-0 flex-1 overflow-y-auto overscroll-contain [overflow-anchor:none] [-webkit-overflow-scrolling:touch] touch-pan-y ${
           compact ? "pr-1" : compactDesktop ? "pr-1.5" : "pr-2"
         }`}
@@ -4476,13 +4427,8 @@ function MasterPlanResultsCard({
               >
                 {visibleApartments.map((apartment) => {
                   return (
-                    <motion.button
+                    <button
                       key={apartment.id}
-                      layout="position"
-                      variants={itemAnim}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
                       onClick={() => {
                         // if (!isViewableAtHotspot) {
                         //   return;
@@ -4621,7 +4567,7 @@ function MasterPlanResultsCard({
                           Sqft
                         </p>
                       </div>
-                    </motion.button>
+                    </button>
                   );
                 })}
               </InfiniteScroll>
@@ -4653,7 +4599,7 @@ function MasterPlanResultsCard({
             )}
           </AnimatePresence>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

@@ -3,8 +3,8 @@ import path from "path"
 import os from "os"
 import sharp from "sharp"
 
-const INPUT = process.env.PANO_INPUT ?? "./raw-panos"
-const OUTPUT = process.env.PANO_OUTPUT ?? "./public/varaprasad_villa_panos"
+const INPUT = process.env.PANO_INPUT ?? "./Exterior PANOS_Remaining"
+const OUTPUT = process.env.PANO_OUTPUT ?? "./public/varaprasad_exterior_panos_remaining"
 
 const PREVIEW_WIDTH = 2000
 
@@ -15,13 +15,15 @@ const CPU_THREADS =
 
 // Each tile is an independent Sharp job. One libvips thread per tile lets the
 // parallel tile queue use all CPU cores without oversubscribing the machine.
+
 const SHARP_THREADS_PER_JOB = 1
 
 sharp.concurrency(SHARP_THREADS_PER_JOB)
 sharp.simd(true)
 
 // A decoded 12288 x 6144 RGB pano is about 216 MB. Processing one pano at a
-// time keeps memory stable while its independent tiles use all CPU cores.
+// time keeps memory stable while its independent tiles use all CPU cores. 
+
 const FILE_CONCURRENCY = 1
 const TILE_CONCURRENCY = Math.max(4, Math.min(16, CPU_THREADS))
 const JPEG_TILE_QUALITY = 95

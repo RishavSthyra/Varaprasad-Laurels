@@ -19,11 +19,10 @@ test("the editable JSON validates and uses the visible player counter", () => {
 test("the CAD-corrected villa and facing reach the interior route and entry node", () => {
   const pointer = getVillaPointers("Exterior_PANO_Spline_F0192")[0];
   const url = new URL(getVillaInteriorHref(pointer), "https://example.test");
-  assert.equal(url.pathname, "/interior-kitchen-foyer");
+  assert.equal(url.pathname, "/villa-walkthrough");
   assert.equal(url.searchParams.get("villa"), "12");
   assert.equal(url.searchParams.get("facing"), "West");
-  assert.equal(url.searchParams.get("node"), pointer.interior.nodeId);
-  assert.equal(url.searchParams.has("node"), true);
+  assert.equal(url.searchParams.has("node"), false, "Legacy apartment node IDs must not leak into the new villa tour");
   assert(!new URL(getVillaInteriorHref({ ...pointer, interior: { ...pointer.interior, nodeId: null } }), "https://example.test").searchParams.has("node"));
 });
 

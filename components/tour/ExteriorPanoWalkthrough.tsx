@@ -7,7 +7,7 @@ import "@photo-sphere-viewer/core/index.css";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
-import TulaBrandPreloader from "@/components/ui/TulaBrandPreloader";
+import ExteriorWalkthroughPreloader from "@/components/ui/ExteriorWalkthroughPreloader";
 import {
   ArrowDown,
   ArrowLeft,
@@ -3186,8 +3186,8 @@ export default function ExteriorPanoWalkthrough({
     >
       <AnimatePresence initial={false}>
         {!hasCompletedInitialPano ? (
-          <TulaBrandPreloader
-            key="exterior-tula-preloader"
+          <ExteriorWalkthroughPreloader
+            key="exterior-walkthrough-preloader"
             progress={exteriorPreloaderProgress}
           />
         ) : null}

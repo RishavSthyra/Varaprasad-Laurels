@@ -1,10 +1,16 @@
 "use client";
 
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AREA_MAP_PHOTO_PLACEHOLDER, getAreaMapPhotoUrl } from "@/lib/area-map-photo-assets";
 import { Cormorant_Garamond } from "next/font/google";
 import mapSidebarStyles from "./MapSidebar.module.css";
-import pLimit from "p-limit";
-import poidata from "@/data/poi.json";
+import {
+  areaMapProject as centerPlace, areaMapPois as pois, AREA_MAP_INITIAL_ZOOM,
+  AREA_MAP_ROUTE_CACHE_KEY, getPoiRoadMetrics, poiRouteSignature, isValidPoiRoute,
+  straightLineDistance, getAnimatedRouteSegment,
+  type AreaPoi as Poi, type AreaPoiCategory as PoiCategory, type AreaRoute as RouteData,
+} from "@/lib/area-map";
+export type { AreaPoi as Poi } from "@/lib/area-map";
 import { Map as MapView,
   MapMarker,
   MarkerContent,
@@ -30,10 +36,8 @@ import {
   X,
   LocateFixed,
   Clock3,
-  Star,
   Navigation,
   Trophy,
-  Heart,
   ListFilter,
   Grid2x2,
   Layers3,
@@ -47,42 +51,10 @@ const displaySerif = Cormorant_Garamond({
   weight: ["500", "600"],
 });
 
-type RouteData = {
-  id: number;
-  name: string;
-  coordinates: [number, number][];
-  duration: number;
-  distance: number;
-};
-
 type UserLocation = {
   longitude: number;
   latitude: number;
   accuracy?: number;
-};
-
-type PoiCategory =
-  | "park"
-  | "mall"
-  | "bus_stop"
-  | "school"
-  | "hospital"
-  | "landmark"
-  | "sports"
-  | "IT Company";
-
-export type Poi = {
-  id: number;
-  name: string;
-  category: PoiCategory;
-  lng: number;
-  lat: number;
-  distanceLabel: string;
-  timeLabel: string;
-  rating?: number;
-  featured?: boolean;
-  images?: string[];
-  image?: string;
 };
 
 type ClusterPoiProperties = {
@@ -92,16 +64,14 @@ type ClusterPoiProperties = {
 };
 
 type DistanceFilter = "5km" | "10km" | "all";
-type SortMode = "popularity" | "nearest" | "rating";
+type SortMode = "featured" | "nearest" | "name";
 type MapDisplayMode = "normal" | "carto" | "3d";
+const DEFAULT_MAP_DISPLAY_MODE: MapDisplayMode = "3d";
 
-const centerPlace = {
-  name: "Whisper of Trees",
-  lng: 77.63036955360322,
-  lat: 13.153818578384746, 
-};
+function cameraForMode(mode: MapDisplayMode) {
+  return { pitch: mode === "3d" ? 55 : 0, bearing: mode === "3d" ? -18 : 0 };
+}
 
-const pois : Poi[] = poidata as Poi[];
 const DEFAULT_SELECTED_CATEGORIES: PoiCategory[] = [
   "park",
   "mall",
@@ -113,18 +83,12 @@ const DEFAULT_SELECTED_CATEGORIES: PoiCategory[] = [
   "IT Company",
 ];
 const CATEGORY_ORDER = DEFAULT_SELECTED_CATEGORIES;
-const ROUTE_CACHE_KEY = "veranza-poi-routes-v1";
+const ROUTE_CACHE_KEY = AREA_MAP_ROUTE_CACHE_KEY;
 const ROUTE_REQUEST_TIMEOUT = 12000;
-const ROUTE_REQUEST_SPACING = 220;
-const MAX_CONCURRENT_ROUTE_REQUESTS = 2;
 const POI_CLUSTER_MAX_ZOOM = 12;
 const POI_CLUSTER_SWITCH_ZOOM = 12.8;
 const POI_CLUSTER_RADIUS = 58;
 const ROUTE_ANIMATION_DURATION = 2600;
-const ROUTE_ANIMATION_WINDOW_SIZE = 30;
-const provisionalRouteCache = new Map<number, RouteData>();
-const PREMIUM_OLIVE_GRADIENT =
-  "border border-[#fce190]/45 bg-[radial-gradient(circle_at_32%_20%,#12395f_0%,#062542_48%,#00142b_100%)] text-[#fce190]";
 const PREMIUM_OLIVE_BUTTON =
   "border border-[#fce190]/55 bg-[radial-gradient(circle_at_32%_20%,#12395f_0%,#062542_48%,#00142b_100%)] text-[#fce190]";
 const FLOATING_PANEL =
@@ -153,115 +117,9 @@ function formatDuration(seconds: number) {
   return `${hours}h ${remaining}m`;
 }
 
-function getAnimatedSegment(
-  coordinates: [number, number][] | undefined,
-  progress: number,
-  windowSize = 30,
-) {
-  if (!coordinates || coordinates.length === 0) return [];
-
-  if (coordinates.length <= 2) return coordinates;
-
-  const maxIndex = coordinates.length - 1;
-  const headIndex = Math.max(1, Math.floor(progress * maxIndex));
-  const startIndex = Math.max(0, headIndex - windowSize);
-
-  return coordinates.slice(startIndex, headIndex + 1);
-}
-
 function formatDistance(meters: number) {
   if (meters < 1000) return `${Math.round(meters)} m`;
   return `${(meters / 1000).toFixed(1)} km`;
-}
-
-function parseDurationLabel(label: string) {
-  const normalized = label.toLowerCase();
-  const hoursMatch = normalized.match(/(\d+)\s*h/);
-  const minutesMatch = normalized.match(/(\d+)\s*(?:m|min)/);
-
-  const hours = hoursMatch ? Number.parseInt(hoursMatch[1], 10) : 0;
-  const minutes = minutesMatch ? Number.parseInt(minutesMatch[1], 10) : 0;
-
-  return hours * 3600 + minutes * 60;
-}
-
-function parseDistanceLabel(label: string) {
-  const normalized = label.toLowerCase();
-  const kmMatch = normalized.match(/([\d.]+)\s*km/);
-  if (kmMatch) {
-    return Number.parseFloat(kmMatch[1]) * 1000;
-  }
-
-  const meterMatch = normalized.match(/([\d.]+)\s*m/);
-  if (meterMatch) {
-    return Number.parseFloat(meterMatch[1]);
-  }
-
-  return 0;
-}
-
-function buildCurvedRouteCoordinates(
-  start: { lng: number; lat: number },
-  end: { lng: number; lat: number },
-): [number, number][] {
-  const deltaLng = end.lng - start.lng;
-  const deltaLat = end.lat - start.lat;
-  const offsetLng = -deltaLat * 0.12;
-  const offsetLat = deltaLng * 0.12;
-
-  return [
-    [start.lng, start.lat],
-    [
-      start.lng + deltaLng * 0.28 + offsetLng * 0.35,
-      start.lat + deltaLat * 0.28 + offsetLat * 0.35,
-    ],
-    [
-      start.lng + deltaLng * 0.56 + offsetLng * 0.12,
-      start.lat + deltaLat * 0.56 + offsetLat * 0.12,
-    ],
-    [
-      start.lng + deltaLng * 0.82 - offsetLng * 0.08,
-      start.lat + deltaLat * 0.82 - offsetLat * 0.08,
-    ],
-    [end.lng, end.lat],
-  ];
-}
-
-function buildProvisionalRoute(poi: Poi): RouteData {
-  return {
-    id: poi.id,
-    name: poi.name,
-    coordinates: buildCurvedRouteCoordinates(
-      { lng: centerPlace.lng, lat: centerPlace.lat },
-      { lng: poi.lng, lat: poi.lat },
-    ),
-    duration: parseDurationLabel(poi.timeLabel),
-    distance: parseDistanceLabel(poi.distanceLabel),
-  };
-}
-
-function getProvisionalRoute(poi: Poi) {
-  const cached = provisionalRouteCache.get(poi.id);
-  if (cached) {
-    return cached;
-  }
-
-  const route = buildProvisionalRoute(poi);
-  provisionalRouteCache.set(poi.id, route);
-  return route;
-}
-
-function buildUserFallbackRoute(location: UserLocation): RouteData {
-  return {
-    id: -1,
-    name: "Your Route to Trifecta Veranza",
-    coordinates: buildCurvedRouteCoordinates(
-      { lng: location.longitude, lat: location.latitude },
-      { lng: centerPlace.lng, lat: centerPlace.lat },
-    ),
-    duration: 0,
-    distance: 0,
-  };
 }
 
 function buildAccuracyPolygon(
@@ -314,26 +172,6 @@ function parseRouteCoordinates(value: unknown): [number, number][] | null {
   });
 
   return coordinates.every(Boolean) ? (coordinates as [number, number][]) : null;
-}
-
-function abortableDelay(ms: number, signal: AbortSignal) {
-  if (signal.aborted) {
-    return Promise.reject(new DOMException("Aborted", "AbortError"));
-  }
-
-  return new Promise<void>((resolve, reject) => {
-    const abort = () => {
-      globalThis.clearTimeout(timeoutId);
-      signal.removeEventListener("abort", abort);
-      reject(new DOMException("Aborted", "AbortError"));
-    };
-    const timeoutId = globalThis.setTimeout(() => {
-      signal.removeEventListener("abort", abort);
-      resolve();
-    }, ms);
-
-    signal.addEventListener("abort", abort, { once: true });
-  });
 }
 
 function waitForIdle(signal: AbortSignal, timeout = 700) {
@@ -460,7 +298,7 @@ function upsertRouteById(routes: RouteData[], nextRoute: RouteData) {
 }
 
 function getRouteCacheKey(poi: Poi) {
-  return `${centerPlace.lng},${centerPlace.lat}:${poi.lng},${poi.lat}`;
+  return poiRouteSignature(poi);
 }
 
 function loadRouteCache() {
@@ -471,7 +309,9 @@ function loadRouteCache() {
 
     const raw = sessionStorage.getItem(ROUTE_CACHE_KEY);
     if (!raw) return {} as Record<string, RouteData>;
-    return JSON.parse(raw) as Record<string, RouteData>;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return {} as Record<string, RouteData>;
+    return parsed as Record<string, RouteData>;
   } catch {
     return {} as Record<string, RouteData>;
   }
@@ -538,7 +378,7 @@ const categoryMeta: Record<
     badgeIcon: "text-[#fce190]",
   },
   bus_stop: {
-    label: "Bus Stops",
+    label: "Transport",
     color: "text-[#fce190]",
     glow: "bg-[#fce190]/20",
     panelClass: "border-[#fce190]/40 bg-[#00142b]/90",
@@ -550,7 +390,7 @@ const categoryMeta: Record<
     badgeIcon: "text-[#fce190]",
   },
   school: {
-    label: "Schools",
+    label: "Education",
     color: "text-[#fce190]",
     glow: "bg-[#fce190]/20",
     panelClass: "border-[#fce190]/40 bg-[#00142b]/90",
@@ -635,11 +475,11 @@ const PoiMarker = memo(function PoiMarker({
           <span
             className={`relative flex items-center justify-center rounded-full border shadow-[0_8px_18px_rgba(0,20,43,0.3)] transition ${
               isSelected
-                ? `h-9 w-9 border-[#fce190]/80 ${PREMIUM_OLIVE_GRADIENT}`
-                : "h-8 w-8 border-[#fce190]/55 bg-[#00142b]/92"
+                ? "h-9 w-9 border-[#f3ead2] bg-[#2449a4]"
+                : "h-8 w-8 border-[#f3ead2]/80 bg-[#10264d]/95"
             }`}
           >
-            <Icon className="size-4 text-[#fce190]" />
+            <Icon className="size-4 text-[#f3ead2]" />
           </span>
         </button>
       </MarkerContent>
@@ -709,12 +549,47 @@ function MapClickClearRoute({
   return null;
 }
 
+function focusProject(map: MapRef, duration = 0, mode = DEFAULT_MAP_DISPLAY_MODE) {
+  const compact = map.getContainer().clientWidth < 1280;
+  map.easeTo({
+    center: [centerPlace.lng, centerPlace.lat],
+    zoom: AREA_MAP_INITIAL_ZOOM, ...cameraForMode(mode),
+    offset: compact ? [0, -45] : [-155, 0],
+    duration,
+  });
+}
+
+function AreaMapViewport({ route, mode }: { route: RouteData | null; mode: MapDisplayMode }) {
+  const { map, isLoaded } = useMap();
+  const initialized = useRef(false);
+  useEffect(() => {
+    if (!map || !isLoaded) return;
+    if (!initialized.current) {
+      initialized.current = true;
+      focusProject(map, 0, mode);
+    } else {
+      map.easeTo({ ...cameraForMode(mode), duration: 900 });
+    }
+  }, [map, isLoaded, mode]);
+  useEffect(() => {
+    if (!map || !isLoaded || !route) return;
+    const compact = map.getContainer().clientWidth < 1280;
+    const xs = route.coordinates.map((p) => p[0]);
+    const ys = route.coordinates.map((p) => p[1]);
+    map.fitBounds([[Math.min(...xs), Math.min(...ys)], [Math.max(...xs), Math.max(...ys)]], {
+      padding: compact ? { top: 110, right: 75, bottom: 150, left: 75 } : { top: 100, right: 470, bottom: 90, left: 180 },
+      maxZoom: 14.5, duration: 1100, pitch: map.getPitch(), bearing: map.getBearing(),
+    });
+  }, [map, isLoaded, route]);
+  return null;
+}
+
 function UserLocationAccuracyLayer({
   location,
 }: {
   location: UserLocation;
 }) {
-  const { map, isLoaded } = useMap();
+  const { map, isLoaded, styleRevision } = useMap();
   const accuracyRadius = Math.max(location.accuracy ?? 0, 35);
   const polygon = useMemo(
     () => ({
@@ -782,7 +657,7 @@ function UserLocationAccuracyLayer({
         // ignore map style teardown races
       }
     };
-  }, [isLoaded, map, polygon]);
+  }, [isLoaded, map, polygon, styleRevision]);
 
   useEffect(() => {
     if (!isLoaded || !map) return;
@@ -792,7 +667,7 @@ function UserLocationAccuracyLayer({
     ) as { setData?: (data: unknown) => void } | null;
 
     source?.setData?.(polygon);
-  }, [isLoaded, map, polygon]);
+  }, [isLoaded, map, polygon, styleRevision]);
 
   return null;
 }
@@ -802,7 +677,7 @@ function ThreeDBuildingsLayer({
 }: {
   active: boolean;
 }) {
-  const { map, isLoaded } = useMap();
+  const { map, isLoaded, styleRevision } = useMap();
 
   useEffect(() => {
     if (!map || !isLoaded) return;
@@ -824,7 +699,7 @@ function ThreeDBuildingsLayer({
       return;
     }
 
-    const layers = map.getStyle().layers ?? [];
+    const layers = map.getStyle()?.layers ?? [];
     const labelLayerId = layers.find(
       (layer) => layer.type === "symbol" && Boolean(layer.layout?.["text-field"]),
     )?.id;
@@ -885,73 +760,77 @@ function ThreeDBuildingsLayer({
     return () => {
       removeBuildings();
     };
-  }, [active, isLoaded, map]);
+  }, [active, isLoaded, map, styleRevision]);
 
   return null;
 }
 
-const placeDescriptions: Partial<Record<PoiCategory, string>> = {
-  park:
-    "A peaceful green escape with open spaces, landscaped surroundings, and room to unwind close to home.",
-  mall:
-    "A convenient retail destination with dining, essentials, and everyday shopping within easy reach.",
-  school:
-    "A well-connected education destination for families looking at practical daily access.",
-  hospital:
-    "A nearby healthcare stop with dependable access for regular and urgent needs.",
-  landmark:
-    "A recognizable neighborhood reference point that adds orientation and local character.",
-  sports:
-    "A nearby destination for sports, training, fitness, and active recreation.",
-  "IT Company":
-    "A major workplace hub close to the project, useful for commute planning and daily convenience.",
-  bus_stop:
-    "A transit point that improves local connectivity for short everyday trips.",
-};
-
-function getPoiImages(poi: Poi | null) {
-  const images = poi?.images?.filter(Boolean) ?? [];
-
-  if (images.length > 0) {
-    return images;
-  }
-
-  return poi?.image ? [poi.image] : ["/RGA.webp"];
-}
-
-function getPoiImage(poi: Poi | null) {
-  return getPoiImages(poi)[0] ?? "/RGA.webp";
+function getPoiImage(poi: Poi | null, photoUrls: Readonly<Record<string, string>>) {
+  return getAreaMapPhotoUrl(poi?.thumbnail, photoUrls);
 }
 
 function getDisplayRoute(route: RouteData | null | undefined, poi: Poi | null) {
   return {
-    distance: route ? formatDistance(route.distance) : poi?.distanceLabel ?? "3.7 km",
-    duration: route ? formatDuration(route.duration) : poi?.timeLabel ?? "6 min",
+    distance: route ? formatDistance(route.distance) : poi?.distanceLabel ?? "—",
+    duration: route ? `~${formatDuration(route.duration)} drive` : poi?.timeLabel ?? "Check in Maps",
   };
 }
 
 function getPoiDistanceMeters(poi: Poi, route: RouteData | null | undefined) {
-  return route?.distance ?? parseDistanceLabel(poi.distanceLabel);
+  return route?.distance ?? getPoiRoadMetrics(poi)?.distance ?? straightLineDistance(centerPlace, poi);
 }
 
 function isPopularPoi(poi: Poi) {
-  return Boolean(poi.featured) || (poi.rating ?? 0) >= 4.4;
+  return Boolean(poi.featured);
 }
 
-function MetricPill({
-  icon: Icon,
-  children,
+function PoiDetailsCard({
+  photoUrls,
+  poi, metrics, onClose, onDirections,
 }: {
-  icon: React.ComponentType<{ className?: string }>;
-  children: React.ReactNode;
+  poi: Poi;
+  photoUrls: Readonly<Record<string, string>>;
+  metrics: { distance: string; duration: string };
+  onClose: () => void;
+  onDirections: (poi: Poi) => void;
 }) {
+  const meta = categoryMeta[poi.category];
+  const Icon = meta.icon;
   return (
-    <span className="inline-flex h-7 items-center gap-1.5 rounded-full border border-[#fce190]/30 bg-[#082846]/72 px-2.5 text-[0.68rem] font-medium text-[#fce190] shadow-[inset_0_1px_0_rgba(252,225,144,0.1)] sm:h-8 sm:gap-2 sm:px-3 sm:text-[0.78rem]">
-      <Icon className="size-3 text-[#fce190] sm:size-3.5" />
-      {children}
-    </span>
+    <article className="pointer-events-auto overflow-hidden rounded-[inherit] text-[#f4eedf]" data-poi-details={poi.id}>
+      <div className="relative isolate overflow-hidden rounded-t-[inherit] bg-[#10264d]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={getAreaMapPhotoUrl(poi.image, photoUrls)} alt={poi.name} decoding="async"
+          onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = AREA_MAP_PHOTO_PLACEHOLDER; }}
+          className="block h-[clamp(9rem,26dvh,15rem)] w-full object-cover" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#00142b]/40 via-transparent to-[#00142b]/10" />
+        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-[#f4eedf]/35 bg-[#00142b]/75 px-3 py-1.5 text-[0.68rem] font-medium backdrop-blur-md">
+          <Icon className="size-3.5" />{meta.label}
+        </span>
+        <button type="button" onClick={onClose} aria-label="Close selected place details"
+          className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full border border-white/35 bg-[#00142b]/65 text-[#f4eedf] backdrop-blur-md transition hover:bg-[#2449a4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+          <X className="size-4" />
+        </button>
+      </div>
+      <div className="space-y-3 p-5 sm:p-6">
+        <div>
+          <h2 className={`${displaySerif.className} text-[1.65rem] font-semibold leading-[1.08] sm:text-[1.85rem]`}>{poi.name}</h2>
+          <p className="mt-1.5 text-[0.7rem] text-[#f4eedf]/60">{poi.locality}</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-[0.7rem] font-semibold text-[#fce190]" aria-label="Estimated road distance and drive time">
+          <span className="inline-flex items-center gap-1.5"><LocateFixed className="size-3.5" />{metrics.distance}</span>
+          <span className="inline-flex items-center gap-1.5"><Clock3 className="size-3.5" />{metrics.duration}</span>
+        </div>
+        <p className="text-[0.75rem] leading-5 text-[#f4eedf]/75">{poi.description}</p>
+        <button type="button" onClick={() => onDirections(poi)}
+          className={`inline-flex h-11 w-full items-center justify-center gap-2 rounded-full text-[0.8rem] font-semibold transition hover:brightness-110 ${PREMIUM_OLIVE_BUTTON}`}>
+          <Navigation className="size-3.5" />Get Directions
+        </button>
+      </div>
+    </article>
   );
 }
+
 
 function PremiumSelect({
   value,
@@ -1002,29 +881,24 @@ function PremiumSelect({
 }
 
 
-export function CustomStyleExample() {
+export function CustomStyleExample({ photoUrls }: { photoUrls: Readonly<Record<string, string>> }) {
   const mapRef = useRef<MapRef>(null);
   const suppressNextMapClearRef = useRef(false);
   const userRouteRequestRef = useRef(0);
-  const currentZoomRef = useRef(15);
-  const hasSyncedViewportRef = useRef(false);
   const mountedRef = useRef(false);
   const userRouteAbortRef = useRef<AbortController | null>(null);
   const routeCacheRef = useRef<Record<string, RouteData>>({});
   const routeCacheWriteChainRef = useRef<Promise<void>>(Promise.resolve());
 
   const [routes, setRoutes] = useState<RouteData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [routeNotice, setRouteNotice] = useState<string | null>(null);
   const [isUserRouteLoading, setIsUserRouteLoading] = useState(false);
   const [selectedPoiId, setSelectedPoiId] = useState<number | null>(null);
-  const [activePoiImage, setActivePoiImage] = useState<{
-    poiId: number;
-    image: string;
-  } | null>(null);
   const [routePoiId, setRoutePoiId] = useState<number | null>(null);
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [userRoute, setUserRoute] = useState<RouteData | null>(null);
-  const [currentZoom, setCurrentZoom] = useState(15);
+  const [currentZoom, setCurrentZoom] = useState(AREA_MAP_INITIAL_ZOOM);
   const [viewportWidth, setViewportWidth] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
   const [showPopular, setShowPopular] = useState(true);
@@ -1036,8 +910,8 @@ export function CustomStyleExample() {
     DEFAULT_SELECTED_CATEGORIES,
   );
   const [distanceFilter, setDistanceFilter] = useState<DistanceFilter>("all");
-  const [sortMode, setSortMode] = useState<SortMode>("popularity");
-  const [mapDisplayMode, setMapDisplayMode] = useState<MapDisplayMode>("normal");
+  const [sortMode, setSortMode] = useState<SortMode>("featured");
+  const [mapDisplayMode, setMapDisplayMode] = useState<MapDisplayMode>(DEFAULT_MAP_DISPLAY_MODE);
   const isTabletLayout = viewportWidth >= 768 && viewportWidth < 1280;
   const isCompactLayout = viewportWidth < 1280;
   const isCompactDesktop = viewportWidth >= 1280 && viewportWidth < 1560;
@@ -1141,87 +1015,49 @@ export function CustomStyleExample() {
 
   useEffect(() => {
     const controller = new AbortController();
-    const limit = pLimit(MAX_CONCURRENT_ROUTE_REQUESTS);
+    const poi = pois.find((entry) => entry.id === selectedPoiId);
+    if (!poi) {
+      setIsLoading(false);
+      setRouteNotice(null);
+      return () => controller.abort();
+    }
 
-    async function runQueue() {
-      await waitForIdle(controller.signal).catch(() => undefined);
-      if (controller.signal.aborted) {
-        return;
-      }
-
+    async function loadSelectedRoute(selected: Poi) {
       setIsLoading(true);
-      routeCacheRef.current = await loadRouteCacheDuringIdle(controller.signal);
-      if (controller.signal.aborted) {
-        return;
-      }
-
-      const initialResults: RouteData[] = [];
-      const uncachedPois: Poi[] = [];
-
-      for (const poi of pois) {
-        const cacheKey = getRouteCacheKey(poi);
-        const cached = routeCacheRef.current[cacheKey];
-        if (cached) {
-          initialResults.push(cached);
-          continue;
-        }
-
-        initialResults.push(getProvisionalRoute(poi));
-        uncachedPois.push(poi);
-      }
-
-      if (!controller.signal.aborted && mountedRef.current) {
-        setRoutes(initialResults);
-        setIsLoading(false);
-      }
-
-      if (uncachedPois.length === 0) {
-        if (!controller.signal.aborted && mountedRef.current) {
-          setIsLoading(false);
-        }
-        return;
-      }
-
-      const tasks = uncachedPois.map((poi, index) =>
-        limit(async () => {
-          await abortableDelay(index * ROUTE_REQUEST_SPACING, controller.signal);
-
-          const result = await fetchRouteBetweenPoints({
-            from: { lng: centerPlace.lng, lat: centerPlace.lat },
-            to: { lng: poi.lng, lat: poi.lat },
-            id: poi.id,
-            name: poi.name,
-            timeout: ROUTE_REQUEST_TIMEOUT,
+      setRouteNotice(null);
+      const key = getRouteCacheKey(selected);
+      try {
+        const stored = await loadRouteCacheDuringIdle(controller.signal);
+        routeCacheRef.current = { ...stored, ...routeCacheRef.current };
+        if (controller.signal.aborted) return;
+        let result: unknown = routeCacheRef.current[key];
+        if (!isValidPoiRoute(result, selected)) {
+          // Routes were checked once during preparation; no external API burst
+          // on page load, and no invented curved lines when a route is missing.
+          const response = await fetch(`/data/laurels-routes/${selected.id}.json`, {
             signal: controller.signal,
           });
-
-          if (!result || controller.signal.aborted || !mountedRef.current) {
-            return;
-          }
-
-          const cacheKey = getRouteCacheKey(poi);
-          routeCacheRef.current = {
-            ...routeCacheRef.current,
-            [cacheKey]: result,
-          };
-          void enqueueRouteCacheSave(controller.signal);
-          setRoutes((prev) => upsertRouteById(prev, result));
-        }),
-      );
-
-      await Promise.allSettled(tasks);
-
-      if (!controller.signal.aborted && mountedRef.current) {
-        setIsLoading(false);
+          if (!response.ok) throw new Error("Local route unavailable");
+          result = await response.json();
+        }
+        if (!isValidPoiRoute(result, selected)) throw new Error("Route belongs to a different location");
+        if (controller.signal.aborted || !mountedRef.current) return;
+        routeCacheRef.current = { ...routeCacheRef.current, [key]: result };
+        void enqueueRouteCacheSave(controller.signal);
+        const validatedRoute = result;
+        setRoutes((previous) => upsertRouteById(previous, validatedRoute));
+      } catch {
+        if (!controller.signal.aborted && mountedRef.current) {
+          setRouteNotice("This road route is unavailable. Please try another place.");
+        }
+      } finally {
+        if (!controller.signal.aborted && mountedRef.current) setIsLoading(false);
       }
     }
 
-    void runQueue();
-
-    return () => {
-      controller.abort();
-    };
-  }, [enqueueRouteCacheSave]);
+    void loadSelectedRoute(poi);
+    return () => controller.abort();
+  }, [enqueueRouteCacheSave, selectedPoiId]);
 
   const routeLookup = useMemo(
     () => new Map(routes.map((route) => [route.id, route] as const)),
@@ -1268,16 +1104,14 @@ export function CustomStyleExample() {
         );
       }
 
-      if (sortMode === "rating") {
-        return (right.rating ?? 0) - (left.rating ?? 0);
-      }
+      if (sortMode === "name") return left.name.localeCompare(right.name);
 
       const popularDelta = Number(isPopularPoi(right)) - Number(isPopularPoi(left));
       if (popularDelta !== 0) {
         return popularDelta;
       }
 
-      return (right.rating ?? 0) - (left.rating ?? 0);
+      return getPoiDistanceMeters(left, routeLookup.get(left.id)) - getPoiDistanceMeters(right, routeLookup.get(right.id));
     });
 
     return nextPois;
@@ -1350,18 +1184,14 @@ export function CustomStyleExample() {
     setIsUserRouteLoading(false);
     setSelectedCategories(DEFAULT_SELECTED_CATEGORIES);
     setDistanceFilter("all");
-    setSortMode("popularity");
-    setMapDisplayMode("normal");
+    setSortMode("featured");
+    setMapDisplayMode(DEFAULT_MAP_DISPLAY_MODE);
     setShowFilters(false);
     setShowPopular(true);
     setShowPoiDetails(false);
     setShowDesktopSidebar(true);
     setMobilePopularExpanded(false);
-    mapRef.current?.flyTo?.({
-      center: [centerPlace.lng, centerPlace.lat],
-      zoom: 15,
-      duration: 1200,
-    });
+    if (mapRef.current) focusProject(mapRef.current, 1000);
   }, []);
 
   const clearActiveRoute = useCallback(() => {
@@ -1380,16 +1210,8 @@ export function CustomStyleExample() {
     setIsUserRouteLoading(false);
     setShowPoiDetails(false);
     setShowDesktopSidebar(true);
-    setMapDisplayMode("normal");
-
-    mapRef.current?.flyTo?.({
-      center: [centerPlace.lng, centerPlace.lat],
-      zoom: 15,
-      pitch: 0,
-      bearing: 0,
-      duration: 1200,
-    });
-  }, []);
+    if (mapRef.current) focusProject(mapRef.current, 1200, mapDisplayMode);
+  }, [mapDisplayMode]);
 
   const hideCompactPoiDetails = useCallback(() => {
     setShowPoiDetails(false);
@@ -1400,15 +1222,6 @@ export function CustomStyleExample() {
       setSelectedPoiId(null);
     }
   }, [routePoiId]);
-
-  const stopAllRouteAnimations = useCallback(() => {
-    userRouteRequestRef.current += 1;
-    userRouteAbortRef.current?.abort();
-    setRoutePoiId(null);
-    setSelectedPoiId(null);
-    setUserRoute(null);
-    setIsUserRouteLoading(false);
-  }, []);
 
   const handleViewRoute = useCallback((poi: Poi) => {
     userRouteRequestRef.current += 1;
@@ -1473,9 +1286,13 @@ export function CustomStyleExample() {
     setSelectedPoiId(null);
     setRoutePoiId(null);
     setUserLocation(coords);
+    setShowPoiDetails(false);
+    setShowDesktopSidebar(false);
+    setShowFilters(false);
+    setMobilePopularExpanded(false);
 
-    const fallbackRoute = buildUserFallbackRoute(coords);
-    setUserRoute(fallbackRoute);
+    setUserRoute(null);
+    setRouteNotice(null);
     setIsUserRouteLoading(true);
 
     mapRef.current?.fitBounds(
@@ -1494,7 +1311,7 @@ export function CustomStyleExample() {
           top: 120,
           right: 80,
           bottom: showFilters ? 420 : 140,
-          left: 80,
+          left: window.innerWidth >= 1280 ? 180 : 75,
         },
         duration: 1500,
       },
@@ -1504,7 +1321,7 @@ export function CustomStyleExample() {
       from: { lng: coords.longitude, lat: coords.latitude },
       to: { lng: centerPlace.lng, lat: centerPlace.lat },
       id: -1,
-      name: "Your Route to Trifecta Veranza",
+      name: "Your route to Varaprasad Laurels",
       timeout: ROUTE_REQUEST_TIMEOUT,
       signal: controller.signal,
     });
@@ -1519,6 +1336,8 @@ export function CustomStyleExample() {
 
     if (fetchedRoute) {
       setUserRoute(fetchedRoute);
+    } else {
+      setRouteNotice("Your road route is unavailable. Please try again.");
     }
 
     setIsUserRouteLoading(false);
@@ -1545,10 +1364,9 @@ export function CustomStyleExample() {
 
     if (activeRoute.coordinates.length < 2) return [];
 
-    return getAnimatedSegment(
+    return getAnimatedRouteSegment(
       activeRoute.coordinates,
       routeProgress,
-      ROUTE_ANIMATION_WINDOW_SIZE,
     );
   }, [activeRoute, routeProgress]);
 
@@ -1559,17 +1377,14 @@ export function CustomStyleExample() {
 
     if (userRoute.coordinates.length < 2) return [];
 
-    return getAnimatedSegment(
+    return getAnimatedRouteSegment(
       userRoute.coordinates,
       userRouteProgress,
-      ROUTE_ANIMATION_WINDOW_SIZE,
     );
   }, [userRoute, userRouteProgress]);
 
-  const activeRouteColor = selectedPoi
-    ? "#5d7a44"
-    : "#5d7a44";
-  const userRouteColor = "#4d6a3d";
+  const routeBaseColor = "#f3ead2";
+  const routeHighlightColor = "#2449a4";
   const showClusters = currentZoom < POI_CLUSTER_SWITCH_ZOOM;
   const selectedDisplayPoi = selectedPoi ?? visiblePois[0] ?? pois[0] ?? null;
   const desktopSidebarVisible = !isCompactLayout && showDesktopSidebar && !showPoiDetails;
@@ -1635,27 +1450,13 @@ export function CustomStyleExample() {
   const popularPanelDescriptionClass = isTabletLayout ? "text-[0.72rem]" : "text-xs";
   const popularItemImageClass = isTabletLayout ? "h-[4.2rem] w-[4.4rem]" : "h-[4.8rem] w-[5.2rem]";
   const popularItemTitleClass = isTabletLayout ? "text-[0.9rem]" : "text-[0.98rem]";
-  const popularItemMetaClass = isTabletLayout ? "text-[0.68rem]" : "text-[0.72rem]";
+  const popularItemMetaClass = "text-[0.65rem] font-semibold";
   const popularItemArrowClass = isTabletLayout ? "size-8" : "size-9";
-  const selectedPoiImages = getPoiImages(selectedDisplayPoi);
-  const defaultSelectedPoiImage = selectedPoiImages[0] ?? "/RGA.webp";
-  const selectedMainImage =
-    selectedDisplayPoi &&
-    activePoiImage?.poiId === selectedDisplayPoi.id &&
-    selectedPoiImages.includes(activePoiImage.image)
-      ? activePoiImage.image
-      : defaultSelectedPoiImage;
-  const selectedMeta = selectedDisplayPoi
-    ? categoryMeta[selectedDisplayPoi.category]
-    : categoryMeta.park;
-  const SelectedIcon = selectedMeta.icon;
   const selectedRouteMetrics = getDisplayRoute(
     selectedDisplayPoi ? routeLookup.get(selectedDisplayPoi.id) : null,
     selectedDisplayPoi,
   );
   const listedPois = visiblePois;
-  const extraImageCount = Math.max(selectedPoiImages.length - 3, 0);
-  const sidePreviewImages = selectedPoiImages.slice(1, 3);
   const topCategories = useMemo(
     () => [
       { id: "all", label: "All", icon: Grid2x2, active: selectedCategories.length === CATEGORY_ORDER.length },
@@ -1671,8 +1472,8 @@ export function CustomStyleExample() {
   const hasActiveFilters =
     selectedCategories.length !== CATEGORY_ORDER.length ||
     distanceFilter !== "all" ||
-    sortMode !== "popularity" ||
-    mapDisplayMode !== "normal";
+    sortMode !== "featured" ||
+    mapDisplayMode !== DEFAULT_MAP_DISPLAY_MODE;
   const desktopSidebarCategories = useMemo(
     () =>
       CATEGORY_ORDER.map((category) => ({
@@ -1683,30 +1484,10 @@ export function CustomStyleExample() {
       })),
     [selectedCategories],
   );
-  const detailDescription =
-    (selectedDisplayPoi && placeDescriptions[selectedDisplayPoi.category]) ??
-    "A convenient nearby destination selected from the project neighborhood map.";
 
   const handleViewportChange = useCallback((viewport: { zoom: number }) => {
-    const nextZoom = viewport.zoom;
-
-    if (!hasSyncedViewportRef.current) {
-      hasSyncedViewportRef.current = true;
-      currentZoomRef.current = nextZoom;
-      setCurrentZoom(nextZoom);
-      return;
-    }
-
-    const wasClustered = currentZoomRef.current < POI_CLUSTER_SWITCH_ZOOM;
-    const willCluster = nextZoom < POI_CLUSTER_SWITCH_ZOOM;
-
-    currentZoomRef.current = nextZoom;
-    setCurrentZoom(nextZoom);
-
-    if (!wasClustered && willCluster) {
-      stopAllRouteAnimations();
-    }
-  }, [stopAllRouteAnimations]);
+    setCurrentZoom(viewport.zoom);
+  }, []);
 
   useEffect(() => {
     const resizeMap = () => {
@@ -1724,30 +1505,15 @@ export function CustomStyleExample() {
     };
   }, []);
 
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map) return;
-
-    const timeoutId = window.setTimeout(() => {
-      map.easeTo({
-        pitch: mapDisplayMode === "3d" ? 55 : 0,
-        bearing: mapDisplayMode === "3d" ? -18 : 0,
-        duration: 900,
-      });
-    }, 120);
-
-    return () => {
-      window.clearTimeout(timeoutId);
-    };
-  }, [mapDisplayMode]);
-
   return (
     <main className="relative h-[100dvh] w-full overflow-hidden bg-[#00142b] text-[#fce190]">
       <div className="absolute inset-0">
         <MapView
           ref={mapRef}
           center={[centerPlace.lng, centerPlace.lat]}
-          zoom={15}
+          zoom={AREA_MAP_INITIAL_ZOOM}
+          pitch={55}
+          bearing={-18}
           theme="light"
           projection={activeProjection}
           canvasContextAttributes={{ antialias: true }}
@@ -1756,6 +1522,7 @@ export function CustomStyleExample() {
           onViewportChange={handleViewportChange}
           styles={{ light: activeMapStyle, dark: activeMapStyle }}
         >
+          <AreaMapViewport route={activeRoute} mode={mapDisplayMode} />
           <ThreeDBuildingsLayer active={mapDisplayMode === "3d"} />
           <MapControls
             position="bottom-right"
@@ -1775,30 +1542,31 @@ export function CustomStyleExample() {
           {userLocation ? <UserLocationAccuracyLayer location={userLocation} /> : null}
           {userRoute ? (
             <>
-              <MapRoute id="user-route-outline" coordinates={userRoute.coordinates} color="#00142b" width={3} opacity={0.7} />
-              <MapRoute id="user-route-base" coordinates={userRoute.coordinates} color={userRouteColor} width={6} opacity={0.18} />
+              <MapRoute id="user-route-outline" coordinates={userRoute.coordinates} color="#162d59" width={9} opacity={0.22} />
+              <MapRoute id="user-route-base" coordinates={userRoute.coordinates} color={routeBaseColor} width={6} opacity={1} />
             </>
           ) : null}
           {userAnimatedCoordinates.length > 1 ? (
-            <MapRoute id="user-route-animated" coordinates={userAnimatedCoordinates} color={userRouteColor} width={5} opacity={1} />
+            <MapRoute id="user-route-animated" coordinates={userAnimatedCoordinates} color={routeHighlightColor} width={3.5} opacity={1} />
           ) : null}
           {activeRoute ? (
             <>
-              <MapRoute id="poi-route-outline" coordinates={activeRoute.coordinates} color="#00142b" width={3} opacity={0.7} />
-              <MapRoute id="poi-route-base" coordinates={activeRoute.coordinates} color={activeRouteColor} width={6} opacity={0.16} />
+              <MapRoute id="poi-route-outline" coordinates={activeRoute.coordinates} color="#162d59" width={9} opacity={0.22} />
+              <MapRoute id="poi-route-base" coordinates={activeRoute.coordinates} color={routeBaseColor} width={6} opacity={1} />
             </>
           ) : null}
           {animatedCoordinates.length > 1 ? (
-            <MapRoute id="poi-route-animated" coordinates={animatedCoordinates} color={activeRouteColor} width={5} opacity={1} />
+            <MapRoute id="poi-route-animated" coordinates={animatedCoordinates} color={routeHighlightColor} width={3.5} opacity={1} />
           ) : null}
           {showClusters ? (
             <MapClusterLayer<ClusterPoiProperties>
               data={clusterData}
               clusterRadius={POI_CLUSTER_RADIUS}
               clusterMaxZoom={POI_CLUSTER_MAX_ZOOM}
-              clusterColors={["#12395f", "#062542", "#00142b"]}
+              clusterColors={["#2449a4", "#193878", "#10264d"]}
               clusterThresholds={[12, 28]}
-              pointColor="#fce190"
+              pointColor="#f3ead2"
+              textFont="Noto Sans Regular"
               onPointClick={handleClusterPointClick}
             />
           ) : null}
@@ -1809,6 +1577,8 @@ export function CustomStyleExample() {
                 onClick={clearActiveRoute}
                 className="relative flex items-center justify-center"
                 aria-label={centerPlace.name}
+                data-project-lat={centerPlace.lat}
+                data-project-lng={centerPlace.lng}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -1839,9 +1609,9 @@ export function CustomStyleExample() {
                 />
               ))
             : null}
+          {showClusters && selectedPoi ? <PoiMarker poi={selectedPoi} isSelected onMarkerClick={handlePoiMarkerClick} /> : null}
         </MapView>
 
-        <div className="pointer-events-none absolute inset-0 bg-[#00142b]/8 bg-[radial-gradient(circle_at_80%_86%,rgba(0,20,43,0.3)_0%,rgba(0,20,43,0.12)_30%,transparent_54%)]" />
       </div>
 
       <div className="pointer-events-none absolute inset-0 z-20">
@@ -1955,9 +1725,9 @@ export function CustomStyleExample() {
                       selectClassName="h-11 rounded-[0.95rem] text-[0.78rem] sm:h-12 sm:text-[0.82rem]"
                       iconClassName="size-3.5"
                       options={[
-                        { value: "popularity", label: "Sort: Popularity" },
+                        { value: "featured", label: "Sort: Suggested" },
                         { value: "nearest", label: "Sort: Nearby" },
-                        { value: "rating", label: "Sort: Rating" },
+                        { value: "name", label: "Sort: A–Z" },
                       ]}
                     />
                     <PremiumSelect
@@ -2020,10 +1790,10 @@ export function CustomStyleExample() {
                         Discover Nearby
                       </p>
                       <h2 className={`${displaySerif.className} mt-2 font-semibold text-[#00142b] ${desktopSidebarTitleClass}`}>
-                        Explore Places
+                        {centerPlace.name}
                       </h2>
                       <p className={`mt-3 text-[#00142b]/68 ${desktopSidebarBodyCopyClass}`}>
-                        Everything you need, just moments away.
+                        Mokila · {pois.length} destinations.
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -2094,9 +1864,9 @@ export function CustomStyleExample() {
                       iconClassName={desktopSidebarControlIconClass}
                       selectClassName={`${desktopSidebarControlHeightClass} ${desktopSidebarControlRadiusClass} border-[#00142b]/24 bg-[#efebe4]/50 text-[#00142b] focus:border-[#00142b]/55 ${desktopSidebarControlTextClass}`}
                       options={[
-                        { value: "popularity", label: "Sort by: Popularity" },
+                        { value: "featured", label: "Sort by: Suggested" },
                         { value: "nearest", label: "Sort by: Nearby" },
-                        { value: "rating", label: "Sort by: Rating" },
+                        { value: "name", label: "Sort by: A–Z" },
                       ]}
                     />
                     <PremiumSelect
@@ -2121,8 +1891,8 @@ export function CustomStyleExample() {
                 <div className={`${mapSidebarStyles.panel} rounded-[1.8rem] border ${popularPanelPaddingClass}`}>
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <div>
-                      <h2 className={`font-semibold text-[#00142b] ${popularPanelTitleClass}`}>Popular Nearby</h2>
-                      <p className={`mt-1 text-[#00142b]/62 ${popularPanelDescriptionClass}`}>Browse the best-rated places around the project.</p>
+                      <h2 className={`font-semibold text-[#00142b] ${popularPanelTitleClass}`}>Nearby places</h2>
+                      <p className={`mt-1 text-[#00142b]/62 ${popularPanelDescriptionClass}`}>Explore nearby destinations.</p>
                     </div>
                     <button
                       type="button"
@@ -2152,15 +1922,14 @@ export function CustomStyleExample() {
                         >
                           <div className={`relative shrink-0 overflow-hidden rounded-[1rem] border border-[#00142b]/24 bg-[#efebe4]/50 ${popularItemImageClass}`}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={getPoiImage(poi)} alt={poi.name} className="h-full w-full object-cover" />
+                            <img src={getPoiImage(poi, photoUrls)} alt={poi.name} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                           </div>
                           <div className="min-w-0 flex-1">
                             <p className={`truncate font-semibold text-[#00142b] ${popularItemTitleClass}`}>{poi.name}</p>
                             <p className="mt-0.5 text-xs text-[#00142b]/58">{meta.label}</p>
-                            <div className={`mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[#00142b]/72 ${popularItemMetaClass}`}>
+                            <div className={`mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[#2449a4] ${popularItemMetaClass}`}>
                               <span>{metrics.distance}</span>
                               <span>{metrics.duration}</span>
-                              {poi.rating ? <span>{poi.rating.toFixed(1)} ★</span> : null}
                             </div>
                           </div>
                           <span className={`flex shrink-0 items-center justify-center rounded-full border border-[#00142b]/24 bg-[#efebe4]/50 text-[#00142b] ${popularItemArrowClass}`}>
@@ -2192,94 +1961,8 @@ export function CustomStyleExample() {
         )}
 
         {!isCompactLayout && showPoiDetails && selectedDisplayPoi ? (
-          <section
-            className={`absolute bottom-6 right-6 w-[26rem] ${isTabletLayout ? "w-[22rem]" : ""} ${FLOATING_PANEL} ${OVERLAY_TRANSITION}`}
-            data-state="open"
-          >
-            <div className="pointer-events-auto p-4">
-              <div className="mb-4 flex items-center justify-between">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#fce190]/28 bg-[#082846]/70 px-3 py-1.5 text-xs font-semibold text-[#fce190]">
-                  <SelectedIcon className="size-3.5" />
-                  {selectedMeta.label}
-                </span>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#fce190]/25 bg-[#082846]/72 text-[#fce190]"
-                    aria-label="Save this place"
-                  >
-                    <Heart className="size-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={clearActiveRoute}
-                    className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#fce190]/25 bg-[#082846]/72 text-[#fce190]"
-                    aria-label="Close selected place details"
-                  >
-                    <X className="size-4" />
-                  </button>
-                </div>
-              </div>
-
-              <div className={`grid gap-3 ${sidePreviewImages.length > 0 || extraImageCount > 0 ? "grid-cols-[minmax(0,1fr)_5.25rem]" : "grid-cols-1"}`}>
-                <div className="relative overflow-hidden rounded-[1.2rem] border border-[#fce190]/28 bg-[#082846]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={selectedMainImage}
-                    alt={selectedDisplayPoi.name}
-                    className="h-[13rem] w-full object-cover"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(252,225,144,0.03),rgba(0,20,43,0.18))]" />
-                </div>
-                {sidePreviewImages.length > 0 || extraImageCount > 0 ? (
-                  <div className="flex flex-col gap-3">
-                    {sidePreviewImages.map((image, index) => (
-                      <button
-                        key={`${image}-${index}`}
-                        type="button"
-                        onClick={() =>
-                          setActivePoiImage({
-                            poiId: selectedDisplayPoi.id,
-                            image,
-                          })
-                        }
-                        className="overflow-hidden rounded-[1rem] border border-[#fce190]/28 bg-[#082846]"
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={image} alt="" className="h-[5rem] w-full object-cover" />
-                      </button>
-                    ))}
-                    {extraImageCount > 0 ? (
-                      <div className={`flex flex-1 items-center justify-center rounded-[1rem] text-sm font-semibold text-[#fce190] ${PREMIUM_OLIVE_GRADIENT}`}>
-                        +{extraImageCount}
-                      </div>
-                    ) : null}
-                  </div>
-                ) : null}
-              </div>
-
-              <div className="mt-5">
-                <h2 className={`${displaySerif.className} text-[2rem] font-semibold leading-tight text-[#fce190]`}>
-                  {selectedDisplayPoi.name}
-                </h2>
-                <p className="mt-1 text-sm text-[#fce190]/58">Bengaluru, Karnataka</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <MetricPill icon={LocateFixed}>{selectedRouteMetrics.distance}</MetricPill>
-                  <MetricPill icon={Clock3}>{selectedRouteMetrics.duration}</MetricPill>
-                  <MetricPill icon={Star}>{selectedDisplayPoi.rating?.toFixed(1) ?? "4.4"}</MetricPill>
-                </div>
-                <p className="mt-4 text-sm leading-6 text-[#fce190]/64">{detailDescription}</p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => handleViewRoute(selectedDisplayPoi)}
-                className={`mt-5 inline-flex h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-[0.98rem] font-semibold shadow-[0_10px_20px_rgba(0,20,43,0.32)] ${PREMIUM_OLIVE_BUTTON}`}
-              >
-                <Navigation className="size-4" />
-                Get Directions
-              </button>
-            </div>
+          <section className={`absolute bottom-6 right-6 w-[26rem] max-h-[calc(100dvh-3rem)] overflow-y-auto ${FLOATING_PANEL} ${OVERLAY_TRANSITION}`} data-state="open">
+            <PoiDetailsCard photoUrls={photoUrls} poi={selectedDisplayPoi} metrics={selectedRouteMetrics} onClose={clearActiveRoute} onDirections={handleViewRoute} />
           </section>
         ) : null}
 
@@ -2288,7 +1971,7 @@ export function CustomStyleExample() {
             {showPopular && !showPoiDetails && !showFilters ? (
               <section
                 className={`${mapSidebarStyles.panel} absolute inset-x-3 sm:left-1/2 sm:right-auto sm:w-[min(40rem,calc(100vw-2.5rem))] sm:-translate-x-1/2 ${FLOATING_PANEL} ${OVERLAY_TRANSITION}`}
-                style={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}
+                style={{ bottom: "calc(env(safe-area-inset-bottom) + 2.5rem)" }}
                 data-state="open"
               >
                 <div className="pointer-events-auto p-2 sm:p-2.5">
@@ -2299,8 +1982,8 @@ export function CustomStyleExample() {
                     aria-expanded={mobilePopularExpanded}
                   >
                     <div>
-                      <p className="text-[0.88rem] font-semibold text-[#00142b] sm:text-base">Popular Nearby</p>
-                      <p className="text-[0.68rem] text-[#00142b]/58 sm:text-xs">{mobilePopularExpanded ? "Tap to collapse" : "Best places around the project"}</p>
+                      <p className="text-[0.88rem] font-semibold text-[#00142b] sm:text-base">Nearby places · {visiblePois.length}</p>
+                      <p className="text-[0.68rem] text-[#00142b]/58 sm:text-xs">{mobilePopularExpanded ? "Tap to collapse · estimated drive times" : "Mokila & west Hyderabad"}</p>
                     </div>
                     <ChevronUp className={`size-3.5 text-[#00142b] transition ${mobilePopularExpanded ? "" : "rotate-180"}`} />
                   </button>
@@ -2320,15 +2003,14 @@ export function CustomStyleExample() {
                           >
                             <div className="relative h-12 w-14 shrink-0 overflow-hidden rounded-[0.8rem] border border-[#00142b]/24 bg-[#efebe4]/50 sm:h-14 sm:w-16">
                               {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img src={getPoiImage(poi)} alt={poi.name} className="h-full w-full object-cover" />
+                              <img src={getPoiImage(poi, photoUrls)} alt={poi.name} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                             </div>
                             <div className="min-w-0 flex-1">
                               <p className="truncate text-[0.78rem] font-semibold text-[#00142b] sm:text-sm">{poi.name}</p>
                               <p className="text-[0.66rem] text-[#00142b]/56 sm:text-xs">{meta.label}</p>
-                              <div className="mt-0.5 flex flex-wrap gap-x-2 text-[0.62rem] text-[#00142b]/70 sm:text-[0.7rem]">
+                              <div className="mt-0.5 flex flex-wrap gap-x-2 text-[0.62rem] font-semibold text-[#2449a4] sm:text-[0.65rem]">
                                 <span>{metrics.distance}</span>
                                 <span>{metrics.duration}</span>
-                                {poi.rating ? <span>{poi.rating.toFixed(1)} ★</span> : null}
                               </div>
                             </div>
                             <ChevronRight className="size-3.5 text-[#00142b]" />
@@ -2343,55 +2025,20 @@ export function CustomStyleExample() {
 
             {showPoiDetails && selectedDisplayPoi ? (
               <section
-                className={`absolute inset-x-3 max-h-[68dvh] overflow-y-auto overscroll-contain sm:left-1/2 sm:right-auto sm:w-[min(40rem,calc(100vw-2.5rem))] sm:-translate-x-1/2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${FLOATING_PANEL} ${OVERLAY_TRANSITION}`}
-                style={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}
-                data-state="open"
-              >
-                <div className="pointer-events-auto p-3 sm:p-4">
-                  <div className="mx-auto mb-2.5 h-1 w-10 rounded-full bg-[#fce190]/40 sm:mb-3" />
-                  <div className="mb-2.5 flex items-center justify-between sm:mb-3">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[#fce190]/28 bg-[#082846]/72 px-2.5 py-1 text-[0.68rem] font-semibold text-[#fce190] sm:px-3 sm:text-xs">
-                      <SelectedIcon className="size-3.5" />
-                      {selectedMeta.label}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={hideCompactPoiDetails}
-                      className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#fce190]/25 bg-[#082846]/72 text-[#fce190]"
-                      aria-label="Close selected place details"
-                    >
-                      <X className="size-4" />
-                    </button>
-                  </div>
-                  <div className="overflow-hidden rounded-[1rem] border border-[#fce190]/28 bg-[#082846] sm:rounded-[1.2rem]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={selectedMainImage} alt={selectedDisplayPoi.name} className="h-32 w-full object-cover sm:h-44" />
-                  </div>
-                  <div className="mt-3 sm:mt-4">
-                    <h2 className={`${displaySerif.className} text-[1.35rem] font-semibold leading-tight text-[#fce190] sm:text-[1.65rem]`}>
-                      {selectedDisplayPoi.name}
-                    </h2>
-                    <div className="mt-2 flex flex-wrap gap-1.5 sm:mt-3 sm:gap-2">
-                      <MetricPill icon={LocateFixed}>{selectedRouteMetrics.distance}</MetricPill>
-                      <MetricPill icon={Clock3}>{selectedRouteMetrics.duration}</MetricPill>
-                      <MetricPill icon={Star}>{selectedDisplayPoi.rating?.toFixed(1) ?? "4.4"}</MetricPill>
-                    </div>
-                    <p className="mt-2 text-xs leading-5 text-[#fce190]/64 sm:mt-3 sm:text-[0.82rem] sm:leading-5">{detailDescription}</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleViewRoute(selectedDisplayPoi)}
-                    className={`mt-2 inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-[0.76rem] font-semibold shadow-[0_10px_20px_rgba(0,20,43,0.32)] sm:mt-3 sm:h-12 sm:text-sm ${PREMIUM_OLIVE_BUTTON}`}
-                  >
-                    <Navigation className="size-4" />
-                    Get Directions
-                  </button>
-                </div>
+                className={`absolute inset-x-3 max-h-[calc(100dvh-9rem)] overflow-y-auto overscroll-contain sm:left-1/2 sm:right-auto sm:w-[min(26rem,calc(100vw-2.5rem))] sm:-translate-x-1/2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${FLOATING_PANEL} ${OVERLAY_TRANSITION}`}
+                style={{ bottom: "calc(env(safe-area-inset-bottom) + 2.5rem)" }} data-state="open">
+                <PoiDetailsCard photoUrls={photoUrls} poi={selectedDisplayPoi} metrics={selectedRouteMetrics} onClose={hideCompactPoiDetails} onDirections={handleViewRoute} />
               </section>
             ) : null}
           </>
         ) : null}
       </div>
+
+      {routeNotice ? (
+        <div role="status" className="absolute left-3 top-24 z-30 max-w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-[#fce190]/30 bg-[#00142b]/95 p-3 text-xs leading-5 text-[#fce190] shadow-xl">
+          {routeNotice}
+        </div>
+      ) : null}
 
       {(isLoading || isUserRouteLoading) && (
         <div className="pointer-events-none absolute inset-x-0 top-[4.75rem] z-30 flex justify-center px-3 sm:top-4 sm:px-4">
@@ -2400,8 +2047,8 @@ export function CustomStyleExample() {
               <Loader2 className="size-4 shrink-0 animate-spin text-[#fce190] sm:size-5" />
               <span className="truncate text-xs text-[#fce190]/72 sm:text-sm">
                 {isUserRouteLoading
-                  ? "Tracing your route to Trifecta Veranza..."
-                  : "Loading Whisper of Trees Map..."}
+                  ? "Tracing your route to Varaprasad Laurels..."
+                  : "Loading the selected road route..."}
               </span>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import config from "../../data/exterior-villa-hotspots.json";
+import { getVillaRecord, getVillaWalkthroughHref } from "../villa-residence";
 
 const degrees = z.number().finite();
 export const villaPointerSchema = z.object({
@@ -19,7 +20,7 @@ export const villaPointerSchema = z.object({
   color: z.string().regex(/^#[\da-f]{6}$/i),
   interior: z.object({
     // Only existing internal tour routes are accepted; never execute a JSON URL.
-    path: z.literal("/interior-kitchen-foyer"),
+    path: z.enum(["/interior-kitchen-foyer", "/villa-walkthrough"]),
     nodeId: z.string().regex(/^[a-zA-Z0-9_-]+$/).nullable(),
   }),
 });
@@ -61,6 +62,11 @@ export function getVillaPointers(nodeId: string): readonly VillaPointer[] {
 }
 
 export function getVillaInteriorHref(pointer: VillaPointer): string {
+  // Central per-type routing also replaces stale legacy destinations without
+  // changing any manually calibrated pointer geometry in the large JSON file.
+  const villa = getVillaRecord(pointer.villaNumber);
+  const currentTour = villa && getVillaWalkthroughHref(villa);
+  if (currentTour) return currentTour;
   const params = new URLSearchParams({ villa: String(pointer.villaNumber), facing: pointer.facing });
   if (pointer.interior.nodeId) params.set("node", pointer.interior.nodeId);
   return `${pointer.interior.path}?${params}`;

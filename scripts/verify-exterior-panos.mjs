@@ -1,6 +1,7 @@
 // Read-only audit: only S3 ListObjectsV2 and signed Worker GETs are used.
 // No local files or cloud objects are written, uploaded, or deleted.
 // Add --villa to audit the villa manifest/local tiles and every villa's Worker assets.
+// Add --clubhouse to audit all clubhouse files and each panorama's Worker assets.
 import { createHash, createHmac } from "node:crypto";
 import { readFile, readdir, stat } from "node:fs/promises";
 import { homedir } from "node:os";
@@ -19,10 +20,14 @@ const endpoint = argument("--endpoint", process.env.R2_ENDPOINT);
 const profile = argument("--profile", "r2");
 const bucket = argument("--bucket", "sthyra-assets");
 const villaMode = process.argv.includes("--villa");
-const assetFolder = villaMode ? "varaprasad_villa_panos" : "varaprasad_exterior_panos";
+const clubhouseMode = process.argv.includes("--clubhouse");
+if (villaMode && clubhouseMode) throw new Error("Choose --villa or --clubhouse, not both.");
+const assetFolder = clubhouseMode ? "varaprasad_clubhouse_panos" : villaMode ? "varaprasad_villa_panos" : "varaprasad_exterior_panos";
 const prefix = `Varaprasad_Laurels/Panos/${assetFolder}/`;
 const localRoot = path.resolve("public", assetFolder);
 const inventoryOnly = process.argv.includes("--inventory-only");
+const remoteOnly = process.argv.includes("--remote-only");
+if (remoteOnly && !clubhouseMode) throw new Error("--remote-only currently requires --clubhouse.");
 const failures = [];
 
 function hash(bytes, algorithm = "sha256") {
@@ -124,14 +129,14 @@ async function concurrent(items, limit, callback) {
   }));
 }
 
-async function checkWorkerAsset(relative) {
+async function checkWorkerAsset(relative, remoteObject) {
   const key = `${prefix}${relative}`;
   const secret = process.env.ASSET_SECRET;
   if (!secret) throw new Error("ASSET_SECRET is required for Worker verification.");
   const origin = (process.env.ASSET_WORKER_DOMAIN ?? "https://curly-leaf-d240.aasish.workers.dev").replace(/\/+$/, "");
   const url = `${origin}/${key.split("/").map(encode).join("/")}?sig=${hmac(secret, key, "hex")}`;
   const response = await fetch(url, {
-    headers: { Origin: "http://localhost:3000", Referer: `http://localhost:3000/${villaMode ? "master-plan" : "exterior-walkthrough"}` },
+    headers: { Origin: "http://localhost:3000", Referer: `http://localhost:3000/${clubhouseMode ? "clubhouse-walkthrough" : villaMode ? "master-plan" : "exterior-walkthrough"}` },
     signal: AbortSignal.timeout(30000),
   });
   if (!response.ok) throw new Error(`${relative}: Worker HTTP ${response.status}`);
@@ -139,8 +144,15 @@ async function checkWorkerAsset(relative) {
     throw new Error(`${relative}: Worker CORS origin mismatch`);
   }
   const bytes = Buffer.from(await response.arrayBuffer());
-  const local = await readFile(path.join(localRoot, relative));
-  if (!bytes.equals(local)) throw new Error(`${relative}: Worker content differs from local file`);
+  if (remoteOnly) {
+    if (!remoteObject || remoteObject.size !== bytes.length) throw new Error(`${relative}: Worker byte size differs from R2 inventory`);
+    if (/^[a-f0-9]{32}$/i.test(remoteObject.etag) && hash(bytes, "md5") !== remoteObject.etag.toLowerCase()) {
+      throw new Error(`${relative}: Worker checksum differs from R2 inventory`);
+    }
+  } else {
+    const local = await readFile(path.join(localRoot, relative));
+    if (!bytes.equals(local)) throw new Error(`${relative}: Worker content differs from local file`);
+  }
   if (relative.endsWith(".jpg")) {
     if (!response.headers.get("content-type")?.startsWith("image/")) throw new Error(`${relative}: incorrect image MIME type`);
     const metadata = await sharp(bytes).metadata();
@@ -148,6 +160,57 @@ async function checkWorkerAsset(relative) {
   } else {
     JSON.parse(bytes.toString("utf8"));
   }
+  return bytes;
+}
+
+async function auditRemoteClubhouse(remote) {
+  const nodes = JSON.parse(await readFile("data/Clubhouse_Pano_Data.json", "utf8"));
+  const folders = nodes.map((node) => node.image_filename.replace(/\.[^.]+$/, ""));
+  const expected = new Set();
+  let workerChecked = 0;
+  let metadataChecked = 0;
+  await concurrent(folders, 4, async (folder) => {
+    try {
+      const metaPath = `${folder}/meta.json`;
+      expected.add(metaPath);
+      const bytes = await checkWorkerAsset(metaPath, remote.get(metaPath));
+      workerChecked++;
+      const meta = JSON.parse(bytes.toString("utf8"));
+      if (meta.width !== 12288 || meta.height !== 6144 || meta.cols !== 16 || meta.rows !== 8) {
+        throw new Error(`${folder}: original 12K metadata dimensions do not match`);
+      }
+      metadataChecked++;
+      const preview = `${folder}/${meta.preview ?? "preview.jpg"}`;
+      expected.add(preview);
+      const tiles = [];
+      for (let row = 0; row < meta.rows; row++) {
+        for (let col = 0; col < meta.cols; col++) {
+          const explicit = meta.tiles?.find((tile) => tile.row === row && tile.col === col);
+          const tile = explicit ? `tiles/${explicit.file}` :
+            (meta.tileUrl ?? "tiles/tile_{col}_{row}.jpg").replace("{col}", col).replace("{row}", row);
+          const relative = `${folder}/${tile}`;
+          expected.add(relative);
+          tiles.push(relative);
+        }
+      }
+      for (const relative of [metaPath, preview, ...tiles]) {
+        if (!remote.get(relative)?.size) failures.push(`${relative}: missing or empty R2 object`);
+      }
+      for (const relative of [preview, tiles[0]]) {
+        await checkWorkerAsset(relative, remote.get(relative));
+        workerChecked++;
+      }
+    } catch (error) { failures.push(error.message); }
+    if (workerChecked && workerChecked % 30 === 0) console.log(`Verified ${workerChecked}/${folders.length * 3} Worker assets`);
+  });
+  console.log(JSON.stringify({
+    auditedAt: new Date().toISOString(), prefix, mode: "remote-only", folders: folders.length,
+    metadataChecked, expectedObjects: expected.size, remoteObjects: remote.size,
+    extraRemoteObjects: [...remote.keys()].filter((key) => !expected.has(key)).length,
+    workerAssetsChecked: workerChecked, failures: failures.length, details: failures.slice(0, 30),
+    note: "Every required object checked for presence and non-zero size. Metadata, preview and one tile per panorama fetched through Worker and compared to R2 byte sizes/ETags. No local originals available for comparison.",
+  }, null, 2));
+  if (failures.length) process.exitCode = 1;
 }
 
 async function main() {
@@ -163,6 +226,8 @@ async function main() {
     token = page.next;
     console.log(`Listed ${remote.size} R2 objects${token ? " (continuing)" : " (complete)"}`);
   } while (token);
+
+  if (remoteOnly) { await auditRemoteClubhouse(remote); return; }
 
   const localFiles = await collectFiles(localRoot);
   const expected = new Set(localFiles);
@@ -190,11 +255,13 @@ async function main() {
     if (++checked % 5000 === 0) console.log(`Compared ${checked}/${localFiles.length} files`);
   });
 
-  const nodes = villaMode
+  const nodes = clubhouseMode
+    ? JSON.parse(await readFile("data/Clubhouse_Pano_Data.json", "utf8"))
+    : villaMode
     ? JSON.parse(await readFile("data/villa-panos.json", "utf8")).panos
     : JSON.parse(await readFile("data/Varaprasad_Exterior_Pano_Data_v1.json", "utf8"));
   for (const node of nodes) {
-    const folder = villaMode ? node.folder : `EP.${String(node.frame).padStart(5, "0")}`;
+    const folder = clubhouseMode ? node.image_filename.replace(/\.[^.]+$/, "") : villaMode ? node.folder : `EP.${String(node.frame).padStart(5, "0")}`;
     if (!folders.includes(folder)) failures.push(`${villaMode ? `Villa ${node.villaNumber}` : node.id}: missing panorama folder ${folder}`);
   }
   for (const folder of folders) {
@@ -213,7 +280,7 @@ async function main() {
     }
   }
 
-  const sampleFolders = villaMode ? folders : [...new Set([folders[0], folders[Math.floor(folders.length / 2)], folders.at(-1)])];
+  const sampleFolders = villaMode || clubhouseMode ? folders : [...new Set([folders[0], folders[Math.floor(folders.length / 2)], folders.at(-1)])];
   const samples = sampleFolders.flatMap((folder) => [`${folder}/meta.json`, `${folder}/preview.jpg`, `${folder}/tiles/tile_0_0.jpg`]);
   let workerChecked = 0;
   await concurrent(samples, 3, async (relative) => {

@@ -12,22 +12,38 @@ export type SiteNavItem = {
   matches?: string[];
 };
 
-export const siteNavItems: SiteNavItem[] = [
-  { href: "/", label: "Home" },
-  { href: "/project-overview", label: "The Estate" },
-  { href: "/area-map", label: "Location" },
-  { href: "/amenities", label: "Amenities" },
-  { href: "/master-plan", label: "Choose a Villa" },
+// Shared names match the top bar; keep hidden routes implemented for later use.
+export const siteNavLabels: Record<SiteNavHref, string> = {
+  "/": "Home",
+  "/project-overview": "Project Overview",
+  "/area-map": "Map",
+  "/amenities": "Amenities",
+  "/master-plan": "Master Plan",
+  "/exterior-walkthrough": "Walkthrough",
+};
+
+export function isSiteNavigationVisible(href?: string) {
+  return href !== "/project-overview";
+}
+
+const allSiteNavItems: SiteNavItem[] = [
+  { href: "/", label: siteNavLabels["/"] },
+  { href: "/project-overview", label: siteNavLabels["/project-overview"] },
+  { href: "/area-map", label: siteNavLabels["/area-map"] },
+  { href: "/amenities", label: siteNavLabels["/amenities"] },
+  { href: "/master-plan", label: siteNavLabels["/master-plan"] },
   {
     href: "/exterior-walkthrough",
-    label: "Villa Tour",
+    label: siteNavLabels["/exterior-walkthrough"],
     matches: [
       "/exterios-walkthrough",
       "/exterior-tour",
       "/exterior-walkthrough",
     ],
   },
-] as const;
+];
+
+export const siteNavItems = allSiteNavItems.filter((item) => isSiteNavigationVisible(item.href));
 
 export function isSiteNavItemActive(pathname: string, item: SiteNavItem) {
   if (item.href === "/") {
@@ -53,6 +69,8 @@ export function isAnyWalkthroughPath(pathname: string) {
   return (
     pathname === "/walkthrough" ||
     pathname === "/interior-kitchen-foyer" ||
+    pathname === "/clubhouse-walkthrough" ||
+    pathname === "/villa-walkthrough" ||
     isExteriorWalkthroughPath(pathname)
   );
 }

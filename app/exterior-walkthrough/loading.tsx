@@ -1,5 +1,5 @@
-import TulaBrandPreloader from "@/components/ui/TulaBrandPreloader";
+import ExteriorWalkthroughPreloader from "@/components/ui/ExteriorWalkthroughPreloader";
 
 export default function ExteriorWalkthroughLoading() {
-  return <TulaBrandPreloader progress={4} />;
+  return <ExteriorWalkthroughPreloader progress={4} />;
 }

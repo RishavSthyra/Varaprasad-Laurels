@@ -1,4 +1,4 @@
-import { MASTER_PLAN_ORBIT_FALLBACK_IMAGE_URL } from "@/lib/master-plan-asset-keys";
+import { VILLA_MASTERPLAN_BACKGROUND_URL } from "@/lib/villa-masterplan-model";
 
 export default function MasterPlanLoading() {
   return (
@@ -6,7 +6,7 @@ export default function MasterPlanLoading() {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('${MASTER_PLAN_ORBIT_FALLBACK_IMAGE_URL}')`,
+          backgroundImage: `url('${VILLA_MASTERPLAN_BACKGROUND_URL}')`,
         }}
       />
     </section>

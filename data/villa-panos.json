@@ -1,6 +1,7 @@
 {
   "assetBaseUrl": "Varaprasad_Laurels/Panos/varaprasad_villa_panos",
-  "notes": "Cloudflare R2 key prefix; the existing asset signer supplies Worker URLs for metadata, previews and tiles. One panorama per villa, matched by the explicit Villa NNN folder prefix; camera/frame numbers are not villa numbers. All 76 folders and 9880 objects verified against local checksums on 2026-11-17. Villas 7 and 21 have no indexed assets. Initial views use the render's native orientation; adjust per villa if required.",
+  "initialPitchOffsetDegrees": 6,
+  "notes": "Cloudflare R2 key prefix; the existing asset signer supplies Worker URLs for metadata, previews and tiles. One panorama per villa, matched by the explicit Villa NNN folder prefix; camera/frame numbers are not villa numbers. All 76 folders and 9880 objects verified against local checksums on 2026-11-17. Villas 7 and 21 have no indexed assets. Initial views retain native yaw and add initialPitchOffsetDegrees to each villa's pitchDegrees for a slightly upward facade view.",
   "panos": [
     {"villaNumber":1,"folder":"Villa 001 - Cam 20 - Frame 00000","yawDegrees":0,"pitchDegrees":0,"zoom":0},
     {"villaNumber":2,"folder":"Villa 002 - Cam 18 - Frame 00002","yawDegrees":0,"pitchDegrees":0,"zoom":0},

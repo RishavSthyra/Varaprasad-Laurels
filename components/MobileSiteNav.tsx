@@ -47,6 +47,7 @@ export default function MobileSiteNav() {
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const isAreaMapRoute = pathname === "/area-map";
+  const isMasterPlanRoute = pathname === "/master-plan" || pathname === "/master-plan-new";
 
   useEffect(() => {
     if (!isRendered || !isOpen) return;
@@ -380,7 +381,7 @@ export default function MobileSiteNav() {
               })}
             </div>
 
-            <div className={`relative z-10 grid grid-cols-3 ${isAreaMapRoute ? "mt-4 gap-2 sm:mt-5 sm:gap-3" : "mt-6 gap-3"}`}>
+            {!isMasterPlanRoute ? <div className={`relative z-10 grid grid-cols-3 ${isAreaMapRoute ? "mt-4 gap-2 sm:mt-5 sm:gap-3" : "mt-6 gap-3"}`}>
               <a
                 ref={(node) => {
                   actionRefs.current[0] = node;
@@ -412,7 +413,7 @@ export default function MobileSiteNav() {
               >
                 <Send className="size-4.5" />
               </button>
-            </div>
+            </div> : null}
           </nav>
         </div>
       ) : null}

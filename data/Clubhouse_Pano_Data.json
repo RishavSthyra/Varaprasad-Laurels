@@ -1,0 +1,2837 @@
+[
+    {
+        "id": "Ground_Floor_Pano_1_F0001",
+        "x": 15873.966,
+        "y": 9660.711,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": 161.2456,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Ground Floor Pano 1.00001.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -0.947,
+            "y": 0.322,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.322,
+            "y": -0.947,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.322,
+            "y": 0.947,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_1_F0002",
+        "x": 15469.737,
+        "y": 9891.129,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": 150.0248,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Ground Floor Pano 1.00002.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -0.866,
+            "y": 0.5,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.5,
+            "y": -0.866,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.5,
+            "y": 0.866,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_1_F0003",
+        "x": 15021.905,
+        "y": 9961.541,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Ground Floor Pano 1.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_1_F0004",
+        "x": 14556.461,
+        "y": 9961.541,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Ground Floor Pano 1.00004.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_1_F0005",
+        "x": 14091.602,
+        "y": 9961.541,
+        "z": 232.293,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "Ground Floor Pano 1.00005.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_1_F0006",
+        "x": 13862.684,
+        "y": 10213.234,
+        "z": 280.003,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "Ground Floor Pano 1.00006.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_1_F0007",
+        "x": 13862.684,
+        "y": 10678.673,
+        "z": 280.003,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 7,
+        "image_filename": "Ground Floor Pano 1.00007.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_1_F0008",
+        "x": 13862.684,
+        "y": 11144.116,
+        "z": 280.003,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 8,
+        "image_filename": "Ground Floor Pano 1.00008.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_2_F0000",
+        "x": 15069.958,
+        "y": 9961.394,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Ground Floor Pano 2.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_2_F0001",
+        "x": 15070.308,
+        "y": 10242.147,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": 82.8849,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Ground Floor Pano 2.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.124,
+            "y": 0.992,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.992,
+            "y": 0.124,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.992,
+            "y": -0.124,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_2_F0002",
+        "x": 15308.644,
+        "y": 10324.7,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": 81.8023,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Ground Floor Pano 2.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.143,
+            "y": 0.99,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.99,
+            "y": 0.143,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.99,
+            "y": -0.143,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_2_F0003",
+        "x": 15309.159,
+        "y": 10605.443,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Ground Floor Pano 2.00003.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_2_F0004",
+        "x": 15309.159,
+        "y": 10886.211,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Ground Floor Pano 2.00004.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_3_F0000",
+        "x": 14759.178,
+        "y": 9961.57,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Ground Floor Pano 3.00000.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_3_F0001",
+        "x": 14759.178,
+        "y": 9706.909,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Ground Floor Pano 3.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_3_F0002",
+        "x": 14759.178,
+        "y": 9452.248,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Ground Floor Pano 3.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_4_F0000",
+        "x": 14206.35,
+        "y": 9960.377,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Ground Floor Pano 4.00000.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_4_F0001",
+        "x": 14206.35,
+        "y": 9702.734,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Ground Floor Pano 4.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_4_F0002",
+        "x": 14206.35,
+        "y": 9445.091,
+        "z": 225.0,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Ground Floor Pano 4.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_5_F0000",
+        "x": 12703.45,
+        "y": 11228.778,
+        "z": 280.04,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Ground Floor Pano 5.00000.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_5_F0001",
+        "x": 13189.653,
+        "y": 11228.778,
+        "z": 280.04,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Ground Floor Pano 5.00001.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_5_F0002",
+        "x": 13385.875,
+        "y": 10911.67,
+        "z": 280.04,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Ground Floor Pano 5.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_5_F0003",
+        "x": 13385.875,
+        "y": 10425.466,
+        "z": 280.04,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Ground Floor Pano 5.00003.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_5_F0004",
+        "x": 13385.875,
+        "y": 9939.264,
+        "z": 280.04,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Ground Floor Pano 5.00004.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_5_F0005",
+        "x": 13385.875,
+        "y": 9453.061,
+        "z": 280.04,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "Ground Floor Pano 5.00005.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Ground_Floor_Pano_5_F0006",
+        "x": 13808.477,
+        "y": 9375.08,
+        "z": 280.04,
+        "pitch": 0.0,
+        "yaw": 0.0307,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "Ground Floor Pano 5.00006.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.001,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.001,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.001,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_1_F0001",
+        "x": 13703.908,
+        "y": 10749.389,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "First Floor Pano 1.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_1_F0002",
+        "x": 13703.908,
+        "y": 10377.834,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "First Floor Pano 1.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_1_F0003",
+        "x": 13705.766,
+        "y": 10006.459,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": -73.2669,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "First Floor Pano 1.00003.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.288,
+            "y": -0.958,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.958,
+            "y": 0.288,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.958,
+            "y": -0.288,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_1_F0004",
+        "x": 14063.203,
+        "y": 9975.132,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "First Floor Pano 1.00004.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_1_F0005",
+        "x": 14434.758,
+        "y": 9975.132,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "First Floor Pano 1.00005.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_1_F0006",
+        "x": 14806.314,
+        "y": 9975.132,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "First Floor Pano 1.00006.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_1_F0007",
+        "x": 15177.869,
+        "y": 9975.132,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 7,
+        "image_filename": "First Floor Pano 1.00007.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_2_F0000",
+        "x": 13791.934,
+        "y": 9974.627,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "First Floor Pano 2.00000.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_2_F0001",
+        "x": 13791.934,
+        "y": 9537.753,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "First Floor Pano 2.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_2_F0002",
+        "x": 13565.214,
+        "y": 9304.38,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "First Floor Pano 2.00002.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_2_F0003",
+        "x": 13128.341,
+        "y": 9304.38,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "First Floor Pano 2.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_3_F0000",
+        "x": 14545.878,
+        "y": 9975.251,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "First Floor Pano 3.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_3_F0001",
+        "x": 14545.878,
+        "y": 10351.073,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "First Floor Pano 3.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_3_F0002",
+        "x": 14545.878,
+        "y": 10726.898,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "First Floor Pano 3.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_3_F0003",
+        "x": 14545.878,
+        "y": 11102.721,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "First Floor Pano 3.00003.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_4_F0000",
+        "x": 14546.198,
+        "y": 10313.437,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "First Floor Pano 4.00000.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_4_F0001",
+        "x": 14974.034,
+        "y": 10313.437,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "First Floor Pano 4.00001.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_4_F0002",
+        "x": 15401.869,
+        "y": 10313.437,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "First Floor Pano 4.00002.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_4_F0003",
+        "x": 15621.02,
+        "y": 10557.786,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 90.2616,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "First Floor Pano 4.00003.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": -0.005,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": -0.005,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.005,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "First_Floor_Pano_4_F0004",
+        "x": 15619.047,
+        "y": 10985.616,
+        "z": 620.359,
+        "pitch": 0.0,
+        "yaw": 90.2616,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "First Floor Pano 4.00004.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": -0.005,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": -0.005,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.005,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_1_F0001",
+        "x": 13696.631,
+        "y": 10487.489,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Second Floor Pano 1.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_1_F0002",
+        "x": 13815.056,
+        "y": 9973.534,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Second Floor Pano 1.00002.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_1_F0003",
+        "x": 14447.438,
+        "y": 9973.534,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Second Floor Pano 1.00003.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_1_F0004",
+        "x": 15079.817,
+        "y": 9973.534,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Second Floor Pano 1.00004.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_1_F0005",
+        "x": 15712.197,
+        "y": 9973.534,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "Second Floor Pano 1.00005.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_1_F0006",
+        "x": 16185.828,
+        "y": 9795.598,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "Second Floor Pano 1.00006.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_2_F0000",
+        "x": 13696.63,
+        "y": 9973.532,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Second Floor Pano 2.00000.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_2_F0001",
+        "x": 13390.377,
+        "y": 9973.532,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Second Floor Pano 2.00001.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_2_F0002",
+        "x": 13320.211,
+        "y": 10235.847,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Second Floor Pano 2.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_2_F0003",
+        "x": 13320.211,
+        "y": 10542.101,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Second Floor Pano 2.00003.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_3_F0000",
+        "x": 13777.383,
+        "y": 9973.257,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Second Floor Pano 3.00000.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_3_F0001",
+        "x": 13777.383,
+        "y": 9478.739,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Second Floor Pano 3.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_3_F0002",
+        "x": 13337.487,
+        "y": 9391.023,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Second Floor Pano 3.00002.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_3_F0003",
+        "x": 12842.969,
+        "y": 9391.023,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Second Floor Pano 3.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_4_F0000",
+        "x": 14534.916,
+        "y": 9973.734,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Second Floor Pano 4.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_4_F0001",
+        "x": 14534.916,
+        "y": 10305.896,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Second Floor Pano 4.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_4_F0002",
+        "x": 14788.32,
+        "y": 10418.732,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Second Floor Pano 4.00002.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_4_F0003",
+        "x": 15120.483,
+        "y": 10418.732,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Second Floor Pano 4.00003.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Second_Floor_Pano_4_F0004",
+        "x": 15452.644,
+        "y": 10418.732,
+        "z": 1020.465,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Second Floor Pano 4.00004.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_1_F0001",
+        "x": 13703.053,
+        "y": 10678.825,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Third Floor Pano 1.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_1_F0002",
+        "x": 13703.053,
+        "y": 10238.358,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Third Floor Pano 1.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_1_F0003",
+        "x": 13882.716,
+        "y": 9977.553,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Third Floor Pano 1.00003.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_1_F0004",
+        "x": 14323.183,
+        "y": 9977.553,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Third Floor Pano 1.00004.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_1_F0005",
+        "x": 14763.65,
+        "y": 9977.553,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "Third Floor Pano 1.00005.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_1_F0006",
+        "x": 15203.345,
+        "y": 9970.58,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -18.9633,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "Third Floor Pano 1.00006.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.946,
+            "y": -0.325,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.325,
+            "y": 0.946,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.325,
+            "y": -0.946,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_1_F0007",
+        "x": 15615.92,
+        "y": 9871.008,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 7,
+        "image_filename": "Third Floor Pano 1.00007.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_2_F0000",
+        "x": 13847.423,
+        "y": 9977.745,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Third Floor Pano 2.00000.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_2_F0001",
+        "x": 13847.423,
+        "y": 9634.829,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Third Floor Pano 2.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_2_F0002",
+        "x": 13847.423,
+        "y": 9291.914,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Third Floor Pano 2.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_2_F0003",
+        "x": 13594.755,
+        "y": 9181.151,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Third Floor Pano 2.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_2_F0004",
+        "x": 13251.839,
+        "y": 9181.151,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Third Floor Pano 2.00004.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_3_F0000",
+        "x": 14521.783,
+        "y": 9978.473,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Third Floor Pano 3.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_3_F0001",
+        "x": 14521.783,
+        "y": 10346.298,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Third Floor Pano 3.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_3_F0002",
+        "x": 14521.783,
+        "y": 10714.12,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Third Floor Pano 3.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_3_F0003",
+        "x": 14274.189,
+        "y": 10863.365,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Third Floor Pano 3.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_4_F0000",
+        "x": 13847.344,
+        "y": 9433.647,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Thid Floor Pano 4.00000.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_4_F0001",
+        "x": 14019.208,
+        "y": 9433.647,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Thid Floor Pano 4.00001.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_4_F0002",
+        "x": 14169.23,
+        "y": 9402.62,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Thid Floor Pano 4.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_4_F0003",
+        "x": 14169.23,
+        "y": 9230.757,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Thid Floor Pano 4.00003.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_5_F0000",
+        "x": 13703.052,
+        "y": 10332.548,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Third Floor Pano 5.00000.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_5_F0001",
+        "x": 13456.955,
+        "y": 10419.405,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Third Floor Pano 5.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_5_F0002",
+        "x": 13456.955,
+        "y": 10734.934,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Third Floor Pano 5.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_5_F0003",
+        "x": 13242.045,
+        "y": 10854.655,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Third Floor Pano 5.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_5_F0004",
+        "x": 12926.516,
+        "y": 10854.655,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Third Floor Pano 5.00004.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_6_F0000",
+        "x": 13703.052,
+        "y": 10332.548,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Third Floor Pano 6.00000.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_6_F0001",
+        "x": 13456.955,
+        "y": 10419.405,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Third Floor Pano 6.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_6_F0002",
+        "x": 13456.955,
+        "y": 10734.934,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Third Floor Pano 6.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_6_F0003",
+        "x": 13242.045,
+        "y": 10854.655,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Third Floor Pano 6.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_6_F0004",
+        "x": 12926.516,
+        "y": 10854.655,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Third Floor Pano 6.00004.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_7_F0000",
+        "x": 13703.052,
+        "y": 11043.036,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Third Floor Pano 7.00000.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_7_F0001",
+        "x": 13456.955,
+        "y": 11129.894,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Third Floor Pano 7.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_7_F0002",
+        "x": 13456.955,
+        "y": 11445.423,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Third Floor Pano 7.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_7_F0003",
+        "x": 13242.045,
+        "y": 11565.143,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Third Floor Pano 7.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Third_Floor_Pano_7_F0004",
+        "x": 12926.516,
+        "y": 11565.143,
+        "z": 1420.482,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Third Floor Pano 7.00004.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Forth_Floor_Pano_1_F0000",
+        "x": 14779.752,
+        "y": 9398.673,
+        "z": 1820.0,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "Forth Floor Pano 1.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Forth_Floor_Pano_1_F0001",
+        "x": 14770.128,
+        "y": 9883.998,
+        "z": 1820.0,
+        "pitch": 0.0,
+        "yaw": 117.8351,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "Forth Floor Pano 1.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": -0.467,
+            "y": 0.884,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.884,
+            "y": -0.467,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.884,
+            "y": 0.467,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Forth_Floor_Pano_1_F0002",
+        "x": 14300.061,
+        "y": 9928.659,
+        "z": 1820.0,
+        "pitch": 0.0,
+        "yaw": -180.0,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "Forth Floor Pano 1.00002.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Forth_Floor_Pano_1_F0003",
+        "x": 13984.569,
+        "y": 10135.943,
+        "z": 1820.0,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "Forth Floor Pano 1.00003.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Forth_Floor_Pano_1_F0004",
+        "x": 13984.569,
+        "y": 10622.839,
+        "z": 1820.0,
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "Forth Floor Pano 1.00004.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        }
+    }
+]

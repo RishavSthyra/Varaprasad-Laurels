@@ -1,0 +1,14 @@
+{
+  "coordinateConvention": "unreal-left-handed",
+  "notes": "Viewer navigation uses right-handed XY. Reflect Y and the exported yaw together; never change the source CAD coordinates or re-encode images. GF_CAM0 actually repeats the five-frame GF_CAM5 take, holding CAM5 frame 4 for its final two frames. Use CAM5 coordinates/headings for that take. Repeated renders remain on disk and resolve to the canonical walking stop.",
+  "duplicateRenders": {
+    "GF_CAM0_F0000": "GF_CAM5_F0000",
+    "GF_CAM0_F0001": "GF_CAM5_F0001",
+    "GF_CAM0_F0002": "GF_CAM5_F0002",
+    "GF_CAM0_F0003": "GF_CAM5_F0003",
+    "GF_CAM0_F0004": "GF_CAM5_F0004",
+    "GF_CAM0_F0005": "GF_CAM5_F0004",
+    "GF_CAM0_F0006": "GF_CAM5_F0004",
+    "FF_CAM1_F0006": "FF_CAM1_F0000"
+  }
+}

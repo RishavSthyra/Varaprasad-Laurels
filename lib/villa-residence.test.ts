@@ -6,7 +6,7 @@ import panoConfig from "../data/villa-panos.json";
 import { villaCatalog } from "./villas";
 import {
   getVillaFloorArea, getVillaFloorPlan, getVillaFloorRooms, getVillaNumberFromId,
-  getVillaPano, getVillaPanoAssetUrl, getVillaPanoBaseUrl, getVillaRecord, getVillaWalkthroughHref,
+  getVillaPano, getVillaPanoAssetUrl, getVillaPanoBaseUrl, getVillaPanoInitialPitch, getVillaRecord, getVillaWalkthroughHref,
 } from "./villa-residence";
 
 test("explicit villa numbers map to the exact cloud folder, never the camera or frame number", () => {
@@ -35,6 +35,13 @@ test("villa panoramas use the processed Cloudflare prefix, not local assets or r
   }
 });
 
+test("villa openings tilt six degrees up while preserving individual pitch calibration", () => {
+  for (const pano of panoConfig.panos) {
+    assert.equal(getVillaPanoInitialPitch(pano), (pano.pitchDegrees + 6) * Math.PI / 180);
+  }
+  assert.equal(getVillaPanoInitialPitch({ ...panoConfig.panos[0], pitchDegrees: 3 }), 9 * Math.PI / 180);
+});
+
 test("Villa 7 is unavailable and Villa 21 remains excluded; neither substitutes a neighbour", () => {
   assert.equal(getVillaPano(7), null);
   assert.equal(getVillaPano(21), null);
@@ -61,10 +68,13 @@ test("villa details, per-floor areas and dimensions come from each villa's actua
   assert.equal(west.details.facing, "West");
 });
 
-test("missing villa floor plans and interior tours never use legacy apartment assets", () => {
+test("all villa types share the new villa preview without using old apartment assets or plans", () => {
   for (const villa of villaCatalog) {
     assert.equal(getVillaFloorPlan(villa, "ground"), null);
-    assert.equal(getVillaWalkthroughHref(villa), null);
+    const url = new URL(getVillaWalkthroughHref(villa)!, "https://example.test");
+    assert.equal(url.pathname, "/villa-walkthrough");
+    assert.equal(url.searchParams.get("villa"), String(villa.villaNumber));
+    assert.equal(url.searchParams.get("facing"), villa.details.facing);
   }
 });
 

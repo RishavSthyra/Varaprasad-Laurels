@@ -1,6 +1,12 @@
 {
   "unavailablePanoVillaNumbers": [7],
-  "notes": "Only use verified villa assets here. Empty floorPlans/interiorTours intentionally do not fall back to the old apartment project. Floor plans are keyed by typeId and then ground/first/second/terrace. Interior tours are keyed by typeId with an internal path and optional nodeId.",
+  "notes": "Only use verified villa assets here. All villa types temporarily share the supplied Villa 1 interior preview at /villa-walkthrough. This is not a claim of a type-specific or mirrored interior. Empty floorPlans never fall back to old apartment plans. Interior tours can be replaced independently by typeId later.",
   "floorPlans": {},
-  "interiorTours": {}
+  "interiorTours": {
+    "type-a-351-east": { "path": "/villa-walkthrough" },
+    "type-a-351-west": { "path": "/villa-walkthrough" },
+    "type-b-450-east": { "path": "/villa-walkthrough" },
+    "type-b-450-west": { "path": "/villa-walkthrough" },
+    "type-c-530-west": { "path": "/villa-walkthrough" }
+  }
 }

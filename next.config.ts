@@ -1,4 +1,13 @@
 const nextConfig = {
+  devIndicators: false,
+  async headers() {
+    return [
+      {
+        source: "/images/poi/laurels/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

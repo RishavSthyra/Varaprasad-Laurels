@@ -1,0 +1,22 @@
+.marker {
+  color: white;
+  opacity: .55;
+  border: 0;
+  padding: 8px;
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+  text-shadow: 0 2px 7px rgb(0 0 0 / .55);
+  transition: opacity 180ms ease;
+  touch-action: manipulation;
+}
+.marker:hover, .marker:focus-visible { opacity: 1; }
+.marker:focus-visible { outline: 2px solid white; outline-offset: 5px; border-radius: 8px; }
+.content { display: flex; align-items: center; flex-direction: column; gap: 8px; }
+.content svg { width: 90px; height: 90px; filter: drop-shadow(0 2px 4px rgb(0 0 0 / .4)); }
+.content span { font: 600 22px/1.2 sans-serif; white-space: nowrap; }
+.floating { box-sizing: border-box; width: 160px; height: 144px; padding: 12px; }
+.floating .content { gap: 9px; }
+.floating .content svg { width: 72px; height: 72px; }
+.floating .content span { font-size: 19px; line-height: 22px; }
+@media (prefers-reduced-motion: reduce) { .marker { transition: none; } }

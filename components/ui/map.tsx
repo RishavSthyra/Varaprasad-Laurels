@@ -86,6 +86,7 @@ function useResolvedTheme(themeProp?: "light" | "dark"): Theme {
 type MapContextValue = {
   map: MapLibreGL.Map | null;
   isLoaded: boolean;
+  styleRevision: number;
 };
 
 const MapContext = createContext<MapContextValue | null>(null);
@@ -182,8 +183,8 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
   const [mapInstance, setMapInstance] = useState<MapLibreGL.Map | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
+  const [styleRevision, setStyleRevision] = useState(0);
   const currentStyleRef = useRef<MapStyleOption | null>(null);
-  const styleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const internalUpdateRef = useRef(false);
   const resolvedTheme = useResolvedTheme(themeProp);
 
@@ -202,13 +203,6 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
 
   // Expose the map instance to the parent component
   useImperativeHandle(ref, () => mapInstance as MapLibreGL.Map, [mapInstance]);
-
-  const clearStyleTimeout = useCallback(() => {
-    if (styleTimeoutRef.current) {
-      clearTimeout(styleTimeoutRef.current);
-      styleTimeoutRef.current = null;
-    }
-  }, []);
 
   // Initialize the map
   useEffect(() => {
@@ -234,17 +228,13 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
     map.touchZoomRotate.enable();
     map.touchZoomRotate.disableRotation();
 
-    const styleDataHandler = () => {
-      clearStyleTimeout();
-      // Delay to ensure style is fully processed before allowing layer operations
-      // This is a workaround to avoid race conditions with the style loading
-      // else we have to force update every layer on setStyle change
-      styleTimeoutRef.current = setTimeout(() => {
-        setIsStyleLoaded(true);
-        if (projection) {
-          map.setProjection(projection);
-        }
-      }, 100);
+    const styleLoadHandler = () => {
+      // styledata also fires during teardown and when custom sources change.
+      // Only style.load guarantees a style object is ready for addLayer/addSource.
+      // A revision restores overlays even if React batches false/true readiness.
+      setIsStyleLoaded(true);
+      setStyleRevision((revision) => revision + 1);
+      if (projection) map.setProjection(projection);
     };
     const loadHandler = () => setIsLoaded(true);
 
@@ -255,14 +245,13 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
     };
 
     map.on("load", loadHandler);
-    map.on("styledata", styleDataHandler);
+    map.on("style.load", styleLoadHandler);
     map.on("move", handleMove);
     setMapInstance(map);
 
     return () => {
-      clearStyleTimeout();
       map.off("load", loadHandler);
-      map.off("styledata", styleDataHandler);
+      map.off("style.load", styleLoadHandler);
       map.off("move", handleMove);
       map.remove();
       setIsLoaded(false);
@@ -309,19 +298,21 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
 
     if (currentStyleRef.current === newStyle) return;
 
-    clearStyleTimeout();
     currentStyleRef.current = newStyle;
     setIsStyleLoaded(false);
 
-    mapInstance.setStyle(newStyle, { diff: true });
-  }, [mapInstance, resolvedTheme, mapStyles, clearStyleTimeout]);
+    // Providers have different glyph/source schemas. A clean style swap keeps
+    // the camera but avoids reusing incompatible in-flight font/tile state.
+    mapInstance.setStyle(newStyle, { diff: false });
+  }, [mapInstance, resolvedTheme, mapStyles]);
 
   const contextValue = useMemo(
     () => ({
       map: mapInstance,
       isLoaded: isLoaded && isStyleLoaded,
+      styleRevision,
     }),
-    [mapInstance, isLoaded, isStyleLoaded]
+    [mapInstance, isLoaded, isStyleLoaded, styleRevision]
   );
 
   return (
@@ -1075,7 +1066,7 @@ function MapRoute({
   onMouseLeave,
   interactive = true,
 }: MapRouteProps) {
-  const { map, isLoaded } = useMap();
+  const { map, isLoaded, styleRevision } = useMap();
   const autoId = useId();
   const id = propId ?? autoId;
   const sourceId = `route-source-${id}`;
@@ -1116,7 +1107,7 @@ function MapRoute({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoaded, map]);
+  }, [isLoaded, map, styleRevision]);
 
   // When coordinates change, update the source data
   useEffect(() => {
@@ -1130,7 +1121,7 @@ function MapRoute({
         geometry: { type: "LineString", coordinates },
       });
     }
-  }, [isLoaded, map, coordinates, sourceId]);
+  }, [isLoaded, map, coordinates, sourceId, styleRevision]);
 
   useEffect(() => {
     if (!isLoaded || !map || !map.getLayer(layerId)) return;
@@ -1141,7 +1132,7 @@ function MapRoute({
     if (dashArray) {
       map.setPaintProperty(layerId, "line-dasharray", dashArray);
     }
-  }, [isLoaded, map, layerId, color, width, opacity, dashArray]);
+  }, [isLoaded, map, layerId, color, width, opacity, dashArray, styleRevision]);
 
   // Handle click and hover events
   useEffect(() => {
@@ -1176,6 +1167,7 @@ function MapRoute({
     onMouseEnter,
     onMouseLeave,
     interactive,
+    styleRevision,
   ]);
 
   return null;
@@ -1196,6 +1188,8 @@ type MapClusterLayerProps<
   clusterThresholds?: [number, number];
   /** Color for unclustered individual points (default: "#3b82f6") */
   pointColor?: string;
+  /** A font available from the current map style's glyph endpoint. */
+  textFont?: string;
   /** Callback when an unclustered point is clicked */
   onPointClick?: (
     feature: GeoJSON.Feature<GeoJSON.Point, P>,
@@ -1218,10 +1212,11 @@ function MapClusterLayer<
   clusterColors = ["#22c55e", "#eab308", "#ef4444"],
   clusterThresholds = [100, 750],
   pointColor = "#3b82f6",
+  textFont = "Open Sans",
   onPointClick,
   onClusterClick,
 }: MapClusterLayerProps<P>) {
-  const { map, isLoaded } = useMap();
+  const { map, isLoaded, styleRevision } = useMap();
   const id = useId();
   const sourceId = `cluster-source-${id}`;
   const clusterLayerId = `clusters-${id}`;
@@ -1232,6 +1227,7 @@ function MapClusterLayer<
     clusterColors,
     clusterThresholds,
     pointColor,
+    textFont,
   });
 
   // Add source and layers on mount
@@ -1286,7 +1282,7 @@ function MapClusterLayer<
       filter: ["has", "point_count"],
       layout: {
         "text-field": "{point_count_abbreviated}",
-        "text-font": ["Open Sans"],
+        "text-font": [textFont],
         "text-size": 12,
       },
       paint: {
@@ -1321,7 +1317,7 @@ function MapClusterLayer<
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoaded, map, sourceId]);
+  }, [isLoaded, map, sourceId, styleRevision]);
 
   // Update source data when data prop changes (only for non-URL data)
   useEffect(() => {
@@ -1331,7 +1327,7 @@ function MapClusterLayer<
     if (source) {
       source.setData(data);
     }
-  }, [isLoaded, map, data, sourceId]);
+  }, [isLoaded, map, data, sourceId, styleRevision]);
 
   // Update layer styles when props change
   useEffect(() => {
@@ -1369,15 +1365,21 @@ function MapClusterLayer<
       map.setPaintProperty(unclusteredLayerId, "circle-color", pointColor);
     }
 
-    stylePropsRef.current = { clusterColors, clusterThresholds, pointColor };
+    if (map.getLayer(clusterCountLayerId) && prev.textFont !== textFont) {
+      map.setLayoutProperty(clusterCountLayerId, "text-font", [textFont]);
+    }
+    stylePropsRef.current = { clusterColors, clusterThresholds, pointColor, textFont };
   }, [
     isLoaded,
     map,
     clusterLayerId,
+    clusterCountLayerId,
     unclusteredLayerId,
     clusterColors,
     clusterThresholds,
     pointColor,
+    textFont,
+    styleRevision,
   ]);
 
   // Handle click events
@@ -1479,6 +1481,7 @@ function MapClusterLayer<
     sourceId,
     onClusterClick,
     onPointClick,
+    styleRevision,
   ]);
 
   return null;

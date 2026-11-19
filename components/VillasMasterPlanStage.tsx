@@ -1,12 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Suspense,
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
+  type PointerEvent as ReactPointerEvent,
 } from "react";
 import { Canvas, type ThreeEvent, useThree } from "@react-three/fiber";
 import {
@@ -25,6 +29,9 @@ import {
 } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { clone as cloneSkeleton } from "three/examples/jsm/utils/SkeletonUtils.js";
+import { getMasterPlanModelTargets, getVillaNumberForModelTarget, MASTERPLAN_CLUBHOUSE_HREF, VILLA_MASTERPLAN_BACKGROUND_URL, VILLA_MASTERPLAN_MODEL_URL } from "@/lib/villa-masterplan-model";
+import { VILLA_MASTERPLAN_VIDEO_URL, wrapVillaOrbitFrame, nearestVillaOrbitStop, type VillaOrbitMotion } from "@/lib/villa-masterplan-video";
+import VillaMasterPlanVideo from "./VillaMasterPlanVideo";
 
 import type { MasterPlanDeveloperConfig } from "@/types/developer-config";
 import type {
@@ -33,8 +40,8 @@ import type {
   TowerType,
 } from "@/types/inventory";
 
-const DEFAULT_MODEL_URL = "/models/villa 01.glb";
-const BACKGROUND_IMAGE_URL = "/master_west.avif";
+const DEFAULT_MODEL_URL = VILLA_MASTERPLAN_MODEL_URL;
+const BACKGROUND_IMAGE_URL = VILLA_MASTERPLAN_BACKGROUND_URL;
 const SOURCE_FRAME_ASPECT = 16 / 9;
 // GLTFLoader suffixes repeated mesh instances (`V05-G_1`, `V05-G_2`, ...).
 // Accept the suffix so every placed villa—not only the first of each type—is
@@ -48,32 +55,8 @@ const VILLA_STATUS_COLORS: Record<InventoryStatus, string> = {
   Sold: "#ff5b5b",
 };
 const SELECTED_VILLA_HOVER_COLOR = "#4b8dff";
-// `villa 01.glb` was exported with the Max group parents flattened, but the
-// children of each group remain contiguous and ordered. These are the exact
-// final root indices for the first 77 exported villa blocks. The last villa
-// starts at 8487; roots 8481-8486 are loose non-villa helper objects.
-const FLATTENED_VILLA_ROOT_ENDS = [
-  112, 229, 338, 447, 564, 681, 790, 899, 1009, 1119, 1232, 1342, 1455,
-  1565, 1673, 1786, 1899, 2008, 2117, 2223, 2329, 2435, 2541, 2647, 2753,
-  2859, 2965, 3071, 3177, 3283, 3389, 3495, 3601, 3710, 3819, 3928, 4037,
-  4146, 4255, 4364, 4473, 4582, 4691, 4800, 4909, 5018, 5127, 5240, 5353,
-  5466, 5573, 5687, 5800, 5913, 6026, 6139, 6252, 6365, 6478, 6584, 6694,
-  6807, 6920, 7033, 7139, 7245, 7351, 7457, 7563, 7669, 7775, 7881, 8001,
-  8120, 8240, 8360, 8480,
-] as const;
-const FLATTENED_FINAL_VILLA_ROOT_RANGE = [8487, 8586] as const;
-
-// Plot numbers recovered from the BOUNDRY numbering layer in
-// 20260528-FLOOR PLAN-R0.dwg and matched to the flattened GLB groups by their
-// plan coordinates. CAD plot 21 has no reliable corresponding GLB center and
-// is intentionally excluded from catalogue filtering and hover interaction.
-const CAD_VILLA_NUMBERS_BY_FLATTENED_GROUP = [
-  17, 4, 7, 8, 3, 2, 6, 5, 1, 9, 12, 10, 13, 11, 14, 15, 16, 18, 19, 20,
-  22, 23, 24, 25, 26, 39, 38, 37, 36, 35, 34, 33, 32, 40, 41, 42, 43, 44,
-  53, 52, 51, 50, 49, 57, 56, 55, 54, 46, 45, 47, 48, 66, 67, 68, 69, 70,
-  71, 72, 73, 65, 78, 77, 76, 75, 64, 63, 62, 61, 60, 59, 58, 21, 27, 28,
-  29, 30, 31, 74,
-] as const;
+// Each flattened export has its own CAD-numbered root ranges. Some villa
+// components in the new export are non-contiguous, so one old index list is unsafe.
 
 function formatVillaLabel(villaNumber: number) {
   return `Villa ${villaNumber}`;
@@ -83,6 +66,7 @@ type VillasMasterPlanStageProps = {
   apartments: InventoryApartment[];
   currentFrame: number;
   dragEnabled?: boolean;
+  orbitMotion?: VillaOrbitMotion | null;
   filteredApartments: InventoryApartment[];
   inventoryError: string | null;
   inventoryState: "loading" | "ready" | "error";
@@ -99,10 +83,11 @@ type VillasMasterPlanStageProps = {
   config?: MasterPlanDeveloperConfig;
 };
 
-type PreparedVilla = {
+type PreparedHoverTarget = {
   disposeGeometry: boolean;
   id: string;
   label: string;
+  kind: "villa" | "amenity";
   materials: MeshBasicMaterial[];
   meshes: Mesh[];
   meshScales: Vector3[];
@@ -115,7 +100,7 @@ type PreparedModel = {
   occlusionMeshes: Mesh[];
   occlusionScene: Group;
   scene: Group;
-  villas: PreparedVilla[];
+  targets: PreparedHoverTarget[];
 };
 
 function createOcclusionPass(scene: Group) {
@@ -160,8 +145,8 @@ function resolveModelUrl(config?: MasterPlanDeveloperConfig) {
 
 function prepareModel(sourceScene: Group): PreparedModel {
   const scene = cloneSkeleton(sourceScene) as Group;
-  const villas: PreparedVilla[] = [];
-  const villasByInstance = new Map<string, PreparedVilla | null>();
+  const targets: PreparedHoverTarget[] = [];
+  const villasByInstance = new Map<string, PreparedHoverTarget | null>();
   const roots = scene.children.map((root) => {
     const meshes: Mesh[] = [];
 
@@ -180,23 +165,12 @@ function prepareModel(sourceScene: Group): PreparedModel {
 
   if (!roots.some(({ villaMesh }) => villaMesh)) {
     const optimizedScene = new Group();
-    const villaRanges: Array<readonly [number, number]> = [];
-    let startIndex = 0;
-
-    FLATTENED_VILLA_ROOT_ENDS.forEach((endIndex) => {
-      villaRanges.push([startIndex, endIndex]);
-      startIndex = endIndex + 1;
-    });
-    villaRanges.push(FLATTENED_FINAL_VILLA_ROOT_RANGE);
+    const modelTargets = getMasterPlanModelTargets(roots.length);
 
     scene.updateMatrixWorld(true);
     const sceneWorldInverse = scene.matrixWorld.clone().invert();
 
-    villaRanges.forEach(([start, end], villaIndex) => {
-      if (end >= roots.length) {
-        return;
-      }
-
+    modelTargets.forEach(({ id, label, kind, rootRanges }) => {
       const material = new MeshBasicMaterial({
         color: "#9af5a8",
         colorWrite: false,
@@ -207,18 +181,9 @@ function prepareModel(sourceScene: Group): PreparedModel {
         toneMapped: false,
         transparent: false,
       });
-      const villaNumber =
-        CAD_VILLA_NUMBERS_BY_FLATTENED_GROUP[villaIndex] ?? villaIndex + 1;
-
-      if (EXCLUDED_VILLA_NUMBERS.has(villaNumber)) {
-        material.dispose();
-        return;
-      }
-
-      const villa: PreparedVilla = {
+      const villa: PreparedHoverTarget = {
         disposeGeometry: true,
-        id: `villa-${villaNumber}`,
-        label: formatVillaLabel(villaNumber),
+        id, label, kind,
         materials: [material],
         meshes: [],
         meshScales: [],
@@ -227,7 +192,7 @@ function prepareModel(sourceScene: Group): PreparedModel {
       };
       const sourceMeshes: Mesh[] = [];
 
-      for (let rootIndex = start; rootIndex <= end; rootIndex += 1) {
+      for (const [start, end] of rootRanges) for (let rootIndex = start; rootIndex <= end; rootIndex += 1) {
         const { meshes } = roots[rootIndex];
         const renderableMeshes = meshes.filter(
           (mesh) => !MAPPING_HELPER_MESH_PATTERN.test(mesh.name),
@@ -268,21 +233,25 @@ function prepareModel(sourceScene: Group): PreparedModel {
 
       const villaMesh = new Mesh(mergedGeometry, material);
 
-      villaMesh.name = `MasterPlanVilla${villaNumber}`;
+      villaMesh.name = kind === "villa" ? `MasterPlanVilla${getVillaNumberForModelTarget(id)}` : "MasterPlanClubhouse";
       villaMesh.position.copy(center);
       villaMesh.renderOrder = 0;
-      villaMesh.userData.masterPlanVillaId = villa.id;
-      villaMesh.userData.masterPlanVillaLabel = villa.label;
+      villaMesh.userData.masterPlanTargetId = id;
+      villaMesh.userData.masterPlanTargetLabel = label;
+      if (kind === "villa") {
+        villaMesh.userData.masterPlanVillaId = id;
+        villaMesh.userData.masterPlanVillaLabel = label;
+      }
       optimizedScene.add(villaMesh);
       villa.meshes.push(villaMesh);
       villa.meshScales.push(villaMesh.scale.clone());
-      villas.push(villa);
+      targets.push(villa);
     });
 
     return {
       ...createOcclusionPass(optimizedScene),
       scene: optimizedScene,
-      villas,
+      targets,
     };
   }
 
@@ -317,6 +286,7 @@ function prepareModel(sourceScene: Group): PreparedModel {
         disposeGeometry: false,
         id: `villa-${villaNumber}`,
         label: formatVillaLabel(villaNumber),
+        kind: "villa",
         materials: [],
         meshes: [],
         meshScales: [],
@@ -324,7 +294,7 @@ function prepareModel(sourceScene: Group): PreparedModel {
         hoverScale: 1.015,
       };
       villasByInstance.set(instanceKey, villa);
-      villas.push(villa);
+      targets.push(villa);
     }
 
     if (!villa) {
@@ -352,6 +322,8 @@ function prepareModel(sourceScene: Group): PreparedModel {
       object.renderOrder = 0;
       object.userData.masterPlanVillaId = villa.id;
       object.userData.masterPlanVillaLabel = villa.label;
+      object.userData.masterPlanTargetId = villa.id;
+      object.userData.masterPlanTargetLabel = villa.label;
       villa.materials.push(material);
       villa.meshes.push(object);
       villa.meshScales.push(object.scale.clone());
@@ -361,13 +333,13 @@ function prepareModel(sourceScene: Group): PreparedModel {
   return {
     ...createOcclusionPass(scene),
     scene,
-    villas,
+    targets,
   };
 }
 
-function CameraRig({ config }: { config?: MasterPlanDeveloperConfig }) {
+function CameraRig({ config, frame }: { config?: MasterPlanDeveloperConfig; frame: number }) {
   const { size } = useThree();
-  const cameraConfig = config?.hotspots[0]?.camera;
+  const cameraConfig = config?.hotspots.find((hotspot) => hotspot.frame === frame)?.camera ?? config?.hotspots[0]?.camera;
 
   if (!cameraConfig) {
     return null;
@@ -409,6 +381,7 @@ function VillasModel({
   modelUrl,
   onHover,
   onSelect,
+  onReady,
   selectedVillaId,
   villaStatusById,
 }: {
@@ -418,6 +391,7 @@ function VillasModel({
   modelUrl: string;
   onHover: (id: string | null, label?: string, event?: ThreeEvent<PointerEvent>) => void;
   onSelect: (id: string) => void;
+  onReady: () => void;
   selectedVillaId: string | null;
   villaStatusById: ReadonlyMap<string, InventoryStatus>;
 }) {
@@ -427,6 +401,7 @@ function VillasModel({
     () => prepareModel(gltf.scene as Group),
     [gltf.scene],
   );
+  useEffect(() => { onReady(); }, [onReady, prepared]);
   const transform = config?.towerATransform;
   const modelMatrix = useMemo(() => {
     if (transform?.matrix) {
@@ -453,12 +428,12 @@ function VillasModel({
     // overlays to bleed through neighboring villas.
     prepared.occlusionMeshes.forEach((mesh) => {
       mesh.visible =
-        mesh.userData.masterPlanVillaId !== hoveredVillaId;
+        mesh.userData.masterPlanTargetId !== hoveredVillaId;
     });
 
-    prepared.villas.forEach((villa) => {
+    prepared.targets.forEach((villa) => {
       const isHovered = villa.id === hoveredVillaId;
-      const isFilterMatch = filteredVillaIds.has(villa.id);
+      const isFilterMatch = villa.kind === "villa" && filteredVillaIds.has(villa.id);
       const isSelected = isFilterMatch || villa.id === selectedVillaId;
       const isHighlighted = isHovered || isSelected;
       const status = villaStatusById.get(villa.id) ?? "Available";
@@ -499,14 +474,14 @@ function VillasModel({
     hoveredVillaId,
     invalidate,
     prepared.occlusionMeshes,
-    prepared.villas,
+    prepared.targets,
     selectedVillaId,
     villaStatusById,
   ]);
 
   useEffect(
     () => () => {
-      prepared.villas.forEach((villa) => {
+      prepared.targets.forEach((villa) => {
         villa.materials.forEach((material) => material.dispose());
         if (villa.disposeGeometry) {
           villa.meshes.forEach((mesh) => mesh.geometry.dispose());
@@ -514,13 +489,13 @@ function VillasModel({
       });
       prepared.occlusionMaterial.dispose();
     },
-    [prepared.occlusionMaterial, prepared.villas],
+    [prepared.occlusionMaterial, prepared.targets],
   );
 
   const handlePointerMove = useCallback(
     (event: ThreeEvent<PointerEvent>) => {
-      const id = event.object.userData.masterPlanVillaId as string | undefined;
-      const label = event.object.userData.masterPlanVillaLabel as string | undefined;
+      const id = event.object.userData.masterPlanTargetId as string | undefined;
+      const label = event.object.userData.masterPlanTargetLabel as string | undefined;
 
       if (!id) {
         return;
@@ -535,8 +510,8 @@ function VillasModel({
   const handlePointerOut = useCallback(
     (event: ThreeEvent<PointerEvent>) => {
       const nextVillaId = event.intersections.find(
-        (intersection) => intersection.object.userData.masterPlanVillaId,
-      )?.object.userData.masterPlanVillaId as string | undefined;
+        (intersection) => intersection.object.userData.masterPlanTargetId,
+      )?.object.userData.masterPlanTargetId as string | undefined;
 
       if (!nextVillaId) {
         onHover(null);
@@ -551,7 +526,7 @@ function VillasModel({
       <primitive
         object={prepared.scene}
         onClick={(event: ThreeEvent<MouseEvent>) => {
-          const id = event.object.userData.masterPlanVillaId as string | undefined;
+          const id = event.object.userData.masterPlanTargetId as string | undefined;
           if (!id || event.delta > 5) return;
           event.stopPropagation();
           onSelect(id);
@@ -581,12 +556,35 @@ function LoadingStatus() {
 export default function VillasMasterPlanStage({
   apartments,
   config,
+  currentFrame,
+  dragEnabled = true,
+  orbitMotion,
   filteredApartments,
   onApartmentSelect,
   onApartmentIntent,
   onInteractionChange,
+  onSetFrame,
   selectedApartmentId,
 }: VillasMasterPlanStageProps) {
+  const router = useRouter();
+  const [settledFrame, setSettledFrame] = useState<number | null>(null);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const [modelReady, setModelReady] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragRef = useRef<{ id: number; x: number; frame: number; next: number; moved: boolean } | null>(null);
+  const dragRaf = useRef(0);
+  const suppressClickUntil = useRef(0);
+  const totalFrames = config?.totalFrames ?? 309;
+  const stopFrames = config?.hotspotFrames ?? [1, 160];
+  const handleModelReady = useCallback(() => setModelReady(true), []);
+  const videoUrl = config?.scrubVideoKey?.startsWith("local:")
+    ? `/${config.scrubVideoKey.slice(6).replace(/^\/+/, "")}`
+    : /^https?:\/\//i.test(config?.scrubVideoKey ?? "")
+      ? config!.scrubVideoKey
+      : VILLA_MASTERPLAN_VIDEO_URL;
+  const isAtCalibratedStop = settledFrame === currentFrame &&
+    Boolean(config?.hotspots.some((hotspot) => hotspot.frame === settledFrame));
+  const showHoverLayer = modelReady && !videoFailed && !isDragging && isAtCalibratedStop;
   const modelUrl = useMemo(() => resolveModelUrl(config), [config]);
   const filteredVillaIds = useMemo(() => {
     const ids = new Set<string>();
@@ -635,13 +633,29 @@ export default function VillasMasterPlanStage({
     label: string;
   } | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const handleVideoMotion = useCallback(() => {
+    setSettledFrame(null);
+    setHoveredVilla(null);
+  }, []);
+  const handleVideoSettled = useCallback((frame: number) => {
+    setSettledFrame(frame);
+  }, []);
+  const handleVideoFailure = useCallback(() => {
+    setVideoFailed(true);
+    setHoveredVilla(null);
+  }, []);
   const handleSelect = useCallback((id: string) => {
-    const villaNumber = Number(id.replace(/^villa-/, ""));
-    if (!Number.isInteger(villaNumber) || EXCLUDED_VILLA_NUMBERS.has(villaNumber)) return;
+    if (performance.now() < suppressClickUntil.current) return;
+    if (id === "clubhouse") {
+      router.push(MASTERPLAN_CLUBHOUSE_HREF);
+      return;
+    }
+    const villaNumber = getVillaNumberForModelTarget(id);
+    if (villaNumber === null) return;
     const apartment = apartments.find((item) =>
       Number(item.flatNumber.replace(/\D/g, "")) === villaNumber);
     if (apartment) onApartmentSelect?.(apartment, id);
-  }, [apartments, onApartmentSelect]);
+  }, [apartments, onApartmentSelect, router]);
 
   const handleHover = useCallback(
     (
@@ -663,14 +677,56 @@ export default function VillasMasterPlanStage({
 
   const hoveredVillaId = hoveredVilla?.id;
   useEffect(() => {
-    if (!hoveredVillaId || !onApartmentIntent) return;
-    const timer = setTimeout(() => onApartmentIntent(Number(hoveredVillaId.replace(/^villa-/, ""))), 180);
+    if (!hoveredVillaId) return;
+    if (hoveredVillaId === "clubhouse") {
+      const timer = setTimeout(() => router.prefetch(MASTERPLAN_CLUBHOUSE_HREF), 180);
+      return () => clearTimeout(timer);
+    }
+    if (!onApartmentIntent) return;
+    const villaNumber = getVillaNumberForModelTarget(hoveredVillaId);
+    if (villaNumber === null) return;
+    const timer = setTimeout(() => onApartmentIntent(villaNumber), 180);
     return () => clearTimeout(timer);
-  }, [hoveredVillaId, onApartmentIntent]);
+  }, [hoveredVillaId, onApartmentIntent, router]);
 
   useEffect(() => {
-    onInteractionChange?.(Boolean(hoveredVilla));
-  }, [hoveredVilla, onInteractionChange]);
+    onInteractionChange?.(Boolean(hoveredVilla) || isDragging);
+  }, [hoveredVilla, isDragging, onInteractionChange]);
+
+  useEffect(() => () => cancelAnimationFrame(dragRaf.current), []);
+
+  const startDrag = (event: ReactPointerEvent<HTMLElement>) => {
+    if (!dragEnabled || !event.isPrimary || event.button !== 0) return;
+    dragRef.current = { id: event.pointerId, x: event.clientX, frame: currentFrame, next: currentFrame, moved: false };
+  };
+  const moveDrag = (event: ReactPointerEvent<HTMLElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.id !== event.pointerId) return;
+    const dx = event.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) < 7) return;
+    if (!drag.moved) {
+      drag.moved = true;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      setIsDragging(true);
+      handleVideoMotion();
+    }
+    event.preventDefault(); event.stopPropagation();
+    drag.next = wrapVillaOrbitFrame(drag.frame - dx / Math.max(1, event.currentTarget.clientWidth) * totalFrames, totalFrames);
+    cancelAnimationFrame(dragRaf.current);
+    dragRaf.current = requestAnimationFrame(() => onSetFrame(drag.next));
+  };
+  const finishDrag = (event: ReactPointerEvent<HTMLElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.id !== event.pointerId) return;
+    dragRef.current = null;
+    cancelAnimationFrame(dragRaf.current);
+    if (!drag.moved) return;
+    event.preventDefault(); event.stopPropagation();
+    suppressClickUntil.current = performance.now() + 350;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    onSetFrame(nearestVillaOrbitStop(drag.next, stopFrames, totalFrames));
+    setIsDragging(false);
+  };
 
   return (
     <section
@@ -678,19 +734,50 @@ export default function VillasMasterPlanStage({
         hoveredVilla ? "cursor-pointer" : "cursor-default"
       }`}
       onPointerLeave={() => handleHover(null)}
+      onPointerDownCapture={startDrag}
+      onPointerMoveCapture={moveDrag}
+      onPointerUpCapture={finishDrag}
+      onPointerCancelCapture={finishDrag}
+      onLostPointerCapture={finishDrag}
+      onClickCapture={event => {
+        if (performance.now() < suppressClickUntil.current) { event.preventDefault(); event.stopPropagation(); }
+      }}
+      style={{ touchAction: "none" }}
+      data-masterplan-frame={settledFrame ?? "moving"}
+      data-masterplan-hover-enabled={showHoverLayer}
+      data-masterplan-model-ready={modelReady}
+      data-masterplan-dragging={isDragging}
+      data-masterplan-target-frame={currentFrame}
     >
       <Image
         src={BACKGROUND_IMAGE_URL}
         alt="Aerial west view of the Laurels villa master plan"
         fill
-        priority
+        loading="eager"
+        fetchPriority="high"
+        unoptimized
         sizes="100vw"
         className="select-none object-cover"
         draggable={false}
       />
 
+      <VillaMasterPlanVideo
+        key={videoUrl}
+        src={videoUrl}
+        poster={BACKGROUND_IMAGE_URL}
+        frame={currentFrame}
+        fps={config?.fps ?? 30}
+        totalFrames={config?.totalFrames ?? 309}
+        motion={orbitMotion}
+        scrubbing={isDragging}
+        onMotion={handleVideoMotion}
+        onSettled={handleVideoSettled}
+        onFailure={handleVideoFailure}
+      />
+
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,transparent_45%,rgba(0,20,43,0.12)_100%)]" />
 
+      <div className="absolute inset-0 z-10" style={{ visibility: showHoverLayer ? "visible" : "hidden", pointerEvents: showHoverLayer ? "auto" : "none" }}>
       <Canvas
         className="pointer-events-auto absolute inset-0 z-10 [touch-action:none]"
         dpr={[1, 1.75]}
@@ -704,32 +791,42 @@ export default function VillasMasterPlanStage({
           stencil: false,
         }}
       >
-        <CameraRig config={config} />
+        <CameraRig config={config} frame={settledFrame ?? 1} />
         <Suspense fallback={null}>
           <VillasModel
             config={config}
             filteredVillaIds={filteredVillaIds}
-            hoveredVillaId={hoveredVilla?.id ?? null}
+            hoveredVillaId={showHoverLayer ? hoveredVilla?.id ?? null : null}
             modelUrl={modelUrl}
             onHover={handleHover}
             onSelect={handleSelect}
+            onReady={handleModelReady}
             selectedVillaId={selectedVillaId}
             villaStatusById={villaStatusById}
           />
         </Suspense>
       </Canvas>
+      </div>
 
       <LoadingStatus />
 
-      {hoveredVilla ? (
+      {showHoverLayer && hoveredVilla ? (
         <div
+          onPointerEnter={() => {
+            if (hoveredVilla.id === "clubhouse") handleHover("clubhouse", hoveredVilla.label);
+          }}
+          onPointerLeave={() => handleHover(null)}
           className="pointer-events-none absolute z-30 -translate-y-1/2 rounded-full border border-[#fce190]/65 bg-[#00142b]/88 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#fce190] shadow-[0_12px_30px_rgba(0,20,43,0.28)] backdrop-blur-xl"
           style={{
             left: Math.min(tooltipPosition.x + 16, globalThis.innerWidth - 120),
             top: tooltipPosition.y,
           }}
         >
-          {hoveredVilla.label}
+          {hoveredVilla.id === "clubhouse" ? (
+            <Link href={MASTERPLAN_CLUBHOUSE_HREF} prefetch={false} className="pointer-events-auto rounded-sm focus-visible:outline-2 focus-visible:outline-[#fce190]" aria-label="Enter clubhouse walkthrough">
+              {hoveredVilla.label}
+            </Link>
+          ) : hoveredVilla.label}
         </div>
       ) : null}
     </section>

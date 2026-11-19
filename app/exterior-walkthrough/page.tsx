@@ -45,7 +45,7 @@ function ExteriorWalkthroughHead({ initialPreviewUrl }: { initialPreviewUrl?: st
       <link
         rel="preload"
         as="image"
-        href="/vp_cons_images.webp"
+        href="/vp_cons_images_Cropped.webp"
         fetchPriority="high"
       />
       {initialPreviewUrl ? <link

@@ -28,6 +28,11 @@ export function getVillaPano(villaNumber: number): VillaPanoEntry | null {
  */
 export function getVillaPanoBaseUrl() { return panoConfig.assetBaseUrl; }
 
+/** Lift the opening view towards the facade without restricting manual looking. */
+export function getVillaPanoInitialPitch(pano: VillaPanoEntry) {
+  return (pano.pitchDegrees + panoConfig.initialPitchOffsetDegrees) * Math.PI / 180;
+}
+
 export function getVillaPanoAssetUrl(pano: VillaPanoEntry, file: string) {
   return `${panoConfig.assetBaseUrl.replace(/\/+$/, "")}/${encodeURIComponent(pano.folder)}/${file}`;
 }

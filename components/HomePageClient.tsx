@@ -75,7 +75,6 @@ export default function HomePageClient({
     heroStageFallbackKey: HERO_STAGE_FALLBACK_IMAGE_URL,
     heroPosterKey: HERO_POSTER_URL,
     heroLogoKey: HERO_LOGO_URL,
-    masterPlanWarmupVideoKey,
   } = config;
   primeSignedAssetUrls(initialSignedAssetUrls);
   const loaderStartedAtRef = useRef(0);
@@ -95,7 +94,6 @@ export default function HomePageClient({
     HERO_MOBILE_STATIC_IMAGE_URL,
     HERO_STAGE_FALLBACK_IMAGE_URL,
     HERO_VIDEO_URL,
-    masterPlanWarmupVideoKey,
   ]);
   const signedEntryVideoUrl =
     signedAssetUrls[ENTRY_VIDEO_URL] ??
@@ -116,10 +114,6 @@ export default function HomePageClient({
   const signedHeroVideoUrl =
     signedAssetUrls[HERO_VIDEO_URL] ??
     initialSignedAssetUrls[HERO_VIDEO_URL] ??
-    null;
-  const signedMasterPlanScrubVideoUrl =
-    signedAssetUrls[masterPlanWarmupVideoKey] ??
-    initialSignedAssetUrls[masterPlanWarmupVideoKey] ??
     null;
   const signedHeroPosterUrl = initialSignedAssetUrls[HERO_POSTER_URL] ?? null;
   const signedHeroLogoUrl = initialSignedAssetUrls[HERO_LOGO_URL] ?? null;
@@ -344,8 +338,8 @@ export default function HomePageClient({
         })),
         {
           href: criticalPosterSource,
-          as: "image",
-          fetchPriority: "high",
+          as: "image" as const,
+          fetchPriority: "high" as const,
         },
         ...(initialHeroVideoSource
           ? [{ href: initialHeroVideoSource, as: "video" as const }]
@@ -356,26 +350,7 @@ export default function HomePageClient({
         ...(signedEntryVideoUrl
           ? [{ href: signedEntryVideoUrl, as: "video" as const }]
           : []),
-        ...(signedMasterPlanScrubVideoUrl
-          ? [
-              {
-                href: signedMasterPlanScrubVideoUrl,
-                as: "video" as const,
-              },
-            ]
-          : []),
-        { href: "/models/forglb.glb", as: "fetch" },
-        { href: "/models/forglb%20-%20Copy.glb", as: "fetch" },
-      ].filter(
-        (
-          link,
-        ): link is {
-          href: string;
-          as: "fetch" | "image" | "video";
-          crossOrigin?: "anonymous";
-          fetchPriority?: "high" | "low" | "auto";
-        } => Boolean(link.href),
-      ),
+      ].filter(link => Boolean(link.href)),
     );
 
     const criticalVideoStates = new Map<
@@ -472,9 +447,6 @@ export default function HomePageClient({
     const warmReverseHeroVideo = signedHeroLoopVideoUrl
       ? warmVideoSource(signedHeroLoopVideoUrl)
       : null;
-    if (signedMasterPlanScrubVideoUrl) {
-      warmVideoSource(signedMasterPlanScrubVideoUrl);
-    }
 
     const warmHeroVideoFromMediaElement = initialHeroVideoSource
       ? warmVideoSource(initialHeroVideoSource)
@@ -664,7 +636,6 @@ export default function HomePageClient({
     signedHeroPosterUrl,
     signedHeroStageFallbackImageUrl,
     signedHeroVideoUrl,
-    signedMasterPlanScrubVideoUrl,
   ]);
 
   return (
@@ -690,7 +661,6 @@ export default function HomePageClient({
         <HeroSection
           heroLogoSrc={signedHeroLogoUrl}
           heroPosterSrc={signedHeroPosterUrl}
-          masterPlanScrubVideoSrc={signedMasterPlanScrubVideoUrl}
           heroVideoSrc={heroVideoSrc}
           heroLoopVideoSrc={signedHeroLoopVideoUrl}
           staticHeroImageSrc={signedHeroMobileStaticImageUrl}

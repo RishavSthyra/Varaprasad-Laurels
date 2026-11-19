@@ -8,7 +8,7 @@ import type { Viewer } from "@photo-sphere-viewer/core";
 import "@photo-sphere-viewer/core/index.css";
 import type { InventoryApartment } from "@/types/inventory";
 import {
-  getVillaFloorArea, getVillaFloorPlan, getVillaFloorRooms, getVillaPano,
+  getVillaFloorArea, getVillaFloorPlan, getVillaFloorRooms, getVillaPano, getVillaPanoInitialPitch,
   getVillaRecord, getVillaWalkthroughHref, VILLA_FLOORS, type VillaFloor,
 } from "@/lib/villa-residence";
 import { villaPanoAssets } from "@/lib/villa-pano-preload";
@@ -21,15 +21,11 @@ const DETAIL_TABS = [
   { id: "first", label: "First" }, { id: "second", label: "Second" },
 ] as const;
 type DetailTab = "villa" | Exclude<VillaFloor, "terrace">;
-const COMPACT_PANEL_QUERY = "(max-width: 759px), (max-height: 600px)";
 const SHORT_PANEL_QUERY = "(max-height: 760px), (max-width: 759px)";
 function subscribeToViewport(callback: () => void) {
-  const compact = window.matchMedia(COMPACT_PANEL_QUERY);
   const short = window.matchMedia(SHORT_PANEL_QUERY);
-  compact.addEventListener("change", callback);
   short.addEventListener("change", callback);
   return () => {
-    compact.removeEventListener("change", callback);
     short.removeEventListener("change", callback);
   };
 }
@@ -46,17 +42,15 @@ export default function VillaResidenceExperience({ apartment, onClose }: {
   const [closing, setClosing] = useState(false);
   const [detailTab, setDetailTab] = useState<DetailTab>("villa");
   const [expandedPlan, setExpandedPlan] = useState(false);
-  const [planOpen, setPlanOpen] = useState(true);
-  const [infoOpen, setInfoOpen] = useState(true);
-  const [mobilePanel, setMobilePanel] = useState<"plan" | "info" | null>("info");
+  const [panelsOpen, setPanelsOpen] = useState(true);
   const [roomPage, setRoomPage] = useState(0);
-  const compactPanels = useSyncExternalStore(subscribeToViewport,
-    () => window.matchMedia(COMPACT_PANEL_QUERY).matches, () => false);
   const shortPanels = useSyncExternalStore(subscribeToViewport,
     () => window.matchMedia(SHORT_PANEL_QUERY).matches, () => false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<Viewer | null>(null);
+  const panelsCloseRef = useRef<HTMLButtonElement>(null);
+  const panelsReopenRef = useRef<HTMLButtonElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reducedMotion = useRef(false);
   const closingRef = useRef(false);
@@ -101,7 +95,7 @@ export default function VillaResidenceExperience({ apartment, onClose }: {
           panorama: assets.panorama,
           navbar: false,
           defaultYaw: pano.yawDegrees * Math.PI / 180,
-          defaultPitch: pano.pitchDegrees * Math.PI / 180,
+          defaultPitch: getVillaPanoInitialPitch(pano),
           defaultZoomLvl: pano.zoom,
           minFov: 36, maxFov: 78,
           moveInertia: true,
@@ -149,8 +143,13 @@ export default function VillaResidenceExperience({ apartment, onClose }: {
   const currentPage = Math.min(roomPage, pageCount - 1);
   const roomStart = currentPage * pageSize;
   const visibleRooms = rooms.slice(roomStart, roomStart + pageSize);
-  const showPlan = planOpen && (!compactPanels || mobilePanel === "plan");
-  const showInfo = infoOpen && (!compactPanels || mobilePanel === "info");
+  const togglePanels = (open: boolean) => {
+    setPanelsOpen(open);
+    // Focus follows the shared control instead of remaining in an inert card.
+    requestAnimationFrame(() => {
+      (open ? panelsCloseRef : panelsReopenRef).current?.focus({ preventScroll: true });
+    });
+  };
   const changeTab = (next: DetailTab) => { setDetailTab(next); setRoomPage(0); };
   const detailImage = detailTab === "villa" ? villa.image : floorPlan;
   const facts = [
@@ -158,6 +157,8 @@ export default function VillaResidenceExperience({ apartment, onClose }: {
     { label: "Facing", value: villa.details.facing, icon: Compass },
     { label: "Plot area", value: `${number(villa.details.plotAreaSqYd)} sq yd`, icon: Ruler },
     { label: `${villa.roadFrontages} road frontage${villa.roadFrontages === 1 ? "" : "s"}`, value: villa.position === "corner" ? "Corner" : "Center", icon: Route },
+    { label: "Plot dimensions", value: `${villa.details.plotDimensionsM.width} × ${villa.details.plotDimensionsM.depth} m`, icon: Ruler },
+    { label: "Built-up area", value: `${number(villa.details.advertisedBuiltUpSqFt)} sq ft`, icon: House },
   ];
 
   return (
@@ -199,14 +200,14 @@ export default function VillaResidenceExperience({ apartment, onClose }: {
         </div>
       ) : null}
 
-      <div className={`${styles.panels} ${showDetails ? styles.panelsVisible : ""}`} inert={!showDetails}>
-        <aside id="villa-plan-sidebar" hidden={!showPlan} className={`${styles.panel} ${styles.planPanel}`} aria-label="Floor details" data-scroll-area="villa-rooms">
+      <div className={`${styles.panels} ${showDetails ? styles.panelsVisible : ""} ${!panelsOpen ? styles.panelsCollapsed : ""}`}
+        data-villa-panels-open={panelsOpen} inert={!showDetails || !panelsOpen} aria-hidden={!showDetails || !panelsOpen}>
+        <aside id="villa-plan-sidebar" className={`${styles.panel} ${styles.planPanel}`} aria-label="Floor details" data-scroll-area="villa-rooms">
           <div className={styles.imageSection}>
             {detailImage ? <button type="button" className={styles.planImage} onClick={() => setExpandedPlan(true)} aria-label={`Enlarge Villa ${villaNumber} ${detailTab === "villa" ? "image" : `${detailTab} floor plan`}`}>
               <Image src={detailImage} alt={`Villa ${villaNumber} ${detailTab === "villa" ? "exterior" : `${detailTab} floor plan`}`} fill sizes="(min-width: 1100px) 328px, 90vw" unoptimized className={detailTab === "villa" ? styles.exteriorImage : ""} />
               <span><Expand size={14} /></span>
             </button> : <div className={styles.planPlaceholder}><LayoutGrid size={25} strokeWidth={1} /><strong>{DETAIL_TABS.find((item) => item.id === detailTab)?.label} floor</strong><span>Plan image not available yet</span></div>}
-            <button type="button" className={`${styles.close} ${styles.imageClose}`} onClick={() => { setPlanOpen(false); if (compactPanels) setMobilePanel(null); }} aria-label="Hide floor details"><X size={16} /></button>
           </div>
           <div className={styles.planContent}>
           <div className={styles.floorTabs} role="tablist" aria-label="Villa floor" onKeyDown={(event) => {
@@ -247,26 +248,29 @@ export default function VillaResidenceExperience({ apartment, onClose }: {
           </div>
         </aside>
 
-        <aside id="villa-info-sidebar" hidden={!showInfo} className={`${styles.panel} ${styles.infoPanel}`} aria-label="Villa details" data-scroll-area="villa-info">
-          <div className={styles.heading}>
-            <span className={styles.eyebrow}>The Laurels · {villa.details.type}</span>
-            <div className={styles.titleRow}><h1>Villa {String(villaNumber).padStart(2, "0")}</h1><button type="button" className={styles.close} onClick={() => { setInfoOpen(false); if (compactPanels) setMobilePanel(null); }} aria-label="Hide villa details"><X size={16} /></button></div>
-            <div className={styles.badges}><span data-status={pano ? apartment.status : "Unavailable"}><i aria-hidden="true" />{pano ? apartment.status : "Pano unavailable"}</span></div>
+        <aside id="villa-info-sidebar" className={`${styles.panel} ${styles.infoPanel}`} aria-label="Villa details" data-scroll-area="villa-info">
+          <div className={`${styles.planContent} ${styles.infoContent}`}>
+          <div className={styles.infoHeading}>
+            <div><span className={styles.eyebrow}>The Laurels · {villa.details.type}</span><h2>Villa {String(villaNumber).padStart(2, "0")}</h2></div>
+            <button ref={panelsCloseRef} type="button" className={styles.close} onClick={() => togglePanels(false)} aria-label="Hide both villa panels" aria-controls="villa-plan-sidebar villa-info-sidebar" aria-expanded={panelsOpen}><X size={16} /></button>
           </div>
-          <dl className={styles.facts}>{facts.map((fact) => <div key={fact.label}><dt><fact.icon size={15} />{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
-          <div className={styles.plotDimensions}><span>Plot dimensions</span><strong>{villa.details.plotDimensionsM.width} × {villa.details.plotDimensionsM.depth} <small>m</small></strong></div>
-          <div className={styles.builtUp}><span>Built-up area</span><strong>{number(villa.details.advertisedBuiltUpSqFt)} <small>sq ft</small></strong></div>
-          {walkthroughHref ? <Link className={styles.walkthrough} href={walkthroughHref}>Open walkthrough <ArrowUpRight size={16} /></Link> : <>
-            <button type="button" disabled className={styles.walkthrough}>Open walkthrough <ArrowUpRight size={16} /></button>
+          <div className={`${styles.badges} ${styles.infoStatus}`}><span data-status={pano ? apartment.status : "Unavailable"}><i aria-hidden="true" />{pano ? apartment.status : "Pano unavailable"}</span></div>
+          <dl className={`${styles.rooms} ${styles.infoRooms}`}>{facts.map((fact) => <div key={fact.label}><dt><fact.icon size={13} />{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
+          {walkthroughHref ? <Link className={styles.walkthrough} href={walkthroughHref}>Enter walkthrough <ArrowUpRight size={16} /></Link> : <>
+            <button type="button" disabled className={styles.walkthrough}>Enter walkthrough <ArrowUpRight size={16} /></button>
             <span className={styles.walkthroughState}>Interior tour coming soon</span>
           </>}
+          </div>
         </aside>
       </div>
 
-      {showDetails ? <div className={styles.panelDock} aria-label="Villa sidebars">
-        <button type="button" className={showPlan ? styles.dockButtonOpen : ""} aria-label="Show floor details" aria-controls="villa-plan-sidebar" aria-expanded={showPlan} onClick={() => { setPlanOpen(true); setMobilePanel("plan"); }}><LayoutGrid size={16} /> Floor details</button>
-        <button type="button" className={showInfo ? styles.dockButtonOpen : ""} aria-label="Show villa details" aria-controls="villa-info-sidebar" aria-expanded={showInfo} onClick={() => { setInfoOpen(true); setMobilePanel("info"); }}><House size={16} /> Villa details</button>
-      </div> : null}
+      {showDetails ? <button ref={panelsReopenRef} type="button"
+        className={`${styles.panelsReopen} ${!panelsOpen ? styles.panelsReopenVisible : ""}`}
+        onClick={() => togglePanels(true)} aria-label="Show both villa panels"
+        aria-controls="villa-plan-sidebar villa-info-sidebar" aria-expanded={panelsOpen}
+        aria-hidden={panelsOpen} tabIndex={panelsOpen ? -1 : 0} title="Show villa panels">
+        <ChevronLeft size={18} strokeWidth={1.7} />
+      </button> : null}
 
       {visible ? <div className={styles.viewerControls} aria-label="Panorama controls">
         <button type="button" className={mapStyles.primary} aria-label="Zoom out" onClick={() => { const viewer = viewerRef.current; if (viewer) viewer.zoom(Math.max(0, viewer.getZoomLevel() - 10)); }}><Minus size={18} /></button>

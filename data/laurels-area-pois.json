@@ -1,0 +1,194 @@
+[
+  {
+    "id": 301, "name": "Indus International School, Hyderabad", "category": "school",
+    "lat": 17.4501, "lng": 78.1794, "locality": "Kondakal · Mokila", "featured": true,
+    "description": "The Indus International School campus at Kondakal, near Mokila.",
+    "coordinateSource": "https://www.isbi.com/school/9690/indus-international-school-hyderabad.php",
+    "coordinateNote": "Approximate campus location from the school directory; confirm the entrance in Google Maps before travelling.",
+    "photo": { "provider": "official", "sourcePage": "https://hyderabad.indusschool.com/about-us/indus-campus/", "sourceImage": "https://hyderabad.indusschool.com/wp-content/uploads/2023/03/the-school-1.jpg", "credit": "Indus International School Hyderabad" }
+  },
+  {
+    "id": 302, "name": "The Gaudium School, Kollur", "category": "school",
+    "lat": 17.4845895, "lng": 78.2426406, "locality": "Velimela · Kollur", "featured": true,
+    "description": "The Gaudium's main Kollur campus at Velimela, not its Gachibowli junior campus.",
+    "coordinateSource": "https://www.openstreetmap.org/way/588284815",
+    "website": "https://www.thegaudium.com/contact-us/",
+    "photo": { "provider": "official", "sourcePage": "https://www.thegaudium.com/", "sourceImage": "https://www.thegaudium.com/wp-content/uploads/2018/11/The_Gaudium_International_School_Hyderabad_Website_Homepage_Featured_Image_2018_11.jpg", "credit": "The Gaudium School" }
+  },
+  {
+    "id": 303, "name": "Samashti International School", "category": "school",
+    "lat": 17.45353, "lng": 78.2503629, "locality": "Kollur", "featured": true,
+    "description": "Samashti's Kollur school campus near the Outer Ring Road.",
+    "coordinateSource": "https://www.openstreetmap.org/way/1068492500",
+    "website": "https://samashti.in/hyderabad/",
+    "photo": { "provider": "official", "sourcePage": "https://samashti.in/hyderabad/campus/", "sourceImage": "https://samashti.in/hyderabad/wp-content/uploads/sites/3/2019/12/6A7A5827-1024x683.jpg", "credit": "Samashti International School" }
+  },
+  {
+    "id": 304, "name": "Birla Open Minds International School", "category": "school",
+    "lat": 17.4339411, "lng": 78.2685162, "locality": "Kollur · Osman Nagar",
+    "description": "The Birla Open Minds school campus at Kollur.",
+    "coordinateSource": "https://www.openstreetmap.org/way/1212194516",
+    "photo": { "provider": "commons", "title": "File:Open Minds A Birla School.jpg" }
+  },
+  {
+    "id": 305, "name": "ICFAI Business School, Hyderabad", "category": "school",
+    "lat": 17.4222091, "lng": 78.2182195, "locality": "Donthanapally · Shankarpally Road", "featured": true,
+    "description": "The IBS Hyderabad campus on the ICFAI university estate at Donthanapally.",
+    "coordinateSource": "https://www.openstreetmap.org/way/1280125459",
+    "photo": { "provider": "commons", "title": "File:ICFAI Business School, Hyderabad.jpg" }
+  },
+  {
+    "id": 306, "name": "University of Hyderabad", "category": "school",
+    "lat": 17.4530357, "lng": 78.3270312, "locality": "Gachibowli",
+    "description": "The University of Hyderabad campus in the Gachibowli area. The pin represents the mapped campus, not a particular department.",
+    "coordinateSource": "https://www.openstreetmap.org/way/277804473",
+    "photo": { "provider": "commons", "title": "File:SIP Building, University of Hyderabad.jpg", "version": 2 }
+  },
+  {
+    "id": 307, "name": "Indian School of Business", "category": "school",
+    "lat": 17.4352119, "lng": 78.3394372, "locality": "Gachibowli",
+    "description": "The Hyderabad campus of the Indian School of Business.",
+    "coordinateSource": "https://www.openstreetmap.org/relation/4853123",
+    "photo": { "provider": "commons", "title": "File:04 isb.jpg" }
+  },
+  {
+    "id": 308, "name": "IIIT Hyderabad", "category": "school",
+    "lat": 17.4451886, "lng": 78.3483479, "locality": "Gachibowli",
+    "description": "International Institute of Information Technology Hyderabad on ISB Road.",
+    "coordinateSource": "https://www.openstreetmap.org/way/31355320",
+    "photo": { "provider": "commons", "title": "File:IIIT - H, Hyderabad.jpg" }
+  },
+  {
+    "id": 309, "name": "Citizens Specialty Hospital", "category": "hospital",
+    "lat": 17.4707742, "lng": 78.3113113, "locality": "Nallagandla", "featured": true,
+    "description": "Citizens Specialty Hospital at Nallagandla.",
+    "coordinateSource": "https://www.openstreetmap.org/node/6536715097",
+    "photo": { "provider": "official", "sourcePage": "https://www.citizenshospitals.com/", "sourceImage": "https://www.citizenshospitals.com/static/uploads/47837af6-ab80-4a7e-8ac6-14d052e6f181-1673776121784.jpeg", "credit": "Citizens Specialty Hospital" }
+  },
+  {
+    "id": 310, "name": "Continental Hospitals", "category": "hospital",
+    "lat": 17.4176646, "lng": 78.3391307, "locality": "Financial District · Nanakramguda", "featured": true,
+    "description": "Continental Hospitals in Hyderabad's Financial District.",
+    "coordinateSource": "https://www.openstreetmap.org/way/254295845",
+    "photo": { "provider": "commons", "title": "File:Continental Hospital in Gachibowli, Hyderabad.jpg" }
+  },
+  {
+    "id": 311, "name": "AIG Hospitals", "category": "hospital",
+    "lat": 17.443179, "lng": 78.3660078, "locality": "Gachibowli · Mindspace Road",
+    "description": "The AIG Hospitals campus on Mindspace Road.",
+    "coordinateSource": "https://www.openstreetmap.org/relation/11902466",
+    "photo": { "provider": "commons", "title": "File:AIG Hospitals, Hyderabad.jpg", "version": 2 }
+  },
+  {
+    "id": 312, "name": "Sarath City Capital Mall", "category": "mall",
+    "lat": 17.4577141, "lng": 78.3638734, "locality": "Kondapur · Kothaguda", "featured": true,
+    "description": "Sarath City Capital Mall at Kothaguda, also home to AMB Cinemas.",
+    "coordinateSource": "https://www.openstreetmap.org/way/574673965",
+    "photo": { "provider": "commons", "title": "File:Sarath City Capital Mall.jpg" }
+  },
+  {
+    "id": 313, "name": "GSM Mall", "category": "mall",
+    "lat": 17.4967399, "lng": 78.3358311, "locality": "Madinaguda · Chandanagar",
+    "description": "GSM Mall on the Mumbai Highway at Madinaguda.",
+    "coordinateSource": "https://www.openstreetmap.org/way/355951577",
+    "photo": { "provider": "commons", "title": "File:GSM Mall.jpg" }
+  },
+  {
+    "id": 314, "name": "Inorbit Mall Cyberabad", "category": "mall",
+    "lat": 17.4345546, "lng": 78.3866982, "locality": "Madhapur",
+    "description": "Inorbit Mall Cyberabad near Durgam Cheruvu in Madhapur.",
+    "coordinateSource": "https://www.openstreetmap.org/way/68871414",
+    "photo": { "provider": "commons", "title": "File:In Orbit Mall.jpg", "version": 2 }
+  },
+  {
+    "id": 315, "name": "Gandipet Lake Park", "category": "park",
+    "lat": 17.3819053, "lng": 78.3159004, "locality": "Gandipet", "featured": true,
+    "description": "The lakeside park beside Osman Sagar at Gandipet.",
+    "coordinateSource": "https://www.openstreetmap.org/way/626348183",
+    "photo": { "provider": "commons", "title": "File:Rock park beside Osman sagar, Hyderabad.jpg" }
+  },
+  {
+    "id": 316, "name": "Kotla Vijayabhaskara Reddy Botanical Garden", "category": "park",
+    "lat": 17.4555018, "lng": 78.3639955, "locality": "Kondapur · Kothaguda",
+    "description": "The botanical garden at Kothaguda, with landscaped areas and walking trails.",
+    "coordinateSource": "https://www.openstreetmap.org/way/1349136360",
+    "photo": { "provider": "commons", "title": "File:Mural sculpture at the entrance of Hyderabad Botanical Garden.jpg", "version": 2 }
+  },
+  {
+    "id": 317, "name": "Mrugavani National Park", "category": "park",
+    "lat": 17.3588402, "lng": 78.3390781, "locality": "Chilkur · Moinabad",
+    "description": "Mrugavani National Park near Chilkur. The photograph shows deer inside this park.",
+    "coordinateSource": "https://www.openstreetmap.org/relation/12490378",
+    "photo": { "provider": "commons", "title": "File:Chital in Mrugavani National Park.png" }
+  },
+  {
+    "id": 318, "name": "Osman Sagar Dam", "category": "landmark",
+    "lat": 17.3759728, "lng": 78.3169135, "locality": "Gandipet",
+    "description": "The Osman Sagar reservoir and dam at Gandipet. Access to the dam road may vary.",
+    "coordinateSource": "https://www.openstreetmap.org/node/8987811327",
+    "photo": { "provider": "commons", "title": "File:Retaining wall and road on Osman Sagar.jpg" }
+  },
+  {
+    "id": 319, "name": "Chilkur Balaji Temple", "category": "landmark",
+    "lat": 17.3588117, "lng": 78.2988455, "locality": "Chilkur",
+    "description": "Chilkur Balaji Temple near Osman Sagar.",
+    "coordinateSource": "https://www.openstreetmap.org/way/225880080",
+    "photo": { "provider": "commons", "title": "File:Chilkoor Balaji Temple Gate.png" }
+  },
+  {
+    "id": 320, "name": "Shankarpalli Railway Station", "category": "bus_stop",
+    "lat": 17.4505553, "lng": 78.1307931, "locality": "Shankarpalli", "featured": true,
+    "description": "Shankarpalli railway station, west of Mokila. Check current train services before travelling.",
+    "coordinateSource": "https://www.openstreetmap.org/node/2962298388",
+    "photo": { "provider": "commons", "title": "File:Vikarabad Passenger at Shankarpalli Railway station.jpg" }
+  },
+  {
+    "id": 321, "name": "Nagalapalli Railway Station", "category": "bus_stop",
+    "lat": 17.460242, "lng": 78.2300829, "locality": "Edulanagulapalle", "featured": true,
+    "description": "Nagalapalli railway station, also commonly referred to as Nagulapalli.",
+    "coordinateSource": "https://www.openstreetmap.org/node/2528166287",
+    "photo": { "provider": "commons", "title": "File:Nagalapalli Railways station name board.jpg" }
+  },
+  {
+    "id": 322, "name": "Raidurg Metro Station", "category": "bus_stop",
+    "lat": 17.44218, "lng": 78.3771819, "locality": "HITEC City · Madhapur",
+    "description": "Raidurg station on Hyderabad Metro's Blue Line. This is an onward road connection, not a metro stop in Mokila.",
+    "coordinateSource": "https://www.openstreetmap.org/node/7052069775",
+    "photo": { "provider": "commons", "title": "File:Synchrony Raidurg metro station (25971).jpg" }
+  },
+  {
+    "id": 323, "name": "GMC Balayogi Athletic Stadium", "category": "sports",
+    "lat": 17.4462164, "lng": 78.3441316, "locality": "Gachibowli",
+    "description": "The outdoor athletic stadium in the Gachibowli sports complex.",
+    "coordinateSource": "https://www.openstreetmap.org/way/665330878",
+    "photo": { "provider": "commons", "title": "File:Gachibowli Outdoor 75.JPG" }
+  },
+  {
+    "id": 324, "name": "Gachibowli Indoor Stadium", "category": "sports",
+    "lat": 17.4481393, "lng": 78.3451487, "locality": "Gachibowli",
+    "description": "The indoor arena in the Gachibowli sports complex, separate from the outdoor athletic stadium.",
+    "coordinateSource": "https://www.openstreetmap.org/way/211070668",
+    "photo": { "provider": "commons", "title": "File:Gachibowli Indoor Stadium Hyderabad Telangana India.jpg" }
+  },
+  {
+    "id": 325, "name": "Microsoft India Development Center", "category": "IT Company",
+    "lat": 17.4307694, "lng": 78.3421402, "locality": "Gachibowli", "featured": true,
+    "description": "Microsoft's Hyderabad campus at Gachibowli. Visitor access is controlled.",
+    "coordinateSource": "https://www.openstreetmap.org/way/159299918",
+    "photo": { "provider": "commons", "title": "File:Microsoft office Hyderabad 150400.jpg" }
+  },
+  {
+    "id": 326, "name": "Amazon Hyderabad Campus", "category": "IT Company",
+    "lat": 17.4202829, "lng": 78.3394096, "locality": "Financial District · Nanakramguda", "featured": true,
+    "description": "Amazon's Nanakramguda campus in the Financial District. Visitor access is controlled.",
+    "coordinateSource": "https://www.openstreetmap.org/way/342031390",
+    "photo": { "provider": "commons", "title": "File:Amazon campus in Financial district.jpg" }
+  },
+  {
+    "id": 327, "name": "DLF Cyber City", "category": "IT Company",
+    "lat": 17.4470914, "lng": 78.3557479, "locality": "Gachibowli",
+    "description": "DLF Cyber City offices in Gachibowli. Access to individual offices is controlled.",
+    "coordinateSource": "https://www.openstreetmap.org/way/116098923",
+    "photo": { "provider": "commons", "title": "File:DLF office in Hyderabad.jpg" }
+  }
+]

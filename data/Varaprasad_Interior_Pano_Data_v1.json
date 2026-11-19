@@ -1,0 +1,2918 @@
+[
+    {
+        "id": "GF_CAM0_F0000",
+        "x": 169936.281,
+        "y": -74871.539,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "GF_CAM0.00000.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM0_F0001",
+        "x": 170155.203,
+        "y": -74871.539,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "GF_CAM0.00001.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM0_F0002",
+        "x": 170374.141,
+        "y": -74871.539,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "GF_CAM0.00002.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM0_F0003",
+        "x": 170426.172,
+        "y": -75051.508,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "GF_CAM0.00003.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM0_F0004",
+        "x": 170645.078,
+        "y": -75051.508,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "GF_CAM0.00004.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM0_F0005",
+        "x": 170864.016,
+        "y": -75051.508,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "GF_CAM0.00005.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM0_F0006",
+        "x": 170887.406,
+        "y": -74849.438,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "GF_CAM0.00006.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM1_F0000",
+        "x": 170881.125,
+        "y": -75079.141,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "GF_CAM1.00000.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM1_F0001",
+        "x": 170881.125,
+        "y": -75130.375,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "GF_CAM1.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM1_F0002",
+        "x": 170881.125,
+        "y": -75181.609,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "GF_CAM1.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM1_F0003",
+        "x": 170881.125,
+        "y": -75232.859,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "GF_CAM1.00003.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM1_F0004",
+        "x": 170881.125,
+        "y": -75284.094,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "GF_CAM1.00004.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM2_F0000",
+        "x": 169871.328,
+        "y": -74627.250,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "GF_CAM2.00000.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM2_F0001",
+        "x": 170074.531,
+        "y": -74627.250,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "GF_CAM2.00001.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM2_F0002",
+        "x": 170277.734,
+        "y": -74627.250,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "GF_CAM2.00002.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM2_F0003",
+        "x": 170395.234,
+        "y": -74531.727,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "GF_CAM2.00003.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM2_F0004",
+        "x": 170395.234,
+        "y": -74328.531,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "GF_CAM2.00004.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM2_F0005",
+        "x": 170577.875,
+        "y": -74298.156,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "GF_CAM2.00005.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM2_F0006",
+        "x": 170716.656,
+        "y": -74223.930,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "GF_CAM2.00006.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM2_F0007",
+        "x": 170813.828,
+        "y": -74108.086,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 7,
+        "image_filename": "GF_CAM2.00007.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM2_F0008",
+        "x": 170906.422,
+        "y": -74228.516,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 8,
+        "image_filename": "GF_CAM2.00008.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM3_F0000",
+        "x": 169775.766,
+        "y": -74749.719,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "GF_CAM3.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM3_F0001",
+        "x": 169775.766,
+        "y": -74617.391,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "GF_CAM3.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM3_F0002",
+        "x": 169775.766,
+        "y": -74485.055,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "GF_CAM3.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM3_F0003",
+        "x": 169836.562,
+        "y": -74406.992,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "GF_CAM3.00003.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM3_F0004",
+        "x": 169879.047,
+        "y": -74310.602,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "GF_CAM3.00004.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM3_F0005",
+        "x": 169879.047,
+        "y": -74178.266,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "GF_CAM3.00005.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM3_F0006",
+        "x": 169879.047,
+        "y": -74045.945,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "GF_CAM3.00006.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM4_F0000",
+        "x": 169842.000,
+        "y": -75073.461,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "GF_CAM4.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM4_F0001",
+        "x": 169842.000,
+        "y": -74924.695,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "GF_CAM4.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM4_F0002",
+        "x": 169836.891,
+        "y": -74777.039,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 126.8699,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "GF_CAM4.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": -0.600,
+            "y": 0.800,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.800,
+            "y": -0.600,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.800,
+            "y": 0.600,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM4_F0003",
+        "x": 169691.328,
+        "y": -74766.922,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "GF_CAM4.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM4_F0004",
+        "x": 169542.562,
+        "y": -74766.922,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "GF_CAM4.00004.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM5_F0000",
+        "x": 170174.422,
+        "y": -75341.352,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "GF_CAM5.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM5_F0001",
+        "x": 170174.422,
+        "y": -75176.953,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "GF_CAM5.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM5_F0002",
+        "x": 170100.453,
+        "y": -75073.469,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "GF_CAM5.00002.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM5_F0003",
+        "x": 169936.062,
+        "y": -75073.469,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "GF_CAM5.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM5_F0004",
+        "x": 169771.656,
+        "y": -75073.469,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "GF_CAM5.00004.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM9_F0000",
+        "x": 170294.734,
+        "y": -74614.727,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "GF_CAM9.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM9_F0001",
+        "x": 170294.734,
+        "y": -74558.328,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "GF_CAM9.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM9_F0002",
+        "x": 170294.734,
+        "y": -74501.930,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "GF_CAM9.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM9_F0003",
+        "x": 170294.734,
+        "y": -74445.523,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "GF_CAM9.00003.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "GF_CAM9_F0004",
+        "x": 170271.109,
+        "y": -74409.492,
+        "z": 129.500,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "GF_CAM9.00004.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM1_F0000",
+        "x": 170150.719,
+        "y": -74729.484,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "FF_CAM1.00000.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM1_F0001",
+        "x": 170250.188,
+        "y": -74544.227,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "FF_CAM1.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM1_F0002",
+        "x": 170250.188,
+        "y": -74270.406,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "FF_CAM1.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM1_F0003",
+        "x": 170380.750,
+        "y": -74109.570,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 51.5024,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "FF_CAM1.00003.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.622,
+            "y": 0.783,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.783,
+            "y": 0.622,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.783,
+            "y": -0.622,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM1_F0004",
+        "x": 170617.844,
+        "y": -74057.703,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "FF_CAM1.00004.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM1_F0005",
+        "x": 170694.719,
+        "y": -74270.625,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -46.9581,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "FF_CAM1.00005.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.683,
+            "y": -0.731,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.731,
+            "y": 0.683,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.731,
+            "y": -0.683,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM1_F0006",
+        "x": 170150.719,
+        "y": -74729.484,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "FF_CAM1.00006.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM2_F0000",
+        "x": 170150.219,
+        "y": -74814.281,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "FF_CAM2.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM2_F0001",
+        "x": 170120.328,
+        "y": -74633.961,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "FF_CAM2.00001.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM2_F0002",
+        "x": 169920.531,
+        "y": -74637.141,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -149.2045,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "FF_CAM2.00002.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -0.859,
+            "y": -0.512,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.512,
+            "y": -0.859,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.512,
+            "y": 0.859,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM2_F0003",
+        "x": 169877.859,
+        "y": -74811.891,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -179.3811,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "FF_CAM2.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": -0.011,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.011,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.011,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM2_F0004",
+        "x": 169854.641,
+        "y": -74998.875,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "FF_CAM2.00004.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM2_F0005",
+        "x": 169931.859,
+        "y": -75141.648,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "FF_CAM2.00005.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM2_F0006",
+        "x": 169931.859,
+        "y": -75342.031,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "FF_CAM2.00006.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM2_F0007",
+        "x": 169888.594,
+        "y": -75508.922,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 179.9116,
+        "roll": 0.0,
+        "frame": 7,
+        "image_filename": "FF_CAM2.00007.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.002,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.002,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.002,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM2_F0008",
+        "x": 169688.219,
+        "y": -75508.727,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 8,
+        "image_filename": "FF_CAM2.00008.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM3_F0000",
+        "x": 170176.297,
+        "y": -75041.227,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "FF_CAM3.00000.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM3_F0001",
+        "x": 170315.062,
+        "y": -75041.227,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "FF_CAM3.00001.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM3_F0002",
+        "x": 170453.828,
+        "y": -75041.227,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "FF_CAM3.00002.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM3_F0003",
+        "x": 170592.594,
+        "y": -75041.227,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "FF_CAM3.00003.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM3_F0004",
+        "x": 170731.359,
+        "y": -75041.227,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "FF_CAM3.00004.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM3_F0005",
+        "x": 170870.016,
+        "y": -75039.992,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 18.2171,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "FF_CAM3.00005.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.950,
+            "y": 0.313,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.313,
+            "y": 0.950,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.313,
+            "y": -0.950,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM3_F0006",
+        "x": 170887.531,
+        "y": -74908.977,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "FF_CAM3.00006.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM4_F0000",
+        "x": 170249.953,
+        "y": -74477.000,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "FF_CAM4.00000.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM4_F0001",
+        "x": 170289.797,
+        "y": -74477.000,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "FF_CAM4.00001.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM4_F0002",
+        "x": 170329.641,
+        "y": -74477.000,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "FF_CAM4.00002.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM4_F0003",
+        "x": 170369.469,
+        "y": -74477.000,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "FF_CAM4.00003.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM4_F0004",
+        "x": 170409.312,
+        "y": -74477.000,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "FF_CAM4.00004.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM5_F0000",
+        "x": 170379.656,
+        "y": -74916.336,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 179.1493,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "FF_CAM5.00000.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.015,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.015,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.015,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM5_F0001",
+        "x": 170271.656,
+        "y": -74916.336,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 179.1493,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "FF_CAM5.00001.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.015,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.015,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.015,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM5_F0002",
+        "x": 170176.484,
+        "y": -74940.969,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -98.7488,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "FF_CAM5.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": -0.152,
+            "y": -0.988,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.988,
+            "y": -0.152,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.988,
+            "y": 0.152,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM5_F0003",
+        "x": 170176.297,
+        "y": -75048.953,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -90.8507,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "FF_CAM5.00003.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": -0.015,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": -0.015,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.015,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM5_F0004",
+        "x": 170176.297,
+        "y": -75156.945,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -90.8507,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "FF_CAM5.00004.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": -0.015,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": -0.015,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.015,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM6_F0000",
+        "x": 170837.047,
+        "y": -75067.219,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "FF_CAM6.00000.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM6_F0001",
+        "x": 170837.047,
+        "y": -75112.961,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "FF_CAM6.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM6_F0002",
+        "x": 170837.047,
+        "y": -75158.719,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "FF_CAM6.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM6_F0003",
+        "x": 170837.047,
+        "y": -75204.461,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "FF_CAM6.00003.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM6_F0004",
+        "x": 170837.047,
+        "y": -75250.211,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "FF_CAM6.00004.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM7_F0000",
+        "x": 169909.141,
+        "y": -74683.430,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -180.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "FF_CAM7.00000.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM7_F0001",
+        "x": 169738.766,
+        "y": -74683.430,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": -180.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "FF_CAM7.00001.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "FF_CAM7_F0002",
+        "x": 169636.328,
+        "y": -74607.836,
+        "z": 495.347,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "FF_CAM7.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM0_F0000",
+        "x": 170837.047,
+        "y": -75062.953,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "SF_CAM0.00000.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM0_F0001",
+        "x": 170837.047,
+        "y": -75161.031,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "SF_CAM0.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM0_F0002",
+        "x": 170837.047,
+        "y": -75259.102,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "SF_CAM0.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM0_F0003",
+        "x": 170837.047,
+        "y": -75357.180,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "SF_CAM0.00003.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM0_F0004",
+        "x": 170837.047,
+        "y": -75455.242,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "SF_CAM0.00004.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM1_F0000",
+        "x": 170385.031,
+        "y": -74756.789,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "SF_CAM1.00000.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM1_F0001",
+        "x": 170215.141,
+        "y": -74756.789,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "SF_CAM1.00001.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM1_F0002",
+        "x": 170045.266,
+        "y": -74756.789,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "SF_CAM1.00002.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM1_F0003",
+        "x": 169875.375,
+        "y": -74756.789,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 180.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "SF_CAM1.00003.png",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM2_F0000",
+        "x": 170295.156,
+        "y": -74756.148,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "SF_CAM2.00000.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM2_F0001",
+        "x": 170295.156,
+        "y": -74504.742,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "SF_CAM2.00001.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM2_F0002",
+        "x": 170295.156,
+        "y": -74253.352,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "SF_CAM2.00002.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM2_F0003",
+        "x": 170377.125,
+        "y": -74064.320,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "SF_CAM2.00003.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM2_F0004",
+        "x": 170628.531,
+        "y": -74064.320,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "SF_CAM2.00004.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM3_F0000",
+        "x": 170248.688,
+        "y": -74756.156,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "SF_CAM3.00000.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM3_F0001",
+        "x": 170248.688,
+        "y": -74958.102,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "SF_CAM3.00001.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM3_F0002",
+        "x": 170084.438,
+        "y": -75009.672,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -114.7505,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "SF_CAM3.00002.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": -0.419,
+            "y": -0.908,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.908,
+            "y": -0.419,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.908,
+            "y": 0.419,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM3_F0003",
+        "x": 170082.812,
+        "y": -75211.383,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "SF_CAM3.00003.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM3_F0004",
+        "x": 170082.812,
+        "y": -75413.328,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "SF_CAM3.00004.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM6_F0000",
+        "x": 170422.578,
+        "y": -74897.711,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "SF_CAM6.00000.png",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM6_F0001",
+        "x": 170464.359,
+        "y": -75062.797,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "SF_CAM6.00001.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM6_F0002",
+        "x": 170663.609,
+        "y": -75062.797,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 0.0000,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "SF_CAM6.00002.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM6_F0003",
+        "x": 170862.891,
+        "y": -75062.789,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 1.7899,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "SF_CAM6.00003.png",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 1.000,
+            "y": 0.031,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.031,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.031,
+            "y": -1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "SF_CAM6_F0004",
+        "x": 170880.156,
+        "y": -74873.180,
+        "z": 800.805,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "SF_CAM6.00004.png",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    }
+]

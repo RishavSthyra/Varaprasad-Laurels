@@ -1,0 +1,33 @@
+{
+  "entryViews": {
+    "Ground_Floor_Pano_1_F0001": { "yaw": -68, "pitch": 8, "zoom": 0 },
+    "Ground_Floor_Pano_1_F0007": { "yaw": 180, "pitch": -2, "zoom": 10 },
+    "First_Floor_Pano_1_F0001": { "yaw": 40, "pitch": -2, "zoom": 10 },
+    "Second_Floor_Pano_1_F0001": { "yaw": 0, "pitch": -2, "zoom": 10 },
+    "Third_Floor_Pano_1_F0001": { "yaw": 0, "pitch": -2, "zoom": 10 },
+    "Forth_Floor_Pano_1_F0000": { "yaw": 0, "pitch": -2, "zoom": 10 }
+  },
+  "panos": {
+    "Ground_Floor_Pano_1_F0007": [
+      { "id": "ground-approach-up", "direction": "up", "label": "First floor", "targetNodeId": "First_Floor_Pano_1_F0001", "yaw": -1.79, "pitch": 8.87, "wallYaw": 1.79 }
+    ],
+    "Ground_Floor_Pano_1_F0008": [
+      { "id": "ground-stairs-up", "direction": "up", "label": "First floor", "targetNodeId": "First_Floor_Pano_1_F0001", "yaw": -3.65, "pitch": 14.58, "wallYaw": 3.65 }
+    ],
+    "First_Floor_Pano_1_F0001": [
+      { "id": "first-up", "direction": "up", "label": "Second floor", "targetNodeId": "Second_Floor_Pano_1_F0001", "yaw": 145.5, "pitch": 4.42, "wallYaw": -55.5 },
+      { "id": "first-down", "direction": "down", "label": "Ground floor", "targetNodeId": "Ground_Floor_Pano_1_F0007", "yaw": 207.27, "pitch": 0, "wallYaw": 62.73 }
+    ],
+    "Second_Floor_Pano_1_F0001": [
+      { "id": "second-up", "direction": "up", "label": "Third floor", "targetNodeId": "Third_Floor_Pano_1_F0001", "yaw": 165.13, "pitch": -2.16, "wallYaw": 14.87, "presentation": "floating" },
+      { "id": "second-down", "direction": "down", "label": "First floor", "targetNodeId": "First_Floor_Pano_1_F0001", "yaw": 178.21, "pitch": -8.44, "wallYaw": 1.79, "presentation": "floating" }
+    ],
+    "Third_Floor_Pano_1_F0001": [
+      { "id": "third-up", "direction": "up", "label": "Fourth floor", "targetNodeId": "Forth_Floor_Pano_1_F0000", "yaw": 173.5, "pitch": 4, "wallYaw": 6.5, "presentation": "floating" },
+      { "id": "third-down", "direction": "down", "label": "Second floor", "targetNodeId": "Second_Floor_Pano_1_F0001", "yaw": 186.5, "pitch": 4, "wallYaw": -6.5, "presentation": "floating" }
+    ],
+    "Forth_Floor_Pano_1_F0000": [
+      { "id": "fourth-down", "direction": "down", "label": "Third floor", "targetNodeId": "Third_Floor_Pano_1_F0001", "yaw": 0, "pitch": -7, "wallYaw": 0, "presentation": "floating" }
+    ]
+  }
+}

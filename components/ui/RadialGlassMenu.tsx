@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { isSiteNavigationVisible, siteNavLabels } from "@/lib/site-navigation";
 import {
   HiBars3,
   HiBuildingOffice2,
@@ -26,11 +27,11 @@ type RadialGlassMenuProps = {
 };
 
 const defaultItems: RadialMenuItem[] = [
-  { href: "/", icon: "home", label: "Home" },
-  { href: "/project-overview", icon: "projects", label: "Projects" },
-  { href: "/amenities", icon: "spark", label: "Amenities" },
+  { href: "/", icon: "home", label: siteNavLabels["/"] },
+  { href: "/project-overview", icon: "projects", label: siteNavLabels["/project-overview"] },
+  { href: "/amenities", icon: "spark", label: siteNavLabels["/amenities"] },
   { href: "tel:+918088004411", icon: "phone", label: "Call" },
-  { href: "/area-map", icon: "map", label: "Location" },
+  { href: "/area-map", icon: "map", label: siteNavLabels["/area-map"] },
 ];
 
 function MenuIcon({ icon }: { icon: RadialMenuIcon }) {
@@ -59,7 +60,7 @@ export default function RadialGlassMenu({
   size = 320,
 }: RadialGlassMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const visibleItems = items.slice(0, 5);
+  const visibleItems = items.filter((item) => isSiteNavigationVisible(item.href)).slice(0, 5);
   const centerSize = size * 0.155;
   const bubbleSize = size * 0.115;
   const radius = size * 0.27;

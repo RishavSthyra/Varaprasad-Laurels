@@ -26,6 +26,14 @@
 # Local villa panorama source/generated images stay on disk, not in Git.
 /public/varaprasad_villa_panos/
 /raw-panos/
+# Local clubhouse source and full-quality generated tiles (not removed from disk).
+/public/varaprasad_clubhouse_panos/
+/Clubhouse Panos 12k/
+# Shared villa interior source/generated images stay local, never in Git.
+/public/varaprasad_villa_1_panos/
+/public/varaprasad_villa_1_interior/
+/public/varaprasad_villa_balconyPanos/
+/NEW INTERIOR/
 
 # Local visual verification screenshots
 /.tmp-*.png

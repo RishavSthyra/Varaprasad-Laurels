@@ -1,6 +1,8 @@
 import { Euler, Matrix4, Quaternion, Vector3 } from "three";
 
 import { getThreeDsMaxMasterPlanConfig } from "@/lib/master-plan-3dsmax-trial";
+import { VILLA_MASTERPLAN_BACKGROUND_KEY, VILLA_MASTERPLAN_MODEL_KEY } from "@/lib/villa-masterplan-model";
+import { VILLA_MASTERPLAN_SECOND_STOP_SOURCE_FRAME, VILLA_MASTERPLAN_VIDEO_FPS, VILLA_MASTERPLAN_VIDEO_FRAMES, VILLA_MASTERPLAN_VIDEO_KEY } from "@/lib/villa-masterplan-video";
 import type {
   MasterPlanCameraConfig,
   MasterPlanDeveloperConfig,
@@ -8,15 +10,26 @@ import type {
 } from "@/types/developer-config";
 
 const CAMERA_POSITION_MM: Vector3Config = {
-  x: -519963.016,
-  y: -502924.167,
-  z: 215249.94,
+  x: -469245.944,
+  y: -374528.689,
+  z: 205835.847,
 };
 
 const CAMERA_ROTATION_DEGREES: Vector3Config = {
-  x: 71.381,
+  x: 67.133,
   y: 0,
-  z: -43.015,
+  z: -46.65,
+};
+
+// 02_Gates Edited_Camera 027_001. Preserve the supplied millimetres/degrees;
+// frame selection is independent of the world-space camera/model calibration.
+
+const SECOND_CAMERA_POSITION_MM: Vector3Config = {
+  x: 374850.68, y: 251392.626, z: 210660.86,
+};
+
+const SECOND_CAMERA_ROTATION_DEGREES: Vector3Config = {
+  x: 67.085, y: 0, z: 118.366,
 };
 
 // 3ds Max reports this camera value horizontally; Three.js expects a
@@ -35,7 +48,7 @@ const MODEL_DUMMY_ANCHORS = [
 const WORLD_DUMMY_COORDINATES_MM: readonly Vector3Config[] = [
   { x: -248999.828, y: -119706.578, z: 0 },
   { x: -136172.969, y: -206546.5, z: 0 },
-  { x: 103800.969, y: 65576.281, z: 0 },
+  { x: 103800.969, y: 65576.281, z: 0 }, 
 ];
 
 function maxMillimetersToThreeMeters(point: Vector3Config) {
@@ -55,12 +68,12 @@ function maxHorizontalFovToThreeVerticalFov(horizontalFovDegrees: number) {
   );
 }
 
-function buildCameraQuaternion() {
+function buildCameraQuaternion(rotation = CAMERA_ROTATION_DEGREES) {
   const maxQuaternion = new Quaternion().setFromEuler(
     new Euler(
-      (CAMERA_ROTATION_DEGREES.x * Math.PI) / 180,
-      (CAMERA_ROTATION_DEGREES.y * Math.PI) / 180,
-      (CAMERA_ROTATION_DEGREES.z * Math.PI) / 180,
+      (rotation.x * Math.PI) / 180,
+      (rotation.y * Math.PI) / 180,
+      (rotation.z * Math.PI) / 180,
       "ZYX",
     ),
   );
@@ -176,9 +189,9 @@ function buildModelTransform() {
   };
 }
 
-function buildCamera(): MasterPlanCameraConfig {
-  const position = maxMillimetersToThreeMeters(CAMERA_POSITION_MM);
-  const quaternion = buildCameraQuaternion();
+function buildCamera(positionMm = CAMERA_POSITION_MM, rotation = CAMERA_ROTATION_DEGREES): MasterPlanCameraConfig {
+  const position = maxMillimetersToThreeMeters(positionMm);
+  const quaternion = buildCameraQuaternion(rotation);
 
   return {
     fov: maxHorizontalFovToThreeVerticalFov(
@@ -193,18 +206,28 @@ export function getVillasMasterPlanConfig(): MasterPlanDeveloperConfig {
   const baseConfig = getThreeDsMaxMasterPlanConfig();
   const camera = buildCamera();
   const modelTransform = buildModelTransform();
+  const hotspots = [
+    { key: "A1", frame: 1, camera },
+    { key: "A2", frame: VILLA_MASTERPLAN_SECOND_STOP_SOURCE_FRAME + 1,
+      camera: buildCamera(SECOND_CAMERA_POSITION_MM, SECOND_CAMERA_ROTATION_DEGREES) },
+  ];
   const cameras = Object.fromEntries(
-    baseConfig.hotspots.map((hotspot) => [hotspot.key, camera]),
+    hotspots.map((hotspot) => [hotspot.key, hotspot.camera]),
   );
 
   return {
     ...baseConfig,
     aspectRatio: 16 / 9,
-    fallbackImageKey: "local:master_west.avif",
-    hotspots: baseConfig.hotspots.map((hotspot) => ({ ...hotspot, camera })),
+    fps: VILLA_MASTERPLAN_VIDEO_FPS,
+    totalFrames: VILLA_MASTERPLAN_VIDEO_FRAMES,
+    scrubVideoKey: VILLA_MASTERPLAN_VIDEO_KEY,
+    interactionVideoKey: VILLA_MASTERPLAN_VIDEO_KEY,
+    fallbackImageKey: VILLA_MASTERPLAN_BACKGROUND_KEY,
+    hotspotFrames: hotspots.map((hotspot) => hotspot.frame),
+    hotspots,
     previewLabel: "Villas master plan",
-    towerAModelKey: "local:models/villa 01.glb",
-    towerBModelKey: "local:models/villa 01.glb",
+    towerAModelKey: VILLA_MASTERPLAN_MODEL_KEY,
+    towerBModelKey: VILLA_MASTERPLAN_MODEL_KEY,
     towerACameras: cameras,
     towerBCameras: cameras,
     towerATransform: modelTransform,

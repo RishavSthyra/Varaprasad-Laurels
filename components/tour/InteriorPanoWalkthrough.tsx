@@ -1,6 +1,6 @@
 "use client";
 
-import { Viewer, events as viewerEvents, type Position } from "@photo-sphere-viewer/core";
+import { Cache, Viewer, events as viewerEvents, type Position } from "@photo-sphere-viewer/core";
 import "@photo-sphere-viewer/core/index.css";
 import { EquirectangularTilesAdapter } from "@photo-sphere-viewer/equirectangular-tiles-adapter";
 import { GyroscopePlugin } from '@photo-sphere-viewer/gyroscope-plugin';
@@ -30,7 +30,9 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUp,
+  ArrowUpRight,
   BedDouble,
+  Map as FloorPlanIcon,
   Menu,
   Sofa,
   X,
@@ -53,14 +55,15 @@ import {
 import { getSignedAssetUrls } from "@/src/lib/signed-assets";
 import { useSignedAssetUrls } from "@/src/lib/use-signed-assets";
 import {
-  buildExteriorTourGraph,
   getNodeHeading,
   imageFilenameToPanoId,
   preserveViewYawBetweenNodes,
 } from "@/lib/exterior-tour/nodes";
-import { clamp, degToRad, distancePlanar, dotPlanar, normalizePlanar, wrapAngleRad } from "@/lib/exterior-tour/math";
+import { buildInteriorTourGraph, type InteriorTourSection } from "@/lib/interior-tour/sections";
+import { createPanoImageLoader } from "@/lib/exterior-tour/image-cache";
+import { clamp, distancePlanar, wrapAngleRad } from "@/lib/exterior-tour/math";
+import { getConnectedNavigationCandidates, getNavigationPairKey, getNavigationYawOverride, getViewRelativeNavigationTargets } from "@/lib/interior-tour/navigation";
 import type {
-  DirectionalNavMap,
   ExteriorPanoNodeSource,
   ExteriorTourGraph,
   ExteriorTourNode,
@@ -72,6 +75,9 @@ import {
   getWalkthroughMode,
 } from "@/lib/walkthrough";
 import { useSnapListViewport } from "@/lib/useSnapListViewport";
+import GlassSelect, { GlassSelectItem } from "@/components/ui/GlassSelect";
+import { getInteriorArrivalView, type InteriorEntryViews, type InteriorFloorMarkers } from "@/lib/interior-tour/floor-navigation";
+import { createInteriorFloorMarker } from "./interior-floor-markers";
 
 const editorialFont = Cormorant_Garamond({
   subsets: ["latin"],
@@ -165,13 +171,18 @@ type InteriorPanoWalkthroughProps = {
   showMinimap?: boolean;
   showModeToggle?: boolean;
   showDimensionsToggle?: boolean;
+  showViewpointSelector?: boolean;
+  balconyDestinations?: Readonly<Record<string, { nodeId: string; returnNodeId: string }>>;
   preserveNodeOnModeToggle?: boolean;
+  verifiedPanoFolders?: Readonly<Record<string, string>>;
+  navigationSections?: readonly InteriorTourSection[];
+  nodeLabels?: Readonly<Record<string, string>>;
+  priorityPreloading?: boolean;
+  minimapUnavailable?: boolean;
+  entryViews?: InteriorEntryViews;
+  panoEntryViews?: InteriorEntryViews;
+  floorMarkers?: InteriorFloorMarkers;
 };
-
-const EMPTY_ADDITIONAL_NAVIGATION_PAIRS: ReadonlyArray<readonly [string, string]> = [];
-const EMPTY_NAVIGATION_YAW_OVERRIDES: ReadonlyArray<
-  readonly [string, string, number]
-> = [];
 
 type ResolvedPano = {
   nodeId: string;
@@ -1075,151 +1086,6 @@ function adjustMinimapPosition(
   };
 }
 
-function vectorFromAngle(angle: number) {
-  return {
-    x: Math.cos(angle),
-    y: Math.sin(angle),
-    z: 0,
-  };
-}
-
-function getNavigationPairKey(firstNodeId: string, secondNodeId: string) {
-  return [firstNodeId, secondNodeId].sort().join("::");
-}
-
-function getNavigationYawOverride(
-  overrides: ReadonlyArray<readonly [string, string, number]>,
-  fromNodeId: string,
-  toNodeId: string,
-) {
-  const override = overrides.find(
-    ([from, to]) => from === fromNodeId && to === toNodeId,
-  );
-
-  return override ? degToRad(override[2]) : undefined;
-}
-
-function getConnectedNavigationCandidates(
-  graph: ExteriorTourGraph,
-  activeNode: ExteriorTourNode,
-  blockedNavigationPairKeys: ReadonlySet<string>,
-  additionalNavigationPairs: ReadonlyArray<readonly [string, string]>,
-) {
-  const candidateIds = new Set(activeNode.neighbors.map((neighbor) => neighbor.id));
-
-  for (const [firstNodeId, secondNodeId] of additionalNavigationPairs) {
-    if (firstNodeId === activeNode.id) {
-      candidateIds.add(secondNodeId);
-    } else if (secondNodeId === activeNode.id) {
-      candidateIds.add(firstNodeId);
-    }
-  }
-
-  return graph.nodes.filter(
-    (node) =>
-      candidateIds.has(node.id) &&
-      !blockedNavigationPairKeys.has(
-        getNavigationPairKey(activeNode.id, node.id),
-      ),
-  );
-}
-
-function getViewRelativeNavigationTargets(
-  graph: ExteriorTourGraph,
-  activeNode: ExteriorTourNode | undefined,
-  currentYaw: number,
-  connectedOnly = false,
-  blockedNavigationPairKeys: ReadonlySet<string> = new Set(),
-  additionalNavigationPairs: ReadonlyArray<readonly [string, string]> =
-    EMPTY_ADDITIONAL_NAVIGATION_PAIRS,
-  navigationYawOverrides: ReadonlyArray<readonly [string, string, number]> =
-    EMPTY_NAVIGATION_YAW_OVERRIDES,
-): DirectionalNavMap {
-  const emptyTarget = {
-    forward: { direction: "forward" as const, node: null, score: -Infinity },
-    left: { direction: "left" as const, node: null, score: -Infinity },
-    right: { direction: "right" as const, node: null, score: -Infinity },
-    backward: { direction: "backward" as const, node: null, score: -Infinity },
-  };
-
-  if (!activeNode) {
-    return emptyTarget;
-  }
-
-  const worldForwardAngle = getNodeHeading(activeNode) + currentYaw;
-  const desiredAngles: Record<NavigationDirection, number> = {
-    forward: worldForwardAngle,
-    left: worldForwardAngle - Math.PI / 2,
-    right: worldForwardAngle + Math.PI / 2,
-    backward: worldForwardAngle + Math.PI,
-  };
-  const candidates = connectedOnly
-    ? getConnectedNavigationCandidates(
-        graph,
-        activeNode,
-        blockedNavigationPairKeys,
-        additionalNavigationPairs,
-      )
-    : graph.nodes.filter((node) => node.id !== activeNode.id);
-
-  return {
-    forward: getBestDirectionalTarget(activeNode, candidates, desiredAngles.forward, "forward", navigationYawOverrides),
-    left: getBestDirectionalTarget(activeNode, candidates, desiredAngles.left, "left", navigationYawOverrides),
-    right: getBestDirectionalTarget(activeNode, candidates, desiredAngles.right, "right", navigationYawOverrides),
-    backward: getBestDirectionalTarget(activeNode, candidates, desiredAngles.backward, "backward", navigationYawOverrides),
-  };
-}
-
-function getBestDirectionalTarget(
-  activeNode: ExteriorTourNode,
-  candidates: ExteriorTourNode[],
-  desiredAngle: number,
-  direction: NavigationDirection,
-  navigationYawOverrides: ReadonlyArray<readonly [string, string, number]>,
-) {
-  const desiredVector = vectorFromAngle(desiredAngle);
-  const ranked = candidates
-    .map((candidate) => {
-      const delta = {
-        x: candidate.rawPosition.x - activeNode.rawPosition.x,
-        y: candidate.rawPosition.y - activeNode.rawPosition.y,
-        z: 0,
-      };
-      const yawOverride = getNavigationYawOverride(
-        navigationYawOverrides,
-        activeNode.id,
-        candidate.id,
-      );
-      const directionVector =
-        yawOverride === undefined
-          ? normalizePlanar(delta, desiredVector)
-          : vectorFromAngle(getNodeHeading(activeNode) + yawOverride);
-      const distance = distancePlanar(activeNode.rawPosition, candidate.rawPosition);
-      const alignment = dotPlanar(directionVector, desiredVector);
-      const distanceBias =
-        1 - clamp(distance / Math.max(activeNode.nearestDistance * 4.75, 1), 0, 1);
-      const score = alignment * 0.82 + distanceBias * 0.18;
-
-      return {
-        direction,
-        node: candidate,
-        score,
-      };
-    })
-    .sort((a, b) => b.score - a.score);
-
-  const best = ranked[0];
-  if (!best || best.score < 0.1) {
-    return {
-      direction,
-      node: null,
-      score: best?.score ?? -Infinity,
-    };
-  }
-
-  return best;
-}
-
 function buildLinkPosition(
   node: ExteriorTourNode,
   target: ExteriorTourNode,
@@ -1251,7 +1117,17 @@ export default function InteriorPanoWalkthrough({
   showMinimap = true,
   showModeToggle = true,
   showDimensionsToggle = true,
+  showViewpointSelector = true,
+  balconyDestinations,
   preserveNodeOnModeToggle = true,
+  verifiedPanoFolders,
+  navigationSections,
+  nodeLabels,
+  priorityPreloading = false,
+  minimapUnavailable = false,
+  entryViews,
+  panoEntryViews,
+  floorMarkers,
 }: InteriorPanoWalkthroughProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -1274,8 +1150,12 @@ export default function InteriorPanoWalkthrough({
   const [activeNodeId, setActiveNodeId] = useState(
     initialNodeId ?? (requestedBareShellMode ? config?.bareShellInitialNodeId : config?.furnishedInitialNodeId) ?? "",
   );
-  const [availablePanoFolders, setAvailablePanoFolders] = useState<Record<string, string>>({});
-  const [availableNodeIds, setAvailableNodeIds] = useState<Set<string> | null>(null);
+  const [discoveredPanoFolders, setAvailablePanoFolders] = useState<Record<string, string>>({});
+  const [discoveredNodeIds, setAvailableNodeIds] = useState<Set<string> | null>(null);
+  const availablePanoFolders = verifiedPanoFolders ?? discoveredPanoFolders;
+  const availableNodeIds = useMemo(() => verifiedPanoFolders
+    ? new Set(Object.keys(verifiedPanoFolders)) : discoveredNodeIds,
+  [verifiedPanoFolders, discoveredNodeIds]);
   const [preferredFrame, setPreferredFrame] = useState<string | null>(null);
   const [isSlowNetwork, setIsSlowNetwork] = useState(false);
   const [isMobileTouchViewport, setIsMobileTouchViewport] = useState(false);
@@ -1287,6 +1167,7 @@ export default function InteriorPanoWalkthrough({
   const cacheRef = useRef(new Map<string, ResolvedPano>());
   const assetStoreMapRef = useRef(new Map<string, PanoAssetStore>());
   const pendingNodeViewRef = useRef<Position | null>(null);
+  const balconyReturnNodesRef = useRef<Record<string, string>>({});
   const warmupRunRef = useRef(0);
   const navigationInFlightRef = useRef(true);
   const goToNodeRef = useRef<(targetId: string) => Promise<void>>(async () => {});
@@ -1328,11 +1209,11 @@ export default function InteriorPanoWalkthrough({
   const getAssetStoreForBaseUrl = useCallback((baseUrl: string) => {
     let store = assetStoreMapRef.current.get(baseUrl);
     if (!store) {
-      store = new PanoAssetStore(baseUrl);
+      store = new PanoAssetStore(baseUrl, priorityPreloading ? createPanoImageLoader(Cache) : undefined);
       assetStoreMapRef.current.set(baseUrl, store);
     }
     return store;
-  }, []);
+  }, [priorityPreloading]);
   const interiorViewerMoveSpeed = isMobileTouchViewport ? 3.6 : 2;
   const interiorViewerMoveInertia = isMobileTouchViewport ? 0.82 : 0.92;
   const interiorNodeTransitionSpeed = isMobileTouchViewport ? 560 : 650;
@@ -1345,7 +1226,7 @@ export default function InteriorPanoWalkthrough({
     return allNodes.filter((item) => availableNodeIds.has(item.id));
   }, [allNodes, availableNodeIds]);
 
-  const graph = useMemo(() => buildExteriorTourGraph(nodes), [nodes]);
+  const graph = useMemo(() => buildInteriorTourGraph(nodes, navigationSections), [nodes, navigationSections]);
   const blockedNavigationPairKeys = useMemo(
     () =>
       new Set(
@@ -1362,6 +1243,9 @@ export default function InteriorPanoWalkthrough({
     : undefined;
   const currentNodeId = explicitNodeId || preferredNodeId || fallbackNodeId;
   const activeNode = graph.byId[currentNodeId];
+  const activeSection = navigationSections?.find((section) => section.nodeIds.includes(currentNodeId));
+  const balconyDestination = activeSection ? balconyDestinations?.[activeSection.id] : undefined;
+  const isOnConfiguredBalcony = configuredBalconyNodeIds.has(currentNodeId);
   const navigationTargets = useMemo(
     () =>
       getViewRelativeNavigationTargets(
@@ -1680,16 +1564,19 @@ export default function InteriorPanoWalkthrough({
         return;
       }
 
-      markersPlugin.setMarkers(
-        getInteriorDimensionMarkers(
+      markersPlugin.setMarkers([
+        ...getInteriorDimensionMarkers(
           graph.byId[nodeId],
           isBareShellMode,
           isDimensionsVisibleRef.current,
           graph.byId,
         ),
-      );
+        ...(floorMarkers?.[nodeId] ?? []).map((marker) => createInteriorFloorMarker(
+          marker, (targetId) => { void goToNodeRef.current(targetId); },
+        )),
+      ]);
     },
-    [graph.byId, isBareShellMode],
+    [graph.byId, isBareShellMode, floorMarkers],
   );
 
   const goToNode = useCallback(async (targetId: string) => {
@@ -1707,7 +1594,8 @@ export default function InteriorPanoWalkthrough({
     setIsTransitioning(true);
     setViewerError(null);
     const currentPosition = bindings.viewer.getPosition();
-    const targetPosition = isBalconyNode(targetId)
+    const floorArrival = getInteriorArrivalView(sourceNode?.id, targetId, navigationSections, entryViews, panoEntryViews);
+    const targetPosition = floorArrival ?? (isBalconyNode(targetId)
       ? getBalconyOverrideView()
       : preserveViewDirection && sourceNode
         ? {
@@ -1718,7 +1606,7 @@ export default function InteriorPanoWalkthrough({
             ),
             pitch: currentPosition.pitch,
           }
-        : null;
+        : null);
     pendingNodeViewRef.current = targetPosition;
 
     try {
@@ -1728,7 +1616,7 @@ export default function InteriorPanoWalkthrough({
         speed: interiorNodeTransitionSpeed,
         rotation: !targetPosition,
         rotateTo: targetPosition ?? undefined,
-        zoomTo: targetPosition ? bindings.viewer.getZoomLevel() : undefined,
+        zoomTo: floorArrival?.zoom ?? (targetPosition ? bindings.viewer.getZoomLevel() : undefined),
       });
 
       if (completed === false) {
@@ -1748,6 +1636,9 @@ export default function InteriorPanoWalkthrough({
     interiorNodeTransitionSpeed,
     isTransitioning,
     preserveViewDirection,
+    navigationSections,
+    entryViews,
+    panoEntryViews,
   ]);
 
   useEffect(() => {
@@ -1897,6 +1788,10 @@ export default function InteriorPanoWalkthrough({
     let cancelled = false;
 
     const hydrateAvailableNodes = async () => {
+      // Verified folder maps do not need an all-panorama metadata scan.
+      // Cloud assets are signed on demand for the active pano; adjacent
+      // previews/tiles warm only after its first frame is ready.
+      if (verifiedPanoFolders) return;
       const candidates = allNodes.map((item) => {
         const { panoId, baseUrl } = getInteriorPanoSource(
           item.id, item.image_filename, {}, isBareShellMode,
@@ -1950,7 +1845,7 @@ export default function InteriorPanoWalkthrough({
     return () => {
       cancelled = true;
     };
-  }, [allNodes, configuredBalconyNodeIds, getAssetStoreForBaseUrl, isBareShellMode, isSlowNetwork, panoBases]);
+  }, [allNodes, configuredBalconyNodeIds, getAssetStoreForBaseUrl, isBareShellMode, isSlowNetwork, panoBases, verifiedPanoFolders]);
 
   useEffect(() => {
     activeNodeIdRef.current = activeNodeId;
@@ -2063,6 +1958,7 @@ export default function InteriorPanoWalkthrough({
     const node = graph.byId[currentNodeId];
     if (!viewer || !node || isTransitioning || !readyPanoramaVersion) return;
     let cancelled = false;
+    const controller = new AbortController();
     const runId = ++warmupRunRef.current;
     const shouldContinue = () => !cancelled && warmupRunRef.current === runId && bindingsRef.current?.viewer === viewer;
 
@@ -2079,19 +1975,32 @@ export default function InteriorPanoWalkthrough({
           const resolved = await resolvePano(id, { preferTiles: !isSlowNetwork });
           if (!shouldContinue()) return;
           // Use PSV's decoded-image cache, including the same panorama cache key.
-          await viewer.textureLoader.loadImage(resolved.previewUrl, undefined, resolved.previewUrl);
+          const store = getAssetStoreForBaseUrl(resolved.baseUrl);
+          if (priorityPreloading) {
+            await store.preloadImage(resolved.previewUrl, "low", resolved.previewUrl, controller.signal);
+          } else {
+            await viewer.textureLoader.loadImage(resolved.previewUrl, undefined, resolved.previewUrl);
+          }
           if (!shouldContinue() || isSlowNetwork) continue;
           const target = graph.byId[id];
-          const yaw = preserveViewDirection
-            ? preserveViewYawBetweenNodes(node, target, position.yaw) : 0;
+          const arrival = getInteriorArrivalView(node.id, id, navigationSections, entryViews, panoEntryViews);
+          const yaw = arrival?.yaw ?? (preserveViewDirection
+            ? preserveViewYawBetweenNodes(node, target, position.yaw) : 0);
           const tiles = selectPriorityTiles(resolved.panoId, resolved.meta, resolved.baseUrl,
-            { yaw, pitch: preserveViewDirection ? position.pitch : 0, zoom: viewer.getZoomLevel() }, 4);
+            { yaw, pitch: arrival?.pitch ?? (preserveViewDirection ? position.pitch : 0), zoom: arrival?.zoom ?? viewer.getZoomLevel() }, 4,
+            priorityPreloading ? {
+              aspect: Math.max(0.1, (viewerHostRef.current?.clientWidth ?? 1) / Math.max(1, viewerHostRef.current?.clientHeight ?? 1)),
+              minFov: INTERIOR_MIN_FOV, maxFov: INTERIOR_MAX_FOV,
+            } : undefined);
           const panorama = resolved.panorama;
           const tileLimit = pLimit(2);
           await Promise.allSettled(tiles.map((tile) => tileLimit(async () => {
             if (!shouldContinue() || typeof panorama === "string") return;
             const url = panorama.tileUrl(tile.col, tile.row);
-            if (url) await viewer.textureLoader.loadImage(url, undefined, resolved.previewUrl);
+            if (url) {
+              if (priorityPreloading) await store.preloadImage(url, "low", resolved.previewUrl, controller.signal);
+              else await viewer.textureLoader.loadImage(url, undefined, resolved.previewUrl);
+            }
           })));
         } catch (error) {
           if (shouldContinue()) console.debug("Interior neighbor prefetch skipped:", error);
@@ -2100,9 +2009,10 @@ export default function InteriorPanoWalkthrough({
     };
     // Let the active panorama's visible tiles take priority over speculative work.
     const timer = globalThis.setTimeout(() => { void warmNeighbors(); }, isSlowNetwork ? 700 : 350);
-    return () => { cancelled = true; globalThis.clearTimeout(timer); };
+    return () => { cancelled = true; controller.abort(); globalThis.clearTimeout(timer); };
   }, [additionalNavigationPairs, blockedNavigationPairKeys, currentNodeId, graph, isSlowNetwork,
-    isTransitioning, navigationYawOverrides, panoOnly, preserveViewDirection, readyPanoramaVersion, resolvePano]);
+    isTransitioning, navigationYawOverrides, panoOnly, preserveViewDirection, readyPanoramaVersion, resolvePano,
+    getAssetStoreForBaseUrl, priorityPreloading, navigationSections, entryViews, panoEntryViews]);
 
   useEffect(() => {
     if (!viewerHostRef.current || !graph.nodes.length) {
@@ -2118,6 +2028,7 @@ export default function InteriorPanoWalkthrough({
 
     const initializeViewer = async () => {
       const startNodeId = currentNodeIdRef.current;
+      const entryView = panoEntryViews?.[startNodeId] ?? entryViews?.[startNodeId];
       if (disposed || !viewerHostRef.current) return;
 
       setViewerError(null);
@@ -2136,8 +2047,9 @@ export default function InteriorPanoWalkthrough({
         navbar: false,
         touchmoveTwoFingers: false,
         mousewheelCtrlKey: false,
-        defaultYaw: "0deg",
-        defaultZoomLvl: DEFAULT_ZOOM,
+        defaultYaw: entryView?.yaw ?? "0deg",
+        defaultPitch: entryView?.pitch ?? 0,
+        defaultZoomLvl: entryView?.zoom ?? DEFAULT_ZOOM,
         minFov: INTERIOR_MIN_FOV,
         maxFov: INTERIOR_MAX_FOV,
         moveSpeed: interiorViewerMoveSpeed,
@@ -2163,11 +2075,28 @@ export default function InteriorPanoWalkthrough({
               return buildTourNode(node, { preferTiles: true });
             },
             preload: false,
-            transitionOptions: {
-              effect: "fade",
-              showLoader: false,
-              speed: interiorNodeTransitionSpeed,
-              rotation: true,
+            transitionOptions: (toNode, fromNode, fromLink) => {
+              const camera = bindingsRef.current?.viewer;
+              const source = fromNode && graph.byId[fromNode.id];
+              const target = graph.byId[toNode.id];
+              const position = camera?.getPosition();
+              const arrival = getInteriorArrivalView(source?.id, toNode.id, navigationSections, entryViews, panoEntryViews);
+              const rotateTo = arrival ?? (position && source && target && preserveViewDirection
+                ? { yaw: preserveViewYawBetweenNodes(source, target, position.yaw), pitch: position.pitch }
+                : undefined);
+              // 3D arrows call the plugin directly, bypassing goToNode. Apply
+              // exactly the same heading preservation to that input path too.
+              if (source) {
+                if (fromLink) pendingNodeViewRef.current = null;
+                navigationInFlightRef.current = true;
+                warmupRunRef.current += 1;
+                setIsTransitioning(true);
+              }
+              return {
+                effect: "fade", showLoader: false, speed: interiorNodeTransitionSpeed,
+                rotation: !rotateTo,
+                ...(rotateTo ? { rotateTo, zoomTo: arrival?.zoom ?? camera?.getZoomLevel() } : {}),
+              };
             },
             linksOnCompass: false,
           }),
@@ -2281,6 +2210,10 @@ export default function InteriorPanoWalkthrough({
     isMobileTouchViewport,
     isSlowNetwork,
     syncNodeMarkers,
+    entryViews,
+    panoEntryViews,
+    navigationSections,
+    preserveViewDirection,
   ]);
 
   if (availableNodeIds === null) {
@@ -2301,21 +2234,10 @@ export default function InteriorPanoWalkthrough({
 
   return (
     <section
+      data-pano-node={currentNodeId}
+      data-pano-transitioning={isTransitioning}
       className={`interior-pano-walkthrough relative isolate h-full w-full overflow-hidden rounded-[2.25rem] border border-white/10 bg-black text-white  ${className ?? ""}`}
     >
-      {INTERIOR_PANO_DEV_TOOL_ENABLED && activeNode ? (
-        <aside
-          aria-label="Current panorama developer information"
-          className="interior-pano-dev-overlay absolute bottom-4 left-4 z-30 max-w-[calc(100%-2rem)] select-text rounded-xl border border-white/20 bg-black/70 px-3 py-2 font-mono text-[11px] leading-5 text-white backdrop-blur-md"
-        >
-          <div className="text-[10px] uppercase tracking-wider text-amber-200">
-            Pano dev · {buildNodeModeLabel(isBareShellMode)}
-          </div>
-          <div className="break-all">Pano: {activeNode.imageFilename}</div>
-          <div className="break-all text-white/65">Node: {activeNode.id}</div>
-        </aside>
-      ) : null}
-
       {/* {walkthroughContext.flatNumber ? (
         <div className="pointer-events-none absolute inset-x-4 top-4 z-30 flex justify-center sm:top-5">
           <div className={`${uiFont.className} rounded-[1.35rem] border border-white/16 bg-[rgba(14,20,27,0.58)] px-4 py-3 text-center text-white shadow-[0_18px_40px_rgba(0,0,0,0.22)] backdrop-blur-2xl`}>
@@ -2369,6 +2291,42 @@ export default function InteriorPanoWalkthrough({
           </button>
         ) : null}
       </div>
+
+      {activeSection && navigationSections ? (
+        <div className={`${uiFont.className} absolute right-3 top-24 z-30 flex w-[min(14rem,calc(100%-1.5rem))] flex-col gap-2.5 text-white sm:right-6 sm:w-64 xl:top-6`}>
+          {minimapUnavailable ? <aside aria-label="Clubhouse floor plan" className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-white/25 bg-[linear-gradient(135deg,rgba(255,255,255,0.14),rgba(34,32,28,0.32))] px-4 py-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.10)] backdrop-blur-2xl sm:py-6">
+            <FloorPlanIcon aria-hidden="true" size={30} strokeWidth={1.2} className="text-[#ecd1a0]" />
+            <span className="text-[11px] font-medium text-white/90">Floor plan not available</span>
+          </aside> : null}
+          <GlassSelect ariaLabel="Choose floor" variant="tour" value={activeSection.id} disabled={isTransitioning}
+              onValueChange={(value) => {
+                const section = navigationSections.find((item) => item.id === value);
+                if (section) void goToNode(section.initialNodeId);
+              }}>
+              {navigationSections.map((section) => <GlassSelectItem key={section.id} variant="tour" value={section.id}>{section.label}</GlassSelectItem>)}
+          </GlassSelect>
+          {showViewpointSelector ? <GlassSelect ariaLabel="Choose viewpoint" variant="tour" value={currentNodeId} disabled={isTransitioning}
+              onValueChange={(value) => void goToNode(value)}>
+              {activeSection.nodeIds.map((id) => graph.byId[id] ? <GlassSelectItem key={id} variant="tour" value={id}>{nodeLabels?.[id] ?? graph.byId[id].imageFilename}</GlassSelectItem> : null)}
+          </GlassSelect> : null}
+          {balconyDestination && graph.byId[balconyDestination.nodeId] ? (
+            <button type="button" disabled={isTransitioning}
+              onClick={() => {
+                if (isOnConfiguredBalcony) {
+                  const returnId = balconyReturnNodesRef.current[activeSection.id] ?? balconyDestination.returnNodeId;
+                  void goToNode(returnId);
+                } else {
+                  balconyReturnNodesRef.current[activeSection.id] = currentNodeId;
+                  void goToNode(balconyDestination.nodeId);
+                }
+              }}
+              className="flex min-h-11 w-full items-center justify-between gap-3 rounded-2xl border border-white/30 bg-[linear-gradient(135deg,rgba(255,255,255,0.16),rgba(34,32,28,0.45))] px-4 py-3 text-left text-xs font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.10),0_8px_24px_rgba(0,0,0,0.10)] backdrop-blur-2xl outline-none transition hover:border-white/50 hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-[#ecd1a0]/70 disabled:cursor-wait disabled:opacity-50">
+              <span>{isOnConfiguredBalcony ? "Back to interior" : "View balcony"}</span>
+              {isOnConfiguredBalcony ? <ArrowLeft aria-hidden="true" className="h-4 w-4 shrink-0 text-[#ecd1a0]" /> : <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0 text-[#ecd1a0]" />}
+            </button>
+          ) : null}
+        </div>
+      ) : null}
 
       {showMinimap ? (
         <div className="interior-minimap-desktop pointer-events-none absolute right-4 top-[1.5rem] z-30 hidden w-[400px] xl:block 2xl:right-6 2xl:top-[2rem] 2xl:w-[460px]">
@@ -2529,16 +2487,16 @@ export default function InteriorPanoWalkthrough({
 
             <div className="mt-5 xl:hidden">
               <div className="mx-auto w-full max-w-[16rem] rounded-[1.45rem] sm:max-w-[18rem]">
-                <button
+                {showModeToggle ? <button
                   type="button"
                   onClick={handleModeToggle}
                   className={`${uiFont.className} mt-3 flex w-full items-center justify-center gap-2 rounded-[1.15rem] border border-white/22 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(171,188,196,0.06))] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-white shadow-[0_14px_28px_rgba(0,0,0,0.16)] backdrop-blur-2xl transition hover:border-white/34 hover:bg-white/12`}
                 >
                   {isBareShellMode ? <Sofa className="h-4 w-4" /> : <BedDouble className="h-4 w-4" />}
                   {isBareShellMode ? "View Furnished" : "View Bare Shell"}
-                </button>
+                </button> : null}
 
-                <button
+                {showDimensionsToggle ? <button
                   type="button"
                   onClick={handleDimensionsToggle}
                   className={`${uiFont.className} mt-3 flex w-full items-center justify-center rounded-[1.15rem] border px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] shadow-[0_14px_28px_rgba(0,0,0,0.16)] backdrop-blur-2xl transition ${
@@ -2548,7 +2506,7 @@ export default function InteriorPanoWalkthrough({
                   }`}
                 >
                   {isDimensionsVisible ? "Hide Dimensions" : "Show Dimensions"}
-                </button>
+                </button> : null}
               </div>
             </div>
 
@@ -2613,7 +2571,7 @@ export default function InteriorPanoWalkthrough({
         </div>
       ) : null}
 
-      <div className="interior-navigation-controls pointer-events-auto absolute z-20">
+      {!isOnConfiguredBalcony ? <div className="interior-navigation-controls pointer-events-auto absolute z-20">
         <div className="interior-direction-rail flex flex-col items-center gap-1.5 rounded-full p-1.5 sm:gap-2 sm:p-2">
           <ArrowButton
             icon={ArrowUp}
@@ -2640,7 +2598,7 @@ export default function InteriorPanoWalkthrough({
             disabled={!navigationTargets.backward.node || isTransitioning}
           />
         </div>
-      </div>
+      </div> : null}
 
       <style jsx global>{`
         @keyframes walkthroughMinimapPulse {
@@ -2708,9 +2666,6 @@ export default function InteriorPanoWalkthrough({
             flex-direction: row;
           }
 
-          .interior-pano-walkthrough .interior-pano-dev-overlay {
-            bottom: calc(max(0.75rem, env(safe-area-inset-bottom)) + 4.5rem);
-          }
         }
 
         @media (hover: hover) and (pointer: fine) {

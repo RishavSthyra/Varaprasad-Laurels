@@ -1,0 +1,8129 @@
+[
+    {
+        "id": "Exterior_PANO_Spline_02_F0000",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 0,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0000.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0001",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 1,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0001.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0002",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 2,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0002.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0003",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 3,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0003.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0004",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 4,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0004.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0005",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 5,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0005.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0006",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 6,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0006.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0007",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 7,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0007.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0008",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 8,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0008.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0009",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 9,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0009.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0010",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 10,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0010.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0011",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 11,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0011.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0012",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 12,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0012.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0013",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 13,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0013.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0014",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 14,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0014.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0015",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 15,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0015.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0016",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 16,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0016.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0017",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 17,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0017.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0018",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 18,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0018.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0019",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 19,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0019.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0020",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 20,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0020.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0021",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 21,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0021.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0022",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 22,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0022.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0023",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 23,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0023.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0024",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 24,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0024.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0025",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 25,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0025.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0026",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 26,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0026.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0027",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 27,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0027.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0028",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 28,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0028.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0029",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 29,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0029.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0030",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 30,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0030.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0031",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 31,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0031.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0032",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 32,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0032.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0033",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 33,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0033.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0034",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 34,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0034.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0035",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 35,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0035.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0036",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 36,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0036.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0037",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 37,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0037.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0038",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 38,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0038.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0039",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 39,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0039.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0040",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 40,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0040.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0041",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 41,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0041.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0042",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 42,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0042.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0043",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 43,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0043.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0044",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 44,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0044.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0045",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 45,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0045.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0046",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 46,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0046.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0047",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 47,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0047.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0048",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 48,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0048.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0049",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 49,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0049.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0050",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 50,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0050.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0051",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 51,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0051.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0052",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 52,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0052.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0053",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 53,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0053.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0054",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 54,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0054.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0055",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 55,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0055.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0056",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 56,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0056.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0057",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 57,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0057.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0058",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 58,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0058.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0059",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 59,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0059.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0060",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 60,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0060.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0061",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 61,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0061.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0062",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 62,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0062.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0063",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 63,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0063.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0064",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 64,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0064.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0065",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 65,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0065.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0066",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 66,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0066.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0067",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 67,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0067.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0068",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 68,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0068.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0069",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 69,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0069.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0070",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 70,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0070.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0071",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 71,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0071.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0072",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 72,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0072.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0073",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 73,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0073.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0074",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 74,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0074.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0075",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 75,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0075.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0076",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 76,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0076.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0077",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 77,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0077.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0078",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 78,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0078.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0079",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 79,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0079.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0080",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 80,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0080.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0081",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 81,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0081.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0082",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 82,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0082.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0083",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 83,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0083.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0084",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 84,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0084.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0085",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 85,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0085.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0086",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 86,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0086.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0087",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 87,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0087.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0088",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 88,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0088.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0089",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 89,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0089.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0090",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 90,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0090.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0091",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 91,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0091.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0092",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 92,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0092.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0093",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 93,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0093.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0094",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 94,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0094.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0095",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 95,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0095.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0096",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 96,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0096.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0097",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 97,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0097.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0098",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 98,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0098.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0099",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 99,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0099.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0100",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 100,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0100.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0101",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 101,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0101.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0102",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 102,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0102.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0103",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 103,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0103.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0104",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 104,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0104.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0105",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 105,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0105.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0106",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 106,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0106.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0107",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 107,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0107.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0108",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 108,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0108.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0109",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 109,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0109.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0110",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 110,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0110.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0111",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 111,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0111.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0112",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 112,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0112.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0113",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 113,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0113.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0114",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 114,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0114.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0115",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 115,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0115.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0116",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 116,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0116.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0117",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 117,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0117.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0118",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 118,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0118.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0119",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 119,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0119.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0120",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 120,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0120.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0121",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 121,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0121.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0122",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 122,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0122.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0123",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 123,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0123.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0124",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 124,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0124.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0125",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 125,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0125.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0126",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 126,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0126.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0127",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 127,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0127.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0128",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 128,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0128.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0129",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 129,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0129.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0130",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 130,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0130.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0131",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 131,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0131.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0132",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 132,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0132.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0133",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 133,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0133.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0134",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 134,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0134.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0135",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 135,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0135.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0136",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 136,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0136.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0137",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 137,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0137.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0138",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 138,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0138.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0139",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 139,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0139.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0140",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 140,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0140.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0141",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 141,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0141.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0142",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 142,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0142.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0143",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 143,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0143.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0144",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 144,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0144.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0145",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 145,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0145.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0146",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 146,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0146.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0147",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 147,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0147.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0148",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 148,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0148.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0149",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 149,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0149.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0150",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 150,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0150.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0151",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 151,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0151.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0152",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 152,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0152.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0153",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 153,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0153.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0154",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 154,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0154.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0155",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 155,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0155.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0156",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 156,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0156.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0157",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 157,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0157.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0158",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 158,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0158.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0159",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 159,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0159.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0160",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 160,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0160.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0161",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 161,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0161.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0162",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 162,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0162.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0163",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 163,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0163.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0164",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 164,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0164.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0165",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 165,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0165.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0166",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 166,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0166.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0167",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 167,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0167.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0168",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 168,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0168.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0169",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 169,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0169.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0170",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 170,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0170.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0171",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 171,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0171.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0172",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 172,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0172.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0173",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 173,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0173.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0174",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 174,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0174.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0175",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 175,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0175.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0176",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 176,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0176.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0177",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 177,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0177.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0178",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 178,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0178.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0179",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 179,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0179.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0180",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 180,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0180.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0181",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 181,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0181.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0182",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 182,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0182.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0183",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 183,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0183.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0184",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 184,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0184.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0185",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 185,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0185.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0186",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 186,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0186.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0187",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 187,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0187.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0188",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 188,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0188.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0189",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 189,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0189.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0190",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 190,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0190.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0191",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 191,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0191.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0192",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 192,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0192.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0193",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 193,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0193.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0194",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 194,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0194.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0195",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 195,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0195.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0196",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 196,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0196.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0197",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 197,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0197.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0198",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 198,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0198.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0199",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 199,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0199.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0200",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 200,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0200.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0201",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 201,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0201.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0202",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 202,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0202.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0203",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 203,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0203.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0204",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 204,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0204.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0205",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 205,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0205.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0206",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 206,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0206.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0207",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 207,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0207.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0208",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 208,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0208.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0209",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 209,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0209.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0210",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 210,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0210.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0211",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 211,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0211.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0212",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 212,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0212.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0213",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 213,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0213.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0214",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 214,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0214.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0215",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 215,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0215.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0216",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 216,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0216.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0217",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 217,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0217.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0218",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 218,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0218.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0219",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 219,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0219.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0220",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 220,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0220.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0221",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 221,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0221.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0222",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 222,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0222.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0223",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 223,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0223.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0224",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 224,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0224.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0225",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 225,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0225.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0226",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 226,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0226.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0227",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 227,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0227.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0228",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 228,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0228.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0229",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 229,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0229.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0230",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 230,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0230.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0231",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 231,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0231.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0232",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 232,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0232.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0233",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 233,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0233.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0234",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 234,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0234.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0235",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 235,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0235.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0236",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 236,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0236.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0237",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 237,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0237.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0238",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 238,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0238.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0239",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 239,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0239.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0240",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 240,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0240.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0241",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 241,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0241.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0242",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 242,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0242.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0243",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 243,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0243.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0244",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 244,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0244.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0245",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 245,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0245.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0246",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 246,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0246.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0247",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 247,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0247.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0248",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 248,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0248.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0249",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 249,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0249.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0250",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 250,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0250.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0251",
+        "x": -10400.453,
+        "y": 14816.229,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 10.7340,
+        "roll": 0.0,
+        "frame": 251,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0251.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.983,
+            "y": 0.186,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.186,
+            "y": 0.983,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.186,
+            "y": -0.983,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0252",
+        "x": -9899.533,
+        "y": 14520.361,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -78.6796,
+        "roll": 0.0,
+        "frame": 252,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0252.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.196,
+            "y": -0.981,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.981,
+            "y": 0.196,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.981,
+            "y": -0.196,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0253",
+        "x": -9953.691,
+        "y": 13873.987,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -89.9033,
+        "roll": 0.0,
+        "frame": 253,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0253.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.002,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.002,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": -0.002,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0254",
+        "x": -9792.901,
+        "y": 13248.567,
+        "z": 127.163,
+        "pitch": 0.0,
+        "yaw": -68.5479,
+        "roll": 0.0,
+        "frame": 254,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0254.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.366,
+            "y": -0.931,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.931,
+            "y": 0.366,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.931,
+            "y": -0.366,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0255",
+        "x": -9417.845,
+        "y": 12722.047,
+        "z": 120.000,
+        "pitch": 0.0,
+        "yaw": -43.9617,
+        "roll": 0.0,
+        "frame": 255,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0255.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.720,
+            "y": -0.694,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.694,
+            "y": 0.720,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.694,
+            "y": -0.720,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_02_F0256",
+        "x": -9417.845,
+        "y": 12722.047,
+        "z": 120.000,
+        "pitch": 0.0,
+        "yaw": -43.9617,
+        "roll": 0.0,
+        "frame": 256,
+        "image_filename": "LS_Exterior_PANO_Spline_02_F0256.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.720,
+            "y": -0.694,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.694,
+            "y": 0.720,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.694,
+            "y": -0.720,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_03_F0257",
+        "x": -20474.578,
+        "y": 14270.232,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -179.9636,
+        "roll": 0.0,
+        "frame": 257,
+        "image_filename": "LS_Exterior_PANO_Spline_03_F0257.jpeg",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": -0.001,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.001,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.001,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_03_F0258",
+        "x": -20775.670,
+        "y": 13827.667,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 258,
+        "image_filename": "LS_Exterior_PANO_Spline_03_F0258.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_03_F0259",
+        "x": -20775.670,
+        "y": 13827.667,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 259,
+        "image_filename": "LS_Exterior_PANO_Spline_03_F0259.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_04_F0260",
+        "x": -20059.881,
+        "y": 1575.671,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 260,
+        "image_filename": "LS_Exterior_PANO_Spline_04_F0260.jpeg",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_04_F0261",
+        "x": -20502.811,
+        "y": 1900.891,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 138.9412,
+        "roll": 0.0,
+        "frame": 261,
+        "image_filename": "LS_Exterior_PANO_Spline_04_F0261.jpeg",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -0.754,
+            "y": 0.657,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.657,
+            "y": -0.754,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.657,
+            "y": 0.754,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_04_F0262",
+        "x": -20537.191,
+        "y": 2597.471,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 90.0000,
+        "roll": 0.0,
+        "frame": 262,
+        "image_filename": "LS_Exterior_PANO_Spline_04_F0262.jpeg",
+        "facing_axis": "+Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_05_F0263",
+        "x": -18654.285,
+        "y": -1055.987,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -11.3576,
+        "roll": 0.0,
+        "frame": 263,
+        "image_filename": "LS_Exterior_PANO_Spline_05_F0263.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.980,
+            "y": -0.197,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.197,
+            "y": 0.980,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.197,
+            "y": -0.980,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_05_F0264",
+        "x": -18431.121,
+        "y": -1452.547,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 264,
+        "image_filename": "LS_Exterior_PANO_Spline_05_F0264.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_05_F0265",
+        "x": -18431.121,
+        "y": -1964.161,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 265,
+        "image_filename": "LS_Exterior_PANO_Spline_05_F0265.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_05_F0266",
+        "x": -18431.121,
+        "y": -2475.775,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 266,
+        "image_filename": "LS_Exterior_PANO_Spline_05_F0266.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_05_F0267",
+        "x": -18381.582,
+        "y": -2980.094,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -64.8255,
+        "roll": 0.0,
+        "frame": 267,
+        "image_filename": "LS_Exterior_PANO_Spline_05_F0267.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.425,
+            "y": -0.905,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.905,
+            "y": 0.425,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.905,
+            "y": -0.425,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_05_F0268",
+        "x": -18165.180,
+        "y": -3432.764,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 268,
+        "image_filename": "LS_Exterior_PANO_Spline_05_F0268.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_05_F0269",
+        "x": -18165.180,
+        "y": -3944.378,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 269,
+        "image_filename": "LS_Exterior_PANO_Spline_05_F0269.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_05_F0270",
+        "x": -18165.180,
+        "y": -3944.378,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 270,
+        "image_filename": "LS_Exterior_PANO_Spline_05_F0270.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_06_F0271",
+        "x": -16146.203,
+        "y": -8244.536,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0643,
+        "roll": 0.0,
+        "frame": 271,
+        "image_filename": "LS_Exterior_PANO_Spline_06_F0271.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": -0.001,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": -0.001,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.001,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_06_F0272",
+        "x": -16146.542,
+        "y": -8863.192,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -89.9678,
+        "roll": 0.0,
+        "frame": 272,
+        "image_filename": "LS_Exterior_PANO_Spline_06_F0272.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.001,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.001,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": -0.001,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_06_F0273",
+        "x": -16345.995,
+        "y": -9367.405,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -168.1074,
+        "roll": 0.0,
+        "frame": 273,
+        "image_filename": "LS_Exterior_PANO_Spline_06_F0273.jpeg",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -0.979,
+            "y": -0.206,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.206,
+            "y": -0.979,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.206,
+            "y": 0.979,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_06_F0274",
+        "x": -16937.445,
+        "y": -9528.259,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -144.8492,
+        "roll": 0.0,
+        "frame": 274,
+        "image_filename": "LS_Exterior_PANO_Spline_06_F0274.jpeg",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -0.818,
+            "y": -0.576,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.576,
+            "y": -0.818,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.576,
+            "y": 0.818,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_06_F0275",
+        "x": -17023.551,
+        "y": -10080.047,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -60.2332,
+        "roll": 0.0,
+        "frame": 275,
+        "image_filename": "LS_Exterior_PANO_Spline_06_F0275.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.496,
+            "y": -0.868,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.868,
+            "y": 0.496,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.868,
+            "y": -0.496,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_06_F0276",
+        "x": -16785.752,
+        "y": -10628.921,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 276,
+        "image_filename": "LS_Exterior_PANO_Spline_06_F0276.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_06_F0277",
+        "x": -17121.738,
+        "y": -11101.688,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -126.8225,
+        "roll": 0.0,
+        "frame": 277,
+        "image_filename": "LS_Exterior_PANO_Spline_06_F0277.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": -0.599,
+            "y": -0.800,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.800,
+            "y": -0.599,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.800,
+            "y": 0.599,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_06_F0278",
+        "x": -17184.496,
+        "y": -11706.754,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 278,
+        "image_filename": "LS_Exterior_PANO_Spline_06_F0278.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_06_F0279",
+        "x": -17184.496,
+        "y": -12325.408,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 279,
+        "image_filename": "LS_Exterior_PANO_Spline_06_F0279.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_06_F0280",
+        "x": -17184.496,
+        "y": -12325.408,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 280,
+        "image_filename": "LS_Exterior_PANO_Spline_06_F0280.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_07_F0281",
+        "x": -3758.036,
+        "y": 836.036,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 281,
+        "image_filename": "LS_Exterior_PANO_Spline_07_F0281.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_07_F0282",
+        "x": -3758.036,
+        "y": 546.004,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 282,
+        "image_filename": "LS_Exterior_PANO_Spline_07_F0282.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_07_F0283",
+        "x": -4014.113,
+        "y": 490.587,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -180.0000,
+        "roll": 0.0,
+        "frame": 283,
+        "image_filename": "LS_Exterior_PANO_Spline_07_F0283.jpeg",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.000,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_07_F0284",
+        "x": -4304.050,
+        "y": 488.689,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -171.8497,
+        "roll": 0.0,
+        "frame": 284,
+        "image_filename": "LS_Exterior_PANO_Spline_07_F0284.jpeg",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -0.990,
+            "y": -0.142,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.142,
+            "y": -0.990,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.142,
+            "y": 0.990,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_07_F0285",
+        "x": -4535.190,
+        "y": 337.877,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 178.3764,
+        "roll": 0.0,
+        "frame": 285,
+        "image_filename": "LS_Exterior_PANO_Spline_07_F0285.jpeg",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.028,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.028,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.028,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_07_F0286",
+        "x": -4535.190,
+        "y": 337.877,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": 178.3764,
+        "roll": 0.0,
+        "frame": 286,
+        "image_filename": "LS_Exterior_PANO_Spline_07_F0286.jpeg",
+        "facing_axis": "-X",
+        "forward_vector": {
+            "x": -1.000,
+            "y": 0.028,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": -0.028,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": 0.028,
+            "y": 1.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0287",
+        "x": -3138.636,
+        "y": 811.150,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -14.8868,
+        "roll": 0.0,
+        "frame": 287,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0287.jpeg",
+        "facing_axis": "+X",
+        "forward_vector": {
+            "x": 0.966,
+            "y": -0.257,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 0.257,
+            "y": 0.966,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -0.257,
+            "y": -0.966,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0288",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 288,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0288.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0289",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 289,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0289.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0290",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 290,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0290.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0291",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 291,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0291.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0292",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 292,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0292.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0293",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 293,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0293.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0294",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 294,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0294.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0295",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 295,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0295.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0296",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 296,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0296.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0297",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 297,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0297.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0298",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 298,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0298.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0299",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 299,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0299.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    },
+    {
+        "id": "Exterior_PANO_Spline_08_F0300",
+        "x": -3064.355,
+        "y": 439.497,
+        "z": 165.000,
+        "pitch": 0.0,
+        "yaw": -90.0000,
+        "roll": 0.0,
+        "frame": 300,
+        "image_filename": "LS_Exterior_PANO_Spline_08_F0300.jpeg",
+        "facing_axis": "-Y",
+        "forward_vector": {
+            "x": 0.000,
+            "y": -1.000,
+            "z": 0.0
+        },
+        "right_vector": {
+            "x": 1.000,
+            "y": 0.000,
+            "z": 0.0
+        },
+        "left_vector": {
+            "x": -1.000,
+            "y": 0.000,
+            "z": 0.0
+        }
+    }
+]

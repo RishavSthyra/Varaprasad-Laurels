@@ -1,0 +1,731 @@
+[
+  {
+    "id": 301,
+    "name": "Indus International School, Hyderabad",
+    "signature": "78.19507378655005,17.455878751829474:78.1794,17.4501",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 312.4,
+    "distance": 2606.5,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.179514,
+          17.450118
+        ],
+        "distance": 12.27117453
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 18
+  },
+  {
+    "id": 302,
+    "name": "The Gaudium School, Kollur",
+    "signature": "78.19507378655005,17.455878751829474:78.2426406,17.4845895",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 828,
+    "distance": 9567.2,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.242521,
+          17.486251
+        ],
+        "distance": 184.2716269
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 22
+  },
+  {
+    "id": 303,
+    "name": "Samashti International School",
+    "signature": "78.19507378655005,17.455878751829474:78.2503629,17.45353",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 567.2,
+    "distance": 7438.6,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.250527,
+          17.4535
+        ],
+        "distance": 17.73269702
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 16
+  },
+  {
+    "id": 304,
+    "name": "Birla Open Minds International School",
+    "signature": "78.19507378655005,17.455878751829474:78.2685162,17.4339411",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 815.4,
+    "distance": 10508.9,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.267991,
+          17.433482
+        ],
+        "distance": 75.44338443
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 20
+  },
+  {
+    "id": 305,
+    "name": "ICFAI Business School, Hyderabad",
+    "signature": "78.19507378655005,17.455878751829474:78.2182195,17.4222091",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 535.7,
+    "distance": 7145.2,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.220477,
+          17.422402
+        ],
+        "distance": 240.739718
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 12
+  },
+  {
+    "id": 306,
+    "name": "University of Hyderabad",
+    "signature": "78.19507378655005,17.455878751829474:78.3270312,17.4530357",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1524.7,
+    "distance": 18772.4,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.326099,
+          17.454346
+        ],
+        "distance": 175.5549198
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 28
+  },
+  {
+    "id": 307,
+    "name": "Indian School of Business",
+    "signature": "78.19507378655005,17.455878751829474:78.3394372,17.4352119",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1423,
+    "distance": 22539.6,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.338545,
+          17.435233
+        ],
+        "distance": 94.79716779
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 20
+  },
+  {
+    "id": 308,
+    "name": "IIIT Hyderabad",
+    "signature": "78.19507378655005,17.455878751829474:78.3483479,17.4451886",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1500,
+    "distance": 23950.4,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.348039,
+          17.444418
+        ],
+        "distance": 91.42694547
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 25
+  },
+  {
+    "id": 309,
+    "name": "Citizens Specialty Hospital",
+    "signature": "78.19507378655005,17.455878751829474:78.3113113,17.4707742",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1230.8,
+    "distance": 14592.7,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.311165,
+          17.470832
+        ],
+        "distance": 16.783309
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 22
+  },
+  {
+    "id": 310,
+    "name": "Continental Hospitals",
+    "signature": "78.19507378655005,17.455878751829474:78.3391307,17.4176646",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1069.4,
+    "distance": 20044,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.33954,
+          17.418378
+        ],
+        "distance": 90.083635
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 19
+  },
+  {
+    "id": 311,
+    "name": "AIG Hospitals",
+    "signature": "78.19507378655005,17.455878751829474:78.3660078,17.443179",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1423.1,
+    "distance": 27271.2,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.365939,
+          17.443651
+        ],
+        "distance": 52.74995841
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 23
+  },
+  {
+    "id": 312,
+    "name": "Sarath City Capital Mall",
+    "signature": "78.19507378655005,17.455878751829474:78.3638734,17.4577141",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1398.1,
+    "distance": 27800.6,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.363652,
+          17.458242
+        ],
+        "distance": 62.97440277
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 27
+  },
+  {
+    "id": 313,
+    "name": "GSM Mall",
+    "signature": "78.19507378655005,17.455878751829474:78.3358311,17.4967399",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1443.7,
+    "distance": 17884,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.336385,
+          17.496729
+        ],
+        "distance": 58.85511776
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 25
+  },
+  {
+    "id": 314,
+    "name": "Inorbit Mall Cyberabad",
+    "signature": "78.19507378655005,17.455878751829474:78.3866982,17.4345546",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1562.7,
+    "distance": 29153.9,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.387246,
+          17.433876
+        ],
+        "distance": 95.06239266
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 24
+  },
+  {
+    "id": 315,
+    "name": "Gandipet Lake Park",
+    "signature": "78.19507378655005,17.455878751829474:78.3159004,17.3819053",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1171.5,
+    "distance": 20591,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.316898,
+          17.381873
+        ],
+        "distance": 106.1183583
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 25
+  },
+  {
+    "id": 316,
+    "name": "Kotla Vijayabhaskara Reddy Botanical Garden",
+    "signature": "78.19507378655005,17.455878751829474:78.3639955,17.4555018",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1331.6,
+    "distance": 27314.3,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.363994,
+          17.455498
+        ],
+        "distance": 0.4910265151
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 22
+  },
+  {
+    "id": 317,
+    "name": "Mrugavani National Park",
+    "signature": "78.19507378655005,17.455878751829474:78.3390781,17.3588402",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1829.3,
+    "distance": 31427.4,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.338877,
+          17.35991
+        ],
+        "distance": 120.3315906
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 29
+  },
+  {
+    "id": 318,
+    "name": "Osman Sagar Dam",
+    "signature": "78.19507378655005,17.455878751829474:78.3169135,17.3759728",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1442.9,
+    "distance": 24534.3,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.316892,
+          17.375966
+        ],
+        "distance": 2.462991781
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 30
+  },
+  {
+    "id": 319,
+    "name": "Chilkur Balaji Temple",
+    "signature": "78.19507378655005,17.455878751829474:78.2988455,17.3588117",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1762.1,
+    "distance": 21701.4,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.298379,
+          17.358823
+        ],
+        "distance": 49.64385452
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 27
+  },
+  {
+    "id": 320,
+    "name": "Shankarpalli Railway Station",
+    "signature": "78.19507378655005,17.455878751829474:78.1307931,17.4505553",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 652.6,
+    "distance": 9970.8,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.130856,
+          17.451072
+        ],
+        "distance": 57.60864453
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 14
+  },
+  {
+    "id": 321,
+    "name": "Nagalapalli Railway Station",
+    "signature": "78.19507378655005,17.455878751829474:78.2300829,17.460242",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 534.9,
+    "distance": 5911.8,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.230327,
+          17.460211
+        ],
+        "distance": 26.14231597
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 22
+  },
+  {
+    "id": 322,
+    "name": "Raidurg Metro Station",
+    "signature": "78.19507378655005,17.455878751829474:78.3771819,17.44218",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1405.8,
+    "distance": 27488.9,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.377136,
+          17.44218
+        ],
+        "distance": 4.887173709
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 23
+  },
+  {
+    "id": 323,
+    "name": "GMC Balayogi Athletic Stadium",
+    "signature": "78.19507378655005,17.455878751829474:78.3441316,17.4462164",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1573.3,
+    "distance": 24600,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.343099,
+          17.4462
+        ],
+        "distance": 109.7632073
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 24
+  },
+  {
+    "id": 324,
+    "name": "Gachibowli Indoor Stadium",
+    "signature": "78.19507378655005,17.455878751829474:78.3451487,17.4481393",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1491.3,
+    "distance": 24257.9,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.344633,
+          17.448282
+        ],
+        "distance": 57.06008506
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 23
+  },
+  {
+    "id": 325,
+    "name": "Microsoft India Development Center",
+    "signature": "78.19507378655005,17.455878751829474:78.3421402,17.4307694",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1199,
+    "distance": 21173.5,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.340961,
+          17.430398
+        ],
+        "distance": 131.8183983
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 19
+  },
+  {
+    "id": 326,
+    "name": "Amazon Hyderabad Campus",
+    "signature": "78.19507378655005,17.455878751829474:78.3394096,17.4202829",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1203.3,
+    "distance": 21194.2,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.339571,
+          17.420551
+        ],
+        "distance": 34.23940032
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 21
+  },
+  {
+    "id": 327,
+    "name": "DLF Cyber City",
+    "signature": "78.19507378655005,17.455878751829474:78.3557479,17.4470914",
+    "source": "OSRM / OpenStreetMap",
+    "calculatedAt": "2026-11-18",
+    "duration": 1426.7,
+    "distance": 27641.8,
+    "snapped": [
+      {
+        "location": [
+          78.195068,
+          17.455441
+        ],
+        "distance": 48.47960891
+      },
+      {
+        "location": [
+          78.355744,
+          17.44608
+        ],
+        "distance": 111.8921399
+      }
+    ],
+    "note": "Modelled driving route, not live traffic. Start/end may snap to the nearest mapped road; private access and entrance locations must be checked.",
+    "points": 27
+  }
+]

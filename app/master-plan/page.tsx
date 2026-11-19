@@ -13,6 +13,7 @@ import {
 } from "@/lib/master-plan-asset-keys";
 import { TOWER_SELECTION_IMAGE_URL } from "@/lib/tower-selection-assets";
 import { getVillasMasterPlanConfig } from "@/lib/villas-master-plan-config";
+import { VILLA_MASTERPLAN_MODEL_URL } from "@/lib/villa-masterplan-model";
 
 export const metadata = buildPageMetadata({
   title: "Master Plan",
@@ -63,26 +64,22 @@ export default async function MasterPlanPage() {
     masterPlan.fallbackImageKey,
     signedMasterPlanCriticalAssets,
   );
-  const masterPlanVideoUrl = resolveMasterPlanAssetUrl(
-    masterPlan.scrubVideoKey,
-    signedMasterPlanCriticalAssets,
-  );
 
   return (
     <div className="relative app-shell bg-[#00142b]">
       <link rel="preconnect" href={workerDomain} crossOrigin="anonymous" />
       <link rel="dns-prefetch" href={workerDomain} />
+      <link rel="preconnect" href="https://cdn.sthyra.com" crossOrigin="anonymous" />
       <link
         rel="preload"
         as="image"
         href={masterPlanFallbackUrl}
         fetchPriority="high"
       />
-      <link rel="preload" as="video" href={masterPlanVideoUrl} />
       <link
         rel="preload"
         as="fetch"
-        href="/models/villa%2001.glb"
+        href={VILLA_MASTERPLAN_MODEL_URL}
         crossOrigin="anonymous"
       />
       <link

@@ -58,11 +58,17 @@ export default async function AmenitiesPage() {
     })),
   };
   const firstPreview = signedData.items[0]?.thumbnailSrc;
+  const assetOrigins = [...new Set(signedData.items.flatMap((item) =>
+    [item.videoSrc, item.thumbnailSrc]
+      .filter((url): url is string => Boolean(url && /^https?:\/\//i.test(url)))
+      .map((url) => new URL(url).origin),
+  ))];
 
   return (
     <>
-      <link rel="preconnect" href="https://cdn.sthyra.com" crossOrigin="anonymous" />
-      <link rel="dns-prefetch" href="https://cdn.sthyra.com" />
+      {assetOrigins.map((origin) => (
+        <link key={origin} rel="preconnect" href={origin} crossOrigin="anonymous" />
+      ))}
       {firstPreview ? (
         <link
           rel="preload"

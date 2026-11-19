@@ -8,6 +8,14 @@ Cloudflare settings were changed. No multi-resolution levels were generated.
 
 ## Scheduling
 
+The route fallback and first-pano loading overlay share
+`ExteriorWalkthroughPreloader`: the homepage's navy background, cropped logo
+with vertical progress fill, and large bottom-right percentage. Subtle static
+corner vectors remain; there are no lifting panels or session-storage skips.
+The viewer's existing progress/readiness state controls dismissal, with a short
+opacity-only fade and reduced-motion support. No artificial loading delay or
+new panorama downloads are introduced by this branding change.
+
 - The active viewer retains PSV's native image transport and visible-tile queue.
 - Speculation waits for a quiet view (500 ms, or 150 ms for arrow hover/focus),
   then waits for the current central tiles. A 2-second upper bound prevents an

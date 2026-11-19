@@ -1,260 +1,272 @@
 {
   "eyebrow": "Amenities",
   "title": "Amenities",
-  "description": "Explore the landscaped, wellness, recreation, and community spaces at Laurels.",
-  "summary": "Cinematic amenity films with high-resolution first-frame previews.",
+  "description": "Explore the outdoor recreation and clubhouse spaces at Laurels.",
+  "summary": "4K amenity films with full-resolution first-frame previews.",
   "items": [
     {
-      "id": "pool",
-      "title": "Pool",
-      "category": "Leisure",
-      "shortDescription": "A calm waterside setting for unhurried leisure and restorative moments.",
-      "details": "A thoughtfully landscaped pool environment designed for relaxation throughout the day.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Amenities%20Optimised/Pool.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Amenities%20First%20Frames/Pool.avif",
-      "tags": ["Pool", "Leisure", "Relaxation"],
-      "statLabel": "Pace",
-      "statValue": "Relaxed"
-    },
-    {
-      "id": "butterfly-garden",
-      "title": "Butterfly Garden",
-      "category": "Nature",
-      "shortDescription": "A colourful garden habitat shaped for butterflies, flowering plants, and quiet discovery.",
-      "details": "A richly planted garden where seasonal blooms create a calm setting for nature and everyday pause.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Amenities%20Optimised/Butterfly%20Garden.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Amenities%20First%20Frames/Butterfly%20Garden.avif",
-      "tags": ["Butterflies", "Garden", "Nature"],
-      "statLabel": "Mood",
-      "statValue": "Vibrant"
+      "id": "kids-play-area",
+      "title": "Children's Play Area",
+      "category": "Recreation",
+      "shortDescription": "Play equipment in a landscaped outdoor setting.",
+      "details": "Play equipment in a landscaped outdoor setting.",
+      "videoSrc": "/varaprasad_amenities/videos/kids-play-area.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/kids-play-area.avif",
+      "tags": [
+        "Recreation"
+      ]
     },
     {
       "id": "swimming-pool",
       "title": "Swimming Pool",
       "category": "Wellness",
-      "shortDescription": "A dedicated swimming space for fitness, refreshment, and easy daily recreation.",
-      "details": "A generous pool setting that balances active swimming with a refined resort-like atmosphere.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/swimming%20pool_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/swimming%20pool.avif",
-      "tags": ["Swimming", "Fitness", "Wellness"],
-      "statLabel": "Feel",
-      "statValue": "Refreshing"
+      "shortDescription": "Swimming pool and adjoining lounge spaces.",
+      "details": "Swimming pool and adjoining lounge spaces.",
+      "videoSrc": "/varaprasad_amenities/videos/swimming-pool.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/swimming-pool.avif",
+      "tags": [
+        "Wellness"
+      ]
     },
     {
-      "id": "sculpture-court",
-      "title": "Sculpture Court",
-      "category": "Landscape",
-      "shortDescription": "A contemplative garden setting shaped around art, greenery, and reflection.",
-      "details": "A landscaped court where sculpture and planting create a distinctive outdoor focal point.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Sculpture_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Sculpture.avif",
-      "tags": ["Art", "Landscape", "Quiet"],
-      "statLabel": "Tone",
-      "statValue": "Serene"
-    },
-    {
-      "id": "fountain",
-      "title": "Fountain",
-      "category": "Landscape",
-      "shortDescription": "A sculptural water feature surrounded by immersive planting and shaded paths.",
-      "details": "A landscape focal point that brings water, stone, and garden textures together.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/water%20fountain_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/water%20fountain.avif",
-      "tags": ["Water", "Landscape", "Nature"],
-      "statLabel": "Tone",
-      "statValue": "Refreshing"
-    },
-    {
-      "id": "garden-walk",
-      "title": "Floral Garden Walk",
-      "category": "Nature",
-      "shortDescription": "A richly planted walking route for fresh air and quiet everyday movement.",
-      "details": "A garden-led path framed by flowering trees, textured planting, and shaded pauses.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Garden%20walk_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Garden%20walk.avif",
-      "tags": ["Garden", "Walk", "Nature"],
-      "statLabel": "Feel",
-      "statValue": "Immersive"
+      "id": "pickleball",
+      "title": "Pickleball Court",
+      "category": "Sport",
+      "shortDescription": "A dedicated court for pickleball.",
+      "details": "A dedicated court for pickleball.",
+      "videoSrc": "/varaprasad_amenities/videos/pickleball.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/pickleball.avif",
+      "tags": [
+        "Sport"
+      ]
     },
     {
       "id": "tennis",
       "title": "Tennis Court",
       "category": "Sport",
-      "shortDescription": "A dedicated court for focused practice, friendly matches, and active recreation.",
-      "details": "A full-quality outdoor sporting environment designed for energetic play and social competition.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Tennis%20court_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Tennis%20court.avif",
-      "tags": ["Tennis", "Sport", "Outdoor"],
-      "statLabel": "Mode",
-      "statValue": "Competitive"
+      "shortDescription": "Tennis facilities at the clubhouse.",
+      "details": "Tennis facilities at the clubhouse.",
+      "videoSrc": "/varaprasad_amenities/videos/tennis.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/tennis.avif",
+      "tags": [
+        "Sport"
+      ]
     },
     {
-      "id": "banquet-hall",
-      "title": "Banquet Hall",
-      "category": "Community",
-      "shortDescription": "An elegant indoor venue for celebrations, gatherings, and memorable occasions.",
-      "details": "A flexible social setting designed to host private functions and community events with ease.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Banquet%20hall_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Banquet%20hall.avif",
-      "tags": ["Celebration", "Community", "Indoor"],
-      "statLabel": "Setting",
-      "statValue": "Social"
-    },
-    {
-      "id": "feature-wall",
-      "title": "Feature Wall",
-      "category": "Landscape",
-      "shortDescription": "A crafted visual landmark that gives the landscape a distinct sense of place.",
-      "details": "An architectural feature designed to enrich arrival moments and frame the surrounding greenery.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Feature%20wall_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Feature%20wall.avif",
-      "tags": ["Design", "Landscape", "Landmark"],
-      "statLabel": "Character",
-      "statValue": "Distinctive"
-    },
-    {
-      "id": "fruit-orchards",
-      "title": "Fruit Orchards",
-      "category": "Nature",
-      "shortDescription": "A productive green landscape filled with fruit trees and seasonal character.",
-      "details": "A calm orchard environment that brings residents closer to nature through changing colour and harvest.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Fruit%20Orchids_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Fruit%20Orchids.avif",
-      "tags": ["Orchard", "Nature", "Seasonal"],
-      "statLabel": "Experience",
-      "statValue": "Natural"
-    },
-    {
-      "id": "pet-park",
-      "title": "Pet Park",
-      "category": "Recreation",
-      "shortDescription": "A dedicated outdoor space where pets can exercise, explore, and socialise safely.",
-      "details": "An open and landscaped pet-friendly zone designed for everyday play and movement.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Pet%20park_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Pet%20park.avif",
-      "tags": ["Pets", "Outdoor", "Play"],
-      "statLabel": "Energy",
-      "statValue": "Playful"
-    },
-    {
-      "id": "polyhouse",
-      "title": "Polyhouse",
-      "category": "Nature",
-      "shortDescription": "A protected growing space that celebrates cultivation and everyday connection with plants.",
-      "details": "A carefully managed garden environment supporting year-round greenery and hands-on discovery.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Poly%20house_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Poly%20house.avif",
-      "tags": ["Growing", "Greenery", "Learning"],
-      "statLabel": "Focus",
-      "statValue": "Cultivation"
-    },
-    {
-      "id": "red-flowers-walk",
-      "title": "Garden Walk",
-      "category": "Nature",
-      "shortDescription": "A vibrant walking route framed by flowering planting and changing seasonal colour.",
-      "details": "A garden path designed for leisurely movement through richly layered blooms and greenery.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Red%20flowers%20walk_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Red%20flowers%20walk.avif",
-      "tags": ["Flowers", "Walk", "Garden"],
-      "statLabel": "Mood",
-      "statValue": "Vibrant"
-    },
-    {
-      "id": "sports-area",
-      "title": "Sports Area",
+      "id": "basketball-court",
+      "title": "Basketball Court",
       "category": "Sport",
-      "shortDescription": "An active recreation zone supporting movement, practice, and friendly competition.",
-      "details": "A versatile outdoor sporting environment planned for energetic everyday use by residents.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Sports%20area_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Sports%20area.avif",
-      "tags": ["Sport", "Fitness", "Outdoor"],
-      "statLabel": "Energy",
-      "statValue": "Active"
+      "shortDescription": "An outdoor basketball practice court.",
+      "details": "An outdoor basketball practice court.",
+      "videoSrc": "/varaprasad_amenities/videos/basketball-court.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/basketball-court.avif",
+      "tags": [
+        "Sport"
+      ]
     },
     {
-      "id": "terminalia-walk",
-      "title": "Terminalia Walk",
-      "category": "Nature",
-      "shortDescription": "A tree-lined walking experience shaped by shade, greenery, and a relaxed rhythm.",
-      "details": "A landscaped route beneath Terminalia trees for comfortable walks and quiet outdoor pauses.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/Terminelia_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/Terminelia.avif",
-      "tags": ["Trees", "Walk", "Shade"],
-      "statLabel": "Feel",
-      "statValue": "Shaded"
-    },
-    {
-      "id": "amphitheatre",
-      "title": "Amphitheatre",
-      "category": "Community",
-      "shortDescription": "An open-air gathering space for performances, events, and shared experiences.",
-      "details": "A landscaped amphitheatre that brings residents together for cultural and community occasions.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/amphitheater_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/amphitheater.avif",
-      "tags": ["Events", "Community", "Outdoor"],
-      "statLabel": "Setting",
-      "statValue": "Collective"
-    },
-    {
-      "id": "fireplace",
-      "title": "Fireplace",
-      "category": "Leisure",
-      "shortDescription": "A warm outdoor gathering point for relaxed evenings and intimate conversation.",
-      "details": "A comfortable social setting centred around fire, landscape, and slower evening moments.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/fire%20place_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/fire%20place.avif",
-      "tags": ["Evening", "Gathering", "Leisure"],
-      "statLabel": "Mood",
-      "statValue": "Warm"
-    },
-    {
-      "id": "futsal-court",
-      "title": "Futsal Court",
+      "id": "volleyball-court",
+      "title": "Volleyball Court",
       "category": "Sport",
-      "shortDescription": "A dedicated court for fast-paced football, team play, and active recreation.",
-      "details": "An energetic sporting space designed for training, casual games, and community matches.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/footsol%20court_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/footsol%20court.avif",
-      "tags": ["Futsal", "Team Sport", "Outdoor"],
-      "statLabel": "Mode",
-      "statValue": "Energetic"
+      "shortDescription": "A sand court for volleyball.",
+      "details": "A sand court for volleyball.",
+      "videoSrc": "/varaprasad_amenities/videos/vollyball.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/vollyball.avif",
+      "tags": [
+        "Sport"
+      ]
     },
     {
       "id": "multipurpose-court",
       "title": "Multipurpose Court",
       "category": "Sport",
-      "shortDescription": "A flexible court supporting a variety of games, practice sessions, and group activities.",
-      "details": "A versatile outdoor facility that adapts easily to different sports and recreational needs.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/multipurpose%20court_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/multipurpose%20court.avif",
-      "tags": ["Sport", "Games", "Flexible"],
-      "statLabel": "Use",
-      "statValue": "Versatile"
+      "shortDescription": "An enclosed outdoor court for recreation.",
+      "details": "An enclosed outdoor court for recreation.",
+      "videoSrc": "/varaprasad_amenities/videos/multi-purpose-court.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/multi-purpose-court.avif",
+      "tags": [
+        "Sport"
+      ]
     },
     {
-      "id": "outdoor-yoga-gym",
-      "title": "Outdoor Yoga & Gym",
+      "id": "mini-golf",
+      "title": "Mini Golf",
+      "category": "Recreation",
+      "shortDescription": "A landscaped putting area.",
+      "details": "A landscaped putting area.",
+      "videoSrc": "/varaprasad_amenities/videos/mini-golf.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/mini-golf.avif",
+      "tags": [
+        "Recreation"
+      ]
+    },
+    {
+      "id": "sitout-area",
+      "title": "Sit-out Area",
+      "category": "Leisure",
+      "shortDescription": "Shaded seating among landscaped gardens.",
+      "details": "Shaded seating among landscaped gardens.",
+      "videoSrc": "/varaprasad_amenities/videos/sitout-area.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/sitout-area.avif",
+      "tags": [
+        "Leisure"
+      ]
+    },
+    {
+      "id": "entrance",
+      "title": "Entrance",
+      "category": "Landscape",
+      "shortDescription": "The entrance and arrival landscape.",
+      "details": "The entrance and arrival landscape.",
+      "videoSrc": "/varaprasad_amenities/videos/entry.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/entry.avif",
+      "tags": [
+        "Landscape"
+      ]
+    },
+    {
+      "id": "gym",
+      "title": "Gym",
       "category": "Wellness",
-      "shortDescription": "An open-air fitness setting for yoga, strength, mobility, and mindful movement.",
-      "details": "A landscaped wellness zone combining calm practice areas with accessible outdoor exercise.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/outdoor%20yoga%20and%20gym_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/outdoor%20yoga%20and%20gym.avif",
-      "tags": ["Yoga", "Fitness", "Wellness"],
-      "statLabel": "Balance",
-      "statValue": "Holistic"
+      "shortDescription": "Indoor fitness and workout spaces.",
+      "details": "Indoor fitness and workout spaces.",
+      "videoSrc": "/varaprasad_amenities/videos/gym.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/gym.avif",
+      "tags": [
+        "Wellness"
+      ]
     },
     {
-      "id": "pickleball-court",
-      "title": "Pickleball Court",
+      "id": "yoga",
+      "title": "Yoga Studio",
+      "category": "Wellness",
+      "shortDescription": "An indoor space for yoga and exercise.",
+      "details": "An indoor space for yoga and exercise.",
+      "videoSrc": "/varaprasad_amenities/videos/yoga.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/yoga.avif",
+      "tags": [
+        "Wellness"
+      ]
+    },
+    {
+      "id": "badminton",
+      "title": "Badminton Court",
       "category": "Sport",
-      "shortDescription": "A dedicated court for accessible, social, and fast-moving racket play.",
-      "details": "A contemporary recreation space created for friendly matches and active community engagement.",
-      "videoSrc": "https://cdn.sthyra.com/TULA/Videos/pickle%20ball_compressed.mp4",
-      "thumbnailSrc": "https://cdn.sthyra.com/TULA/Images/pickle%20ball.avif",
-      "tags": ["Pickleball", "Racket Sport", "Social"],
-      "statLabel": "Mode",
-      "statValue": "Social"
+      "shortDescription": "Indoor badminton facilities.",
+      "details": "Indoor badminton facilities.",
+      "videoSrc": "/varaprasad_amenities/videos/badminton.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/badminton.avif",
+      "tags": [
+        "Sport"
+      ]
+    },
+    {
+      "id": "squash",
+      "title": "Squash Court",
+      "category": "Sport",
+      "shortDescription": "An indoor squash court.",
+      "details": "An indoor squash court.",
+      "videoSrc": "/varaprasad_amenities/videos/squash.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/squash.avif",
+      "tags": [
+        "Sport"
+      ]
+    },
+    {
+      "id": "billiards-room",
+      "title": "Billiards Room",
+      "category": "Recreation",
+      "shortDescription": "Indoor billiards and recreation spaces.",
+      "details": "Indoor billiards and recreation spaces.",
+      "videoSrc": "/varaprasad_amenities/videos/billrds-room.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/billrds-room.avif",
+      "tags": [
+        "Recreation"
+      ]
+    },
+    {
+      "id": "banquet-hall",
+      "title": "Banquet Hall",
+      "category": "Community",
+      "shortDescription": "An indoor hall for gatherings.",
+      "details": "An indoor hall for gatherings.",
+      "videoSrc": "/varaprasad_amenities/videos/banquet-hall.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/banquet-hall.avif",
+      "tags": [
+        "Community"
+      ]
+    },
+    {
+      "id": "theatre",
+      "title": "Theatre",
+      "category": "Entertainment",
+      "shortDescription": "The clubhouse screening room.",
+      "details": "The clubhouse screening room.",
+      "videoSrc": "/varaprasad_amenities/videos/theater.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/theater.avif",
+      "tags": [
+        "Entertainment"
+      ]
+    },
+    {
+      "id": "cafeteria-view-1",
+      "title": "Cafeteria - View 1",
+      "category": "Community",
+      "shortDescription": "A view of the cafeteria and seating.",
+      "details": "A view of the cafeteria and seating.",
+      "videoSrc": "/varaprasad_amenities/videos/cafeteria-01.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/cafeteria-01.avif",
+      "tags": [
+        "Community"
+      ]
+    },
+    {
+      "id": "cafeteria-view-2",
+      "title": "Cafeteria - View 2",
+      "category": "Community",
+      "shortDescription": "Another view of the cafeteria spaces.",
+      "details": "Another view of the cafeteria spaces.",
+      "videoSrc": "/varaprasad_amenities/videos/cafeteria-02.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/cafeteria-02.avif",
+      "tags": [
+        "Community"
+      ]
+    },
+    {
+      "id": "guest-bedroom-1",
+      "title": "Guest Bedroom 1",
+      "category": "Clubhouse",
+      "shortDescription": "A view of a clubhouse guest bedroom.",
+      "details": "A view of a clubhouse guest bedroom.",
+      "videoSrc": "/varaprasad_amenities/videos/guest-bedroom.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/guest-bedroom.avif",
+      "tags": [
+        "Clubhouse"
+      ]
+    },
+    {
+      "id": "guest-bedroom-2",
+      "title": "Guest Bedroom 2",
+      "category": "Clubhouse",
+      "shortDescription": "A second clubhouse guest-bedroom view.",
+      "details": "A second clubhouse guest-bedroom view.",
+      "videoSrc": "/varaprasad_amenities/videos/guest-bedroom2.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/guest-bedroom2.avif",
+      "tags": [
+        "Clubhouse"
+      ]
+    },
+    {
+      "id": "open-terrace",
+      "title": "Open Terrace",
+      "category": "Leisure",
+      "shortDescription": "The clubhouse's open terrace.",
+      "details": "The clubhouse's open terrace.",
+      "videoSrc": "/varaprasad_amenities/videos/open-terrace.mp4",
+      "thumbnailSrc": "/varaprasad_amenities/first-frames/open-terrace.avif",
+      "tags": [
+        "Leisure"
+      ]
     }
   ]
 }

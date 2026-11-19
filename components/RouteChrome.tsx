@@ -113,6 +113,7 @@ export default function RouteChrome() {
           !shouldMergeDockIntoCta &&
           !isAmenitiesRoute &&
           !isHomeRoute &&
+          !isMasterPlanRoute &&
           !isAreaMapRoute
         }
       />

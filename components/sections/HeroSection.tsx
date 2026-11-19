@@ -7,6 +7,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { Landmark } from "lucide-react";
 import { Cormorant_Garamond } from "next/font/google";
 import DesktopSiteRail from "@/components/DesktopSiteRail";
+import { warmVillaMasterPlanAssets } from "@/lib/villa-masterplan-preload";
 
 const heroSerif = Cormorant_Garamond({
   subsets: ["latin"],
@@ -43,7 +44,7 @@ function HeroMagneticButton({
         type="button"
       >
         <span className="hero-liquid-text">
-          Explore The Estate
+          Explore Master Plan
           <BsArrowRight className="text-[1.05rem] text-[#cec3a0]" aria-hidden />
         </span>
       </button>
@@ -54,7 +55,6 @@ function HeroMagneticButton({
 type HeroSectionProps = {
   heroLogoSrc?: string | null;
   heroPosterSrc?: string | null;
-  masterPlanScrubVideoSrc?: string | null;
   heroVideoSrc?: string | null;
   heroLoopVideoSrc?: string | null;
   staticHeroImageSrc?: string | null;
@@ -106,7 +106,6 @@ function afterNextVideoFrame(
 
 export default function HeroSection({
   heroPosterSrc,
-  masterPlanScrubVideoSrc,
   heroVideoSrc,
   heroLoopVideoSrc,
   staticHeroImageSrc,
@@ -117,7 +116,6 @@ export default function HeroSection({
   const router = useRouter();
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
   const heroLoopVideoRef = useRef<HTMLVideoElement | null>(null);
-  const idleWarmVideoRef = useRef<HTMLVideoElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
   const scrollLockRef = useRef(false);
 
@@ -270,11 +268,12 @@ export default function HeroSection({
     }
   }, [heroVideoSrc, isEntryVideoVisible, prepareVideoForInlinePlayback]);
 
-  const goToProjectOverview = useCallback(() => {
+  const goToMasterPlan = useCallback(() => {
     if (scrollLockRef.current) return;
 
     scrollLockRef.current = true;
-    router.push("/project-overview");
+    warmVillaMasterPlanAssets(true);
+    router.push("/master-plan");
   }, [router]);
 
   useEffect(() => {
@@ -491,6 +490,7 @@ export default function HeroSection({
 
     const warmMasterPlan = () => {
       router.prefetch("/master-plan");
+      warmVillaMasterPlanAssets();
     };
 
     if (typeof idleWindow.requestIdleCallback === "function") {
@@ -524,7 +524,7 @@ export default function HeroSection({
       if (scrollLockRef.current) return;
 
       e.preventDefault();
-      goToProjectOverview();
+      goToMasterPlan();
     };
 
     el.addEventListener("wheel", handleWheel, { passive: false });
@@ -532,7 +532,7 @@ export default function HeroSection({
     return () => {
       el.removeEventListener("wheel", handleWheel);
     };
-  }, [goToProjectOverview]);
+  }, [goToMasterPlan]);
 
   return (
     <section
@@ -587,20 +587,6 @@ export default function HeroSection({
           void startHeroVideo();
         }}
       />
-
-      <video
-        ref={idleWarmVideoRef}
-        muted
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-        tabIndex={-1}
-        className="pointer-events-none absolute h-0 w-0 opacity-0"
-      >
-        {masterPlanScrubVideoSrc ? (
-          <source src={masterPlanScrubVideoSrc} type="video/mp4" />
-        ) : null}
-      </video>
 
       <style jsx global>{`
         .hero-section-video::-webkit-media-controls,
@@ -850,7 +836,7 @@ export default function HeroSection({
           </motion.p>
 
           <motion.div variants={contentItem} className="mt-7">
-            <HeroMagneticButton onClick={goToProjectOverview} />
+            <HeroMagneticButton onClick={goToMasterPlan} />
           </motion.div>
         </motion.div>
       </div>
