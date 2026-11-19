@@ -219,6 +219,14 @@ test("villa 20 balcony loads its own signed cloud tiles on demand and caches ret
   assert.equal(await store.getPanorama(tour.folders.FF_CAM2_F0008), assets);
   assert.equal(requests.length, 3, "Return visits and the second first-floor stop reuse the same signed set");
 });
+test("villa interior omits the shared-preview badge but retains back and balcony controls", () => {
+  const component = fs.readFileSync("components/tour/VillaInteriorPanoWalkthrough.tsx", "utf8");
+  assert(!component.includes("Shared interior preview"));
+  assert(component.includes("Back to masterplan"));
+  assert(component.includes("balconyDestinations={VILLA_BALCONY_DESTINATIONS}"));
+  assert(component.includes("data-villa-interior={villaNumber}"));
+});
+
 test("all 108 local metadata/previews and 13824 original tiles exist", {
   skip: !fs.existsSync(root) && "Large local image assets are intentionally ignored by Git",
 }, () => {

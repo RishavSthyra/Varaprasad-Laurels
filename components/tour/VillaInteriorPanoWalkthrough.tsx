@@ -36,7 +36,6 @@ export default function VillaInteriorPanoWalkthrough({ initialNodeId, villaNumbe
       <Link href="/master-plan" className="flex items-center gap-2 rounded-full border border-[#dcb76f66] bg-[#06152fe8] px-4 py-2.5 text-xs font-medium text-[#e1bd7c] backdrop-blur-xl focus-visible:outline-2 focus-visible:outline-[#e1bd7c]">
         <ArrowLeft size={15} /> Back to masterplan
       </Link>
-      <span className="rounded-full bg-black/45 px-3 py-1.5 text-[10px] text-white/85 backdrop-blur-md">Villa {villaNumber} · Shared interior preview</span>
     </div>
   </div>;
 }

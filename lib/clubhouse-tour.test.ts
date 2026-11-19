@@ -111,6 +111,13 @@ test("clubhouse resolves signed full-quality tiles on demand without scanning 10
 });
 
 const root = path.resolve("public/varaprasad_clubhouse_panos");
+
+test("clubhouse hides the zone/view dropdown without removing floor navigation", () => {
+  const component = fs.readFileSync("components/tour/ClubhousePanoWalkthrough.tsx", "utf8");
+  assert(component.includes("showViewpointSelector={false}"));
+  assert(component.includes("navigationSections={CLUBHOUSE_SECTIONS}"));
+  assert(component.includes("floorMarkers={CLUBHOUSE_FLOOR_MARKERS}"));
+});
 test("105 local previews, metadata files and all 13440 original 12K tiles are present", {
   skip: !fs.existsSync(root) && "Local generated panoramas are intentionally not stored in Git",
 }, () => {

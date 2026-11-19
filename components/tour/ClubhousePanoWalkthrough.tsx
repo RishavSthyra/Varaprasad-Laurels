@@ -30,6 +30,7 @@ export default function ClubhousePanoWalkthrough({ initialNodeId }: { initialNod
     showMinimap={false}
     minimapUnavailable
     showModeToggle={false}
+    showViewpointSelector={false}
     showDimensionsToggle={false}
     className="h-full w-full rounded-none border-0"
   />;
