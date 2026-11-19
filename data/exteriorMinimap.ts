@@ -14,7 +14,7 @@ export type ExteriorMinimapLocation = {
 };
 
 export const EXTERIOR_MINIMAP_IMAGE_URL =
-  "/without%20text%20Tula_Master-Plan.avif";
+  "https://cdn.sthyra.com/Varaprasad_Laurels/Images/ortho.avif";
 
 // Maps exterior render-world metres to the replacement 16:9 minimap.
 export const EXTERIOR_MINIMAP_PROJECTION = {
@@ -31,8 +31,8 @@ export const EXTERIOR_MINIMAP_PROJECTION = {
 } as const;
 
 export const EXTERIOR_MINIMAP_IMAGE_LAYOUT = {
-  width: 7680,
-  height: 4320,
+  width: 3840,
+  height: 2160,
 } as const;
 
 // Pano node positions are exported in centimetres; minimap calibration and
