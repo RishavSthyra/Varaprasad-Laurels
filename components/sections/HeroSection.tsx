@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { BsArrowRight } from "react-icons/bs";
 import { Landmark } from "lucide-react";
 import { Cormorant_Garamond } from "next/font/google";
@@ -15,10 +16,6 @@ const heroSerif = Cormorant_Garamond({
   style: ["normal"],
   variable: "--font-hero-serif",
 });
-
-const EMPTY_IMAGE_DATA_URL =
-  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-const HERO_PLAY_RETRY_MS = 450;
 
 type IdleCapableWindow = Window &
   typeof globalThis & {
@@ -37,7 +34,7 @@ function HeroMagneticButton({
   onClick: () => void;
 }) {
   return (
-    <div className="hero-liquid-wrap mr-auto">
+    <div className="hero-liquid-wrap ml-auto inline-flex">
       <button
         className="hero-liquid-button"
         onClick={onClick}
@@ -45,90 +42,25 @@ function HeroMagneticButton({
       >
         <span className="hero-liquid-text">
           Explore Master Plan
-          <BsArrowRight className="text-[1.05rem] text-[#cec3a0]" aria-hidden />
+          <BsArrowRight className="text-[0.9rem] text-[#cec3a0]" aria-hidden />
         </span>
       </button>
     </div>
   );
 }
 
-type HeroSectionProps = {
-  heroLogoSrc?: string | null;
-  heroPosterSrc?: string | null;
-  heroVideoSrc?: string | null;
-  heroLoopVideoSrc?: string | null;
-  staticHeroImageSrc?: string | null;
-  onHeroReadyChange?: (ready: boolean) => void;
-  onHeroVideoProgressChange?: (progress: number) => void;
-  playIntroAnimation?: boolean;
-};
+type HeroSectionProps = { imageSrc: string };
 
-function getHeroVideoLoadProgress(video: HTMLVideoElement) {
-  const duration = video.duration;
-
-  if (Number.isFinite(duration) && duration > 0 && video.buffered.length > 0) {
-    const bufferedEnd = video.buffered.end(video.buffered.length - 1);
-    return Math.max(0, Math.min(1, bufferedEnd / duration));
-  }
-
-  if (video.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
-    return 1;
-  }
-
-  if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-    return 0.84;
-  }
-
-  if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-    return 0.58;
-  }
-
-  if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
-    return 0.26;
-  }
-
-  return 0.08;
-}
-
-function afterNextVideoFrame(
-  video: HTMLVideoElement,
-  callback: () => void,
-) {
-  if (typeof video.requestVideoFrameCallback === "function") {
-    video.requestVideoFrameCallback(() => callback());
-    return;
-  }
-
-  window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(callback);
-  });
-}
-
-export default function HeroSection({
-  heroPosterSrc,
-  heroVideoSrc,
-  heroLoopVideoSrc,
-  staticHeroImageSrc,
-  onHeroReadyChange,
-  onHeroVideoProgressChange,
-  playIntroAnimation = false,
-}: HeroSectionProps) {
+export default function HeroSection({ imageSrc }: HeroSectionProps) {
   const router = useRouter();
-  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
-  const heroLoopVideoRef = useRef<HTMLVideoElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
   const scrollLockRef = useRef(false);
 
-  const [videoReady, setVideoReady] = useState(false);
-  const [isHeroVideoPlaying, setIsHeroVideoPlaying] = useState(false);
-  const [isHeroLoopVideoVisible, setIsHeroLoopVideoVisible] = useState(false);
-  const isEntryVideoVisible = false;
+  const [imageReady, setImageReady] = useState(false);
 
   const line1 = "A Private World,";
   const line2Prefix = "Entirely";
   const line2Accent = "Your Own";
-  const heroPosterImage =
-    heroPosterSrc ?? staticHeroImageSrc ?? EMPTY_IMAGE_DATA_URL;
 
   const contentWrap: Variants = {
     hidden: {
@@ -179,95 +111,6 @@ export default function HeroSection({
     },
   };
 
-  const prepareVideoForInlinePlayback = useCallback((video: HTMLVideoElement) => {
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-    video.autoplay = false;
-    video.controls = false;
-    video.disablePictureInPicture = true;
-    video.disableRemotePlayback = true;
-    video.removeAttribute("controls");
-    video.setAttribute("muted", "");
-    video.removeAttribute("autoplay");
-    video.setAttribute("playsinline", "");
-    video.setAttribute("webkit-playsinline", "");
-    video.setAttribute("x5-playsinline", "");
-    video.setAttribute("x5-video-player-type", "h5-page");
-    video.setAttribute("x-webkit-airplay", "deny");
-  }, []);
-
-  const prepareHeroLoopVideo = useCallback(
-    (video: HTMLVideoElement) => {
-      if (!heroLoopVideoSrc) {
-        return;
-      }
-
-      prepareVideoForInlinePlayback(video);
-
-      if (video.src !== heroLoopVideoSrc) {
-        video.src = heroLoopVideoSrc;
-      }
-
-      video.preload = "auto";
-    },
-    [heroLoopVideoSrc, prepareVideoForInlinePlayback],
-  );
-
-  const startHeroLoopVideo = useCallback(async () => {
-    const loopVideo = heroLoopVideoRef.current;
-
-    if (!loopVideo || !heroLoopVideoSrc || isEntryVideoVisible) {
-      return;
-    }
-
-    prepareHeroLoopVideo(loopVideo);
-
-    try {
-      loopVideo.currentTime = 0;
-      await loopVideo.play();
-      afterNextVideoFrame(loopVideo, () => {
-        setIsHeroLoopVideoVisible(true);
-
-        window.requestAnimationFrame(() => {
-          heroVideoRef.current?.pause();
-          setIsHeroVideoPlaying(false);
-        });
-      });
-    } catch {
-      // Keep the forward video's last painted frame visible if reverse fails.
-    }
-  }, [
-    heroLoopVideoSrc,
-    isEntryVideoVisible,
-    prepareHeroLoopVideo,
-  ]);
-
-  const startHeroVideo = useCallback(async () => {
-    const heroVideo = heroVideoRef.current;
-
-    if (!heroVideo || !heroVideoSrc || isEntryVideoVisible) {
-      return;
-    }
-
-    prepareVideoForInlinePlayback(heroVideo);
-
-    try {
-      heroVideo.currentTime = 0;
-      await heroVideo.play();
-      afterNextVideoFrame(heroVideo, () => {
-        setIsHeroVideoPlaying(true);
-
-        window.requestAnimationFrame(() => {
-          heroLoopVideoRef.current?.pause();
-          setIsHeroLoopVideoVisible(false);
-        });
-      });
-    } catch {
-      // Keep the reverse video's last painted frame visible if forward fails.
-    }
-  }, [heroVideoSrc, isEntryVideoVisible, prepareVideoForInlinePlayback]);
-
   const goToMasterPlan = useCallback(() => {
     if (scrollLockRef.current) return;
 
@@ -277,208 +120,7 @@ export default function HeroSection({
   }, [router]);
 
   useEffect(() => {
-    const heroVideo = heroVideoRef.current;
-    if (!heroVideo || !heroVideoSrc) {
-      onHeroVideoProgressChange?.(0.08);
-      return;
-    }
-
-    let readyFrameId: number | null = null;
-    let rafId: number | null = null;
-
-    const markVideoReady = () => {
-      setVideoReady(true);
-    };
-
-    const markVideoFallbackReady = () => {
-      setVideoReady(true);
-    };
-
-    const markHeroVideoPlaying = () => {
-      setIsHeroVideoPlaying(true);
-    };
-
-    const reportProgress = () => {
-      onHeroVideoProgressChange?.(getHeroVideoLoadProgress(heroVideo));
-    };
-
-    prepareVideoForInlinePlayback(heroVideo);
-    heroVideo.preload = "auto";
-
-    if (heroVideo.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
-      onHeroVideoProgressChange?.(1);
-      readyFrameId = window.requestAnimationFrame(markVideoReady);
-      return () => {
-        if (readyFrameId !== null) {
-          window.cancelAnimationFrame(readyFrameId);
-        }
-      };
-    }
-
-    reportProgress();
-
-    const handleCanPlay = () => {
-      reportProgress();
-      markVideoReady();
-    };
-
-    const handleLoadedData = () => {
-      reportProgress();
-      if (heroVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-        markVideoReady();
-      }
-    };
-
-    const handleProgress = () => {
-      if (rafId !== null) {
-        return;
-      }
-
-      rafId = window.requestAnimationFrame(() => {
-        rafId = null;
-        reportProgress();
-      });
-    };
-
-    const handleFallbackReady = () => {
-      onHeroVideoProgressChange?.(1);
-      markVideoFallbackReady();
-    };
-
-    const handleStateCheck = () => {
-      reportProgress();
-
-      if (heroVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-        markVideoReady();
-      }
-    };
-
-    heroVideo.addEventListener("loadedmetadata", handleProgress);
-    heroVideo.addEventListener("loadeddata", handleLoadedData);
-    heroVideo.addEventListener("progress", handleProgress);
-    heroVideo.addEventListener("canplay", handleCanPlay);
-    heroVideo.addEventListener("canplaythrough", handleCanPlay);
-    heroVideo.addEventListener("playing", handleStateCheck);
-    heroVideo.addEventListener("playing", markHeroVideoPlaying);
-    heroVideo.addEventListener("play", markHeroVideoPlaying);
-    heroVideo.addEventListener("stalled", handleStateCheck);
-    heroVideo.addEventListener("suspend", handleStateCheck);
-    heroVideo.addEventListener("waiting", handleStateCheck);
-    heroVideo.addEventListener("error", handleFallbackReady);
-
-    heroVideo.load();
-
-    return () => {
-      if (readyFrameId !== null) {
-        window.cancelAnimationFrame(readyFrameId);
-      }
-
-      if (rafId !== null) {
-        window.cancelAnimationFrame(rafId);
-      }
-
-      heroVideo.removeEventListener("loadedmetadata", handleProgress);
-      heroVideo.removeEventListener("loadeddata", handleLoadedData);
-      heroVideo.removeEventListener("progress", handleProgress);
-      heroVideo.removeEventListener("canplay", handleCanPlay);
-      heroVideo.removeEventListener("canplaythrough", handleCanPlay);
-      heroVideo.removeEventListener("playing", handleStateCheck);
-      heroVideo.removeEventListener("playing", markHeroVideoPlaying);
-      heroVideo.removeEventListener("play", markHeroVideoPlaying);
-      heroVideo.removeEventListener("stalled", handleStateCheck);
-      heroVideo.removeEventListener("suspend", handleStateCheck);
-      heroVideo.removeEventListener("waiting", handleStateCheck);
-      heroVideo.removeEventListener("error", handleFallbackReady);
-    };
-  }, [
-    heroVideoSrc,
-    onHeroVideoProgressChange,
-    prepareVideoForInlinePlayback,
-  ]);
-
-  useEffect(() => {
-    onHeroReadyChange?.(videoReady);
-  }, [onHeroReadyChange, videoReady]);
-
-  useEffect(() => {
-    const heroVideo = heroVideoRef.current;
-
-    if (
-      !heroVideo ||
-      !heroVideoSrc ||
-      !playIntroAnimation ||
-      !videoReady ||
-      isEntryVideoVisible ||
-      isHeroLoopVideoVisible
-    ) {
-      return;
-    }
-
-    prepareVideoForInlinePlayback(heroVideo);
-
-    const playHeroVideo = () => {
-      if (
-        document.visibilityState === "hidden" ||
-        isEntryVideoVisible ||
-        isHeroLoopVideoVisible
-      ) {
-        return;
-      }
-
-      void heroVideo.play().catch(() => undefined);
-    };
-
-    playHeroVideo();
-    const retryTimeout = window.setTimeout(playHeroVideo, 120);
-    const retryInterval = window.setInterval(() => {
-      if (!heroVideo.paused && heroVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-        setIsHeroVideoPlaying(true);
-        window.clearInterval(retryInterval);
-        return;
-      }
-
-      playHeroVideo();
-    }, HERO_PLAY_RETRY_MS);
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        playHeroVideo();
-      }
-    };
-
-    window.addEventListener("focus", playHeroVideo);
-    window.addEventListener("pageshow", playHeroVideo);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () => {
-      window.clearTimeout(retryTimeout);
-      window.clearInterval(retryInterval);
-      window.removeEventListener("focus", playHeroVideo);
-      window.removeEventListener("pageshow", playHeroVideo);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, [
-    heroVideoSrc,
-    isEntryVideoVisible,
-    isHeroLoopVideoVisible,
-    playIntroAnimation,
-    prepareVideoForInlinePlayback,
-    videoReady,
-  ]);
-
-  useEffect(() => {
-    const loopVideo = heroLoopVideoRef.current;
-
-    if (!loopVideo || !heroLoopVideoSrc) {
-      return;
-    }
-
-    prepareHeroLoopVideo(loopVideo);
-    loopVideo.load();
-  }, [heroLoopVideoSrc, prepareHeroLoopVideo]);
-
-  useEffect(() => {
-    if (!videoReady) return;
+    if (!imageReady) return;
 
     let timeoutId: TimeoutHandle | null = null;
     let idleId: number | null = null;
@@ -509,7 +151,7 @@ export default function HeroSection({
         globalThis.clearTimeout(timeoutId);
       }
     };
-  }, [router, videoReady]);
+  }, [router, imageReady]);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -535,66 +177,19 @@ export default function HeroSection({
       ref={sectionRef}
       className="relative app-screen w-full overflow-hidden bg-black text-white"
     >
-      <div
-        className={`absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-700 ${
-          isHeroVideoPlaying || isEntryVideoVisible || isHeroLoopVideoVisible
-            ? "opacity-0"
-            : "opacity-100"
-        }`}
-        style={{ backgroundImage: `url('${heroPosterImage}')` }}
-      />
-
-      <video
-        ref={heroVideoRef}
-        className={`hero-section-video pointer-events-none absolute inset-0 z-[2] h-full w-full object-cover ${
-          isHeroVideoPlaying && !isEntryVideoVisible && !isHeroLoopVideoVisible
-            ? "opacity-100"
-            : "opacity-0"
-        }`}
-        src={heroVideoSrc ?? undefined}
-        muted
-        playsInline
-        preload="auto"
-        controls={false}
-        disablePictureInPicture
-        disableRemotePlayback
-        controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
-        onEnded={() => {
-          void startHeroLoopVideo();
-        }}
-      />
-
-      <video
-        ref={heroLoopVideoRef}
-        muted
-        playsInline
-        preload="auto"
-        className={`hero-section-video pointer-events-none absolute inset-0 z-[3] h-full w-full object-cover ${
-          isHeroLoopVideoVisible && !isEntryVideoVisible
-            ? "opacity-100"
-            : "opacity-0"
-        }`}
-        src={heroLoopVideoSrc ?? undefined}
-        controls={false}
-        disablePictureInPicture
-        disableRemotePlayback
-        controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
-        onEnded={() => {
-          void startHeroVideo();
-        }}
+      <Image
+        src={imageSrc}
+        alt="Laurels villa estate entrance"
+        fill
+        unoptimized
+        loading="eager"
+        fetchPriority="high"
+        sizes="100vw"
+        className="pointer-events-none select-none object-cover object-center"
+        onLoad={() => setImageReady(true)}
       />
 
       <style jsx global>{`
-        .hero-section-video::-webkit-media-controls,
-        .hero-section-video::-webkit-media-controls-panel,
-        .hero-section-video::-webkit-media-controls-play-button,
-        .hero-section-video::-webkit-media-controls-start-playback-button {
-          display: none !important;
-          opacity: 0 !important;
-          pointer-events: none !important;
-          -webkit-appearance: none !important;
-        }
-
         .hero-liquid-wrap {
           position: relative;
           z-index: 2;
@@ -606,8 +201,8 @@ export default function HeroSection({
           all: unset;
           position: relative;
           display: inline-flex;
-          min-width: 14.5rem;
-          height: 52px;
+          min-width: 12.5rem;
+          height: clamp(2.5rem, 6vh, 3rem);
           cursor: pointer;
           align-items: center;
           justify-content: center;
@@ -633,11 +228,11 @@ export default function HeroSection({
           z-index: 2;
           display: inline-flex;
           align-items: center;
-          gap: 0.75rem;
-          padding-inline: 1.5rem;
-          font-size: 11px;
+          gap: 0.6rem;
+          padding-inline: 1.1rem;
+          font-size: 10px;
           font-weight: 700;
-          letter-spacing: 0.2em;
+          letter-spacing: 0.16em;
           color: rgba(250, 248, 242, 0.96);
           text-shadow: 0 1px 0 rgba(0, 10, 24, 0.32);
           text-transform: uppercase;
@@ -790,21 +385,20 @@ export default function HeroSection({
 
       <DesktopSiteRail className="absolute left-6 top-1/2 z-20 -translate-y-1/2 2xl:left-7" />
 
-      <div className="absolute inset-0 z-10 flex items-end justify-start px-6 pb-[calc(env(safe-area-inset-bottom)+2.25rem)] pt-28 sm:px-10 sm:pb-12 sm:pt-32 lg:px-36 xl:px-40 xl:pb-32 2xl:px-44">
+      <div className="absolute inset-0 z-10 flex items-end justify-end px-6 pb-[max(calc(env(safe-area-inset-bottom)+5rem),8vh)] pt-24 sm:px-10 sm:pb-[clamp(2rem,7vh,5rem)] lg:px-12 xl:px-16 2xl:px-20">
         <motion.div
           variants={contentWrap}
           initial="hidden"
-          animate={
-            playIntroAnimation ? "show" : "hidden"
-          }
-          className="mr-auto w-full max-w-[min(92vw,44rem)] text-left"
+          animate="show"
+          data-home-hero-copy
+          className="ml-auto w-full max-w-[34rem] text-right"
         >
           <motion.div variants={contentItem}>
             <h1
-              className={`${heroSerif.className} text-[clamp(2.35rem,4.5vw,5.2rem)] font-normal uppercase leading-[0.94] tracking-[0.045em] text-[#faf8f2] opacity-95 drop-shadow-[0_18px_46px_rgba(0,0,0,0.52)]`}
+              className={`${heroSerif.className} text-[clamp(1.7rem,2.5vw,3rem)] font-normal uppercase leading-[1.04] tracking-[0.035em] text-[#faf8f2] opacity-95 drop-shadow-[0_18px_46px_rgba(0,0,0,0.52)]`}
             >
               <span className="block whitespace-nowrap">{line1}</span>
-              <span className="mt-2 block whitespace-nowrap">
+              <span className="mt-1.5 block whitespace-nowrap">
                 {line2Prefix}{" "}
                 <span className="text-[#cec3a0] drop-shadow-[0_0_24px_rgba(206,195,160,0.18)]">
                   {line2Accent}
@@ -815,32 +409,38 @@ export default function HeroSection({
 
           <motion.div
             variants={contentItem}
-            className="mt-5 mr-auto flex w-full max-w-[min(100%,32rem)] items-center text-[#cec3a0]/75"
+            className="mt-4 ml-auto flex w-full max-w-[25rem] items-center text-[#cec3a0]/75"
           >
-            <span className="h-px w-14 bg-[#cec3a0]/72" />
-            <span className="mx-3 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#dff2b8]/20 bg-white/[0.06] backdrop-blur-md">
-              <Landmark className="h-4 w-4" strokeWidth={1.35} />
+            <span className="h-px w-10 bg-[#cec3a0]/72" />
+            <span className="mx-2.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#dff2b8]/20 bg-white/[0.06] backdrop-blur-md">
+              <Landmark className="h-3.5 w-3.5" strokeWidth={1.35} />
             </span>
             <span className="h-px flex-1 bg-gradient-to-r from-[#cec3a0]/58 via-[#cec3a0]/28 to-transparent" />
           </motion.div>
 
           <motion.p
             variants={contentItem}
-            className="mt-4 mr-auto max-w-[30rem] text-[0.95rem] leading-7 tracking-[0.035em] text-[#faf8f2]/76 sm:text-base"
+            className="mt-3 ml-auto max-w-[26rem] text-xs leading-[1.7] tracking-[0.025em] text-[#faf8f2]/80 sm:text-[13px] 2xl:text-sm"
           >
             Thoughtfully designed villas shaped by open sky, private gardens, and enduring architecture.
           </motion.p>
 
-          <motion.div variants={contentItem} className="mt-7">
+          <motion.div variants={contentItem} className="mt-5 flex justify-end">
             <HeroMagneticButton onClick={goToMasterPlan} />
           </motion.div>
         </motion.div>
       </div>
 
       <style jsx>{`
+        @media (min-width: 641px) and (max-height: 800px) {
+          h1 {
+            font-size: clamp(1.6rem, 2.6vw, 2.75rem);
+          }
+        }
+
         @media (max-width: 640px) {
           h1 {
-            font-size: clamp(2rem, 11vw, 3.35rem);
+            font-size: clamp(1.3rem, 6.2vw, 2rem);
             letter-spacing: 0.025em;
           }
         }

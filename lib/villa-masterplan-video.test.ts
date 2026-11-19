@@ -73,14 +73,14 @@ test("drag frames wrap in either direction and release to a calibrated camera on
   assert(stage.includes("scrubbing={isDragging}"));
 });
 
-test("warmup reuses one media element and the stage GLTF cache after hero readiness", () => {
+test("warmup reuses one media element and the stage GLTF cache after the static hero loads", () => {
   const preload = fs.readFileSync("lib/villa-masterplan-preload.ts", "utf8");
   const hero = fs.readFileSync("components/sections/HeroSection.tsx", "utf8");
   const video = fs.readFileSync("components/VillaMasterPlanVideo.tsx", "utf8");
   assert(preload.includes("useGLTF.preload(VILLA_MASTERPLAN_MODEL_URL)"));
   assert(preload.includes("videos.get(src)"));
   assert(preload.includes("connection?.saveData"));
-  assert(hero.includes("if (!videoReady) return"));
+  assert(hero.includes("if (!imageReady) return"));
   assert(hero.includes("warmVillaMasterPlanAssets()"));
   assert(video.includes("getVillaMasterPlanVideo(src)"));
   assert(!hero.includes("idleWarmVideoRef"), "No duplicate hidden masterplan decoder");

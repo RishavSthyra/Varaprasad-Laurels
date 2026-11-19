@@ -76,37 +76,46 @@ async function checkSignedUrlHook(browser) {
   } finally { await page.close(); }
 }
 
-async function checkHome(browser, stalled = false, mobile = false) {
+async function checkHome(browser, delayedImage = false, mobile = false) {
   const context = await browser.newContext({
     viewport: mobile ? { width: 390, height: 844 } : { width: 1440, height: 900 },
   });
   const page = await context.newPage();
   const errors = [];
   const obsolete = [];
-  const signingRequests = [];
+  const homeVideoRequests = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('request', request => {
-    if (/brochure|forglb|res\.cloudinary\.com/.test(request.url())) obsolete.push(request.url());
-    if (request.url().includes('/api/sign-asset')) signingRequests.push(request.postData() || '');
+    if (/brochure|forglb|res\\.cloudinary\\.com/.test(request.url())) obsolete.push(request.url());
+    if (/Home(?:%20| )Page|Tf(?:%20| )Fixed/.test(request.url())) homeVideoRequests.push(request.url());
   });
   let release;
   const gate = new Promise(resolve => { release = resolve; });
-  if (stalled) await page.route(/TULA\/Videos\/.*\.mp4/, async route => {
+  if (delayedImage) await page.route('**/gate.00297.avif', async route => {
     await gate;
-    await route.abort();
+    await route.continue();
   });
   try {
     const start = Date.now();
     await page.goto(base, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await page.locator('[data-luxury-villa-preloader]').waitFor({ state: 'detached', timeout: 25000 });
+    await page.locator('[data-home-static]').waitFor({ state: 'visible' });
+    assert.equal(await page.locator('[data-luxury-villa-preloader]').count(), 0);
+    assert.equal(await page.locator('[data-home-static] video').count(), 0);
     assert.equal(await page.locator('main[aria-hidden]').getAttribute('aria-hidden'), 'false');
-    assert.equal(obsolete.length, 0, 'No deleted brochure, legacy GLB or Cloudinary frame preloads');
-    assert(!signingRequests.some(body => /Home Page2|Home%20Page2/.test(body)), 'Hero URLs must be server seeded');
-    if (!stalled) {
-      await page.waitForFunction(() => [...document.querySelectorAll('video')].some(v => v.readyState >= 2 && v.currentTime > 0), {}, { timeout: 15000 });
+    const image = page.getByAltText('Laurels villa estate entrance', { exact: true });
+    assert.equal(new URL(await image.getAttribute('src'), base).pathname, '/gate.00297.avif');
+    if (delayedImage) {
+      assert.equal(await image.evaluate(i => i.complete), false);
+      assert.equal(await page.getByRole('button', { name: 'Explore Master Plan', exact: true }).count(), 1);
+      release();
     }
+    await page.waitForFunction(() => [...document.querySelectorAll('img')].some(i =>
+      i.alt === 'Laurels villa estate entrance' && i.complete && i.naturalWidth === 3840
+    ), {}, { timeout: 15000 });
+    assert.equal(obsolete.length, 0, 'No deleted brochure, legacy GLB or Cloudinary frame preloads');
+    assert.equal(homeVideoRequests.length, 0, 'No old home video or fallback requests');
     assert.deepEqual(errors, []);
-    console.log(`PASS ${mobile ? 'mobile' : 'desktop'} home ${stalled ? 'stalled-media fallback' : 'video playback'} (${Date.now() - start} ms including route/intro)`);
+    console.log(`PASS ${mobile ? 'mobile' : 'desktop'} static home ${delayedImage ? '(navigation visible before image loads)' : '(AVIF decoded)'} (${Date.now() - start} ms)`);
   } finally {
     release();
     await context.close();
