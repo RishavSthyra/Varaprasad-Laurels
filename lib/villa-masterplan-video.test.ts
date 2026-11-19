@@ -77,9 +77,12 @@ test("warmup reuses one media element and the stage GLTF cache after the static 
   const preload = fs.readFileSync("lib/villa-masterplan-preload.ts", "utf8");
   const hero = fs.readFileSync("components/sections/HeroSection.tsx", "utf8");
   const video = fs.readFileSync("components/VillaMasterPlanVideo.tsx", "utf8");
+  const policy = fs.readFileSync("lib/masterplan-warmup-policy.ts", "utf8");
+  const modelWarmup = fs.readFileSync("components/VillaMasterPlanModelWarmup.tsx", "utf8");
   assert(preload.includes("useGLTF.preload(VILLA_MASTERPLAN_MODEL_URL)"));
   assert(preload.includes("videos.get(src)"));
-  assert(preload.includes("connection?.saveData"));
+  assert(policy.includes("connection?.saveData"));
+  assert(modelWarmup.includes("useGLTF(VILLA_MASTERPLAN_MODEL_URL)"));
   assert(hero.includes("if (!imageReady) return"));
   assert(hero.includes("warmVillaMasterPlanAssets()"));
   assert(video.includes("getVillaMasterPlanVideo(src)"));

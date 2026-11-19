@@ -11,7 +11,7 @@ type LuxuryVillaPreloaderProps = {
   readyToComplete?: boolean;
 };
 
-const SESSION_KEY = "vara-prasad-panel-preloader-v9-complete";
+const SESSION_KEY = "vara-prasad-panel-preloader-v10-masterplan-warmup";
 const PANEL_COUNT = 14;
 
 export default function LuxuryVillaPreloader({
@@ -140,7 +140,7 @@ export default function LuxuryVillaPreloader({
     }
 
     const timeline = gsap.timeline({
-      delay: 0.65,
+      delay: 0.45,
       onComplete: () => {
         try {
           window.sessionStorage.setItem(SESSION_KEY, "1");
@@ -155,7 +155,7 @@ export default function LuxuryVillaPreloader({
       .to(contentRef.current, {
         autoAlpha: 0,
         y: -12,
-        duration: 0.25,
+        duration: 0.18,
         ease: "power2.inOut",
       })
       .call(() => onRevealStart?.())
@@ -164,8 +164,8 @@ export default function LuxuryVillaPreloader({
         panelsRef.current,
         {
           yPercent: -101,
-          duration: 1.6,
-          stagger: { each: 0.09, from: "end" },
+          duration: 0.85,
+          stagger: { each: 0.035, from: "end" },
           ease: "power4.inOut",
         },
         "+=0.02",

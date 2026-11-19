@@ -11,7 +11,7 @@ test("the homepage uses the supplied AVIF without re-encoding it", () => {
   assert.equal(createHash("sha256").update(image).digest("hex"), "1a2f2f85fa4d3cacd037703e3922c207bcea53ecd4e0f58ce3cc1ab955cd7515");
 });
 
-test("the static homepage has no video, signing or preloader readiness gate", () => {
+test("the homepage stays static while a bounded loader warms the next route", () => {
   const page = readFileSync("app/page.tsx", "utf8");
   const client = readFileSync("components/HomePageClient.tsx", "utf8");
   const hero = readFileSync("components/sections/HeroSection.tsx", "utf8");
@@ -19,9 +19,13 @@ test("the static homepage has no video, signing or preloader readiness gate", ()
   assert(client.includes("<HeroSection imageSrc={imageSrc}"));
   assert(hero.includes('loading="eager"'));
   assert(hero.includes('fetchPriority="high"'));
-  assert(hero.includes('animate="show"'));
+  assert(hero.includes('animate={revealContent ? "show" : "hidden"}'));
   for (const source of [page, client, hero]) {
-    assert(!/<video|heroVideo|LuxuryVillaPreloader|signR2AssetKeys|useSignedAssetUrls/.test(source));
+    assert(!/<video|heroVideo|signR2AssetKeys|useSignedAssetUrls/.test(source));
   }
+  assert(client.includes("<LuxuryVillaPreloader"));
+  assert(client.includes("HOME_WARMUP_MAX_WAIT_MS"));
+  assert(client.includes("observeVillaMasterPlanOpening"));
+  assert(client.includes("scheduleVillaMasterPlanBuffering"));
   assert(hero.includes('router.push("/master-plan")'));
 });

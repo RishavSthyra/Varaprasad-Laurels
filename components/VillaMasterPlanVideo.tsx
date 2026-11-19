@@ -38,7 +38,7 @@ export default function VillaMasterPlanVideo({ src, poster, frame, fps, totalFra
     for (const event of ["loadeddata", "canplay", "seeked"]) video.addEventListener(event, check);
     video.addEventListener("error", fail);
     const id = requestAnimationFrame(check);
-    if (video.networkState === 0) video.load();
+    if (video.networkState === 0 || video.error) video.load();
     return () => {
       cancelAnimationFrame(id);
       video.pause();

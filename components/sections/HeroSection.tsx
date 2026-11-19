@@ -49,9 +49,9 @@ function HeroMagneticButton({
   );
 }
 
-type HeroSectionProps = { imageSrc: string };
+type HeroSectionProps = { imageSrc: string; onImageReady?: () => void; revealContent?: boolean };
 
-export default function HeroSection({ imageSrc }: HeroSectionProps) {
+export default function HeroSection({ imageSrc, onImageReady, revealContent = true }: HeroSectionProps) {
   const router = useRouter();
   const sectionRef = useRef<HTMLElement | null>(null);
   const scrollLockRef = useRef(false);
@@ -186,7 +186,7 @@ export default function HeroSection({ imageSrc }: HeroSectionProps) {
         fetchPriority="high"
         sizes="100vw"
         className="pointer-events-none select-none object-cover object-center"
-        onLoad={() => setImageReady(true)}
+        onLoad={() => { setImageReady(true); onImageReady?.(); }}
       />
 
       <style jsx global>{`
@@ -389,7 +389,7 @@ export default function HeroSection({ imageSrc }: HeroSectionProps) {
         <motion.div
           variants={contentWrap}
           initial="hidden"
-          animate="show"
+          animate={revealContent ? "show" : "hidden"}
           data-home-hero-copy
           className="ml-auto w-full max-w-[34rem] text-right"
         >

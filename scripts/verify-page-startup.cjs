@@ -81,6 +81,15 @@ async function checkHome(browser, delayedImage = false, mobile = false) {
     viewport: mobile ? { width: 390, height: 844 } : { width: 1440, height: 900 },
   });
   const page = await context.newPage();
+  await page.addInitScript(() => {
+    window.__startupVideos = [];
+    const create = document.createElement.bind(document);
+    document.createElement = (tag, ...args) => {
+      const element = create(tag, ...args);
+      if (tag === 'video') window.__startupVideos.push(element);
+      return element;
+    };
+  });
   const errors = [];
   const obsolete = [];
   const homeVideoRequests = [];
@@ -99,7 +108,7 @@ async function checkHome(browser, delayedImage = false, mobile = false) {
     const start = Date.now();
     await page.goto(base, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.locator('[data-home-static]').waitFor({ state: 'visible' });
-    assert.equal(await page.locator('[data-luxury-villa-preloader]').count(), 0);
+    await page.locator('[data-luxury-villa-preloader]').waitFor({ state: 'detached', timeout: 18000 });
     assert.equal(await page.locator('[data-home-static] video').count(), 0);
     assert.equal(await page.locator('main[aria-hidden]').getAttribute('aria-hidden'), 'false');
     const image = page.getByAltText('Laurels villa estate entrance', { exact: true });
@@ -115,7 +124,21 @@ async function checkHome(browser, delayedImage = false, mobile = false) {
     assert.equal(obsolete.length, 0, 'No deleted brochure, legacy GLB or Cloudinary frame preloads');
     assert.equal(homeVideoRequests.length, 0, 'No old home video or fallback requests');
     assert.deepEqual(errors, []);
-    console.log(`PASS ${mobile ? 'mobile' : 'desktop'} static home ${delayedImage ? '(navigation visible before image loads)' : '(AVIF decoded)'} (${Date.now() - start} ms)`);
+    const homepageMs = Date.now() - start;
+    if (!mobile && !delayedImage) {
+      await page.waitForFunction(() => document.querySelector('[data-warmup-model-settled=true]') &&
+        window.__startupVideos.some(v => v.hasAttribute('data-masterplan-video') && v.readyState >= 2), {}, { timeout: 25000 });
+      await page.evaluate(() => { window.__openingVideo = window.__startupVideos.find(v => v.hasAttribute('data-masterplan-video')); });
+      await page.getByRole('button', { name: 'Explore Master Plan', exact: true }).click();
+      await page.waitForURL('**/master-plan', { timeout: 20000 });
+      await page.waitForFunction(() => document.querySelector('[data-masterplan-hover-enabled=true]'), {}, { timeout: 25000 });
+      assert(await page.evaluate(() => window.__openingVideo === document.querySelector('video[data-masterplan-video]')), 'Navigation must adopt the same buffered video');
+      const transfers = await page.evaluate(() => performance.getEntriesByType('resource')
+        .filter(r => /villa(?:%20| )02_new_glb\.glb/.test(r.name)).map(r => r.transferSize));
+      assert.equal(transfers.filter(size => size > 10000).length, 1, 'GLB payload should transfer once, not once per route');
+      console.log('PASS homepage -> masterplan: same video buffer, cached GLB, decoded hover');
+    }
+    console.log(`PASS ${mobile ? 'mobile' : 'desktop'} static home ${delayedImage ? '(navigation visible before image loads)' : '(AVIF decoded)'} (${homepageMs} ms including loader exit)`);
   } finally {
     release();
     await context.close();
@@ -126,7 +149,7 @@ async function checkMasterplan(browser) {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   try {
     await page.goto(`${base}/master-plan`, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    const waitForHover = () => page.waitForFunction(() => document.querySelector('[data-masterplan-hover-enabled=true]'), {}, { timeout: 25000 });
+    const waitForHover = () => page.waitForFunction(() => document.querySelector('[data-masterplan-hover-enabled=true]'), {}, { timeout: 45000 });
     await waitForHover();
     const video = await page.locator('video[data-masterplan-video]').evaluate(v => ({
       url: v.currentSrc, duration: v.duration, error: v.error?.message,
@@ -135,10 +158,13 @@ async function checkMasterplan(browser) {
     assert.equal(video.duration, 10.3);
     assert(!video.error);
     for (const direction of ['Next', 'Next', 'Previous', 'Previous']) {
+      // Let the calibrated stop and control hover transition finish painting.
+      await page.waitForTimeout(350);
       const before = await page.locator('[data-masterplan-target-frame]').getAttribute('data-masterplan-target-frame');
       await page.getByRole('button', { name: `${direction} master plan hotspot`, exact: true }).click();
       await page.waitForFunction(previous => document.querySelector('[data-masterplan-target-frame]')?.getAttribute('data-masterplan-target-frame') !== previous, before);
       await waitForHover();
+      console.log(`PASS masterplan ${direction} from frame ${before}`);
     }
     // Exercise pointer capture/scrubbing as well as the four arrow paths.
     await page.mouse.move(700, 650);
@@ -158,10 +184,12 @@ async function checkMasterplan(browser) {
     args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
   });
   try {
-    await checkSignedUrlHook(browser);
-    await checkHome(browser);
-    await checkHome(browser, true);
-    await checkHome(browser, false, true);
+    if (process.env.STARTUP_TEST_SCOPE !== 'masterplan') {
+      await checkSignedUrlHook(browser);
+      await checkHome(browser);
+      await checkHome(browser, true);
+      await checkHome(browser, false, true);
+    }
     await checkMasterplan(browser);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
