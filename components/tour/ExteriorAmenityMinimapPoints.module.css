@@ -1,0 +1,46 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.point {
+  position: absolute;
+  z-index: 25;
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  padding: 0;
+  transform: translate(-50%, -50%) scale(var(--reference-inverse-zoom, 1));
+  border: 1px solid #b69545;
+  border-radius: 50%;
+  background: #ffe18a;
+  color: #071e31;
+  font: 700 10px/1 Arial, sans-serif;
+  pointer-events: auto;
+  cursor: default;
+}
+
+.point:hover, .point:focus-visible {
+  z-index: 30;
+  background: #2d89b8;
+  color: white;
+  outline: 2px solid white;
+  outline-offset: 1px;
+}
+
+.compact {
+  width: 11px;
+  height: 11px;
+  font-size: 6px;
+  pointer-events: none;
+}
+
+.compact > span {
+  transform: rotate(calc(-1 * var(--exterior-minimap-rotation, 0deg)));
+}
+
+@media (max-width: 640px) {
+  .point:not(.compact) { width: 14px; height: 14px; font-size: 8px; }
+}

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { getOpeningBufferProgress, shouldWarmMasterplan, HOME_WARMUP_MAX_WAIT_MS, MASTERPLAN_BACKGROUND_TARGETS } from "./masterplan-warmup-policy";
+import { getOpeningBufferProgress, shouldWarmMasterplan, HOME_WARMUP_MAX_WAIT_MS } from "./masterplan-warmup-policy";
 
 const media = (ranges: [number, number][], readyState = 2, duration = 10.3) => ({
   readyState, duration, buffered: {
@@ -21,9 +21,8 @@ test("opening readiness means a decoded continuous opening, not the entire video
   assert.equal(getOpeningBufferProgress(media([[0, 0.5]], 2, 0.5)), 1);
 });
 
-test("background targets grow gradually and foreground warmup has a hard deadline", () => {
+test("foreground warmup has a hard deadline independent of full-file caching", () => {
   assert.equal(HOME_WARMUP_MAX_WAIT_MS, 3500);
-  assert.deepEqual(MASTERPLAN_BACKGROUND_TARGETS, [3, 6, 10.3]);
 });
 
 test("speculation respects Save-Data, slow networks and background tabs", () => {

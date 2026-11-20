@@ -1,0 +1,525 @@
+[
+  {
+    "id": "ground",
+    "label": "Ground floor",
+    "markerStyle": "dot",
+    "width": 2164,
+    "height": 1608,
+    "sourceFile": "20260528-CLUB HOUSE- GROUND FLOOR PLAN-R0-CLUB HOUSE PLANS.png",
+    "image": "/clubhouse-floor-plans/ground.avif",
+    "thumbnail": "/clubhouse-floor-plans/ground-small.avif",
+    "markers": [
+      {
+        "number": 1,
+        "label": "Entrance lobby",
+        "left": 82,
+        "top": 34,
+        "nodeId": "Ground_Floor_Pano_1_F0001",
+        "panoFilename": "Ground Floor Pano 1.00001.png",
+        "panoFolder": "Ground Floor Pano 1.00001",
+        "arrivalView": {
+          "yaw": -68,
+          "pitch": 8,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 3,
+        "label": "Corridor",
+        "left": 55,
+        "top": 39,
+        "nodeId": "Ground_Floor_Pano_2_F0000",
+        "panoFilename": "Ground Floor Pano 2.00000.png",
+        "panoFolder": "Ground Floor Pano 2.00000",
+        "arrivalView": {
+          "yaw": 0,
+          "pitch": 0,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 4,
+        "label": "Lift lobby",
+        "left": 54,
+        "top": 29,
+        "nodeId": "Ground_Floor_Pano_3_F0001",
+        "panoFilename": "Ground Floor Pano 3.00001.png",
+        "panoFolder": "Ground Floor Pano 3.00001",
+        "arrivalView": {
+          "yaw": -25,
+          "pitch": 0,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 5,
+        "label": "Swimming pool",
+        "left": 10,
+        "top": 48,
+        "nodeId": "Ground_Floor_Pano_5_F0001",
+        "panoFilename": "Ground Floor Pano 5.00001.png",
+        "panoFolder": "Ground Floor Pano 5.00001",
+        "arrivalView": {
+          "yaw": -115,
+          "pitch": -4,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 6,
+        "label": "Pool deck",
+        "left": 12,
+        "top": 18,
+        "nodeId": "Ground_Floor_Pano_5_F0005",
+        "panoFilename": "Ground Floor Pano 5.00005.png",
+        "panoFolder": "Ground Floor Pano 5.00005",
+        "arrivalView": {
+          "yaw": -85,
+          "pitch": -3,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 7,
+        "label": "Upper shower",
+        "left": 27,
+        "top": 9,
+        "nodeId": "Ground_Floor_Pano_5_F0006",
+        "panoFilename": "Ground Floor Pano 5.00006.png",
+        "panoFolder": "Ground Floor Pano 5.00006",
+        "arrivalView": {
+          "yaw": 0,
+          "pitch": -8,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 9,
+        "label": "Male toilet",
+        "left": 37,
+        "top": 13,
+        "nodeId": "Ground_Floor_Pano_4_F0002",
+        "panoFilename": "Ground Floor Pano 4.00002.png",
+        "panoFolder": "Ground Floor Pano 4.00002",
+        "arrivalView": {
+          "yaw": -5,
+          "pitch": -2,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 11,
+        "label": "Multipurpose hall",
+        "left": 53,
+        "top": 78,
+        "nodeId": "Ground_Floor_Pano_2_F0004",
+        "panoFilename": "Ground Floor Pano 2.00004.png",
+        "panoFolder": "Ground Floor Pano 2.00004",
+        "arrivalView": {
+          "yaw": 90,
+          "pitch": 0,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 16,
+        "label": "Pool-side staircase",
+        "left": 29,
+        "top": 72,
+        "nodeId": "Ground_Floor_Pano_1_F0007",
+        "panoFilename": "Ground Floor Pano 1.00007.png",
+        "panoFolder": "Ground Floor Pano 1.00007",
+        "arrivalView": {
+          "yaw": 0,
+          "pitch": 0,
+          "zoom": 10
+        }
+      }
+    ]
+  },
+  {
+    "id": "first",
+    "label": "First floor",
+    "markerStyle": "dot",
+    "minimapRotation": 90,
+    "width": 1583,
+    "height": 2196,
+    "sourceFile": "20260528-CLUB HOUSE- FIRSTT FLOOR PLAN-R0-CLUB HOUSE PLANS.png",
+    "image": "/clubhouse-floor-plans/first.avif",
+    "thumbnail": "/clubhouse-floor-plans/first-small.avif",
+    "markers": [
+      {
+        "number": 17,
+        "label": "Lobby",
+        "left": 53,
+        "top": 50,
+        "nodeId": "First_Floor_Pano_1_F0004",
+        "panoFilename": "First Floor Pano 1.00004.png",
+        "panoFolder": "First Floor Pano 1.00004",
+        "arrivalView": {
+          "yaw": 45.01,
+          "pitch": -0.37,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 18,
+        "label": "Coffee and reading lounge",
+        "left": 88,
+        "top": 22,
+        "nodeId": "First_Floor_Pano_2_F0002",
+        "panoFilename": "First Floor Pano 2.00002.png",
+        "panoFolder": "First Floor Pano 2.00002",
+        "arrivalView": {
+          "yaw": 6.2,
+          "pitch": -6.93,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 19,
+        "label": "Indoor games",
+        "left": 31,
+        "top": 78,
+        "nodeId": "First_Floor_Pano_4_F0001",
+        "panoFilename": "First Floor Pano 4.00001.png",
+        "panoFolder": "First Floor Pano 4.00001",
+        "arrivalView": {
+          "yaw": 39.31,
+          "pitch": 0.82,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 23,
+        "label": "Main staircase",
+        "left": 13,
+        "top": 44,
+        "nodeId": "First_Floor_Pano_3_F0002",
+        "panoFilename": "First Floor Pano 3.00002.png",
+        "panoFolder": "First Floor Pano 3.00002",
+        "arrivalView": {
+          "yaw": 7.68,
+          "pitch": 2.44,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 24,
+        "label": "Store-side staircase",
+        "left": 21,
+        "top": 30,
+        "nodeId": "First_Floor_Pano_1_F0001",
+        "panoFilename": "First Floor Pano 1.00001.png",
+        "panoFolder": "First Floor Pano 1.00001",
+        "arrivalView": {
+          "yaw": 38.19,
+          "pitch": -2.26,
+          "zoom": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": "second",
+    "label": "Second floor",
+    "markerStyle": "dot",
+    "width": 2184,
+    "height": 1496,
+    "sourceFile": "20260528-CLUB HOUSE-SECOND PLAN-R0-CLUB HOUSE PLANS.png",
+    "image": "/clubhouse-floor-plans/second.avif",
+    "thumbnail": "/clubhouse-floor-plans/second-small.avif",
+    "markers": [
+      {
+        "number": 25,
+        "label": "Yoga and meditation",
+        "left": 17,
+        "top": 25,
+        "nodeId": "Second_Floor_Pano_3_F0001",
+        "panoFilename": "Second Floor Pano 3.00001.png",
+        "panoFolder": "Second Floor Pano 3.00001",
+        "arrivalView": {
+          "yaw": -92.92,
+          "pitch": -0.01,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 26,
+        "label": "Gym",
+        "left": 17,
+        "top": 63,
+        "nodeId": "Second_Floor_Pano_2_F0001",
+        "panoFilename": "Second Floor Pano 2.00001.png",
+        "panoFolder": "Second Floor Pano 2.00001",
+        "arrivalView": {
+          "yaw": -65.1,
+          "pitch": -4.54,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 27,
+        "label": "Mini theater",
+        "left": 84,
+        "top": 29,
+        "nodeId": "Second_Floor_Pano_1_F0005",
+        "panoFilename": "Second Floor Pano 1.00005.png",
+        "panoFolder": "Second Floor Pano 1.00005",
+        "arrivalView": {
+          "yaw": -92.44,
+          "pitch": -4.73,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 28,
+        "label": "Badminton courts",
+        "left": 77,
+        "top": 61,
+        "nodeId": "Second_Floor_Pano_4_F0002",
+        "panoFilename": "Second Floor Pano 4.00002.png",
+        "panoFolder": "Second Floor Pano 4.00002",
+        "arrivalView": {
+          "yaw": 32.87,
+          "pitch": 2.47,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 29,
+        "label": "Seating lounge",
+        "left": 48,
+        "top": 52,
+        "nodeId": "Second_Floor_Pano_4_F0001",
+        "panoFilename": "Second Floor Pano 4.00001.png",
+        "panoFolder": "Second Floor Pano 4.00001",
+        "arrivalView": {
+          "yaw": 63.79,
+          "pitch": -4.49,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 31,
+        "label": "Corridor",
+        "left": 50,
+        "top": 36,
+        "nodeId": "Second_Floor_Pano_4_F0000",
+        "panoFilename": "Second Floor Pano 4.00000.png",
+        "panoFolder": "Second Floor Pano 4.00000",
+        "arrivalView": {
+          "yaw": -6.98,
+          "pitch": -1.77,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 36,
+        "label": "Gym-side staircase",
+        "left": 31,
+        "top": 79,
+        "nodeId": "Second_Floor_Pano_1_F0001",
+        "panoFilename": "Second Floor Pano 1.00001.png",
+        "panoFolder": "Second Floor Pano 1.00001",
+        "arrivalView": {
+          "yaw": 6.6,
+          "pitch": -4.73,
+          "zoom": 10
+        }
+      }
+    ]
+  },
+  {
+    "id": "third",
+    "label": "Third floor",
+    "markerStyle": "dot",
+    "width": 2212,
+    "height": 1518,
+    "sourceFile": "20260528-CLUB HOUSE-THIRD FLOOR PLAN-R0-CLUB HOUSE PLANS.png",
+    "image": "/clubhouse-floor-plans/third.avif",
+    "thumbnail": "/clubhouse-floor-plans/third-small.avif",
+    "markers": [
+      {
+        "number": 37,
+        "label": "Guest room 1 (upper)",
+        "left": 25,
+        "top": 11,
+        "nodeId": "Third_Floor_Pano_4_F0000",
+        "panoFilename": "Thid Floor Pano 4.00000.png",
+        "panoFolder": "Thid Floor Pano 4.00000",
+        "arrivalView": {
+          "yaw": -169.22,
+          "pitch": -4.46,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 39,
+        "label": "Guest room 3",
+        "left": 22,
+        "top": 52,
+        "nodeId": "Third_Floor_Pano_5_F0001",
+        "panoFilename": "Third Floor Pano 5.00001.png",
+        "panoFolder": "Third Floor Pano 5.00001",
+        "arrivalView": {
+          "yaw": 71.41,
+          "pitch": -2.31,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 47,
+        "label": "Room 3 toilet",
+        "left": 9,
+        "top": 67,
+        "nodeId": null
+      },
+      {
+        "number": 49,
+        "label": "Room 1 dresser",
+        "left": 41,
+        "top": 24,
+        "nodeId": "Third_Floor_Pano_4_F0001",
+        "panoFilename": "Thid Floor Pano 4.00001.png",
+        "panoFolder": "Thid Floor Pano 4.00001",
+        "arrivalView": {
+          "yaw": 34.43,
+          "pitch": -0.06,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 51,
+        "label": "Room 3 dresser",
+        "left": 21,
+        "top": 67,
+        "nodeId": "Third_Floor_Pano_5_F0003",
+        "panoFilename": "Third Floor Pano 5.00003.png",
+        "panoFolder": "Third Floor Pano 5.00003",
+        "arrivalView": {
+          "yaw": -0.09,
+          "pitch": -3.96,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 53,
+        "label": "Association room",
+        "left": 42,
+        "top": 49,
+        "nodeId": "Third_Floor_Pano_3_F0001",
+        "panoFilename": "Third Floor Pano 3.00001.png",
+        "panoFolder": "Third Floor Pano 3.00001",
+        "arrivalView": {
+          "yaw": 7.96,
+          "pitch": 2.86,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 54,
+        "label": "Conference room",
+        "left": 44,
+        "top": 66,
+        "nodeId": "Third_Floor_Pano_3_F0003",
+        "panoFilename": "Third Floor Pano 3.00003.png",
+        "panoFolder": "Third Floor Pano 3.00003",
+        "arrivalView": {
+          "yaw": -98.23,
+          "pitch": -3.02,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 55,
+        "label": "Large open terrace",
+        "left": 82,
+        "top": 23,
+        "nodeId": "Third_Floor_Pano_1_F0007",
+        "panoFilename": "Third Floor Pano 1.00007.png",
+        "panoFolder": "Third Floor Pano 1.00007",
+        "arrivalView": {
+          "yaw": -59.96,
+          "pitch": -1.59,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 56,
+        "label": "Small open terrace",
+        "left": 44,
+        "top": 90,
+        "nodeId": null
+      },
+      {
+        "number": 58,
+        "label": "Corridor",
+        "left": 48,
+        "top": 34,
+        "nodeId": "Third_Floor_Pano_1_F0004",
+        "panoFilename": "Third Floor Pano 1.00004.png",
+        "panoFolder": "Third Floor Pano 1.00004",
+        "arrivalView": {
+          "yaw": -6.69,
+          "pitch": -5.51,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 61,
+        "label": "Guest-room-side staircase",
+        "left": 32,
+        "top": 84,
+        "nodeId": "Third_Floor_Pano_1_F0001",
+        "panoFilename": "Third Floor Pano 1.00001.png",
+        "panoFolder": "Third Floor Pano 1.00001",
+        "arrivalView": {
+          "yaw": 6.81,
+          "pitch": -2.13,
+          "zoom": 10
+        }
+      }
+    ]
+  },
+  {
+    "id": "fourth",
+    "label": "Terrace",
+    "markerStyle": "dot",
+    "width": 2222,
+    "height": 1459,
+    "sourceFile": "20260528-CLUB HOUSE-TERRACE FLOOR PLAN-R0-CLUB HOUSE PLANS.png",
+    "image": "/clubhouse-floor-plans/fourth.avif",
+    "thumbnail": "/clubhouse-floor-plans/fourth-small.avif",
+    "markers": [
+      {
+        "number": 62,
+        "label": "Tennis court",
+        "left": 25,
+        "top": 38,
+        "nodeId": "Forth_Floor_Pano_1_F0003",
+        "panoFilename": "Forth Floor Pano 1.00003.png",
+        "panoFolder": "Forth Floor Pano 1.00003",
+        "arrivalView": {
+          "yaw": 141.03,
+          "pitch": 1.52,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 63,
+        "label": "Open terrace",
+        "left": 73,
+        "top": 65,
+        "nodeId": "Forth_Floor_Pano_1_F0001",
+        "panoFilename": "Forth Floor Pano 1.00001.png",
+        "panoFolder": "Forth Floor Pano 1.00001",
+        "arrivalView": {
+          "yaw": -30.13,
+          "pitch": 0.37,
+          "zoom": 10
+        }
+      }
+    ]
+  }
+]

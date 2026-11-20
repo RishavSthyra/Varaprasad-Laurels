@@ -39,6 +39,13 @@ their explicit path links. Cross-floor arrows are never guessed from shared XY
 coordinates. No terrace was supplied, so none is offered. Old apartment floor
 plans, bare-shell assets and dimension labels are disabled.
 
+The supplied Villa 1 renders now appear as optimized AVIF minimaps and expanded
+floor plans. `data/villa-floor-plans.json` holds 29 retained dot POIs, including
+25 exact user-supplied camera/arrival mappings. Ground 15, 16, 17 and First 23
+are still unassigned. POI arrivals preserve the supplied yaw/pitch/zoom without
+changing normal walking, balcony or floor-entry calibration. See
+[villa-floor-plans.md](villa-floor-plans.md) for the dedicated data and audit.
+
 ## Coordinate and render audit
 
 `data/villa-interior-navigation.json` records the reviewed repeated-render aliases.

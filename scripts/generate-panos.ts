@@ -3,8 +3,8 @@ import path from "path"
 import os from "os"
 import sharp from "sharp"
 
-const INPUT = process.env.PANO_INPUT ?? "./Exterior PANOS_Remaining"
-const OUTPUT = process.env.PANO_OUTPUT ?? "./public/varaprasad_exterior_panos_remaining"
+const INPUT = process.env.PANO_INPUT ?? "./Exterior PANOS_Remaining_v2"
+const OUTPUT = process.env.PANO_OUTPUT ?? "./public/varaprasad_exterior_panos_remaining_v2"
 
 const PREVIEW_WIDTH = 2000
 

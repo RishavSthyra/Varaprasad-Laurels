@@ -5,13 +5,9 @@ import {
   getAssetWorkerDomain,
   signR2AssetKeys,
 } from "@/lib/server/r2-signed-assets";
-import {
-  filterSignableAssetKeys,
-  isLocalAssetKey,
-  isRemoteAssetUrl,
-  toLocalPublicAssetPath,
-} from "@/lib/master-plan-asset-keys";
-import { TOWER_SELECTION_IMAGE_URL } from "@/lib/tower-selection-assets";
+import { filterSignableAssetKeys } from "@/lib/master-plan-asset-keys";
+import preview from "@/data/masterplan-preview.json";
+import { MASTERPLAN_COMPACT_MEDIA, MASTERPLAN_DESKTOP_MEDIA } from "@/components/MasterPlanPreview";
 import { getVillasMasterPlanConfig } from "@/lib/villas-master-plan-config";
 import { VILLA_MASTERPLAN_MODEL_URL } from "@/lib/villa-masterplan-model";
 
@@ -29,22 +25,7 @@ export const metadata = buildPageMetadata({
 
 export const revalidate = 30;
 
-function resolveMasterPlanAssetUrl(
-  key: string,
-  signedUrls: Record<string, string>,
-) {
-  if (isLocalAssetKey(key)) {
-    return toLocalPublicAssetPath(key);
-  }
-
-  if (isRemoteAssetUrl(key)) {
-    return key;
-  }
-
-  return signedUrls[key] ?? key;
-}
-
-export default async function MasterPlanPage() {
+export default function MasterPlanPage() {
   const initialApartments = getVillaInventoryApartments();
 
   const workerDomain = getAssetWorkerDomain();
@@ -60,10 +41,6 @@ export default async function MasterPlanPage() {
   ]);
   const signedMasterPlanCriticalAssets =
     criticalAssetKeys.length > 0 ? signR2AssetKeys(criticalAssetKeys) : {};
-  const masterPlanFallbackUrl = resolveMasterPlanAssetUrl(
-    masterPlan.fallbackImageKey,
-    signedMasterPlanCriticalAssets,
-  );
 
   return (
     <div className="relative app-shell bg-[#00142b]">
@@ -73,30 +50,17 @@ export default async function MasterPlanPage() {
       <link
         rel="preload"
         as="image"
-        href={masterPlanFallbackUrl}
+        href={preview.mobile}
+        media={MASTERPLAN_COMPACT_MEDIA}
         fetchPriority="high"
       />
+      <link rel="preload" as="image" href={preview.desktop} media={MASTERPLAN_DESKTOP_MEDIA} fetchPriority="high" />
       <link
         rel="preload"
         as="fetch"
         href={VILLA_MASTERPLAN_MODEL_URL}
         crossOrigin="anonymous"
-      />
-      <link
-        rel="preload"
-        as="image"
-        href="/villa%20center%20image2.avif"
-      />
-      <link
-        rel="preload"
-        as="image"
-        href="/villa%20corner%20image.avif"
-      />
-      <link
-        rel="preload"
-        as="image"
-        href={TOWER_SELECTION_IMAGE_URL}
-        fetchPriority="high"
+        fetchPriority="low"
       />
       <div className="">
         <MasterPlanLayout

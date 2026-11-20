@@ -1,0 +1,416 @@
+[
+  {
+    "id": "ground",
+    "label": "Ground floor",
+    "width": 1690,
+    "height": 1854,
+    "sourceFile": "villa 1 GF.png",
+    "markerStyle": "dot",
+    "image": "/villa-floor-plans/villa-1/ground.avif",
+    "thumbnail": "/villa-floor-plans/villa-1/ground-small.avif",
+    "markers": [
+      {
+        "number": 1,
+        "label": "Entrance foyer",
+        "left": 43,
+        "top": 68,
+        "nodeId": "GF_CAM5_F0000",
+        "panoFilename": "GF_CAM5.00000.png",
+        "panoFolder": "GF_CAM5.00000",
+        "arrivalView": {
+          "yaw": -46.42,
+          "pitch": -0.3,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 2,
+        "label": "Living room",
+        "left": 28,
+        "top": 27,
+        "nodeId": "GF_CAM3_F0002",
+        "panoFilename": "GF_CAM3.00002.png",
+        "panoFolder": "GF_CAM3.00002",
+        "arrivalView": {
+          "yaw": -22.95,
+          "pitch": 2.9,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 4,
+        "label": "Side deck",
+        "left": 10,
+        "top": 51,
+        "nodeId": "GF_CAM4_F0004",
+        "panoFilename": "GF_CAM4.00004.png",
+        "panoFolder": "GF_CAM4.00004",
+        "arrivalView": {
+          "yaw": -1.78,
+          "pitch": -1.5,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 5,
+        "label": "Dining",
+        "left": 52,
+        "top": 51,
+        "nodeId": "GF_CAM4_F0002",
+        "panoFilename": "GF_CAM4.00002.png",
+        "panoFolder": "GF_CAM4.00002",
+        "arrivalView": {
+          "yaw": 123.13,
+          "pitch": 2.27,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 6,
+        "label": "Kitchen",
+        "left": 69,
+        "top": 33,
+        "nodeId": "GF_CAM2_F0003",
+        "panoFilename": "GF_CAM2.00003.png",
+        "panoFolder": "GF_CAM2.00003",
+        "arrivalView": {
+          "yaw": 38.94,
+          "pitch": 5.45,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 7,
+        "label": "Wet kitchen",
+        "left": 80,
+        "top": 20,
+        "nodeId": "GF_CAM2_F0007",
+        "panoFilename": "GF_CAM2.00007.png",
+        "panoFolder": "GF_CAM2.00007",
+        "arrivalView": {
+          "yaw": -172.2,
+          "pitch": -2.04,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 8,
+        "label": "Store",
+        "left": 88,
+        "top": 32,
+        "nodeId": "GF_CAM2_F0007",
+        "panoFilename": "GF_CAM2.00007.png",
+        "panoFolder": "GF_CAM2.00007",
+        "arrivalView": {
+          "yaw": -172.2,
+          "pitch": -2.04,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 14,
+        "label": "Toilet (lower)",
+        "left": 54,
+        "top": 40,
+        "nodeId": "GF_CAM2_F0002",
+        "panoFilename": "GF_CAM2.00002.png",
+        "panoFolder": "GF_CAM2.00002",
+        "arrivalView": {
+          "yaw": -93.76,
+          "pitch": -6.08,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 15,
+        "label": "Master suite 01",
+        "left": 70,
+        "top": 77,
+        "nodeId": null
+      },
+      {
+        "number": 16,
+        "label": "Master suite dress",
+        "left": 86,
+        "top": 76,
+        "nodeId": null
+      },
+      {
+        "number": 17,
+        "label": "Master suite toilet",
+        "left": 86,
+        "top": 51,
+        "nodeId": null
+      },
+      {
+        "number": 18,
+        "label": "Main staircase",
+        "left": 75,
+        "top": 51,
+        "nodeId": "GF_CAM2_F0003",
+        "panoFilename": "GF_CAM2.00003.png",
+        "panoFolder": "GF_CAM2.00003",
+        "arrivalView": {
+          "yaw": 120.85,
+          "pitch": 6.27,
+          "zoom": 10
+        }
+      }
+    ]
+  },
+  {
+    "id": "first",
+    "label": "First floor",
+    "width": 1904,
+    "height": 1825,
+    "sourceFile": "villa 1 FF.png",
+    "markerStyle": "dot",
+    "image": "/villa-floor-plans/villa-1/first.avif",
+    "thumbnail": "/villa-floor-plans/villa-1/first-small.avif",
+    "markers": [
+      {
+        "number": 22,
+        "label": "Bedroom 01",
+        "left": 66,
+        "top": 14,
+        "nodeId": "FF_CAM1_F0002",
+        "panoFilename": "FF_CAM1.00002.png",
+        "panoFolder": "FF_CAM1.00002",
+        "arrivalView": {
+          "yaw": 64.25,
+          "pitch": -1.95,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 23,
+        "label": "Bedroom 01 dress",
+        "left": 87,
+        "top": 23,
+        "nodeId": null
+      },
+      {
+        "number": 24,
+        "label": "Bedroom 01 toilet",
+        "left": 83,
+        "top": 10,
+        "nodeId": "FF_CAM1_F0005",
+        "panoFilename": "FF_CAM1.00005.png",
+        "panoFolder": "FF_CAM1.00005",
+        "arrivalView": {
+          "yaw": -39.9,
+          "pitch": -7.44,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 26,
+        "label": "Store",
+        "left": 68,
+        "top": 27,
+        "nodeId": "FF_CAM4_F0002",
+        "panoFilename": "FF_CAM4.00002.png",
+        "panoFolder": "FF_CAM4.00002",
+        "arrivalView": {
+          "yaw": -2.58,
+          "pitch": 0.87,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 27,
+        "label": "Bedroom 02",
+        "left": 26,
+        "top": 53,
+        "nodeId": "FF_CAM2_F0003",
+        "panoFilename": "FF_CAM2.00003.png",
+        "panoFolder": "FF_CAM2.00003",
+        "arrivalView": {
+          "yaw": -36.1,
+          "pitch": -3.08,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 28,
+        "label": "Bedroom 02 dress",
+        "left": 32,
+        "top": 70,
+        "nodeId": "FF_CAM2_F0006",
+        "panoFilename": "FF_CAM2.00006.png",
+        "panoFolder": "FF_CAM2.00006",
+        "arrivalView": {
+          "yaw": 104.56,
+          "pitch": -3.76,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 31,
+        "label": "Pooja room",
+        "left": 20,
+        "top": 35,
+        "nodeId": "FF_CAM7_F0002",
+        "panoFilename": "FF_CAM7.00002.png",
+        "panoFolder": "FF_CAM7.00002",
+        "arrivalView": {
+          "yaw": -2.3,
+          "pitch": 0.84,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 32,
+        "label": "Lobby",
+        "left": 47,
+        "top": 48,
+        "nodeId": "FF_CAM5_F0002",
+        "panoFilename": "FF_CAM5.00002.png",
+        "panoFolder": "FF_CAM5.00002",
+        "arrivalView": {
+          "yaw": -9.59,
+          "pitch": 4.24,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 34,
+        "label": "Master suite 01",
+        "left": 69,
+        "top": 75,
+        "nodeId": "FF_CAM3_F0002",
+        "panoFilename": "FF_CAM3.00002.png",
+        "panoFolder": "FF_CAM3.00002",
+        "arrivalView": {
+          "yaw": 64.75,
+          "pitch": 4.49,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 35,
+        "label": "Master suite dress",
+        "left": 88,
+        "top": 74,
+        "nodeId": "FF_CAM6_F0001",
+        "panoFilename": "FF_CAM6.00001.png",
+        "panoFolder": "FF_CAM6.00001",
+        "arrivalView": {
+          "yaw": -4.85,
+          "pitch": 3.51,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 36,
+        "label": "Master suite toilet",
+        "left": 88,
+        "top": 45,
+        "nodeId": "FF_CAM3_F0006",
+        "panoFilename": "FF_CAM3.00006.png",
+        "panoFolder": "FF_CAM3.00006",
+        "arrivalView": {
+          "yaw": -2.35,
+          "pitch": -3.94,
+          "zoom": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": "second",
+    "label": "Second floor",
+    "width": 2133,
+    "height": 2234,
+    "sourceFile": "villa 1 SF.png",
+    "markerStyle": "dot",
+    "image": "/villa-floor-plans/villa-1/second.avif",
+    "thumbnail": "/villa-floor-plans/villa-1/second-small.avif",
+    "markers": [
+      {
+        "number": 41,
+        "label": "Home theatre",
+        "left": 72,
+        "top": 19,
+        "nodeId": "SF_CAM2_F0002",
+        "panoFilename": "SF_CAM2.00002.png",
+        "panoFolder": "SF_CAM2.00002",
+        "arrivalView": {
+          "yaw": 88.56,
+          "pitch": -2.05,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 44,
+        "label": "Main staircase",
+        "left": 67,
+        "top": 38,
+        "nodeId": "SF_CAM1_F0000",
+        "panoFilename": "SF_CAM1.00000.png",
+        "panoFolder": "SF_CAM1.00000",
+        "arrivalView": {
+          "yaw": -4.67,
+          "pitch": -3.61,
+          "zoom": 0.05
+        }
+      },
+      {
+        "number": 45,
+        "label": "Toilet",
+        "left": 88,
+        "top": 48,
+        "nodeId": "SF_CAM6_F0004",
+        "panoFilename": "SF_CAM6.00004.png",
+        "panoFolder": "SF_CAM6.00004",
+        "arrivalView": {
+          "yaw": -5.02,
+          "pitch": -5.47,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 46,
+        "label": "Dress",
+        "left": 90,
+        "top": 76,
+        "nodeId": "SF_CAM0_F0000",
+        "panoFilename": "SF_CAM0.00000.png",
+        "panoFolder": "SF_CAM0.00000",
+        "arrivalView": {
+          "yaw": -2.61,
+          "pitch": -0.99,
+          "zoom": 10
+        }
+      },
+      {
+        "number": 47,
+        "label": "Master suite 03",
+        "left": 69,
+        "top": 79,
+        "nodeId": "SF_CAM6_F0001",
+        "panoFilename": "SF_CAM6.00001.png",
+        "panoFolder": "SF_CAM6.00001",
+        "arrivalView": {
+          "yaw": 52.63,
+          "pitch": -6.48,
+          "zoom": 0
+        }
+      },
+      {
+        "number": 48,
+        "label": "Cocktail lounge",
+        "left": 40,
+        "top": 77,
+        "nodeId": "SF_CAM3_F0002",
+        "panoFilename": "SF_CAM3.00002.png",
+        "panoFolder": "SF_CAM3.00002",
+        "arrivalView": {
+          "yaw": -2.74,
+          "pitch": -1.45,
+          "zoom": 0
+        }
+      }
+    ]
+  }
+]

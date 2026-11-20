@@ -1,0 +1,29 @@
+.stage { position: absolute; inset: 0; }
+.placeholder { position: absolute; inset: 0; container-type: size; overflow: hidden; }
+.frame {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100cqw, calc(100cqh * 16 / 9));
+  aspect-ratio: 16 / 9;
+}
+.mobileControls { display: none; }
+.desktopControls { display: block; }
+.loadingFilters { display: none; }
+
+/* Geometry must be correct in server HTML, before matchMedia/hydration. */
+@media (max-width: 1023px), (max-width: 1366px) and (pointer: coarse) {
+  .stage:not([data-expanded="true"]) { height: 36svh; bottom: auto; }
+  .frame { width: min(100cqw, calc(100cqh * 16 / 9)); }
+  .mobileControls { display: block; }
+  .desktopControls { display: none; }
+  .loadingFilters {
+    display: block;
+    position: absolute; inset-inline: 0; bottom: 0;
+    height: 64svh;
+    border-radius: 28px 28px 0 0;
+    background: #efebe4;
+    color: #00142b;
+    padding: 20px 16px;
+  }
+}

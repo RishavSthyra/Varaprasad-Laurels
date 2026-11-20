@@ -76,8 +76,12 @@ import {
 } from "@/lib/walkthrough";
 import { useSnapListViewport } from "@/lib/useSnapListViewport";
 import GlassSelect, { GlassSelectItem } from "@/components/ui/GlassSelect";
-import { getInteriorArrivalView, type InteriorEntryViews, type InteriorFloorMarkers } from "@/lib/interior-tour/floor-navigation";
+import { getInteriorArrivalView, type InteriorEntryView, type InteriorEntryViews, type InteriorFloorMarkers } from "@/lib/interior-tour/floor-navigation";
 import { createInteriorFloorMarker } from "./interior-floor-markers";
+import InteriorNumberedFloorPlan from "./InteriorNumberedFloorPlan";
+import floorControlsStyles from "./InteriorFloorControls.module.css";
+import PanoDebugPanel from "./PanoDebugPanel";
+import type { NumberedFloorPlan } from "@/lib/interior-tour/floor-plans";
 
 const editorialFont = Cormorant_Garamond({
   subsets: ["latin"],
@@ -179,6 +183,9 @@ type InteriorPanoWalkthroughProps = {
   nodeLabels?: Readonly<Record<string, string>>;
   priorityPreloading?: boolean;
   minimapUnavailable?: boolean;
+  numberedFloorPlans?: Readonly<Record<string, NumberedFloorPlan>>;
+  floorControlsPositionClassName?: string;
+  showPanoDebug?: boolean;
   entryViews?: InteriorEntryViews;
   panoEntryViews?: InteriorEntryViews;
   floorMarkers?: InteriorFloorMarkers;
@@ -1125,6 +1132,9 @@ export default function InteriorPanoWalkthrough({
   nodeLabels,
   priorityPreloading = false,
   minimapUnavailable = false,
+  numberedFloorPlans,
+  floorControlsPositionClassName,
+  showPanoDebug = false,
   entryViews,
   panoEntryViews,
   floorMarkers,
@@ -1137,6 +1147,10 @@ export default function InteriorPanoWalkthrough({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDimensionsVisible, setIsDimensionsVisible] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isFloorPlanHidden, setIsFloorPlanHidden] = useState(false);
+  const [pendingFloorPlanNavigation, setPendingFloorPlanNavigation] = useState<{
+    targetId: string; view?: InteriorEntryView;
+  } | null>(null);
   const [viewerError, setViewerError] = useState<string | null>(null);
   const [viewYaw, setViewYaw] = useState(0);
   const [readyPanoramaVersion, setReadyPanoramaVersion] = useState(0);
@@ -1160,6 +1174,8 @@ export default function InteriorPanoWalkthrough({
   const [isSlowNetwork, setIsSlowNetwork] = useState(false);
   const [isMobileTouchViewport, setIsMobileTouchViewport] = useState(false);
   const viewerHostRef = useRef<HTMLDivElement | null>(null);
+  const floorControlsRef = useRef<HTMLDivElement | null>(null);
+  const restoreFloorPlanRef = useRef<HTMLButtonElement | null>(null);
   const bindingsRef = useRef<ViewerBindings | null>(null);
   const activeNodeIdRef = useRef(activeNodeId);
   const currentNodeIdRef = useRef("");
@@ -1214,8 +1230,8 @@ export default function InteriorPanoWalkthrough({
     }
     return store;
   }, [priorityPreloading]);
-  const interiorViewerMoveSpeed = isMobileTouchViewport ? 3.6 : 2;
-  const interiorViewerMoveInertia = isMobileTouchViewport ? 0.82 : 0.92;
+  const interiorViewerMoveSpeed = isMobileTouchViewport ? 1.25 : 2;
+  const interiorViewerMoveInertia = isMobileTouchViewport ? 0.65 : 0.92;
   const interiorNodeTransitionSpeed = isMobileTouchViewport ? 560 : 650;
 
   const nodes = useMemo(() => {
@@ -1579,13 +1595,26 @@ export default function InteriorPanoWalkthrough({
     [graph.byId, isBareShellMode, floorMarkers],
   );
 
-  const goToNode = useCallback(async (targetId: string) => {
+  const goToNode = useCallback(async (targetId: string, poiArrivalView?: InteriorEntryView) => {
     const bindings = bindingsRef.current;
     const targetNode = graph.byId[targetId];
     const sourceNode = graph.byId[activeNodeIdRef.current];
     const virtualTour = bindings?.viewer.getPlugin<VirtualTourPlugin>(VirtualTourPlugin);
 
-    if (!bindings || !virtualTour || !targetNode || navigationInFlightRef.current || isTransitioning || targetId === activeNodeIdRef.current) {
+    if (!bindings || !virtualTour || !targetNode || navigationInFlightRef.current || isTransitioning) {
+      return;
+    }
+
+    // Selecting the current POI should restore its reviewed view too, even if
+    // the visitor has since looked at the floor. Walking never supplies this.
+    if (targetId === activeNodeIdRef.current) {
+      if (poiArrivalView) {
+        navigationInFlightRef.current = true;
+        setIsTransitioning(true);
+        try { await bindings.viewer.animate({ ...poiArrivalView, speed: 450 }); }
+        catch (error) { console.warn("Could not restore the POI camera view:", error); }
+        finally { navigationInFlightRef.current = false; setIsTransitioning(false); }
+      }
       return;
     }
 
@@ -1594,7 +1623,7 @@ export default function InteriorPanoWalkthrough({
     setIsTransitioning(true);
     setViewerError(null);
     const currentPosition = bindings.viewer.getPosition();
-    const floorArrival = getInteriorArrivalView(sourceNode?.id, targetId, navigationSections, entryViews, panoEntryViews);
+    const floorArrival = poiArrivalView ?? getInteriorArrivalView(sourceNode?.id, targetId, navigationSections, entryViews, panoEntryViews);
     const targetPosition = floorArrival ?? (isBalconyNode(targetId)
       ? getBalconyOverrideView()
       : preserveViewDirection && sourceNode
@@ -1644,6 +1673,24 @@ export default function InteriorPanoWalkthrough({
   useEffect(() => {
     goToNodeRef.current = goToNode;
   }, [goToNode]);
+
+  // Keep the latest minimap intent instead of dropping taps while a panorama
+  // (or a same-pano camera animation) is loading. Never overlap plugin seeks.
+  useEffect(() => {
+    if (!pendingFloorPlanNavigation || isTransitioning || navigationInFlightRef.current) return;
+    const timer = globalThis.setTimeout(() => {
+      setPendingFloorPlanNavigation(null);
+      void goToNode(pendingFloorPlanNavigation.targetId, pendingFloorPlanNavigation.view);
+    }, 0);
+    return () => globalThis.clearTimeout(timer);
+  }, [pendingFloorPlanNavigation, isTransitioning, goToNode]);
+
+  const getPanoDebugView = useCallback(() => {
+    const viewer = bindingsRef.current?.viewer;
+    if (!viewer) return null;
+    const position = viewer.getPosition();
+    return { yaw: radToDeg(wrapAngleRad(position.yaw)), pitch: radToDeg(position.pitch), zoom: viewer.getZoomLevel() };
+  }, []);
 
   const navigateToDirection = useCallback(
     async (direction: NavigationDirection) => {
@@ -2235,7 +2282,10 @@ export default function InteriorPanoWalkthrough({
   return (
     <section
       data-pano-node={currentNodeId}
-      data-pano-transitioning={isTransitioning}
+      data-pano-move-speed={interiorViewerMoveSpeed}
+      data-pano-move-inertia={interiorViewerMoveInertia}
+      data-pano-transitioning={isTransitioning || pendingFloorPlanNavigation !== null}
+      data-pano-queued={pendingFloorPlanNavigation?.targetId ?? ""}
       className={`interior-pano-walkthrough relative isolate h-full w-full overflow-hidden rounded-[2.25rem] border border-white/10 bg-black text-white  ${className ?? ""}`}
     >
       {/* {walkthroughContext.flatNumber ? (
@@ -2293,8 +2343,15 @@ export default function InteriorPanoWalkthrough({
       </div>
 
       {activeSection && navigationSections ? (
-        <div className={`${uiFont.className} absolute right-3 top-24 z-30 flex w-[min(14rem,calc(100%-1.5rem))] flex-col gap-2.5 text-white sm:right-6 sm:w-64 xl:top-6`}>
-          {minimapUnavailable ? <aside aria-label="Clubhouse floor plan" className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-white/25 bg-[linear-gradient(135deg,rgba(255,255,255,0.14),rgba(34,32,28,0.32))] px-4 py-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.10)] backdrop-blur-2xl sm:py-6">
+        <div ref={floorControlsRef} data-interior-floor-controls data-hidden={isFloorPlanHidden} className={`${uiFont.className} ${numberedFloorPlans ? floorControlsStyles.panel : "w-[min(14rem,calc(100%-1.5rem))] sm:w-64"} absolute ${floorControlsPositionClassName ?? "right-3 top-24 sm:right-6 xl:top-6"} z-30 flex flex-col gap-2.5 text-white`}>
+          {numberedFloorPlans?.[activeSection.id] ? <InteriorNumberedFloorPlan
+            key={activeSection.id} plan={numberedFloorPlans[activeSection.id]} floorNodeIds={activeSection.nodeIds}
+            currentNodeId={currentNodeId} onHide={() => {
+              setIsFloorPlanHidden(true);
+              requestAnimationFrame(() => restoreFloorPlanRef.current?.focus());
+            }}
+            onNavigate={(targetId, view) => setPendingFloorPlanNavigation({ targetId, view })}
+          /> : minimapUnavailable ? <aside aria-label="Clubhouse floor plan" className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-white/25 bg-[linear-gradient(135deg,rgba(255,255,255,0.14),rgba(34,32,28,0.32))] px-4 py-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.10)] backdrop-blur-2xl sm:py-6">
             <FloorPlanIcon aria-hidden="true" size={30} strokeWidth={1.2} className="text-[#ecd1a0]" />
             <span className="text-[11px] font-medium text-white/90">Floor plan not available</span>
           </aside> : null}
@@ -2327,6 +2384,24 @@ export default function InteriorPanoWalkthrough({
           ) : null}
         </div>
       ) : null}
+
+      {activeSection && numberedFloorPlans ? <button ref={restoreFloorPlanRef} type="button" aria-label="Show minimap" aria-expanded={!isFloorPlanHidden}
+        data-hidden={isFloorPlanHidden} onClick={() => {
+          setIsFloorPlanHidden(false);
+          requestAnimationFrame(() => floorControlsRef.current?.querySelector<HTMLButtonElement>('[aria-label="Hide minimap"]')?.focus());
+        }}
+        className={`${floorControlsStyles.restore} absolute right-4 top-4 z-30 h-10 w-10 items-center justify-center rounded-full border border-[#dcb76f66] bg-[#06152fe8] text-[#e1bd7c] outline-none focus-visible:ring-2 focus-visible:ring-[#e1bd7c] sm:right-6 sm:top-6`}>
+        <FloorPlanIcon aria-hidden="true" size={18} />
+      </button> : null}
+
+      {INTERIOR_PANO_DEV_TOOL_ENABLED && showPanoDebug && activeNode && activeSection ? <PanoDebugPanel
+        getView={getPanoDebugView}
+        nodeId={currentNodeId} imageFilename={activeNode.imageFilename}
+        folder={verifiedPanoFolders?.[currentNodeId] ?? imageFilenameToPanoId(activeNode.imageFilename)}
+        floorLabel={activeSection.label} transitioning={isTransitioning}
+        nodes={activeSection.nodeIds.flatMap(id => graph.byId[id] ? [{ id, imageFilename: graph.byId[id].imageFilename }] : [])}
+        onNavigate={id => void goToNode(id)}
+      /> : null}
 
       {showMinimap ? (
         <div className="interior-minimap-desktop pointer-events-none absolute right-4 top-[1.5rem] z-30 hidden w-[400px] xl:block 2xl:right-6 2xl:top-[2rem] 2xl:w-[460px]">

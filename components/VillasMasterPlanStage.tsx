@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { MasterPlanPreview } from "./MasterPlanPreview";
+import viewportStyles from "./MasterPlanViewport.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -29,7 +30,7 @@ import {
 } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { clone as cloneSkeleton } from "three/examples/jsm/utils/SkeletonUtils.js";
-import { getMasterPlanModelTargets, getVillaNumberForModelTarget, MASTERPLAN_CLUBHOUSE_HREF, VILLA_MASTERPLAN_BACKGROUND_URL, VILLA_MASTERPLAN_MODEL_URL } from "@/lib/villa-masterplan-model";
+import { getMasterPlanModelTargets, getVillaNumberForModelTarget, MASTERPLAN_CLUBHOUSE_HREF, VILLA_MASTERPLAN_MODEL_URL } from "@/lib/villa-masterplan-model";
 import { VILLA_MASTERPLAN_VIDEO_URL, wrapVillaOrbitFrame, nearestVillaOrbitStop, type VillaOrbitMotion } from "@/lib/villa-masterplan-video";
 import VillaMasterPlanVideo from "./VillaMasterPlanVideo";
 
@@ -41,7 +42,6 @@ import type {
 } from "@/types/inventory";
 
 const DEFAULT_MODEL_URL = VILLA_MASTERPLAN_MODEL_URL;
-const BACKGROUND_IMAGE_URL = VILLA_MASTERPLAN_BACKGROUND_URL;
 const SOURCE_FRAME_ASPECT = 16 / 9;
 // GLTFLoader suffixes repeated mesh instances (`V05-G_1`, `V05-G_2`, ...).
 // Accept the suffix so every placed villa—not only the first of each type—is
@@ -66,6 +66,8 @@ type VillasMasterPlanStageProps = {
   apartments: InventoryApartment[];
   currentFrame: number;
   dragEnabled?: boolean;
+  containMedia?: boolean;
+  responsiveLayout?: boolean;
   orbitMotion?: VillaOrbitMotion | null;
   filteredApartments: InventoryApartment[];
   inventoryError: string | null;
@@ -558,6 +560,8 @@ export default function VillasMasterPlanStage({
   config,
   currentFrame,
   dragEnabled = true,
+  containMedia = false,
+  responsiveLayout = false,
   orbitMotion,
   filteredApartments,
   onApartmentSelect,
@@ -734,6 +738,18 @@ export default function VillasMasterPlanStage({
         hoveredVilla ? "cursor-pointer" : "cursor-default"
       }`}
       onPointerLeave={() => handleHover(null)}
+      style={{ containerType: "size" }}
+      data-masterplan-frame={settledFrame ?? "moving"}
+      data-masterplan-hover-enabled={showHoverLayer}
+      data-masterplan-model-ready={modelReady}
+      data-masterplan-dragging={isDragging}
+      data-masterplan-target-frame={currentFrame}
+    >
+      <div
+      data-masterplan-render-frame
+      data-masterplan-media-fit={containMedia ? "contain" : "cover"}
+      className={responsiveLayout ? viewportStyles.frame : "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"}
+      style={{ width: responsiveLayout ? undefined : `${containMedia ? "min" : "max"}(100cqw, calc(100cqh * ${SOURCE_FRAME_ASPECT}))`, aspectRatio: SOURCE_FRAME_ASPECT, touchAction: "none" }}
       onPointerDownCapture={startDrag}
       onPointerMoveCapture={moveDrag}
       onPointerUpCapture={finishDrag}
@@ -742,29 +758,12 @@ export default function VillasMasterPlanStage({
       onClickCapture={event => {
         if (performance.now() < suppressClickUntil.current) { event.preventDefault(); event.stopPropagation(); }
       }}
-      style={{ touchAction: "none" }}
-      data-masterplan-frame={settledFrame ?? "moving"}
-      data-masterplan-hover-enabled={showHoverLayer}
-      data-masterplan-model-ready={modelReady}
-      data-masterplan-dragging={isDragging}
-      data-masterplan-target-frame={currentFrame}
     >
-      <Image
-        src={BACKGROUND_IMAGE_URL}
-        alt="Aerial west view of the Laurels villa master plan"
-        fill
-        loading="eager"
-        fetchPriority="high"
-        unoptimized
-        sizes="100vw"
-        className="select-none object-cover"
-        draggable={false}
-      />
+      <MasterPlanPreview />
 
       <VillaMasterPlanVideo
         key={videoUrl}
         src={videoUrl}
-        poster={BACKGROUND_IMAGE_URL}
         frame={currentFrame}
         fps={config?.fps ?? 30}
         totalFrames={config?.totalFrames ?? 309}
@@ -818,7 +817,7 @@ export default function VillasMasterPlanStage({
           onPointerLeave={() => handleHover(null)}
           className="pointer-events-none absolute z-30 -translate-y-1/2 rounded-full border border-[#fce190]/65 bg-[#00142b]/88 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#fce190] shadow-[0_12px_30px_rgba(0,20,43,0.28)] backdrop-blur-xl"
           style={{
-            left: Math.min(tooltipPosition.x + 16, globalThis.innerWidth - 120),
+            left: `max(0px, min(${tooltipPosition.x + 16}px, calc(100% - 120px)))`,
             top: tooltipPosition.y,
           }}
         >
@@ -829,6 +828,7 @@ export default function VillasMasterPlanStage({
           ) : hoveredVilla.label}
         </div>
       ) : null}
+      </div>
     </section>
   );
 }

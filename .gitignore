@@ -23,6 +23,9 @@
 # Panorama images are hosted on Cloudflare, not in Git.
 /public/varaprasad_exterior_panos/
 /Exterior Panos 12k/
+# Verified remaining-v2 originals and tiles are backed up in Cloudflare.
+/Exterior PANOS_Remaining_v2/
+/public/varaprasad_exterior_panos_remaining_v2/
 # Local villa panorama source/generated images stay on disk, not in Git.
 /public/varaprasad_villa_panos/
 /raw-panos/

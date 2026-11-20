@@ -8,6 +8,8 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import ExteriorWalkthroughPreloader from "@/components/ui/ExteriorWalkthroughPreloader";
+import ExteriorAmenityMinimapPoints from "./ExteriorAmenityMinimapPoints";
+import PanoDebugPanel from "./PanoDebugPanel";
 import {
   ArrowDown,
   ArrowLeft,
@@ -53,14 +55,9 @@ import {
 import {
   clamp,
   degToRad,
-  dotPlanar,
-  negativeVec3,
-  normalizePlanar,
-  perpendicularRight,
-  subVec3,
   wrapAngleRad,
-  type Vec3,
 } from "@/lib/exterior-tour/math";
+import { getViewDirectionalCandidates, getViewForwardVector } from "@/lib/exterior-tour/view-navigation";
 import { useSnapListViewport } from "@/lib/useSnapListViewport";
 import { createPanoImageLoader } from "@/lib/exterior-tour/image-cache";
 import { waitForWarmup, warmNavigationCandidates } from "@/lib/exterior-tour/warmup";
@@ -123,9 +120,6 @@ const CACHE_MAX_PANOS = 6;
 const CACHE_TTL_SECONDS = 60 * 10;
 const AUTOROTATE_IDLE_MS = 4000;
 const TRAIL_ADVANCE_MS = 15000;
-// Keep directional arrows inside a forward-facing cone. A low threshold lets
-// a nearby side node beat the node that is actually in front of the viewer.
-const VIEW_DIRECTION_ALIGNMENT_FLOOR = 0.5;
 // Dev pano angle tool is intentionally hard-disabled; keep the JSX below for
 // future tuning without running debug state updates during walkthrough use.
 const EXTERIOR_PANO_DEV_TOOL_ENABLED = false;
@@ -189,6 +183,7 @@ type ExteriorPanoWalkthroughProps = {
   initialYawOffsetDegrees?: number;
   initialSignedAssetUrls?: Record<string, string>;
   amenities?: ExteriorAmenity[];
+  showAmenities?: boolean;
   className?: string;
   title?: string;
   subtitle?: string;
@@ -351,132 +346,6 @@ function getWarmupProfile(isCompactExperience: boolean) {
   }
 
   return isCompactExperience ? COMPACT_WARMUP_PROFILE : DESKTOP_WARMUP_PROFILE;
-}
-
-function getViewForwardVector(node: ExteriorTourNode, yaw: number): Vec3 {
-  const heading = Math.atan2(node.forward.y, node.forward.x) + yaw;
-
-  return normalizePlanar(
-    {
-      x: Math.cos(heading),
-      y: Math.sin(heading),
-      z: 0,
-    },
-    node.forward,
-  );
-}
-
-function getViewDirectionAxis(
-  direction: NavigationDirection,
-  viewForward: Vec3,
-) {
-  switch (direction) {
-    case "left":
-      return perpendicularRight(viewForward);
-    case "right":
-      return negativeVec3(perpendicularRight(viewForward));
-    case "backward":
-      return negativeVec3(viewForward);
-    case "forward":
-    default:
-      return viewForward;
-  }
-}
-
-function getViewDirectionalCandidates(
-  graph: ExteriorTourGraph,
-  nodeId: string,
-  direction: NavigationDirection,
-  currentYaw: number,
-  forceSequentialForwardBack = false,
-) {
-  const node = graph.byId[nodeId];
-  if (!node) {
-    return [] as Array<{ node: ExteriorTourNode; score: number }>;
-  }
-
-  if (
-    forceSequentialForwardBack &&
-    (direction === "forward" || direction === "backward")
-  ) {
-    const sequential = getSequentialNodeIds(graph, nodeId);
-    const targetId =
-      direction === "forward" ? sequential.nextId : sequential.previousId;
-    const target = targetId ? graph.byId[targetId] : null;
-
-    return target ? [{ node: target, score: 1 }] : [];
-  }
-
-  const viewForward = getViewForwardVector(node, currentYaw);
-  const axis = getViewDirectionAxis(direction, viewForward);
-  const neighborIds = new Set(node.neighbors.map((neighbor) => neighbor.id));
-  const distanceScale = Math.max(
-    graph.medianNearestDistance * 4,
-    node.nearestDistance * 4,
-    1,
-  );
-
-  const rankCandidates = (
-    candidates: ExteriorTourNode[],
-    alignmentFloor: number,
-  ) =>
-    candidates
-      .map((candidate) => {
-        const delta = subVec3(candidate.rawPosition, node.rawPosition);
-        const candidateDirection = normalizePlanar(delta, axis);
-        const alignment = dotPlanar(candidateDirection, axis);
-        const distance = Math.hypot(delta.x, delta.y);
-        const distanceBias = 1 - clamp(distance / distanceScale, 0, 1);
-        const isNeighbor = neighborIds.has(candidate.id);
-        const neighborBonus = isNeighbor ? 0.7 : 0;
-        const farPenalty = isNeighbor ? 0 : 0.3;
-
-        return {
-          node: candidate,
-          score:
-            alignment * 1.8 + distanceBias * 0.42 + neighborBonus - farPenalty,
-          alignment,
-          distance,
-        };
-      })
-      .filter((candidate) => candidate.alignment > alignmentFloor)
-      .sort((a, b) => {
-        const scoreDelta = b.score - a.score;
-        if (Math.abs(scoreDelta) > 0.035) {
-          return scoreDelta;
-        }
-
-        return a.distance - b.distance;
-      });
-
-  const neighborCandidates = rankCandidates(
-    node.neighbors
-      .map((neighbor) => graph.byId[neighbor.id])
-      .filter((candidate): candidate is ExteriorTourNode => Boolean(candidate)),
-    VIEW_DIRECTION_ALIGNMENT_FLOOR,
-  );
-
-  if (neighborCandidates.length > 0) {
-    return neighborCandidates;
-  }
-
-  const nearbyDistanceLimit = Math.max(
-    graph.medianNearestDistance * 2.8,
-    node.nearestDistance * 3.2,
-    1,
-  );
-
-  return rankCandidates(
-    graph.nodes.filter((candidate) => {
-      if (candidate.id === node.id || neighborIds.has(candidate.id)) {
-        return false;
-      }
-
-      const delta = subVec3(candidate.rawPosition, node.rawPosition);
-      return Math.hypot(delta.x, delta.y) <= nearbyDistanceLimit;
-    }),
-    Math.max(VIEW_DIRECTION_ALIGNMENT_FLOOR, 0.18),
-  );
 }
 
 function buildPreviewOnlyFallback(
@@ -714,6 +583,8 @@ function ExteriorMinimapGraphic({
         draggable={false}
         className="pointer-events-none absolute inset-0 block h-full w-full select-none object-cover brightness-[0.78] contrast-[1.08] saturate-[0.78]"
       />
+
+      <ExteriorAmenityMinimapPoints compact={isCompact} zoom={minimapZoom} />
 
       {!isCompact
         ? minimapDots.map((marker) => (
@@ -1004,6 +875,7 @@ export default function ExteriorPanoWalkthrough({
   initialYawOffsetDegrees = 0,
   initialSignedAssetUrls = {},
   amenities = exteriorAmenities,
+  showAmenities = true,
   className,
   title = "Exterior Walkthrough",
   subtitle = "Fast sphere-based exterior navigation",
@@ -1011,7 +883,17 @@ export default function ExteriorPanoWalkthrough({
 }: ExteriorPanoWalkthroughProps) {
   primeSignedAssetUrls(initialSignedAssetUrls);
   const graph = useMemo(() => buildExteriorTourGraph(nodes), [nodes]);
+  const debugPanoOptions = useMemo(() => process.env.NODE_ENV === "development"
+    ? graph.nodes.map(node => ({ id: node.id, imageFilename: node.imageFilename, label: `${node.order + 1} - ${node.imageFilename}` }))
+    : [], [graph]);
+  const getPanoDebugView = useCallback(() => {
+    const viewer = viewerRef.current;
+    if (!viewer) return null;
+    const position = viewer.getPosition();
+    return { yaw: radToDeg(wrapAngleRad(position.yaw)), pitch: radToDeg(position.pitch), zoom: viewer.getZoomLevel() };
+  }, []);
   const quickNavigationAmenities = useMemo<ExteriorAmenity[]>(() => {
+    if (!showAmenities) return [];
     const amenityMetadataById = new Map(
       amenities.map((amenity) => [amenity.id, amenity]),
     );
@@ -1072,7 +954,7 @@ export default function ExteriorPanoWalkthrough({
         },
       ];
     });
-  }, [amenities, cdnBaseUrl, graph]);
+  }, [amenities, cdnBaseUrl, graph, showAmenities]);
   const signedAssetUrls = useSignedAssetUrls(
     quickNavigationAmenities
       .map((amenity) => amenity.image)
@@ -1102,6 +984,9 @@ export default function ExteriorPanoWalkthrough({
   const [minimapZoom, setMinimapZoom] = useState(1);
   const [minimapOffset, setMinimapOffset] = useState({ x: 0, y: 0 });
   const [isMinimapDragging, setIsMinimapDragging] = useState(false);
+  const [directionAvailability, setDirectionAvailability] = useState<Record<NavigationDirection, boolean>>({
+    forward: false, backward: false, left: false, right: false,
+  });
   const [isAppleTouchFallbackMode] = useState(false);
   const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(
     null,
@@ -1134,8 +1019,10 @@ export default function ExteriorPanoWalkthrough({
   });
 
   const assetStore = useMemo(
-    () => new PanoAssetStore(cdnBaseUrl, createPanoImageLoader(Cache)),
-    [cdnBaseUrl],
+    () => new PanoAssetStore(cdnBaseUrl, createPanoImageLoader(Cache), Object.fromEntries(
+      graph.nodes.filter(node => node.assetBasePath).map(node => [node.panoId, node.assetBasePath!]),
+    )),
+    [cdnBaseUrl, graph],
   );
   const walkthroughRootRef = useRef<HTMLElement | null>(null);
   const viewerHostRef = useRef<HTMLDivElement | null>(null);
@@ -1206,7 +1093,8 @@ export default function ExteriorPanoWalkthrough({
     () => getSequentialNodeIds(graph, activeNodeId),
     [activeNodeId, graph],
   );
-  const nextTrailNodeId = sequential.nextId ?? graph.order[0] ?? null;
+  const nextTrailNodeId = sequential.nextId ?? (activeNode?.routeId
+    ? activeNode.neighbors[0]?.id : graph.order[0]) ?? null;
   const activeAmenity = useMemo(
     () =>
       quickNavigationAmenities.find((amenity) =>
@@ -1325,6 +1213,7 @@ export default function ExteriorPanoWalkthrough({
     [graph.byId],
   );
   const minimapDots = useMemo(() => {
+    if (!showAmenities) return [];
     const amenityById = new Map(
       quickNavigationAmenities.map((amenity) => [amenity.id, amenity]),
     );
@@ -1334,7 +1223,7 @@ export default function ExteriorPanoWalkthrough({
       amenity: amenityById.get(location.id) ?? null,
       ...projectMinimapPoint(location.coordinate),
     }));
-  }, [projectMinimapPoint, quickNavigationAmenities]);
+  }, [projectMinimapPoint, quickNavigationAmenities, showAmenities]);
 
   useEffect(() => {
     const fallbackYaw = activeNode ? degToRad(activeNode.yaw) : 0;
@@ -1675,7 +1564,7 @@ export default function ExteriorPanoWalkthrough({
       const focusTiles = selectPriorityTiles(
         resolved.panoId,
         resolved.meta,
-        cdnBaseUrl,
+        assetStore.getBaseUrl(resolved.panoId),
         view,
         limit,
         {
@@ -1695,7 +1584,7 @@ export default function ExteriorPanoWalkthrough({
         resolved.previewUrl,
       );
     },
-    [assetStore, cdnBaseUrl],
+    [assetStore],
   );
 
   useEffect(() => {
@@ -2080,7 +1969,7 @@ export default function ExteriorPanoWalkthrough({
           if (current?.meta && typeof current.panorama !== "string") {
             const panorama = current.panorama;
             focusReady = selectPriorityTiles(current.panoId, current.meta,
-              cdnBaseUrl, sourceView, 4, {
+              assetStore.getBaseUrl(current.panoId), sourceView, 4, {
                 aspect: (viewerHostRef.current?.clientWidth || 16) /
                   (viewerHostRef.current?.clientHeight || 9),
                 minFov: EXTERIOR_MIN_FOV, maxFov: EXTERIOR_MAX_FOV,
@@ -2122,7 +2011,7 @@ export default function ExteriorPanoWalkthrough({
           });
       })().catch(() => undefined);
     },
-    [assetStore, cdnBaseUrl, forceSequentialForwardBack, graph, preloadNodePreview,
+    [assetStore, forceSequentialForwardBack, graph, preloadNodePreview,
       preloadResolvedFocusTiles, startWarmupRun],
   );
 
@@ -2169,6 +2058,29 @@ export default function ExteriorPanoWalkthrough({
       primePanoNavigationNeighbors(sourceNode, viewRef.current.yaw, target.id);
     }
   }, [forceSequentialForwardBack, graph, primePanoNavigationNeighbors]);
+
+  useEffect(() => {
+    if (!isInitialPanoReady || !activeNode) return;
+    const viewer = viewerRef.current;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const update = () => {
+      timer = null;
+      const yaw = viewer?.getPosition().yaw ?? viewRef.current.yaw;
+      const next = Object.fromEntries((["forward", "backward", "left", "right"] as const).map(direction => [
+        direction, getViewDirectionalCandidates(graph, activeNode.id, direction, yaw, forceSequentialForwardBack).length > 0,
+      ])) as Record<NavigationDirection, boolean>;
+      setDirectionAvailability(current => (Object.keys(next) as NavigationDirection[]).every(direction => current[direction] === next[direction]) ? current : next);
+    };
+    const scheduleUpdate = () => {
+      if (timer === null) timer = setTimeout(update, 80);
+    };
+    timer = setTimeout(update, 0);
+    viewer?.addEventListener("position-updated", scheduleUpdate);
+    return () => {
+      viewer?.removeEventListener("position-updated", scheduleUpdate);
+      if (timer !== null) clearTimeout(timer);
+    };
+  }, [activeNode, graph, isInitialPanoReady, forceSequentialForwardBack]);
 
   const pushNavigationHistory = useCallback((nodeId: string) => {
     try {
@@ -2575,6 +2487,13 @@ export default function ExteriorPanoWalkthrough({
         return;
       }
 
+      const rankedCandidates = getViewDirectionalCandidates(
+        graph, fromNode.id, direction, viewer?.getPosition().yaw ?? viewRef.current.yaw,
+        forceSequentialForwardBack,
+      );
+      // No valid continuation is not a load failure. Do not substitute a
+      // sideways branch or far-away pano to keep a Forward click moving.
+      if (rankedCandidates.length === 0) return;
       startWarmupRun();
 
       if (!viewer && isAppleTouchFallbackMode) {
@@ -2584,14 +2503,6 @@ export default function ExteriorPanoWalkthrough({
         let flythroughRunId: number | null = null;
 
         try {
-          const rankedCandidates = getViewDirectionalCandidates(
-            graph,
-            activeNodeIdRef.current,
-            direction,
-            viewRef.current.yaw,
-            forceSequentialForwardBack,
-          );
-
           let navigated = false;
 
           for (const candidate of rankedCandidates) {
@@ -2658,13 +2569,6 @@ export default function ExteriorPanoWalkthrough({
       const currentPosition = viewer.getPosition();
 
       try {
-        const rankedCandidates = getViewDirectionalCandidates(
-          graph,
-          activeNodeIdRef.current,
-          direction,
-          currentPosition.yaw,
-          forceSequentialForwardBack,
-        );
         const targetPitch = clamp(currentPosition.pitch, MIN_PITCH, MAX_PITCH);
         const targetZoom = DEFAULT_ZOOM;
         let navigated = false;
@@ -3182,6 +3086,11 @@ export default function ExteriorPanoWalkthrough({
     <section
       ref={walkthroughRootRef}
       aria-label={title}
+      data-exterior-node={activeNodeId}
+      data-exterior-node-count={graph.order.length}
+      data-exterior-pano={activeNode.panoId}
+      data-exterior-ready={isInitialPanoReady}
+      data-exterior-transitioning={isTransitioning}
       className={`relative isolate h-full min-h-[100svh] w-full overflow-hidden rounded-none border border-white/10 bg-[linear-gradient(180deg,#040608_0%,#05070a_50%,#040608_100%)] text-white shadow-[0_30px_80px_rgba(0,0,0,0.35)] md:min-h-0 md:rounded-[2.25rem] ${className ?? ""}`}
     >
       <AnimatePresence initial={false}>
@@ -3241,6 +3150,7 @@ export default function ExteriorPanoWalkthrough({
         />
       </div>
 
+      {showAmenities ? <>
       <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start justify-between gap-3 p-3 sm:gap-4 sm:p-6">
         <div className="pointer-events-auto flex max-w-[78vw] items-start gap-3 sm:max-w-md">
           <button
@@ -3382,6 +3292,8 @@ export default function ExteriorPanoWalkthrough({
         </div>
       </div>
 
+      </> : null}
+
       <div className="pointer-events-auto absolute right-3 top-1/2 z-20 -translate-y-1/2 sm:right-5">
         <div
           className={`walkthrough-direction-rail flex flex-col items-center gap-1.5 rounded-full p-1.5 sm:gap-2 sm:p-2 ${PREMIUM_PANEL_SURFACE}`}
@@ -3391,31 +3303,45 @@ export default function ExteriorPanoWalkthrough({
             label="Move forward"
             onIntent={() => primeNavigationDirection("forward")}
             onClick={() => void navigateTo("forward")}
-            disabled={isTransitioning}
+            disabled={isTransitioning || !isInitialPanoReady || !directionAvailability.forward}
           />
           <ArrowButton
             icon={ArrowLeft}
             label="Move left"
             onIntent={() => primeNavigationDirection("left")}
             onClick={() => void navigateTo("left")}
-            disabled={isTransitioning}
+            disabled={isTransitioning || !isInitialPanoReady || !directionAvailability.left}
           />
           <ArrowButton
             icon={ArrowRight}
             label="Move right"
             onIntent={() => primeNavigationDirection("right")}
             onClick={() => void navigateTo("right")}
-            disabled={isTransitioning}
+            disabled={isTransitioning || !isInitialPanoReady || !directionAvailability.right}
           />
           <ArrowButton
             icon={ArrowDown}
             label="Move back"
             onIntent={() => primeNavigationDirection("backward")}
             onClick={() => void navigateTo("backward")}
-            disabled={isTransitioning}
+            disabled={isTransitioning || !isInitialPanoReady || !directionAvailability.backward}
           />
         </div>
       </div>
+
+      {process.env.NODE_ENV === "development" ? <PanoDebugPanel
+        nodeId={activeNode.id}
+        imageFilename={activeNode.imageFilename}
+        folder={activeNode.panoId}
+        floorLabel={`Exterior walkthrough - Pano ${activeNode.order + 1} of ${graph.order.length}`}
+        position={activeNode.rawPosition}
+        nodes={debugPanoOptions}
+        browseLabel="Browse exterior panos"
+        transitioning={isTransitioning || !isInitialPanoReady}
+        onNavigate={id => void jumpToNode(id)}
+        getView={getPanoDebugView}
+        className="bottom-20 left-3 sm:bottom-24 xl:bottom-4"
+      /> : null}
 
       {EXTERIOR_PANO_DEV_TOOL_ENABLED ? (
         <div
@@ -3498,12 +3424,12 @@ export default function ExteriorPanoWalkthrough({
         </div>
       ) : null}
 
-      <div className="pointer-events-none absolute bottom-[5.25rem] left-5 z-30 hidden w-[19rem] xl:block 2xl:left-7 2xl:w-[20rem]">
+      {showAmenities ? <div className="pointer-events-none absolute bottom-[5.25rem] left-5 z-30 hidden w-[19rem] xl:block 2xl:left-7 2xl:w-[20rem]">
         <CurrentAmenityPanel
           name={activeAmenity?.name ?? "Exterior Trail"}
           description={activeAmenityDescription}
         />
-      </div>
+      </div> : null}
 
       <div className="pointer-events-none absolute inset-x-0 bottom-3 z-30 hidden justify-end px-3 pl-[clamp(4.5rem,20vw,6.25rem)] xl:flex sm:bottom-4 sm:pl-[6rem] sm:pr-4 md:justify-center md:px-3">
         <div
@@ -3581,6 +3507,34 @@ export default function ExteriorPanoWalkthrough({
             className="absolute inset-0 bg-[rgba(6,12,10,0.42)] backdrop-blur-[10px]"
           />
           <div className="relative z-10 w-[min(94vw,72rem)]">
+            <div className="absolute right-3 top-3 z-50 flex gap-1 rounded-full bg-[#071e31]/90 p-1 text-[#ffe18a]">
+              <button
+                type="button"
+                aria-label="Zoom out exterior minimap"
+                disabled={minimapZoom <= 1}
+                onClick={() => {
+                  setMinimapZoom((zoom) => Math.max(1, zoom - 0.4));
+                  setMinimapOffset({ x: 0, y: 0 });
+                }}
+                className="h-8 w-8 rounded-full text-xl disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-white"
+              >−</button>
+              <button
+                type="button"
+                aria-label="Zoom in exterior minimap"
+                disabled={minimapZoom >= 3.2}
+                onClick={() => setMinimapZoom((zoom) => Math.min(3.2, zoom + 0.4))}
+                className="h-8 w-8 rounded-full text-xl disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-white"
+              >+</button>
+              <button
+                type="button"
+                aria-label="Collapse exterior minimap"
+                onClick={() => {
+                  resetMinimapView();
+                  closeMinimapExpanded();
+                }}
+                className="flex h-8 w-8 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-white"
+              ><X className="h-4 w-4" /></button>
+            </div>
             <ExteriorMinimapPanel
               isExpanded
               onToggleExpanded={() => {

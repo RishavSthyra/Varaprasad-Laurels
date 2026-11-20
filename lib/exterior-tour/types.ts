@@ -12,6 +12,11 @@ export type ExteriorPanoNodeSource = {
   roll: number;
   frame?: number;
   image_filename: string;
+  /** Explicit asset mapping when render filenames differ from the export. */
+  pano_id?: string;
+  asset_base_path?: string;
+  navigation_order?: number;
+  route_id?: string;
   facing_axis?: string;
   forward_vector?: ExteriorVector;
   right_vector?: ExteriorVector;
@@ -31,6 +36,8 @@ export type ExteriorTourNode = {
   panoId: string;
   label: string;
   imageFilename: string;
+  assetBasePath?: string;
+  routeId?: string;
   rawPosition: ExteriorVector;
   forward: ExteriorVector;
   right: ExteriorVector;

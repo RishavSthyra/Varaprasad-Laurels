@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { CLUBHOUSE_ENTRY_VIEWS, CLUBHOUSE_FLOOR_MARKERS } from "@/lib/clubhouse-floor-transitions";
+import { CLUBHOUSE_FLOOR_PLANS } from "@/lib/clubhouse-floor-plans";
 import {
   CLUBHOUSE_CONFIG, CLUBHOUSE_NAVIGATION_PAIRS, CLUBHOUSE_NODE_LABELS, CLUBHOUSE_PANO_FOLDERS, CLUBHOUSE_SECTIONS,
 } from "@/lib/clubhouse-tour";
@@ -28,7 +29,7 @@ export default function ClubhousePanoWalkthrough({ initialNodeId }: { initialNod
     navigationYawOverrides={NO_YAW_OVERRIDES}
     panoOnly
     showMinimap={false}
-    minimapUnavailable
+    numberedFloorPlans={CLUBHOUSE_FLOOR_PLANS}
     showModeToggle={false}
     showViewpointSelector={false}
     showDimensionsToggle={false}

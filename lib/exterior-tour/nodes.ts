@@ -76,7 +76,7 @@ function buildBaseNode(source: ExteriorPanoNodeSource, order: number): ExteriorT
     perpendicularRight(forward),
   );
   const left = normalizePlanar(source.left_vector ?? negativeVec3(right), negativeVec3(right));
-  const panoId = exteriorImageFilenameToPanoId(source.image_filename);
+  const panoId = source.pano_id ?? exteriorImageFilenameToPanoId(source.image_filename);
 
   return {
     id: source.id,
@@ -84,6 +84,8 @@ function buildBaseNode(source: ExteriorPanoNodeSource, order: number): ExteriorT
     panoId,
     label: formatExteriorNodeLabel(panoId, order),
     imageFilename: source.image_filename,
+    ...(source.asset_base_path ? { assetBasePath: source.asset_base_path } : {}),
+    ...(source.route_id ? { routeId: source.route_id } : {}),
     rawPosition: { x: source.x, y: source.y, z: source.z },
     forward,
     right,
@@ -181,8 +183,8 @@ function buildNeighborGraph(nodes: ExteriorTourNode[], medianNearestDistance: nu
 
 export function buildExteriorTourGraph(sourceNodes: ExteriorPanoNodeSource[]): ExteriorTourGraph {
   const validNodes = [...sourceNodes].sort((a, b) => {
-    const aFrame = Number(a.id.match(/F(\d{4})$/i)?.[1] ?? a.frame ?? 0);
-    const bFrame = Number(b.id.match(/F(\d{4})$/i)?.[1] ?? b.frame ?? 0);
+    const aFrame = a.navigation_order ?? Number(a.id.match(/F(\d{4})$/i)?.[1] ?? a.frame ?? 0);
+    const bFrame = b.navigation_order ?? Number(b.id.match(/F(\d{4})$/i)?.[1] ?? b.frame ?? 0);
     return aFrame - bFrame;
   });
 
@@ -217,10 +219,15 @@ export function buildExteriorTourGraph(sourceNodes: ExteriorPanoNodeSource[]): E
 
 export function getSequentialNodeIds(graph: ExteriorTourGraph, nodeId: string) {
   const index = graph.order.indexOf(nodeId);
+  const route = graph.byId[nodeId]?.routeId;
+  const previousId = index > 0 ? graph.order[index - 1] : null;
+  const nextId = index >= 0 && index < graph.order.length - 1 ? graph.order[index + 1] : null;
   return {
     index,
-    previousId: index > 0 ? graph.order[index - 1] : null,
-    nextId: index >= 0 && index < graph.order.length - 1 ? graph.order[index + 1] : null,
+    // Independent camera runs are spatial branches, not one continuous film.
+    // Directional movement can still enter/leave them using world coordinates.
+    previousId: previousId && graph.byId[previousId]?.routeId === route ? previousId : null,
+    nextId: nextId && graph.byId[nextId]?.routeId === route ? nextId : null,
   };
 }
 

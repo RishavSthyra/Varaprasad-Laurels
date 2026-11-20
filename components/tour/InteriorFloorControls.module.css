@@ -1,0 +1,42 @@
+.panel {
+  width: 16rem;
+}
+.panel > * { flex-shrink: 0; }
+
+.desktopExpand { display: flex; }
+.compactHide, .restore { display: none; }
+.minimapPoint { width: 2rem; height: 2rem; }
+
+/* Phones and tablets; fine-pointer laptops retain the desktop expand view. */
+@media (max-width: 1023px), (max-width: 1366px) and (pointer: coarse) {
+  .panel {
+    width: 14rem;
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    scrollbar-width: none;
+    transition: transform 180ms ease-out, visibility 180ms;
+  }
+
+  .panel[data-hidden="true"] {
+    transform: translateX(calc(100% + 2rem));
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .desktopExpand { display: none; }
+  .compactHide { display: flex; }
+  .minimapPoint { width: 1.5rem; height: 1.5rem; }
+  .restore[data-hidden="true"] { display: flex; }
+}
+
+@media (max-width: 639px) {
+  .panel { width: clamp(10rem, 44vw, 11rem); }
+  .panel > button, .panel > [role="combobox"] {
+    padding-inline: 0.75rem;
+    font-size: 0.6875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel { transition: none; }
+}

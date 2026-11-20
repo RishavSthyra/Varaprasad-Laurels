@@ -24,35 +24,6 @@ type UpperLayoutCTAProps = {
   mergeRouteLinks?: boolean;
 };
 
-function shouldBottomDockCta() {
-  if (typeof window === "undefined") {
-    return false;
-  }
-
-  const compactViewport = window.matchMedia("(max-width: 1279px)").matches;
-  const primaryPointerCoarse = window.matchMedia("(pointer: coarse)").matches;
-  const finePointerAvailable =
-    window.matchMedia("(pointer: fine)").matches ||
-    window.matchMedia("(any-pointer: fine)").matches;
-
-  return (
-    compactViewport || (primaryPointerCoarse && !finePointerAvailable)
-  );
-}
-
-function shouldHideMasterPlanCompactDesktopRail(pathname: string | null) {
-  if (typeof window === "undefined" || pathname !== "/master-plan") {
-    return false;
-  }
-
-  return (
-    window.matchMedia("(min-width: 1280px) and (max-width: 1699px)").matches &&
-    window.matchMedia("(pointer: fine)").matches &&
-    !window.matchMedia("(pointer: coarse)").matches &&
-    !window.matchMedia("(any-pointer: coarse)").matches
-  );
-}
-
 function isQuickRouteActive(pathname: string, href?: string) {
   if (!href) {
     return false;
@@ -83,11 +54,12 @@ export default function UpperLayoutCTA({
   mergeRouteLinks = false,
 }: UpperLayoutCTAProps) {
   const pathname = usePathname();
-  const [shouldDockAtBottom, setShouldDockAtBottom] = useState(
-    shouldBottomDockCta,
-  );
+  // Match server markup on the first client render. The existing media-query
+  // subscriptions below select mobile navigation after hydration without
+  // discarding/recreating the page tree (and its panorama) on touch devices.
+  const [shouldDockAtBottom, setShouldDockAtBottom] = useState(false);
   const [shouldHideCompactDesktopRail, setShouldHideCompactDesktopRail] =
-    useState(() => shouldHideMasterPlanCompactDesktopRail(pathname));
+    useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileMenuRendered, setIsMobileMenuRendered] = useState(false);
   const menuOverlayRef = useRef<HTMLDivElement | null>(null);

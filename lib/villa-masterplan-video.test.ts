@@ -44,7 +44,8 @@ test("poster remains preloaded and calibrated hover is gated on a decoded stop",
   assert(video.includes("video.poster = poster"));
   assert(video.includes('["loadeddata", "canplay", "seeked"]'));
   assert(video.includes("video.readyState >= 2"), "Cached video must not wait for a loadeddata event that fired before hydration");
-  assert(page.includes("href={masterPlanFallbackUrl}"));
+  assert(page.includes("href={preview.mobile}"));
+  assert(page.includes("href={preview.desktop}"));
 });
 
 test("arrows traverse opposite halves at both stops, including the end/start seam", () => {
@@ -89,7 +90,7 @@ test("warmup reuses one media element and the stage GLTF cache after the static 
   assert(!hero.includes("idleWarmVideoRef"), "No duplicate hidden masterplan decoder");
 });
 
-test("filters start closed, arrows preserve their direction, and card AVIF files exist", () => {
+test("desktop filters start closed, arrows preserve their direction, and card AVIF files exist", () => {
   const layout = fs.readFileSync("components/MasterPlanLayout.tsx", "utf8");
   assert(layout.includes("[isMobileSheetOpen, setIsMobileSheetOpen] = useState(false)"));
   assert(layout.includes("[isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false)"));

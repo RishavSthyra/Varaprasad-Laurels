@@ -21,10 +21,14 @@ It is intentionally not added to the main site navigation yet.
   tiles. Nothing was regenerated, resized, recompressed, overwritten or deleted.
 - The foreground viewer always requests the full tiled panorama, including on
   mobile/slow connections. Previews are only the initial loading layer.
-- The top-right minimap area currently shows a map icon and "Floor plan not
-  available" until verified clubhouse plans are supplied. No legacy apartment
-  plan is substituted. Measurements and bare-shell controls are not shown.
-  Clubhouse room names/dimensions have not been invented.
+- The supplied clubhouse renders appear as AVIF plans at top right. Ground uses
+  nine dot POIs linked to the user's exact cameras, with visually reviewed POI
+  arrival views. The other four floors also use dot POIs, with 23
+  user-supplied camera mappings and exact arrival yaw/pitch/zoom. Only references
+  47 and 56 are still pending. Reference 45 was removed. All plan POIs use gold by default and
+  standard blue on hover/focus or when active. Tap to enlarge/zoom. All five floors share
+  `data/clubhouse-floor-plans.json`; see [clubhouse-floor-plans.md](clubhouse-floor-plans.md).
+  Measurements and bare-shell controls are not shown.
 
 ## Loading and cache
 
@@ -69,16 +73,16 @@ node scripts/verify-exterior-panos.mjs --clubhouse --remote-only --endpoint http
 | First | 20 |
 | Second | 19 |
 | Third | 35 |
-| Fourth | 5 |
+| Terrace (fourth camera group) | 5 |
 
 Each floor has its own spatial graph. Matching XY coordinates on different floors
 never produce automatic arrow links. Consecutive frames within an exported pano
 path are retained as explicit same-floor links, including sparse samples.
 
-The temporary Floor selector fades to a verified entry panorama without recreating
-the viewer. The View selector exposes every supplied camera on that floor, including
-separate paths/rooms that have not yet had doorway connections calibrated. Zone
-and View labels are taken from camera/path numbering, not guessed amenity names.
+The Floor selector fades to a verified entry panorama without recreating the
+viewer. The public Zone/View selector stays hidden. The pano debug panel has
+moved to the exterior walkthrough and is not enabled in clubhouse interiors. Room numbers
+are references on the floor plan, not inferred camera/path numbers.
 Floor-access markers are configured separately in
 `data/clubhouse-floor-transitions.json`. All angles in that file are **degrees**:
 `yaw`/`pitch` place an icon on the sphere. All labels use fixed 3D planes, never

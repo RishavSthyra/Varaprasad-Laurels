@@ -152,9 +152,10 @@ async function checkMasterplan(browser) {
     const waitForHover = () => page.waitForFunction(() => document.querySelector('[data-masterplan-hover-enabled=true]'), {}, { timeout: 45000 });
     await waitForHover();
     const video = await page.locator('video[data-masterplan-video]').evaluate(v => ({
-      url: v.currentSrc, duration: v.duration, error: v.error?.message,
+      url: v.currentSrc, duration: v.duration, error: v.error?.message, cachedBytes: Number(v.dataset.cachedBytes),
     }));
-    assert.equal(new URL(video.url).searchParams.get('v'), 'cors-20261119');
+    if (video.url.startsWith('blob:')) assert.equal(video.cachedBytes, 58057110);
+    else assert.equal(new URL(video.url).searchParams.get('v'), 'cors-20261119');
     assert.equal(video.duration, 10.3);
     assert(!video.error);
     for (const direction of ['Next', 'Next', 'Previous', 'Previous']) {

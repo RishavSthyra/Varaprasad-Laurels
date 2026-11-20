@@ -13,7 +13,7 @@ const floors = [
   { id: "first", label: "First floor", prefix: "First_" },
   { id: "second", label: "Second floor", prefix: "Second_" },
   { id: "third", label: "Third floor", prefix: "Third_" },
-  { id: "fourth", label: "Fourth floor", prefix: "Forth_" },
+  { id: "fourth", label: "Terrace", prefix: "Forth_" },
 ] as const;
 
 export const CLUBHOUSE_SECTIONS: InteriorTourSection[] = floors.map((floor) => {

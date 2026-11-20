@@ -24,7 +24,8 @@ import {
   type Easing,
 } from "framer-motion";
 import MasterPlanTopViewStage from "./MasterPlanTopViewStage";
-import MasterPlanFrameHoverStage from "./VillasMasterPlanStage";
+import { MasterPlanStagePlaceholder } from "./MasterPlanPreview";
+import viewportStyles from "./MasterPlanViewport.module.css";
 import SelectedFlatDetailsPanel from "./SelectedFlatDetailsPanel";
 import {
   ArrowLeft,
@@ -66,6 +67,10 @@ import { warmVillaPano } from "@/lib/villa-pano-preload";
 import { getVillaPano } from "@/lib/villa-residence";
 
 const VillaResidenceExperience = dynamic(() => import("./VillaResidenceExperience"), { ssr: false });
+const MasterPlanFrameHoverStage = dynamic(() => import("./VillasMasterPlanStage"), {
+  ssr: false,
+  loading: MasterPlanStagePlaceholder,
+});
 function warmVillaResidence(villaNumber: number) {
   warmVillaPano(villaNumber);
   void import("./VillaResidenceExperience").catch(() => undefined);
@@ -792,6 +797,7 @@ export default function MasterPlanLayout({
 
   const isLeaving = false;
   const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
+  const [isMobileResultsOpen, setIsMobileResultsOpen] = useState(false);
   const [isCompactViewport, setIsCompactViewport] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
   const [isDesktopCompactViewport, setIsDesktopCompactViewport] =
@@ -854,6 +860,20 @@ export default function MasterPlanLayout({
     isSpecialVideoLaunching ||
     isSpecialVideoOpen;
   const shouldUseCompactLayout = isCompactViewport || isTouchTabletViewport;
+  useEffect(() => {
+    if (!isVillaInventory || !shouldUseCompactLayout || !isMobileResultsOpen) return;
+    const sheet = rootRef.current?.querySelector<HTMLElement>("[data-masterplan-mobile-sheet]");
+    sheet?.focus({ preventScroll: true });
+    const handleSheetKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setIsMobileResultsOpen(false);
+        requestAnimationFrame(() => rootRef.current?.querySelector<HTMLElement>("[data-masterplan-mobile-sheet] [data-open-residences]")?.focus());
+      }
+    };
+    window.addEventListener("keydown", handleSheetKey);
+    return () => window.removeEventListener("keydown", handleSheetKey);
+  }, [isMobileResultsOpen, isVillaInventory, shouldUseCompactLayout]);
   const shouldRenderCompactSpecialVideoStage =
     shouldUseCompactLayout && Boolean(specialVideoApartment);
   const shouldShowCompactSpecialVideoPanel =
@@ -872,7 +892,9 @@ export default function MasterPlanLayout({
     : isTouchTabletViewport
       ? "tablet"
       : "desktop";
-  const compactStageHeightClassName = shouldUseCompactLayout && !isMobileSheetOpen && !selectedApartment
+  const compactStageHeightClassName = isVillaInventory
+    ? !selectedApartment ? "h-[36svh]" : "h-full"
+    : shouldUseCompactLayout && !isMobileSheetOpen && !selectedApartment
     ? "h-dvh"
     : shouldUseCompactLayout
     ? "h-[clamp(18.75rem,45svh,27rem)] sm:h-[clamp(20.5rem,48svh,31rem)]"
@@ -883,7 +905,7 @@ export default function MasterPlanLayout({
       : "-mt-1 min-h-0 flex-1 px-0 pb-0"
     : "mt-2 min-h-0 flex-1 px-3 pb-3";
   const shouldShowDesktopSidebar =
-    !shouldUseCompactLayout && !isLeaving && !isFlatPanelOpen;
+    (isVillaInventory || !shouldUseCompactLayout) && !isLeaving && !isFlatPanelOpen;
   const shouldShowTopViewFullscreen =
     isTopViewMode &&
     !selectedTower &&
@@ -1084,18 +1106,19 @@ export default function MasterPlanLayout({
       return;
     }
 
-    const compactViewportMedia = window.matchMedia("(max-width: 1279px)");
+    const compactViewportMedia = window.matchMedia(isVillaInventory ? "(max-width: 1023px)" : "(max-width: 1279px)");
     const mobileViewportMedia = window.matchMedia("(max-width: 767px)");
     const desktopCompactViewportMedia = window.matchMedia(
       "(min-width: 1280px) and (max-width: 1799px)",
     );
     const touchViewportMedia = window.matchMedia("(max-width: 1366px)");
+    const coarsePointerMedia = window.matchMedia("(pointer: coarse)");
     const syncCompactViewport = () => {
       setIsCompactViewport(compactViewportMedia.matches);
       setIsMobileViewport(mobileViewportMedia.matches);
       setIsDesktopCompactViewport(desktopCompactViewportMedia.matches);
       setIsTouchTabletViewport(
-        touchViewportMedia.matches && window.navigator.maxTouchPoints > 0,
+        touchViewportMedia.matches && coarsePointerMedia.matches && window.navigator.maxTouchPoints > 0,
       );
     };
 
@@ -1104,6 +1127,7 @@ export default function MasterPlanLayout({
     mobileViewportMedia.addEventListener("change", syncCompactViewport);
     desktopCompactViewportMedia.addEventListener("change", syncCompactViewport);
     touchViewportMedia.addEventListener("change", syncCompactViewport);
+    coarsePointerMedia.addEventListener("change", syncCompactViewport);
 
     return () => {
       compactViewportMedia.removeEventListener("change", syncCompactViewport);
@@ -1113,8 +1137,9 @@ export default function MasterPlanLayout({
         syncCompactViewport,
       );
       touchViewportMedia.removeEventListener("change", syncCompactViewport);
+      coarsePointerMedia.removeEventListener("change", syncCompactViewport);
     };
-  }, []);
+  }, [isVillaInventory]);
 
   useEffect(() => {
     if (isVillaInventory) {
@@ -2169,14 +2194,17 @@ export default function MasterPlanLayout({
       ) : null}
       {shouldShowTopViewFullscreen ? <MasterPlanTopViewStage /> : null}
 
-      {!shouldUseCompactLayout && !shouldShowTopViewFullscreen ? (
-        isTopViewMode && !selectedTower ? (
+      {(isVillaInventory || !shouldUseCompactLayout) && !shouldShowTopViewFullscreen ? (
+        <div className={isVillaInventory ? viewportStyles.stage : "contents"} data-expanded={isFlatPanelOpen}>
+        {isTopViewMode && !selectedTower ? (
           <MasterPlanTopViewStage />
         ) : (
           <MasterPlanFrameHoverStage
             apartments={apartments}
             currentFrame={currentFrame}
             orbitMotion={orbitMotion}
+            responsiveLayout={isVillaInventory}
+            containMedia={isVillaInventory && shouldUseCompactLayout}
             dragEnabled
             filteredApartments={stageFilteredApartments}
             inventoryError={inventoryError}
@@ -2196,9 +2224,10 @@ export default function MasterPlanLayout({
             selectedApartmentId={selectedApartmentMeshId}
             selectedTower={selectedTower}
             config={masterPlanConfig}
-            touchHighlightProfile="desktop"
+            touchHighlightProfile={isVillaInventory ? compactTouchHighlightProfile : "desktop"}
           />
-        )
+        )}
+        </div>
       ) : null}
 
       {!isTopViewMode &&
@@ -2230,10 +2259,10 @@ export default function MasterPlanLayout({
         </div>
       ) : null}
 
-      {!shouldShowTopViewFullscreen ? (
+      {!shouldShowTopViewFullscreen && !isVillaInventory ? (
         <div
           className={`relative z-10 h-full flex-col transition-opacity duration-300 ${
-            shouldUseCompactLayout ? "flex" : "flex xl:hidden"
+            shouldUseCompactLayout ? "flex" : isVillaInventory ? "hidden" : "flex xl:hidden"
           } ${
             shouldHideInlineCompactShell
               ? "pointer-events-none opacity-0"
@@ -2298,6 +2327,7 @@ export default function MasterPlanLayout({
                   <MasterPlanTopViewStage />
                 ) : shouldUseCompactLayout ? (
                   <MasterPlanFrameHoverStage
+                    containMedia
                     apartments={apartments}
                     currentFrame={currentFrame}
                     orbitMotion={orbitMotion}
@@ -2326,7 +2356,7 @@ export default function MasterPlanLayout({
             </div>
           </div>
 
-          <div className={compactLowerContentClassName}>
+          {!isVillaInventory ? <div className={compactLowerContentClassName}>
             <div
               className={
                 selectedApartment || shouldShowCompactSpecialVideoPanel
@@ -2415,7 +2445,7 @@ export default function MasterPlanLayout({
                 </div>
               )}
             </div>
-          </div>
+          </div> : null}
         </div>
       ) : null}
 
@@ -2424,7 +2454,7 @@ export default function MasterPlanLayout({
           className={`pointer-events-none relative h-full w-full px-4 py-6 transition-opacity duration-500 md:px-6 lg:px-8 ${
             showMasterPlanFilters && isDesktopSidebarOpen ? "z-[100]" : "z-10"
           } ${
-            shouldUseCompactLayout ? "hidden" : "hidden xl:block"
+            isVillaInventory ? viewportStyles.desktopControls : shouldUseCompactLayout ? "hidden" : "hidden xl:block"
           } ${isSpecialVideoOpen ? "opacity-0" : "opacity-100"}`}
         >
           <div className="grid h-full grid-cols-1">
@@ -2483,7 +2513,7 @@ export default function MasterPlanLayout({
                   exit={{ opacity: 0, x: reduceMotion ? 0 : 16 }}
                   transition={{ duration: reduceMotion ? 0 : 0.16, ease: smoothEase }}
                   onClick={() => setIsDesktopSidebarOpen(true)}
-                  className="pointer-events-auto absolute right-0 top-1/2 z-[100] hidden h-40 w-11 -translate-y-1/2 flex-col items-center justify-center gap-3 rounded-l-[18px] border border-r-0 border-[#fce190]/45 bg-[#00142b] text-[9px] font-semibold uppercase tracking-[0.18em] text-[#fce190] shadow-[-14px_18px_36px_rgba(0,7,20,0.38),inset_0_1px_0_rgba(252,225,144,0.12)] transition-colors duration-150 motion-reduce:transition-none hover:bg-[#071d36] xl:inline-flex"
+                  className={`pointer-events-auto absolute right-0 top-1/2 z-[100] h-40 w-11 -translate-y-1/2 flex-col items-center justify-center gap-3 rounded-l-[18px] border border-r-0 border-[#fce190]/45 bg-[#00142b] text-[9px] font-semibold uppercase tracking-[0.18em] text-[#fce190] shadow-[-14px_18px_36px_rgba(0,7,20,0.38),inset_0_1px_0_rgba(252,225,144,0.12)] transition-colors duration-150 motion-reduce:transition-none hover:bg-[#071d36] ${isVillaInventory ? "inline-flex" : "hidden xl:inline-flex"}`}
                   aria-label="Open filters"
                 >
                   <SlidersHorizontal className="h-3.5 w-3.5" />
@@ -2500,7 +2530,7 @@ export default function MasterPlanLayout({
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  className={`pointer-events-auto gpu-layer absolute bottom-6 right-5 top-6 z-[100] hidden overflow-visible xl:block 2xl:right-7 ${
+                  className={`pointer-events-auto gpu-layer absolute bottom-6 right-5 top-6 z-[100] overflow-visible 2xl:right-7 ${isVillaInventory ? "block" : "hidden xl:block"} ${
                     showMasterPlanFilters && isDesktopResultsOpen
                       ? isDesktopCompactViewport
                         ? "w-[min(900px,calc(100vw-150px))]"
@@ -2571,7 +2601,7 @@ export default function MasterPlanLayout({
             </AnimatePresence>
           </div>
 
-          {!isLeaving ? (
+          {!isLeaving && !isVillaInventory ? (
             <>
               <AnimatePresence>
                 {showMasterPlanFilters && isMobileSheetOpen && !selectedApartment ? (
@@ -2712,6 +2742,44 @@ export default function MasterPlanLayout({
               ) : null}
             </>
           ) : null}
+        </div>
+      ) : null}
+
+      {isVillaInventory && !shouldShowTopViewFullscreen && !isFlatPanelOpen ? (
+        <div className={`${viewportStyles.mobileControls} pointer-events-none absolute inset-0 z-[110]`} data-masterplan-mobile-controls>
+              <section
+                id="masterplan-mobile-filters"
+                role="region"
+                aria-label={isMobileResultsOpen ? "Matching villas" : "Villa filters"}
+                tabIndex={-1}
+                data-masterplan-mobile-sheet
+                data-scroll-area="mobile-sheet"
+                className="pointer-events-auto absolute inset-x-0 bottom-0 flex h-[64svh] min-h-0 flex-col overflow-hidden rounded-t-[28px] border border-[#00142b]/20 bg-[#efebe4] pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_36px_rgba(0,7,20,0.25)] outline-none"
+              >
+                <MasterPlanResidenceDock
+                  mobile compact villaMode
+                  apartments={villaResidenceApartments}
+                  search={search} onSearchChange={setSearch}
+                  selectedTower={filterTower} onTowerChange={handleFilterTowerChange}
+                  bhk={bhk} onBhkChange={setBhk}
+                  facing={facing} onFacingChange={setFacing}
+                  status={status} onStatusChange={setStatus}
+                  floor={floor} floorOptions={floorOptions} onFloorChange={setFloor}
+                  areaBounds={areaBounds} minArea={minArea} maxArea={maxArea}
+                  onAreaRangeChange={handleAreaRangeChange}
+                  onClose={() => setIsMobileResultsOpen(false)}
+                  resultsOpen={isMobileResultsOpen}
+                  onResultsOpen={() => setIsMobileResultsOpen(true)}
+                  onResultsClose={() => setIsMobileResultsOpen(false)}
+                  onReset={resetFilters}
+                  isInventoryLoading={isInventoryLoading} inventoryError={inventoryError}
+                  onApartmentSelect={handleApartmentListSelect}
+                  selectedApartmentId={selectedApartmentInventoryId}
+                  villaType={villaTypeFilter} villaTypeOptions={villaTypeOptions} onVillaTypeChange={setVillaTypeFilter}
+                  villaPlotArea={villaPlotAreaFilter} villaPlotAreaOptions={villaPlotAreaOptions} onVillaPlotAreaChange={setVillaPlotAreaFilter}
+                  villaPosition={villaPositionFilter} onVillaPositionChange={setVillaPositionFilter}
+                />
+              </section>
         </div>
       ) : null}
 
@@ -2945,6 +3013,7 @@ function MasterPlanResidenceDock({
   onVillaPlotAreaChange,
   villaPosition,
   onVillaPositionChange,
+  mobile = false,
 }: {
   apartments: InventoryApartment[];
   search: string;
@@ -2983,6 +3052,7 @@ function MasterPlanResidenceDock({
   onVillaPlotAreaChange: (value: number | "all") => void;
   villaPosition: VillaPositionFilter;
   onVillaPositionChange: (value: VillaPositionFilter) => void;
+  mobile?: boolean;
 }) {
   const router = useRouter();
   const reduceMotion = useReducedMotion();
@@ -3027,7 +3097,7 @@ function MasterPlanResidenceDock({
 
   return (
     <div
-      className="mp-residence-dock mp-liquid-shell relative flex h-full min-h-0 overflow-visible rounded-[24px] border text-[#00142b]"
+      className={`mp-residence-dock mp-liquid-shell relative flex h-full min-h-0 text-[#00142b] ${mobile ? "w-full overflow-hidden rounded-t-[28px]" : "overflow-visible rounded-[24px] border"}`}
     >
       <MatteVelvetFilterStyles />
       <div aria-hidden="true" className="mp-liquid-optics">
@@ -3039,15 +3109,16 @@ function MasterPlanResidenceDock({
         {resultsOpen ? (
       <motion.section
         key="residence-results"
-        initial={{ opacity: 0, x: reduceMotion ? 0 : 56 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: reduceMotion ? 0 : 40 }}
+        initial={{ opacity: 0, x: reduceMotion || mobile ? 0 : 56, y: reduceMotion || !mobile ? 0 : "100%" }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        exit={{ opacity: 0, x: reduceMotion || mobile ? 0 : 40, y: reduceMotion || !mobile ? 0 : "100%" }}
+        data-residence-results-direction={mobile ? "bottom" : "side"}
         transition={{ duration: reduceMotion ? 0 : 0.28, ease: smoothEase }}
         className="mp-liquid-pane mp-liquid-results relative z-10 flex min-w-0 flex-1 flex-col"
       >
         <div className={`mp-liquid-toolbar border-b border-[#fce190]/14 ${compact ? "p-3" : "p-4"}`}>
-          <div className="flex items-center gap-2.5">
-            <label className="mp-liquid-control flex h-10 min-w-0 flex-1 items-center gap-2.5 rounded-[10px] border border-[#fce190]/20 px-3 focus-within:border-[#fce190]/52">
+          <div className={`flex items-center gap-2.5 ${mobile ? "flex-wrap" : ""}`}>
+            <label className={`mp-liquid-control flex h-10 min-w-0 flex-1 items-center gap-2.5 rounded-[10px] border border-[#fce190]/20 px-3 focus-within:border-[#fce190]/52 ${mobile ? "basis-full" : ""}`}>
               <Search className="h-3.5 w-3.5 shrink-0 text-[#00142b]/55" />
               <input
                 value={search}
@@ -3058,7 +3129,7 @@ function MasterPlanResidenceDock({
               />
             </label>
 
-            <label className="mp-liquid-control relative flex h-10 shrink-0 items-center gap-2 rounded-[10px] border border-[#00142b]/20 px-3 text-[#00142b]/72">
+            <label className={`mp-liquid-control relative flex h-10 items-center gap-2 rounded-[10px] border border-[#00142b]/20 px-3 text-[#00142b]/72 ${mobile ? "min-w-0 flex-1" : "shrink-0"}`}>
               <ArrowUpDown className="h-3.5 w-3.5" />
               <select
                 value={sort}
@@ -3066,7 +3137,7 @@ function MasterPlanResidenceDock({
                   setSort(event.target.value as ResidenceDockSort);
                   setVisibleCount(MATCHING_FLATS_PAGE_SIZE);
                 }}
-                className="appearance-none bg-transparent pr-4 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#00142b] outline-none"
+                className="min-w-0 max-w-full appearance-none bg-transparent pr-4 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#00142b] outline-none"
                 aria-label="Sort residences"
               >
                 <option value="unit">Unit</option>
@@ -3122,6 +3193,7 @@ function MasterPlanResidenceDock({
 
         <div
           id={scrollableId}
+          data-scroll-area="residence-results"
           className={`custom-scrollbar min-h-0 flex-1 overflow-y-auto overscroll-contain ${compact ? "p-3" : "p-4"}`}
         >
           {isInventoryLoading ? (
@@ -3277,8 +3349,8 @@ function MasterPlanResidenceDock({
       </motion.section>
         ) : null}
       </AnimatePresence>
-      <aside className={`mp-liquid-pane mp-liquid-filter relative z-20 flex w-[clamp(320px,22vw,370px)] shrink-0 flex-col overflow-visible ${resultsOpen ? "rounded-r-[24px] border-l border-[#fce190]/18" : "rounded-[24px]"} ${compact ? "p-4" : "p-6"}`}>
-        {!resultsOpen ? (
+      {!mobile || !resultsOpen ? <aside className={`mp-liquid-pane mp-liquid-filter relative z-20 shrink-0 flex-col ${mobile ? "flex min-h-0 w-full flex-1 overflow-hidden rounded-t-[28px]" : `flex w-[clamp(320px,22vw,370px)] overflow-visible ${resultsOpen ? "rounded-r-[24px] border-l border-[#fce190]/18" : "rounded-[24px]"}`} ${compact ? "p-4" : "p-6"}`}>
+        {!mobile && !resultsOpen ? (
           <button
             type="button"
             onClick={onResultsOpen}
@@ -3294,27 +3366,36 @@ function MasterPlanResidenceDock({
 
         <div className="flex shrink-0 items-start justify-between gap-5">
           <div>
-            <p className="text-[8px] font-semibold uppercase tracking-[0.3em] text-[#00142b]/62">Refine your search</p>
-            <h3 className={`${masterPlanSerif.className} mt-2 text-[clamp(2rem,2.3vw,2.45rem)] font-medium leading-none text-[#00142b]`}>Find a villa</h3>
-            <p className="mt-3 text-[11px] leading-relaxed text-[#00142b]/55">Choose the home that fits your lifestyle.</p>
+            <p className="text-[8px] font-semibold uppercase tracking-[0.3em] text-[#00142b]/62">{mobile ? "Filters" : "Refine your search"}</p>
+            <h3 className={`${masterPlanSerif.className} mt-2 font-medium leading-none text-[#00142b] ${mobile ? "text-2xl" : "text-[clamp(2rem,2.3vw,2.45rem)]"}`}>Find a villa</h3>
+            {!mobile ? <p className="mt-3 text-[11px] leading-relaxed text-[#00142b]/55">Choose the home that fits your lifestyle.</p> : null}
           </div>
-          <button
+          {!mobile ? <button
             type="button"
             onClick={onClose}
             className="mp-liquid-icon inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-[#00142b]/24 text-[#00142b]"
             aria-label="Close filters"
           >
             <X className="h-4 w-4" />
-          </button>
+          </button> : null}
         </div>
 
-        <div className="mp-residence-scroll mt-6 min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain">
+        {mobile ? (
+          <label className="mp-liquid-control mt-3 flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-[#00142b]/20 px-3">
+            <Search className="h-4 w-4 shrink-0" />
+            <input value={search} onChange={event => onSearchChange(event.target.value.replace(/\D+/g, ""))}
+              inputMode="numeric" aria-label="Search by villa number" placeholder="Search by villa number"
+              className="min-w-0 flex-1 bg-transparent text-xs outline-none" />
+          </label>
+        ) : null}
+        <div className={`mp-residence-scroll min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain touch-pan-y ${mobile ? "mt-4" : "mt-6"}`} data-scroll-area="villa-filters">
           {villaMode ? (
             <>
               <ResidenceDockField label="Villa type">
                 <div className="relative">
                   <Building2 className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#00142b]/55" />
                   <select
+                    aria-label="Villa type"
                     value={villaType}
                     onChange={(event) => {
                       onVillaTypeChange(event.target.value);
@@ -3385,6 +3466,7 @@ function MasterPlanResidenceDock({
               <ResidenceDockField label="Facing">
                 <div className="relative">
                   <select
+                    aria-label="Facing"
                     value={facing ?? ""}
                     onChange={(event) =>
                       onFacingChange(
@@ -3516,15 +3598,23 @@ function MasterPlanResidenceDock({
           )}
         </div>
 
+        <div className={mobile ? "mt-3 grid shrink-0 grid-cols-2 gap-2" : "contents"}>
         <button
           type="button"
           onClick={handleReset}
-          className="mp-liquid-clear mt-5 inline-flex h-11 shrink-0 items-center justify-center gap-2.5 rounded-[11px] border border-[#00142b]/28 text-[9px] font-bold uppercase tracking-[0.16em] text-[#00142b]"
+          className={`mp-liquid-clear inline-flex h-11 shrink-0 items-center justify-center gap-2.5 rounded-[11px] border border-[#00142b]/28 text-[9px] font-bold uppercase tracking-[0.16em] text-[#00142b] ${mobile ? "" : "mt-5"}`}
         >
           <RotateCcw className="h-3.5 w-3.5" />
           Clear filters
         </button>
-      </aside>
+        {mobile ? (
+          <button type="button" onClick={onResultsOpen} data-open-residences
+            className="mp-liquid-compare inline-flex min-h-11 shrink-0 items-center justify-center rounded-[11px] bg-[#00142b] px-4 text-xs font-semibold text-[#fce190]">
+            Open residences · {sortedApartments.length}
+          </button>
+        ) : null}
+        </div>
+      </aside> : null}
 
       <style jsx global>{`
         .mp-liquid-shell {

@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { getVillaMasterPlanVideo } from "@/lib/villa-masterplan-preload";
-import { getVillaMasterPlanVideoTime, getVillaOrbitTravel, type VillaOrbitMotion } from "@/lib/villa-masterplan-video";
+import { getVillaMasterPlanVideo, warmCompleteVillaMasterPlanVideo } from "@/lib/villa-masterplan-preload";
+import { getMasterplanVideoCache } from "@/lib/masterplan-video-cache";
+import { getVillaMasterPlanVideoTime, getVillaOrbitTravel, VILLA_MASTERPLAN_VIDEO_URL, type VillaOrbitMotion } from "@/lib/villa-masterplan-video";
 
 type Props = {
-  src: string; poster: string; frame: number; fps: number; totalFrames: number;
+  src: string; poster?: string; frame: number; fps: number; totalFrames: number;
   motion?: VillaOrbitMotion | null;
   scrubbing?: boolean;
   onMotion: () => void; onSettled: (frame: number) => void; onFailure: () => void;
@@ -13,9 +14,12 @@ type Props = {
 
 /** Native forward playback through the seam; bounded GOP3 seeks in reverse.
  * Hover returns only once the exact calibrated stop has been decoded. */
-export default function VillaMasterPlanVideo({ src, poster, frame, fps, totalFrames, motion, scrubbing = false, onMotion, onSettled, onFailure }: Props) {
+export default function VillaMasterPlanVideo({ src, poster = "", frame, fps, totalFrames, motion, scrubbing = false, onMotion, onSettled, onFailure }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const idleRef = useRef(false);
+  const promoteRef = useRef<(() => void) | null>(null);
+  const freezeRef = useRef<HTMLCanvasElement | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -23,31 +27,80 @@ export default function VillaMasterPlanVideo({ src, poster, frame, fps, totalFra
     if (!host) return;
     const video = getVillaMasterPlanVideo(src);
     videoRef.current = video;
-    video.poster = poster;
+    // The server-rendered image beneath us already supplies the poster. Avoid
+    // downloading the original large still again through the native player.
+    if (poster) video.poster = poster;
+    else video.removeAttribute("poster");
     video.preload = "auto";
-    video.className = "h-full w-full select-none object-cover opacity-0 transition-opacity duration-200";
+    video.className = "h-full w-full select-none object-contain opacity-0 transition-opacity duration-200";
     host.appendChild(video);
+    const cache = getMasterplanVideoCache();
+    let restoring: number | undefined;
+    let cacheFailed = false;
     const check = () => {
-      if (video.readyState >= 2) {
+      if (video.readyState >= 2 && !video.seeking && (restoring === undefined || Math.abs(video.currentTime - restoring) < 1 / fps)) {
+        restoring = undefined;
         video.classList.replace("opacity-0", "opacity-100");
         setReady(true);
       }
     };
-    const fail = () => { setReady(false); onFailure(); };
+    const restore = () => { if (restoring !== undefined) video.currentTime = restoring; };
+    const promote = () => {
+      const full = cache.getStatus().objectURL;
+      if (src !== VILLA_MASTERPLAN_VIDEO_URL || !full || video.src === full || cacheFailed || !idleRef.current || !video.paused || video.seeking) return;
+      // Preserve the exact current camera while loading the local blob. One
+      // transient still, not hundreds of decoded 4K frames held in memory.
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+      const context = canvas.getContext("2d");
+      if (!context || !canvas.width) return;
+      try { context.drawImage(video, 0, 0); } catch { return; }
+      canvas.className = "pointer-events-none absolute inset-0 h-full w-full object-contain";
+      freezeRef.current?.remove();
+      freezeRef.current = canvas;
+      host.appendChild(canvas);
+      restoring = video.currentTime;
+      idleRef.current = false;
+      setReady(false);
+      onMotion();
+      video.src = full;
+      video.load();
+    };
+    promoteRef.current = promote;
+    const unsubscribe = cache.subscribe(promote);
+    const fail = () => {
+      setReady(false);
+      if (video.src.startsWith("blob:") && !cacheFailed) {
+        cacheFailed = true;
+        restoring ??= video.currentTime || getVillaMasterPlanVideoTime(frame, fps, totalFrames);
+        video.src = src;
+        video.load();
+      } else onFailure();
+    };
     // Native listeners also handle events fired before React hydration/mount.
     for (const event of ["loadeddata", "canplay", "seeked"]) video.addEventListener(event, check);
+    video.addEventListener("loadedmetadata", restore);
     video.addEventListener("error", fail);
     const id = requestAnimationFrame(check);
     if (video.networkState === 0 || video.error) video.load();
+    warmCompleteVillaMasterPlanVideo();
     return () => {
       cancelAnimationFrame(id);
       video.pause();
       for (const event of ["loadeddata", "canplay", "seeked"]) video.removeEventListener(event, check);
       video.removeEventListener("error", fail);
+      video.removeEventListener("loadedmetadata", restore);
+      unsubscribe();
+      promoteRef.current = null;
+      idleRef.current = false;
+      freezeRef.current?.remove();
+      freezeRef.current = null;
       if (video.parentElement === host) host.removeChild(video);
       videoRef.current = null;
     };
-  }, [src, poster, onFailure]);
+    // Frame/fps changes belong to the motion effect, not the player lifetime.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [src, poster, onFailure, onMotion]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -61,7 +114,13 @@ export default function VillaMasterPlanVideo({ src, poster, frame, fps, totalFra
     const complete = () => {
       if (cancelled || settled || video.seeking || video.readyState < 2 || Math.abs(video.currentTime - target) > 0.5 / fps) return;
       settled = true;
-      if (!scrubbing) onSettled(frame);
+      if (!scrubbing) {
+        idleRef.current = true;
+        freezeRef.current?.remove();
+        freezeRef.current = null;
+        onSettled(frame);
+        promoteRef.current?.();
+      }
     };
     const finish = () => {
       if (cancelled || finishing) return;
@@ -75,6 +134,7 @@ export default function VillaMasterPlanVideo({ src, poster, frame, fps, totalFra
     const seeked = () => { if (finishing) raf = requestAnimationFrame(() => { raf = requestAnimationFrame(complete); }); };
     video.addEventListener("seeked", seeked);
     video.pause();
+    idleRef.current = false;
     onMotion();
 
     if (scrubbing || Math.abs(travel) < 0.5 / fps) finish();
@@ -109,6 +169,7 @@ export default function VillaMasterPlanVideo({ src, poster, frame, fps, totalFra
     }
     return () => {
       cancelled = true;
+      idleRef.current = false;
       video.pause(); video.loop = false;
       cancelAnimationFrame(raf); window.clearTimeout(timer);
       if (presentation) video.cancelVideoFrameCallback(presentation);

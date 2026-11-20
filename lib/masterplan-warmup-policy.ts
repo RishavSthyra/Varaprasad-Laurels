@@ -1,6 +1,5 @@
 export const HOME_WARMUP_MAX_WAIT_MS = 3_500;
 export const MASTERPLAN_OPENING_SECONDS = 1.5;
-export const MASTERPLAN_BACKGROUND_TARGETS = [3, 6, 10.3] as const;
 
 type MediaBuffer = Pick<HTMLMediaElement, "buffered" | "duration" | "readyState">;
 

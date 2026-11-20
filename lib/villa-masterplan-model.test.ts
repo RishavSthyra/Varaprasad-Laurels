@@ -19,7 +19,7 @@ test("villa stage receives the original vertical FOV converted from 29.172 horiz
   }
   const stage = fs.readFileSync("components/VillasMasterPlanStage.tsx", "utf8");
   assert(stage.includes("const baseVerticalFovRadians = (cameraConfig.fov * Math.PI) / 180"));
-  assert(stage.includes("viewportAspect > SOURCE_FRAME_ASPECT"), "Keep the original image-cover aspect matching");
+  assert(stage.includes("aspectRatio: SOURCE_FRAME_ASPECT"), "Camera and media share an uncropped source-aspect frame");
 });
 
 test("masterplan preserves both camera poses and uses the configured second-stop frame", () => {

@@ -325,9 +325,15 @@ export class PanoAssetStore {
   constructor(
     private readonly baseUrl: string,
     private readonly imageLoader: PanoImageLoader = loadImage,
+    private readonly baseUrlsByPanoId: Record<string, string> = {},
   ) {}
 
+  getBaseUrl(panoId: string) {
+    return this.baseUrlsByPanoId[panoId] ?? this.baseUrl;
+  }
+
   getPanorama(panoId: string, preferTiles = true): Promise<ResolvedPanoramaAssets> {
+    const baseUrl = this.getBaseUrl(panoId);
     const key = `${panoId}|${preferTiles ? "tiles" : "preview"}`;
     const cached = this.panoramaPromises.get(key);
     if (cached) {
@@ -339,18 +345,18 @@ export class PanoAssetStore {
     const authorization = this.metaCache.has(panoId)
       ? Promise.resolve()
       : this.getSignedUrls([
-          getPanoMetaUrl(panoId, this.baseUrl),
-          getPanoPreviewUrl(panoId, "preview.jpg", this.baseUrl),
+          getPanoMetaUrl(panoId, baseUrl),
+          getPanoPreviewUrl(panoId, "preview.jpg", baseUrl),
         ]);
     const promise = authorization.then(() => this.getMeta(panoId))
       .then(async (meta) => {
         const previewPath = getResolvedPreviewUrl(
-          panoId, this.baseUrl, meta.preview ?? "preview.jpg",
+          panoId, baseUrl, meta.preview ?? "preview.jpg",
         );
         const useTiles = preferTiles && canUseTiledPanorama(meta);
         // Sign the preview and tile URLs together, instead of serial API calls.
         const tilePaths = useTiles
-          ? buildTileDescriptors(panoId, meta, this.baseUrl).map((tile) => tile.url)
+          ? buildTileDescriptors(panoId, meta, baseUrl).map((tile) => tile.url)
           : [];
         const signedUrls = await this.getSignedUrls([previewPath, ...tilePaths]);
         const previewUrl = signedUrls[previewPath];
@@ -359,7 +365,7 @@ export class PanoAssetStore {
           meta,
           previewUrl,
           panorama: buildPhotoSpherePanorama(
-            panoId, meta, this.baseUrl, useTiles, previewUrl, signedUrls,
+            panoId, meta, baseUrl, useTiles, previewUrl, signedUrls,
           ),
         };
       })
@@ -450,7 +456,7 @@ export class PanoAssetStore {
   }
 
   async getSignedTileUrlMap(panoId: string, meta: PanoMeta) {
-    const cacheKey = `${this.baseUrl}|${panoId}|${meta.actualCols ?? meta.cols}x${meta.actualRows ?? meta.rows}|${meta.tileUrl ?? meta.tileFormat ?? "jpg"}`;
+    const cacheKey = `${this.getBaseUrl(panoId)}|${panoId}|${meta.actualCols ?? meta.cols}x${meta.actualRows ?? meta.rows}|${meta.tileUrl ?? meta.tileFormat ?? "jpg"}`;
     const cachedPromise = this.signedTileUrlMaps.get(cacheKey);
 
     if (cachedPromise) {
@@ -458,7 +464,7 @@ export class PanoAssetStore {
     }
 
     const promise = this.getSignedUrls(
-      buildTileDescriptors(panoId, meta, this.baseUrl).map((tile) => tile.url),
+      buildTileDescriptors(panoId, meta, this.getBaseUrl(panoId)).map((tile) => tile.url),
     ).catch((error) => {
       this.signedTileUrlMaps.delete(cacheKey);
       throw error;
@@ -488,7 +494,7 @@ export class PanoAssetStore {
       return cachedPromise;
     }
 
-    const promise = this.getSignedUrl(getPanoMetaUrl(panoId, this.baseUrl))
+    const promise = this.getSignedUrl(getPanoMetaUrl(panoId, this.getBaseUrl(panoId)))
       .then((signedMetaUrl) =>
         fetch(signedMetaUrl, {
           cache: "force-cache",
@@ -552,9 +558,9 @@ export class PanoAssetStore {
     signal?: AbortSignal,
   ) {
     signal?.throwIfAborted();
-    const defaultPreview = getPanoPreviewUrl(panoId, "preview.jpg", this.baseUrl);
+    const defaultPreview = getPanoPreviewUrl(panoId, "preview.jpg", this.getBaseUrl(panoId));
     const urls = await this.getSignedUrls([
-      getPanoMetaUrl(panoId, this.baseUrl),
+      getPanoMetaUrl(panoId, this.getBaseUrl(panoId)),
       defaultPreview,
     ]);
     signal?.throwIfAborted();
@@ -581,7 +587,7 @@ export class PanoAssetStore {
     fetchPriority: "high" | "low" | "auto" = "high",
     signal?: AbortSignal,
   ) {
-    const assetPath = getPanoPreviewUrl(panoId, previewFile, this.baseUrl);
+    const assetPath = getPanoPreviewUrl(panoId, previewFile, this.getBaseUrl(panoId));
     const signedSrc = await this.getSignedUrl(assetPath);
     await this.preloadImage(signedSrc, fetchPriority, undefined, signal);
     return signedSrc;
