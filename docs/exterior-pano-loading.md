@@ -92,45 +92,38 @@ the deployment and local source differ. No Worker deployment was performed.
 
 ## View-relative road navigation (2026-11-20)
 
-The arrow selector now lives in `lib/exterior-tour/view-navigation.ts`. It is
-shared by clicks, arrow availability and directional warmup, so a disabled
-direction does not quietly resolve a different destination.
+The original view-relative selector from commit `7be4cc5` is restored in
+`lib/exterior-tour/view-navigation.ts`. The later tightening was reverted at
+the user's request because it blocked previously working Forward movement.
 
-- Forward/Back use a 30-degree half-cone; Left/Right retain a broader turn cone.
-- All supported local samples are compared, not just the first nearby-neighbour
-  list. Similar forward alignments prefer the nearest sample; turn controls
-  enter the nearest valid corner sample rather than skipping it.
-- Local candidates are bounded to typical export sampling distances. Non-adjacent
-  joins must stay near the exported camera paths. This is a conservative path
-  corridor check, not a collision/navmesh or proof that every rendered road has
-  complete camera coverage. The gate bend/overlapping return lane is retained.
-- Path/candidate checks are cached per graph/node. Rotation recomputes only small
-  directional rankings. Availability is checked at most once per 80ms and React
-  updates only when an arrow's enabled state changes; timers/listeners are cleaned up.
-- Clicks recheck the live camera and return quietly when no candidate exists.
-  They no longer treat absence of a forward connection as a panorama load error.
-- Debug jumps, history and the explicitly labelled next-pano/trail sequence
-  remain separate from the view-relative arrows. Exported positions, headings,
-  villa pointers and pano assets are unchanged.
-- An isolated activity-camera run is not automatically bridged through a fence
-  to make it reachable by road arrows. For example, Camera 06's `00271` preview
-  is inside the fenced court, while `EP.00132` is on the clubhouse plaza outside.
-  Its own Forward/Back route still works; debug/explicit pano entry remains
-  available until a verified entrance/amenity link is assigned. The underlying
-  broad proximity graph is retained but is not proof of a walkable connection.
+- All four directions use the original 60-degree half-cone (alignment > 0.5),
+  neighbour-first ranking, original distance/score weights and nearby fallback.
+- The new 30-degree global Forward/Back cone, sampled-road corridor requirement,
+  clamped local-distance budget and nearest-aligned ranking are removed.
+- Arrow buttons have their original transition-only disabled state. The
+  direction-availability state and rotation polling/listener are removed.
+- Warmup and clicks share the restored selector. An empty result still returns
+  quietly rather than showing a panorama load error.
+- Exported camera coordinates, rotations, panorama assets, villa pointers,
+  debug selection and the labelled trail sequence are unchanged.
 
-Specific regressions: the default gate view retains its 6.5m forward connection
-to `EP.00249`. The user has confirmed that player pano 15 (`EP.00014`) continues
-straight to player pano 61 (`EP.00060`, node `Exterior_PANO_Spline_F0060`). This
-directed connection is recorded separately in `data/exterior-road-connections.json`.
-It permits this specific 46.6m step despite the normal local-distance budget,
-but still obeys the live-view Forward/Back cone. At yaw -5.5 degrees Forward goes
-directly to 61, not the diagonal `EP.00168` or player 62 (`EP.00061`). Local
-Left/Right choices remain unchanged; facing the nearby branch still enters its
-nearest pano. No other long-distance links, reverse links or coordinates are inferred.
+The only explicit navigation exception is the user-confirmed **player pano
+15 ↔ player pano 61** road link, recorded in
+`data/exterior-road-connections.json`. These are nodes
+`Exterior_PANO_Spline_F0014` / `Exterior_PANO_Spline_F0060` and folders
+`EP.00014` / `EP.00060` (not player 62 / `EP.00061`).
+When facing along that confirmed road, Forward/Back prioritise the direct link
+in either direction. Turning toward another branch uses the original selector;
+Left/Right remain unchanged. The explicit link's own view-alignment check does
+not restrict navigation anywhere else.
 
-Verification: `npx tsx --test lib/exterior-tour/view-navigation.test.ts` and
-`node scripts/verify-exterior-road-navigation.cjs` (with `PLAYWRIGHT_MODULE` set
-if Playwright is installed outside this project). Browser checks cover the
-default gate and confirmed pano 15-to-61 connection on desktop/phone, pano 15 after rotation,
-debug selection, and remaining Camera 06 Forward/Back.
+Verification:
+
+- `npx tsx --test lib/exterior-tour/view-navigation.test.ts` compares all 285
+  panos, 24 view angles and four directions against a frozen copy of the
+  original selector, allowing only the confirmed link exception. It also checks
+  player pano 5, the starting gate, unchanged poses, sequential mode and buttons.
+- `node scripts/verify-exterior-road-navigation.cjs` (with `PLAYWRIGHT_MODULE`
+  set if Playwright is installed outside this project) checks actual Forward
+  clicks, pano 15 → 61 and 61 → 15 on desktop/phone, the reported pano 5,
+  branch navigation and remaining Camera 06 Forward/Back.

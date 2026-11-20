@@ -1,8 +1,14 @@
-import { EXTERIOR_AMENITY_REFERENCES } from "@/lib/exterior-tour/amenity-minimap";
+import { EXTERIOR_AMENITY_REFERENCES, type ExteriorAmenityReference } from "@/lib/exterior-tour/amenity-minimap";
 import type { CSSProperties } from "react";
 import styles from "./ExteriorAmenityMinimapPoints.module.css";
 
-export default function ExteriorAmenityMinimapPoints({ compact, zoom }: { compact: boolean; zoom: number }) {
+export default function ExteriorAmenityMinimapPoints({ compact, zoom, activeNodeId, isNavigating, onNavigate }: {
+  compact: boolean;
+  zoom: number;
+  activeNodeId: string;
+  isNavigating: boolean;
+  onNavigate: (marker: ExteriorAmenityReference) => void;
+}) {
   return (
     <div
       className={styles.layer}
@@ -11,25 +17,28 @@ export default function ExteriorAmenityMinimapPoints({ compact, zoom }: { compac
     >
       {EXTERIOR_AMENITY_REFERENCES.map((marker) => {
         const position = { left: `${marker.leftPercent * 100}%`, top: `${marker.topPercent * 100}%` };
-        const label = `Reference ${marker.number}: ${marker.name}`;
-        // The compact map is itself an expand button; do not nest buttons in it.
-        return compact ? (
-          <span key={marker.number} className={`${styles.point} ${styles.compact}`} style={position} aria-hidden="true">
-            <span>{marker.number}</span>
-          </span>
-        ) : (
+        const label = `Go to ${marker.name}`;
+        return (
           <button
             key={marker.number}
             type="button"
-            className={styles.point}
+            className={`${styles.point} ${compact ? styles.compact : ""}`}
             style={position}
-            title={label}
+            title={process.env.NODE_ENV === "development" ? `${marker.name} · Reference #${marker.number}` : marker.name}
             aria-label={label}
+            aria-pressed={marker.nodeId === activeNodeId}
+            disabled={isNavigating}
+            tabIndex={compact ? -1 : 0}
             data-exterior-amenity-number={marker.number}
-            data-pano-assigned="false"
-            onClick={(event) => event.stopPropagation()}
+            data-pano-assigned="true"
+            data-pano-node={marker.nodeId}
+            onPointerDown={event => event.stopPropagation()}
+            onClick={(event) => {
+              event.stopPropagation();
+              onNavigate(marker);
+            }}
           >
-            {marker.number}
+            <span className={styles.dot} aria-hidden="true" />
           </button>
         );
       })}

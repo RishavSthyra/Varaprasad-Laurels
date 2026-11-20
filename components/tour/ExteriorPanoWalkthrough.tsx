@@ -9,6 +9,7 @@ import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import ExteriorWalkthroughPreloader from "@/components/ui/ExteriorWalkthroughPreloader";
 import ExteriorAmenityMinimapPoints from "./ExteriorAmenityMinimapPoints";
+import type { ExteriorAmenityReference } from "@/lib/exterior-tour/amenity-minimap";
 import PanoDebugPanel from "./PanoDebugPanel";
 import {
   ArrowDown,
@@ -519,6 +520,12 @@ function CurrentAmenityPanel({
   );
 }
 
+type ExteriorMinimapNavigationProps = {
+  activeNodeId: string;
+  isNavigating: boolean;
+  onNavigateReference: (marker: ExteriorAmenityReference) => void;
+};
+
 function ExteriorMinimapGraphic({
   variant,
   signedMinimapImageUrl,
@@ -535,6 +542,9 @@ function ExteriorMinimapGraphic({
   activeMinimapPoint,
   jumpToAmenity,
   onOpenCompact,
+  activeNodeId,
+  isNavigating,
+  onNavigateReference,
   className,
 }: {
   variant: "compact" | "expanded";
@@ -553,7 +563,7 @@ function ExteriorMinimapGraphic({
   jumpToAmenity: (amenity: ExteriorAmenity) => Promise<boolean>;
   onOpenCompact?: () => void;
   className?: string;
-}) {
+} & ExteriorMinimapNavigationProps) {
   const [hoveredMarkerId, setHoveredMarkerId] = useState<string | null>(null);
   const [focusedMarkerId, setFocusedMarkerId] = useState<string | null>(null);
   const previewMarkerId = hoveredMarkerId ?? focusedMarkerId;
@@ -584,7 +594,10 @@ function ExteriorMinimapGraphic({
         className="pointer-events-none absolute inset-0 block h-full w-full select-none object-cover brightness-[0.78] contrast-[1.08] saturate-[0.78]"
       />
 
-      <ExteriorAmenityMinimapPoints compact={isCompact} zoom={minimapZoom} />
+      {isCompact ? <button type="button" aria-label="Expand minimap" onClick={onOpenCompact}
+        className="absolute inset-0 z-10 cursor-pointer border-0 bg-transparent" /> : null}
+      <ExteriorAmenityMinimapPoints compact={isCompact} zoom={minimapZoom}
+        activeNodeId={activeNodeId} isNavigating={isNavigating} onNavigate={onNavigateReference} />
 
       {!isCompact
         ? minimapDots.map((marker) => (
@@ -640,16 +653,8 @@ function ExteriorMinimapGraphic({
   if (isCompact) {
     return (
       <div
-        role="button"
-        tabIndex={0}
-        aria-label="Expand minimap"
-        onClick={onOpenCompact}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            onOpenCompact?.();
-          }
-        }}
+        role="group"
+        aria-label="Exterior minimap"
         className={`walkthrough-compact-minimap relative aspect-square cursor-pointer overflow-hidden rounded-full border border-[#ead9b5]/90 bg-black/72 shadow-[0_18px_44px_rgba(0,0,0,0.44),inset_0_1px_0_rgba(255,250,235,0.28)] outline-none transition focus-visible:ring-2 focus-visible:ring-[#ead9b5]/90 ${className ?? ""}`}
         style={{ touchAction: "manipulation" }}
       >
@@ -786,6 +791,9 @@ function ExteriorMinimapPanel({
   activeAmenityId,
   activeMinimapPoint,
   jumpToAmenity,
+  activeNodeId,
+  isNavigating,
+  onNavigateReference,
   className,
   mapClassName,
 }: {
@@ -806,7 +814,7 @@ function ExteriorMinimapPanel({
   jumpToAmenity: (amenity: ExteriorAmenity) => Promise<boolean>;
   className?: string;
   mapClassName: string;
-}) {
+} & ExteriorMinimapNavigationProps) {
   if (!isExpanded) {
     return (
       <div
@@ -829,6 +837,9 @@ function ExteriorMinimapPanel({
             activeMinimapPoint={activeMinimapPoint}
             jumpToAmenity={jumpToAmenity}
             onOpenCompact={onToggleExpanded}
+            activeNodeId={activeNodeId}
+            isNavigating={isNavigating}
+            onNavigateReference={onNavigateReference}
             className={mapClassName}
           />
           <button
@@ -861,6 +872,9 @@ function ExteriorMinimapPanel({
         activeAmenityId={activeAmenityId}
         activeMinimapPoint={activeMinimapPoint}
         jumpToAmenity={jumpToAmenity}
+        activeNodeId={activeNodeId}
+        isNavigating={isNavigating}
+        onNavigateReference={onNavigateReference}
         className={mapClassName}
       />
 
@@ -984,9 +998,6 @@ export default function ExteriorPanoWalkthrough({
   const [minimapZoom, setMinimapZoom] = useState(1);
   const [minimapOffset, setMinimapOffset] = useState({ x: 0, y: 0 });
   const [isMinimapDragging, setIsMinimapDragging] = useState(false);
-  const [directionAvailability, setDirectionAvailability] = useState<Record<NavigationDirection, boolean>>({
-    forward: false, backward: false, left: false, right: false,
-  });
   const [isAppleTouchFallbackMode] = useState(false);
   const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(
     null,
@@ -2059,29 +2070,6 @@ export default function ExteriorPanoWalkthrough({
     }
   }, [forceSequentialForwardBack, graph, primePanoNavigationNeighbors]);
 
-  useEffect(() => {
-    if (!isInitialPanoReady || !activeNode) return;
-    const viewer = viewerRef.current;
-    let timer: ReturnType<typeof setTimeout> | null = null;
-    const update = () => {
-      timer = null;
-      const yaw = viewer?.getPosition().yaw ?? viewRef.current.yaw;
-      const next = Object.fromEntries((["forward", "backward", "left", "right"] as const).map(direction => [
-        direction, getViewDirectionalCandidates(graph, activeNode.id, direction, yaw, forceSequentialForwardBack).length > 0,
-      ])) as Record<NavigationDirection, boolean>;
-      setDirectionAvailability(current => (Object.keys(next) as NavigationDirection[]).every(direction => current[direction] === next[direction]) ? current : next);
-    };
-    const scheduleUpdate = () => {
-      if (timer === null) timer = setTimeout(update, 80);
-    };
-    timer = setTimeout(update, 0);
-    viewer?.addEventListener("position-updated", scheduleUpdate);
-    return () => {
-      viewer?.removeEventListener("position-updated", scheduleUpdate);
-      if (timer !== null) clearTimeout(timer);
-    };
-  }, [activeNode, graph, isInitialPanoReady, forceSequentialForwardBack]);
-
   const pushNavigationHistory = useCallback((nodeId: string) => {
     try {
       const history = nodeHistoryRef.current;
@@ -2365,6 +2353,20 @@ export default function ExteriorPanoWalkthrough({
     [closeMinimapExpanded, jumpToAmenity, resetMinimapView],
   );
 
+  const jumpToMinimapReference = useCallback(async (marker: ExteriorAmenityReference) => {
+    setIsTrailPlaying(false);
+    const completed = await jumpToNode(marker.nodeId, {
+      primeNeighbors: true,
+      viewYawDegrees: marker.arrivalView.yaw,
+      viewPitchDegrees: marker.arrivalView.pitch,
+      viewZoom: marker.arrivalView.zoom,
+    });
+    if (completed) {
+      resetMinimapView();
+      closeMinimapExpanded();
+    }
+  }, [closeMinimapExpanded, jumpToNode, resetMinimapView]);
+
   const handleMinimapWheel = useCallback(
     (event: ReactWheelEvent<HTMLDivElement>) => {
       event.preventDefault();
@@ -2491,8 +2493,8 @@ export default function ExteriorPanoWalkthrough({
         graph, fromNode.id, direction, viewer?.getPosition().yaw ?? viewRef.current.yaw,
         forceSequentialForwardBack,
       );
-      // No valid continuation is not a load failure. Do not substitute a
-      // sideways branch or far-away pano to keep a Forward click moving.
+      // Keep an empty direction quiet; the restored selector supplies the
+      // original neighbour-first candidates and nearby fallback.
       if (rankedCandidates.length === 0) return;
       startWarmupRun();
 
@@ -3303,28 +3305,28 @@ export default function ExteriorPanoWalkthrough({
             label="Move forward"
             onIntent={() => primeNavigationDirection("forward")}
             onClick={() => void navigateTo("forward")}
-            disabled={isTransitioning || !isInitialPanoReady || !directionAvailability.forward}
+            disabled={isTransitioning}
           />
           <ArrowButton
             icon={ArrowLeft}
             label="Move left"
             onIntent={() => primeNavigationDirection("left")}
             onClick={() => void navigateTo("left")}
-            disabled={isTransitioning || !isInitialPanoReady || !directionAvailability.left}
+            disabled={isTransitioning}
           />
           <ArrowButton
             icon={ArrowRight}
             label="Move right"
             onIntent={() => primeNavigationDirection("right")}
             onClick={() => void navigateTo("right")}
-            disabled={isTransitioning || !isInitialPanoReady || !directionAvailability.right}
+            disabled={isTransitioning}
           />
           <ArrowButton
             icon={ArrowDown}
             label="Move back"
             onIntent={() => primeNavigationDirection("backward")}
             onClick={() => void navigateTo("backward")}
-            disabled={isTransitioning || !isInitialPanoReady || !directionAvailability.backward}
+            disabled={isTransitioning}
           />
         </div>
       </div>
@@ -3554,6 +3556,9 @@ export default function ExteriorPanoWalkthrough({
               activeAmenityId={activeAmenityId}
               activeMinimapPoint={activeMinimapPoint}
               jumpToAmenity={jumpToAmenityFromExpandedMap}
+              activeNodeId={activeNodeId}
+              isNavigating={isTransitioning || !isInitialPanoReady}
+              onNavigateReference={jumpToMinimapReference}
               className="mx-auto w-full max-w-[72rem]"
               mapClassName="w-full"
             />
@@ -3578,6 +3583,9 @@ export default function ExteriorPanoWalkthrough({
           activeAmenityId={activeAmenityId}
           activeMinimapPoint={activeMinimapPoint}
           jumpToAmenity={jumpToAmenity}
+          activeNodeId={activeNodeId}
+          isNavigating={isTransitioning || !isInitialPanoReady}
+          onNavigateReference={jumpToMinimapReference}
           className="w-28 sm:w-36 xl:w-[10.5rem] 2xl:w-44"
           mapClassName="h-28 w-28 sm:h-36 sm:w-36 xl:h-[10.5rem] xl:w-[10.5rem] 2xl:h-44 2xl:w-44"
         />

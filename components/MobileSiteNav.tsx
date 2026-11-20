@@ -23,6 +23,7 @@ import {
   siteNavItems,
 } from "@/lib/site-navigation";
 import { TRIFECTA_LEAD_OPEN_EVENT } from "@/lib/trifecta-remote-control";
+import styles from "./MobileSiteNav.module.css";
 
 const navItemIcons: Record<SiteNavHref, typeof Home> = {
   "/": Home,
@@ -284,11 +285,11 @@ export default function MobileSiteNav() {
   };
 
   return (
-    <div className="xl:hidden">
+    <div className={isMasterPlanRoute ? styles.masterPlan : "xl:hidden"}>
       {isRendered ? (
         <div
           ref={overlayRef}
-          className="fixed inset-0 z-[70] bg-[#000d1d]/64 backdrop-blur-[7px]"
+          className={`fixed inset-0 bg-[#000d1d]/64 backdrop-blur-[7px] ${isMasterPlanRoute ? "z-[150]" : "z-[70]"}`}
           onClick={(event) => {
             if (event.target === event.currentTarget) {
               closeMenu();
@@ -420,8 +421,10 @@ export default function MobileSiteNav() {
 
       {!isRendered ? (
         <div
-          className={`pointer-events-none fixed inset-x-0 z-[70] flex justify-start ${
-            isAreaMapRoute
+          className={`pointer-events-none fixed inset-x-0 flex justify-start ${isMasterPlanRoute ? "z-[120]" : "z-[70]"} ${
+            isMasterPlanRoute
+              ? styles.masterPlanTrigger
+              : isAreaMapRoute
               ? "top-[max(env(safe-area-inset-top),1rem)] px-3 sm:px-5"
               : "bottom-[max(env(safe-area-inset-bottom),1rem)] px-4 sm:px-6"
           }`}
@@ -430,7 +433,7 @@ export default function MobileSiteNav() {
             ref={triggerRef}
             type="button"
             onClick={openMenu}
-            className={`pointer-events-auto flex items-center justify-center rounded-full border border-[#cec3a0]/48 bg-[#00142b]/92 text-[#cec3a0] shadow-[0_18px_42px_rgba(0,10,24,0.32),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl ${isAreaMapRoute ? "size-11 sm:size-12" : "size-13"}`}
+            className={`pointer-events-auto flex items-center justify-center rounded-full border border-[#cec3a0]/48 bg-[#00142b]/92 text-[#cec3a0] shadow-[0_18px_42px_rgba(0,10,24,0.32),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl ${isMasterPlanRoute ? "size-10 sm:size-11" : isAreaMapRoute ? "size-11 sm:size-12" : "size-13"}`}
             aria-label="Open navigation menu"
             aria-expanded={false}
           >

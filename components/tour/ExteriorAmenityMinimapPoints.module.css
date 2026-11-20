@@ -9,38 +9,54 @@
   z-index: 25;
   display: grid;
   place-items: center;
-  width: 19px;
-  height: 19px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   transform: translate(-50%, -50%) scale(var(--reference-inverse-zoom, 1));
-  border: 1px solid #b69545;
+  border: 0;
   border-radius: 50%;
-  background: #ffe18a;
-  color: #071e31;
-  font: 700 10px/1 Arial, sans-serif;
-  pointer-events: auto;
-  cursor: default;
+  background: transparent;
+  /* Adjacent references can be closer than the focus ring's box on phones.
+     Only the visible dot takes pointer hits; its click bubbles to the button.
+     Invisible padding must not cover another dot's centre. */
+  pointer-events: none;
+  cursor: pointer;
 }
 
-.point:hover, .point:focus-visible {
+.dot {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #d6b65f;
+  border-radius: 50%;
+  background: #fce190;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+  pointer-events: auto;
+}
+
+.point:hover, .point:focus-visible, .point[aria-pressed="true"] {
   z-index: 30;
-  background: #2d89b8;
-  color: white;
+}
+
+.point:hover .dot, .point:focus-visible .dot, .point[aria-pressed="true"] .dot {
+  background: #2f7fb5;
+}
+
+.point:focus-visible {
   outline: 2px solid white;
   outline-offset: 1px;
 }
 
+.point:disabled { cursor: wait; }
+.point:disabled .dot { pointer-events: none; }
+
 .compact {
-  width: 11px;
-  height: 11px;
-  font-size: 6px;
-  pointer-events: none;
+  width: 16px;
+  height: 16px;
 }
 
-.compact > span {
-  transform: rotate(calc(-1 * var(--exterior-minimap-rotation, 0deg)));
-}
+.compact .dot { width: 8px; height: 8px; }
 
 @media (max-width: 640px) {
-  .point:not(.compact) { width: 14px; height: 14px; font-size: 8px; }
+  .point:not(.compact) { width: 24px; height: 24px; }
+  .point:not(.compact) .dot { width: 11px; height: 11px; }
 }

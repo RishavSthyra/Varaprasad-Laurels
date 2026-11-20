@@ -1,0 +1,12 @@
+.masterPlan { display: none; }
+
+/* Match the masterplan's persistent compact filter layout, including large
+   touch tablets. Fine-pointer desktop navigation stays unchanged. */
+@media (max-width: 1023px), (max-width: 1366px) and (pointer: coarse) {
+  .masterPlan { display: block; }
+}
+
+.masterPlanTrigger {
+  top: max(env(safe-area-inset-top), 0.75rem);
+  padding-inline: 0.75rem;
+}

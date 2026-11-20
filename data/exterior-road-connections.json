@@ -3,5 +3,10 @@
     "fromNodeId": "Exterior_PANO_Spline_F0014",
     "toNodeId": "Exterior_PANO_Spline_F0060",
     "reason": "User-confirmed straight-road continuation from player pano 15 to player pano 61."
+  },
+  {
+    "fromNodeId": "Exterior_PANO_Spline_F0060",
+    "toNodeId": "Exterior_PANO_Spline_F0014",
+    "reason": "User-confirmed return connection from player pano 61 to player pano 15."
   }
 ]

@@ -25,9 +25,11 @@ export function isInsideLandscapeSite(point: PlanPoint) {
   return inside;
 }
 
-// Deliberately NOT derived from the old amenity/pano list. These reference
-// numbers have no navigation destination until the user supplies pano mappings.
+// Positions retain their original landscape-plan registration. Destinations
+// and arrival angles are exclusively the user's confirmed pano mappings.
 export const EXTERIOR_AMENITY_REFERENCES = plan.markers.map((marker) => ({
   ...marker,
   ...projectLandscapePlanPoint(marker.planPoint),
 }));
+
+export type ExteriorAmenityReference = (typeof EXTERIOR_AMENITY_REFERENCES)[number];

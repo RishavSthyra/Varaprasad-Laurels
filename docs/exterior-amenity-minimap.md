@@ -1,70 +1,79 @@
-# Exterior landscape reference numbers
+# Exterior landscape minimap points
 
-Numbered reference markers are separate from the old (still hidden) amenity menus and pano links. They appear on the existing Cloudflare ortho minimap, in both compact and expanded views. Expand and use +/- then drag to inspect close-together points. Hover/focus a number to read its name. Clicking an unassigned reference does not change the panorama or dismiss the map.
+Only the 19 user-assigned references remain visible. The retained dots keep
+their original registered landscape-plan positions on the Cloudflare ortho.
+All other old reference markers, including 24, are removed; the old amenities
+menus remain hidden.
 
-## Source and placement
+Dots match the clubhouse: gold `#fce190` normally and blue `#2f7fb5` on hover,
+keyboard focus or when their pano is active. Reference numbers stay in the data
+and development titles, not visible text.
 
-- Landscape concept document, physical PDF pages 9 and 10. Page 9 supplies the estate perimeter and 23-item legend; page 10 clarifies the central garden and north-eastern strip.
-- The supplied `20260818 - UPDATED LANDSCAPE MASTERPLAN 1.dwg` matches the previously reviewed drawing's SHA-256 in `exterior-villa-hotspots-cad-audit.json`. CAD is a site-layout reference, not a reason to reuse the old hidden amenity coordinates.
-- `data/exterior-amenity-minimap.json` records the source-page positions, perimeter, road control points, affine registration and source drawing hash. Marker centres are tested against the estate polygon. The surrounding forest, neighbouring layout roads and red-dot private gardens are excluded.
-- This is visual registration of a concept plan to a rendered image, **not survey-grade positioning**. The fitted road control points have a maximum residual below 10 pixels on a 1920-wide ortho. Several planned landscape features are obscured by trees or differ in the ortho render; their names follow the concept document.
-- No panorama positions, rotations, villa pointers or existing pano-to-minimap calibration were changed.
+Click a compact or expanded dot to open its exact pano at the supplied
+yaw/pitch/zoom. The expanded map closes after successful navigation, including
+re-selecting the current pano. Dot clicks do not start dragging or expand the
+map, and further clicks are disabled while a pano transition is in progress.
 
-## Stable numbering for pano assignments
+## Confirmed destinations
 
-References **1-23** match the PDF legend. Repeated physical features have separate references **24-40**, so each can receive its own pano later. Every `nodeId` is deliberately `null` until the user supplies the corresponding pano and arrival view.
+The latest user correction assigns **reference 25 to pano 142**, not 269.
+The separate pano 269 dot is deferred at the user's request and is not shown.
 
-## Exterior pano-info tool
+| Ref | Player pano | Location |
+| --- | --- | --- |
+| 1 | 4 | Entry arch and security cabin |
+| 2 | 208 | Driveway - eastern street |
+| 3 | 205 | Plaza with feature wall - north-east |
+| 7 | 196 | Feature wall - central garden |
+| 8 | 282 | Yoga / meditation deck with shade structure |
+| 9 | 284 | Water feature |
+| 11 | 252 | Sunken seating |
+| 12 | 35 | Golf putting - south-east |
+| 13 | 40 | Informal seating - southern tip |
+| 15 | 257 | Basketball practice court |
+| 16 | 266 | Box cricket / mini soccer |
+| 17 | 271 | Pickle-ball court |
+| 19 | 274 | Barbeque zone |
+| 20 | 275 | Beach volleyball |
+| 22 | 149 | Children's play area - trampoline and rock climbing |
+| 25 | 142 | Lawn - clubhouse north |
+| 30 | 100 | Plaza with feature wall - western main-road end |
+| 36 | 81 | Feature wall - south-west |
+| 40 | 11 | Pedestrian pathway - south block corner |
 
-In `npm run dev`, open **Pano debug · Development only** at the lower left of the exterior walkthrough. It shows the current filename, node ID, exact cloud folder, one-based player counter, exported position in centimetres, and live yaw/pitch/zoom. The selector can browse all 285 exterior panos, including the remaining-v2 cameras. Use **Copy pano details** and send the minimap reference number together with those details.
+Exact node IDs, cloud folders, exported centimetre positions and arrival angles
+in degrees are in `data/exterior-amenity-minimap.json`. Camera coordinates,
+rotations, road-arrow rules and villa pointers are unchanged.
 
-Live camera polling runs only while the panel is expanded, and copy/navigation are disabled while a pano loads. The tool does not render in production. It is no longer enabled in villa or clubhouse interiors; their normal floor/minimap/balcony controls are unchanged.
+## Placement provenance
 
-| Ref | Location |
-| --- | --- |
-| 1 | Entry arch / security cabin |
-| 2 | Eastern driveway |
-| 3 | North-east plaza / feature wall |
-| 4 | North-east lawn |
-| 5 | North-east shaded deck |
-| 6 | Zen garden |
-| 7 | Central garden feature wall |
-| 8 | Yoga / meditation deck |
-| 9 | Water feature |
-| 10 | Clubhouse-east pedestrian path |
-| 11 | Sunken seating |
-| 12 | South-east golf putting |
-| 13 | Southern-tip informal seating |
-| 14 | Pickle-ball gallery seating |
-| 15 | Basketball practice court |
-| 16 | Box cricket / mini soccer |
-| 17 | Pickle-ball court |
-| 18 | Clubhouse-south plaza |
-| 19 | Barbeque zone |
-| 20 | Beach volleyball |
-| 21 | Screening wall |
-| 22 | Children's play area |
-| 23 | Outdoor gym |
-| 24 | Exit arch / security cabin |
-| 25 | Clubhouse-north lawn |
-| 26 | Lawn above box cricket |
-| 27 | Western main-road-end lawn |
-| 28 | Yoga-garden lawn |
-| 29 | Western main-road-end shaded deck |
-| 30 | Western main-road-end plaza / feature wall |
-| 31 | Southern-tip golf putting |
-| 32 | Basketball gallery seating |
-| 33 | Clubhouse-east plaza |
-| 34 | North-east boundary feature wall |
-| 35 | Feature wall below clubhouse |
-| 36 | South-west feature wall |
-| 37 | Southern garden west feature wall |
-| 38 | Southern garden east feature wall |
-| 39 | Central-west pedestrian path |
-| 40 | South-block-corner pedestrian path |
+The existing registration uses landscape concept PDF pages 9/10 and the supplied
+`20260818 - UPDATED LANDSCAPE MASTERPLAN 1.dwg`. The data retains the source
+hash, estate boundary, road anchors and affine registration. No retained point
+was moved. This is visual plan-to-ortho registration, not a land survey.
+Surrounding forest/private gardens are excluded. Road-anchor residuals are
+below 10 pixels on the 1920-wide registration image.
 
-Checks: `npx tsx --test lib/exterior-tour/amenity-minimap.test.ts lib/exterior-tour/minimap.test.ts lib/exterior-tour/remaining.test.ts`.
+## Checks
 
-Browser regression: `node scripts/verify-exterior-amenity-minimap.cjs` (set `PLAYWRIGHT_MODULE` to an installed Playwright module if needed). Verifies desktop/phone marker centres against the recorded registration, decoded Cloudflare image, zoom without inflated point sizes, unassigned clicks, collapse, and no panorama changes or browser exceptions.
+- `npx tsx --test lib/exterior-tour/amenity-minimap.test.ts lib/exterior-tour/minimap.test.ts lib/exterior-tour/remaining.test.ts lib/exterior-tour/view-navigation.test.ts`
+  verifies mappings, folders, views, source coordinates, site containment and
+  unchanged road navigation.
+- `node scripts/verify-exterior-amenity-minimap.cjs` checks real cloud pano
+  clicks, exact arrival views, gold/blue states, compact/expanded navigation,
+  phone layout, same-pano re-selection and fixed dot size under zoom.
+  Set `PLAYWRIGHT_MODULE` if Playwright is outside this repository.
+- The exterior development-only pano-info panel is unchanged. It lists all
+  285 panos and copies their metadata/live view, with polling only while open.
+  It stays absent in production and villa/clubhouse interiors.
 
-Pano-info regression: `node scripts/verify-exterior-pano-debug.cjs` checks original/remaining-v2 metadata and copied views, all 285 choices, mobile containment, and absence of the panel in both interior tours.
+## Masterplan phone/tablet menu
+
+The hamburger matches the compact filter breakpoint: up to 1023px, or coarse-
+pointer tablets up to 1366px. Its safe-area top-left placement clears the bottom
+filter actions, and the trigger/open menu sit above the filter layer. Other
+routes and desktop navigation retain their layout.
+
+Checks: `npx tsx --test lib/mobile-site-nav.test.ts` and
+`node scripts/verify-masterplan-mobile-menu.cjs` (phone portrait/landscape,
+tablet, large touch tablet, open/close and Escape).
