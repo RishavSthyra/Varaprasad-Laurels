@@ -9,6 +9,7 @@ import { Landmark } from "lucide-react";
 import { Cormorant_Garamond } from "next/font/google";
 import DesktopSiteRail from "@/components/DesktopSiteRail";
 import { warmVillaMasterPlanAssets } from "@/lib/villa-masterplan-preload";
+import HomeHeroVideo from "./HomeHeroVideo";
 
 const heroSerif = Cormorant_Garamond({
   subsets: ["latin"],
@@ -49,9 +50,16 @@ function HeroMagneticButton({
   );
 }
 
-type HeroSectionProps = { imageSrc: string; onImageReady?: () => void; revealContent?: boolean };
+type HeroSectionProps = {
+  imageSrc?: string;
+  videoSrc?: string;
+  reverseVideoSrc?: string;
+  onImageReady?: () => void;
+  onVideoSettled?: () => void;
+  revealContent?: boolean;
+};
 
-export default function HeroSection({ imageSrc, onImageReady, revealContent = true }: HeroSectionProps) {
+export default function HeroSection({ imageSrc, videoSrc, reverseVideoSrc, onImageReady, onVideoSettled, revealContent = true }: HeroSectionProps) {
   const router = useRouter();
   const sectionRef = useRef<HTMLElement | null>(null);
   const scrollLockRef = useRef(false);
@@ -120,7 +128,7 @@ export default function HeroSection({ imageSrc, onImageReady, revealContent = tr
   }, [router]);
 
   useEffect(() => {
-    if (!imageReady) return;
+    if (!imageReady || !revealContent) return;
 
     let timeoutId: TimeoutHandle | null = null;
     let idleId: number | null = null;
@@ -151,7 +159,7 @@ export default function HeroSection({ imageSrc, onImageReady, revealContent = tr
         globalThis.clearTimeout(timeoutId);
       }
     };
-  }, [router, imageReady]);
+  }, [router, imageReady, revealContent]);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -177,7 +185,7 @@ export default function HeroSection({ imageSrc, onImageReady, revealContent = tr
       ref={sectionRef}
       className="relative app-screen w-full overflow-hidden bg-black text-white"
     >
-      <Image
+      {imageSrc ? <Image
         src={imageSrc}
         alt="Laurels villa estate entrance"
         fill
@@ -187,7 +195,10 @@ export default function HeroSection({ imageSrc, onImageReady, revealContent = tr
         sizes="100vw"
         className="pointer-events-none select-none object-cover object-center"
         onLoad={() => { setImageReady(true); onImageReady?.(); }}
-      />
+      /> : null}
+
+      <HomeHeroVideo videoSrc={videoSrc} reverseVideoSrc={reverseVideoSrc} poster={imageSrc}
+        revealed={revealContent} onSettled={onVideoSettled} />
 
       <style jsx global>{`
         .hero-liquid-wrap {

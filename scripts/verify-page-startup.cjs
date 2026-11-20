@@ -100,27 +100,26 @@ async function checkHome(browser, delayedImage = false, mobile = false) {
   });
   let release;
   const gate = new Promise(resolve => { release = resolve; });
-  if (delayedImage) await page.route('**/gate.00297.avif', async route => {
+  if (delayedImage) await page.route('**/homepage_first_frame.avif', async route => {
     await gate;
     await route.continue();
   });
   try {
     const start = Date.now();
     await page.goto(base, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await page.locator('[data-home-static]').waitFor({ state: 'visible' });
+    await page.locator('[data-home-media]').waitFor({ state: 'visible' });
     await page.locator('[data-luxury-villa-preloader]').waitFor({ state: 'detached', timeout: 18000 });
-    assert.equal(await page.locator('[data-home-static] video').count(), 0);
+    assert.equal(await page.locator('[data-home-media] video').count(), 2);
     assert.equal(await page.locator('main[aria-hidden]').getAttribute('aria-hidden'), 'false');
     const image = page.getByAltText('Laurels villa estate entrance', { exact: true });
-    assert.equal(new URL(await image.getAttribute('src'), base).pathname, '/gate.00297.avif');
     if (delayedImage) {
-      assert.equal(await image.evaluate(i => i.complete), false);
       assert.equal(await page.getByRole('button', { name: 'Explore Master Plan', exact: true }).count(), 1);
       release();
     }
     await page.waitForFunction(() => [...document.querySelectorAll('img')].some(i =>
       i.alt === 'Laurels villa estate entrance' && i.complete && i.naturalWidth === 3840
     ), {}, { timeout: 15000 });
+    assert((await image.getAttribute('src')).startsWith('blob:'), 'Use the restored/persisted Cloudflare poster');
     assert.equal(obsolete.length, 0, 'No deleted brochure, legacy GLB or Cloudinary frame preloads');
     assert.equal(homeVideoRequests.length, 0, 'No old home video or fallback requests');
     assert.deepEqual(errors, []);
@@ -138,7 +137,7 @@ async function checkHome(browser, delayedImage = false, mobile = false) {
       assert.equal(transfers.filter(size => size > 10000).length, 1, 'GLB payload should transfer once, not once per route');
       console.log('PASS homepage -> masterplan: same video buffer, cached GLB, decoded hover');
     }
-    console.log(`PASS ${mobile ? 'mobile' : 'desktop'} static home ${delayedImage ? '(navigation visible before image loads)' : '(AVIF decoded)'} (${homepageMs} ms including loader exit)`);
+    console.log(`PASS ${mobile ? 'mobile' : 'desktop'} video home ${delayedImage ? '(bounded loader despite delayed poster)' : '(AVIF decoded and AV1 warmed)'} (${homepageMs} ms including loader exit)`);
   } finally {
     release();
     await context.close();

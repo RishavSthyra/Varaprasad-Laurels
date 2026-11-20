@@ -1,6 +1,6 @@
 import HomePageClient from "@/components/HomePageClient";
 import { buildPageMetadata } from "@/lib/metadata";
-import { HOME_HERO_IMAGE_SRC } from "@/lib/home-hero";
+import { HOME_HERO_IMAGE_SRC, HOME_HERO_VIDEO_SRC, HOME_HERO_REVERSE_VIDEO_SRC } from "@/lib/home-hero";
 
 export const metadata = buildPageMetadata({
   title: "Laurels | Private Villa Estate",
@@ -18,13 +18,10 @@ export const metadata = buildPageMetadata({
 export default function HomePage() {
   return (
     <>
-      <link
-        rel="preload"
-        as="image"
-        href={HOME_HERO_IMAGE_SRC}
-        fetchPriority="high"
-      />
-      <HomePageClient imageSrc={HOME_HERO_IMAGE_SRC} />
+      <link rel="preconnect" href="https://cdn.sthyra.com" crossOrigin="anonymous" />
+      {/* Restore persistent assets before assigning a CDN source. An unconditional
+          preload here would redownload media even on a cache-only return visit. */}
+      <HomePageClient imageSrc={HOME_HERO_IMAGE_SRC} videoSrc={HOME_HERO_VIDEO_SRC} reverseVideoSrc={HOME_HERO_REVERSE_VIDEO_SRC} />
     </>
   );
 }

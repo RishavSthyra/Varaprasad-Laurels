@@ -14,6 +14,10 @@ type Options = {
   storage: () => Promise<CacheStore | undefined>;
   objectURL: (blob: Blob) => string;
   chunkBytes?: number;
+  mime?: string;
+  priority?: RequestPriority;
+  /** Small foreground assets can use a single full GET, not HTTP ranges. */
+  rangeRequests?: boolean;
 };
 export type VideoCacheStatus = {
   bytes: number; total: number; objectURL?: string;
@@ -51,13 +55,13 @@ export class MasterplanVideoCache {
     return this.pending;
   }
   private async download(allowed: () => boolean) {
-    const { url, bytes, objectURL } = this.options;
+    const { url, bytes, objectURL, mime = "video/mp4", rangeRequests = true } = this.options;
     let store: CacheStore | undefined;
     try { store = await this.options.storage(); } catch { /* Private mode/quota: use memory. */ }
     if (!this.chunks.length && store) {
       try {
         const cached = await store.match(url);
-        if (cached?.status === 200 && cached.headers.get("content-type")?.includes("video/mp4")) {
+        if (cached?.status === 200 && cached.headers.get("content-type")?.includes(mime)) {
           const blob = await cached.blob();
           if (blob.size === bytes) {
             this.update({ bytes, objectURL: objectURL(blob), source: "storage", error: undefined });
@@ -70,15 +74,15 @@ export class MasterplanVideoCache {
     this.update({ error: undefined });
     while (this.status.bytes < bytes && allowed()) {
       const start = this.status.bytes;
-      const end = Math.min(bytes - 1, start + (this.options.chunkBytes ?? CHUNK_BYTES) - 1);
+      const end = rangeRequests ? Math.min(bytes - 1, start + (this.options.chunkBytes ?? CHUNK_BYTES) - 1) : bytes - 1;
       // Range is CORS-safelisted. Do not depend on Content-Range being exposed
       // by the CDN; verify status, actual bytes, MIME and exposed ETag instead.
       const response = await this.options.fetch(url, {
-        headers: { Range: `bytes=${start}-${end}` }, credentials: "omit",
-        priority: "low",
+        headers: rangeRequests ? { Range: `bytes=${start}-${end}` } : undefined, credentials: "omit",
+        priority: this.options.priority ?? "low",
         signal: AbortSignal.timeout(90_000),
       });
-      if (![200, 206].includes(response.status) || !response.headers.get("content-type")?.includes("video/mp4")) {
+      if (![200, 206].includes(response.status) || !response.headers.get("content-type")?.includes(mime)) {
         throw new Error("Invalid masterplan video response");
       }
       const etag = response.headers.get("etag");
@@ -100,12 +104,12 @@ export class MasterplanVideoCache {
       }
     }
     if (this.status.bytes !== bytes) return;
-    const blob = new Blob(this.chunks, { type: "video/mp4" });
+    const blob = new Blob(this.chunks, { type: mime });
     this.chunks = [];
     this.update({ objectURL: objectURL(blob), source: "network" });
     if (store) {
       try {
-        await store.put(url, new Response(blob, { headers: { "Content-Type": "video/mp4", "Content-Length": String(bytes) } }));
+        await store.put(url, new Response(blob, { headers: { "Content-Type": mime, "Content-Length": String(bytes) } }));
         // Keep only the active orbit revision; don't accumulate 58 MB videos.
         for (const key of await store.keys()) if (key.url !== url) await store.delete(key);
       } catch { /* Storage denied/full: the complete in-memory copy still works. */ }

@@ -9,6 +9,7 @@ type LuxuryVillaPreloaderProps = {
   onRevealStart?: () => void;
   progress?: number;
   readyToComplete?: boolean;
+  skipIfSeen?: boolean;
 };
 
 const SESSION_KEY = "vara-prasad-panel-preloader-v10-masterplan-warmup";
@@ -19,6 +20,7 @@ export default function LuxuryVillaPreloader({
   onRevealStart,
   progress = 0,
   readyToComplete = true,
+  skipIfSeen = true,
 }: LuxuryVillaPreloaderProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -73,14 +75,14 @@ export default function LuxuryVillaPreloader({
 
   useEffect(() => {
     try {
-      if (window.sessionStorage.getItem(SESSION_KEY) === "1") {
+      if (skipIfSeen && window.sessionStorage.getItem(SESSION_KEY) === "1") {
         onRevealStart?.();
         onComplete("already-seen");
       }
     } catch {
       // Storage can be unavailable in restrictive browser modes.
     }
-  }, [onComplete, onRevealStart]);
+  }, [onComplete, onRevealStart, skipIfSeen]);
 
   useEffect(() => {
     if (!progressRef.current || exitStartedRef.current) return;
