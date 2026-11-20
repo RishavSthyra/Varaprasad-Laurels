@@ -100,7 +100,7 @@ async function checkHome(browser, delayedImage = false, mobile = false) {
   });
   let release;
   const gate = new Promise(resolve => { release = resolve; });
-  if (delayedImage) await page.route('**/homepage_first_frame.avif', async route => {
+  if (delayedImage) await page.route('**/Images/first-frames/entry.avif', async route => {
     await gate;
     await route.continue();
   });
@@ -111,7 +111,7 @@ async function checkHome(browser, delayedImage = false, mobile = false) {
     await page.locator('[data-luxury-villa-preloader]').waitFor({ state: 'detached', timeout: 18000 });
     assert.equal(await page.locator('[data-home-media] video').count(), 2);
     assert.equal(await page.locator('main[aria-hidden]').getAttribute('aria-hidden'), 'false');
-    const image = page.getByAltText('Laurels villa estate entrance', { exact: true });
+    const image = page.getByAltText('Laurels water feature', { exact: true });
     if (delayedImage) {
       assert.equal(await page.getByRole('button', { name: 'Explore Master Plan', exact: true }).count(), 1);
       release();

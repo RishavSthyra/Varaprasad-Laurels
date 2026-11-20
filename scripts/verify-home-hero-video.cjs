@@ -2,9 +2,9 @@
 const assert = require("node:assert/strict");
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
 const base = process.env.STARTUP_TEST_URL || "http://localhost:3000";
-const poster = "https://cdn.sthyra.com/Varaprasad_Laurels/Images/homepage_first_frame.avif";
-const video = "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/homepage_compressed_av1.mp4";
-const reverse = "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/homepage_reverse_av1.mp4";
+const poster = "https://cdn.sthyra.com/Varaprasad_Laurels/Images/first-frames/entry.avif";
+const video = "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/videos/entry.mp4";
+const reverse = "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/entrance_reverse_av1.mp4";
 const forwardPlayer = '[data-home-hero-video][data-home-direction="forward"]';
 const reversePlayer = '[data-home-hero-video][data-home-direction="reverse"]';
 const visiblePlayer = '[data-home-hero-video][data-video-visible="true"]';
@@ -19,8 +19,9 @@ async function cycle(page) {
 }
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: true,
-    args: ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
+  // Use Chrome's native decoder/GPU path: forcing SwiftShader disables HEVC
+  // decoding for the supplied Amenities forward clip on Windows.
+  const browser = await chromium.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: true });
   const contexts = [];
   const create = async mobile => {
     const context = await browser.newContext({ viewport: mobile ? { width: 390, height: 844 } : { width: 1440, height: 900 }, hasTouch: mobile, reducedMotion: "reduce" });
@@ -56,7 +57,7 @@ async function cycle(page) {
     assert.equal(state.width, 3840); assert.equal(state.height, 2160);
     assert(state.duration > 5 && state.duration < 5.2);
     assert.equal(await desktop.page.locator("[data-home-media] video").count(), 2);
-    assert.equal(await desktop.page.getByAltText("Laurels villa estate entrance", { exact: true }).getAttribute("src"), state.poster);
+    assert.equal(await desktop.page.getByAltText("Laurels water feature", { exact: true }).getAttribute("src"), state.poster);
     const entries = await desktop.page.evaluate(async ({ poster, video, reverse }) => {
       const sizes = [];
       for (const [name, url] of [["laurels-home-poster-v1", poster], ["laurels-home-video-v1", video], ["laurels-home-reverse-video-v1", reverse]]) {
@@ -65,7 +66,7 @@ async function cycle(page) {
       }
       return sizes;
     }, { poster, video, reverse });
-    assert.deepEqual(entries, [512576, 7798241, 7168048]);
+    assert.deepEqual(entries, [718517, 3622943, 11581331]);
     assert.equal(desktop.requests.filter(url => url === poster).length, 1);
     assert.equal(desktop.requests.filter(url => url === video).length, 1);
     assert.equal(desktop.requests.filter(url => url === reverse).length, 1);
@@ -96,7 +97,7 @@ async function cycle(page) {
     const failed = await create(false);
     await failed.page.route(video, route => route.fulfill({ status: 404, body: "Not found" }));
     await failed.enter(); await failed.revealed();
-    await failed.page.getByAltText("Laurels villa estate entrance", { exact: true }).evaluate(image => image.decode());
+    await failed.page.getByAltText("Laurels water feature", { exact: true }).evaluate(image => image.decode());
     assert.equal(await failed.page.locator('[data-home-hero-video][data-video-visible="true"]').count(), 0);
     assert.equal(await failed.page.locator('[data-home-media][aria-hidden="false"]').count(), 1);
     assert.deepEqual(failed.errors, []);
@@ -124,7 +125,7 @@ async function cycle(page) {
       await slow.enter();
       await slow.revealed();
       assert.equal(await slow.page.locator('[data-home-media][data-warmup-timeout="true"]').count(), 1);
-      await slow.page.getByAltText("Laurels villa estate entrance", { exact: true }).evaluate(image => image.decode());
+      await slow.page.getByAltText("Laurels water feature", { exact: true }).evaluate(image => image.decode());
       assert.equal(await slow.page.locator('[data-home-hero-video][data-video-visible="true"]').count(), 0);
       release();
       await slow.playing();

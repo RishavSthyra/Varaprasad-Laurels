@@ -187,7 +187,7 @@ export default function HeroSection({ imageSrc, videoSrc, reverseVideoSrc, onIma
     >
       {imageSrc ? <Image
         src={imageSrc}
-        alt="Laurels villa estate entrance"
+        alt="Laurels water feature"
         fill
         unoptimized
         loading="eager"

@@ -3,13 +3,13 @@ import test from "node:test";
 import { readFileSync } from "node:fs";
 import { HOME_HERO_IMAGE_SRC, HOME_HERO_VIDEO_SRC, HOME_HERO_IMAGE_BYTES, HOME_HERO_VIDEO_BYTES, HOME_HERO_REVERSE_VIDEO_SRC, HOME_HERO_REVERSE_VIDEO_BYTES, HOME_HERO_WARMUP_MAX_WAIT_MS } from "./home-hero";
 
-test("the homepage uses the supplied cloud AV1 and AVIF with verified complete-file sizes", () => {
-  assert.equal(HOME_HERO_IMAGE_SRC, "https://cdn.sthyra.com/Varaprasad_Laurels/Images/homepage_first_frame.avif");
-  assert.equal(HOME_HERO_VIDEO_SRC, "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/homepage_compressed_av1.mp4");
-  assert.equal(HOME_HERO_IMAGE_BYTES, 512576);
-  assert.equal(HOME_HERO_VIDEO_BYTES, 7798241);
-  assert.equal(HOME_HERO_REVERSE_VIDEO_SRC, "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/homepage_reverse_av1.mp4");
-  assert.equal(HOME_HERO_REVERSE_VIDEO_BYTES, 7168048);
+test("the homepage uses the water-feature forward/poster and its matching reverse, not the old gate clip", () => {
+  assert.equal(HOME_HERO_IMAGE_SRC, "https://cdn.sthyra.com/Varaprasad_Laurels/Images/first-frames/entry.avif");
+  assert.equal(HOME_HERO_VIDEO_SRC, "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/videos/entry.mp4");
+  assert.equal(HOME_HERO_IMAGE_BYTES, 718517);
+  assert.equal(HOME_HERO_VIDEO_BYTES, 3622943);
+  assert.equal(HOME_HERO_REVERSE_VIDEO_SRC, "https://cdn.sthyra.com/Varaprasad_Laurels/Videos/entrance_reverse_av1.mp4");
+  assert.equal(HOME_HERO_REVERSE_VIDEO_BYTES, 11581331);
   assert.equal(HOME_HERO_WARMUP_MAX_WAIT_MS, 8000);
 });
 

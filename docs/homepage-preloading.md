@@ -1,9 +1,16 @@
 # Homepage and masterplan warmup
 
-The homepage now uses the supplied Cloudflare `homepage_compressed_av1.mp4`
-(3840 x 2160, 24 fps, ~5.04 seconds, 7,798,241 bytes),
-`homepage_reverse_av1.mp4` (same dimensions/fps/duration, 7,168,048 bytes) and
-`homepage_first_frame.avif` (512,576 bytes) as both preview and video poster.
+The homepage now uses the Amenities water-feature scene: Cloudflare
+`Videos/videos/entry.mp4` (HEVC, 3840 x 2160, 24 fps, ~5.04 seconds,
+3,622,943 bytes), `Videos/entrance_reverse_av1.mp4` (AV1, same dimensions/
+fps/duration, 11,581,331 bytes) and `Images/first-frames/entry.avif`
+(718,517 bytes) as both preview and video poster.
+The gallery display name is Water Feature; its stable `entrance` ID and
+`entry` object keys are retained. The supplied `homepage_reverse_av1.mp4`
+URL still contains the old gate scene; use the verified matching
+`entrance_reverse_av1.mp4` upload instead (its ETag matches the local file's
+MD5, `67820e3c25dded80d370490f5b869d93`). All three new asset URLs differ
+from the gate scene, so old cached files are not restored for this scene.
 The local gate image is no longer a homepage dependency; it is not deleted.
 The logo/percentage preloader and right-aligned responsive copy are retained.
 
@@ -88,8 +95,11 @@ both orbit directions and drag scrubbing against a running local Next server.
 single-player handoff, both arrows and drag with the CDN blocked, then a hard
 reload from persistent storage with zero video network requests.
 
-`scripts/verify-home-hero-video.cjs` checks repeated real forward/reverse AV1
+`scripts/verify-home-hero-video.cjs` checks repeated real forward HEVC/reverse AV1
 playback, only one player running at a time, identical poster/preview, one full
 request per asset, verified persistent payloads, hard reload with all hero CDN
 files blocked, phone playback, forward/reverse failures and delayed playback.
 Set `PLAYWRIGHT_MODULE` if Playwright is installed outside the repository.
+Use Chrome's native GPU/decoder path for the supplied HEVC forward asset;
+forcing software-only SwiftShader prevents its decoder starting on Windows.
+Browsers without HEVC support retain the first-frame poster fallback.

@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import catalog from "@/data/amenitiesPage.json";
@@ -77,7 +76,7 @@ test("legacy HLS and unrelated asset URLs keep their existing behavior", () => {
   }
 });
 
-test("all 22 catalog pairs resolve to cloud keys and retain matching local copies", () => {
+test("all 22 catalog pairs resolve to matching cloud keys without requiring deleted local media", () => {
   assert.equal(catalog.items.length, 22);
   assert.equal(new Set(catalog.items.map(item => item.id)).size, 22);
   assert.equal(new Set(catalog.items.map(item => item.videoSrc)).size, 22);
@@ -90,8 +89,14 @@ test("all 22 catalog pairs resolve to cloud keys and retain matching local copie
       `Varaprasad_Laurels/Videos/videos/${path.basename(item.videoSrc)}`);
     assert.equal(resolveAmenitiesFinalAssetUrl(item.thumbnailSrc),
       `Varaprasad_Laurels/Images/first-frames/${path.basename(item.thumbnailSrc)}`);
-    for (const url of [item.videoSrc, item.thumbnailSrc]) {
-      assert(fs.statSync(path.join(process.cwd(), "public", url)).size > 0, `Missing asset: ${url}`);
-    }
   }
+});
+
+test("Water Feature replaces the Entrance display name without changing its cloud keys or stable ID", () => {
+  const item = catalog.items.find(item => item.id === "entrance");
+  assert(item);
+  assert.equal(item.title, "Water Feature");
+  assert.equal(item.videoSrc, "/varaprasad_amenities/videos/entry.mp4");
+  assert.equal(item.thumbnailSrc, "/varaprasad_amenities/first-frames/entry.avif");
+  assert(!catalog.items.some(item => item.title === "Entrance"));
 });
