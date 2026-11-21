@@ -213,18 +213,20 @@ test("all plan presentations use yellow-gold POIs and standard blue hover/active
   assert(!component.includes("#4169e1"));
 });
 
-test("all five clubhouse levels have original-aspect local AVIF plans and small thumbnails", async () => {
+test("all five clubhouse levels have original-aspect AVIF cutouts and small AVIF thumbnails", async () => {
   assert.deepEqual(Object.keys(CLUBHOUSE_FLOOR_PLANS), CLUBHOUSE_SECTIONS.map(section => section.id));
   for (const plan of Object.values(CLUBHOUSE_FLOOR_PLANS)) {
     const fullPath = path.join("public", plan.image);
     const full = await sharp(fullPath).metadata();
     const thumbnail = await sharp(path.join("public", plan.thumbnail)).metadata();
     assert.equal(full.compression, "av1");
+    assert.equal(full.hasAlpha, true);
     assert.equal(full.width, plan.width);
     assert.equal(full.height, plan.height);
     assert(Math.abs(thumbnail.width! / thumbnail.height! - plan.width / plan.height) < 0.004);
     assert(Math.max(thumbnail.width!, thumbnail.height!) <= 640);
-    assert(fs.statSync(fullPath).size < 500_000, `${plan.id}: keep plans small without resizing originals`);
+    assert(fs.statSync(fullPath).size < 1_500_000, `${plan.id}: bound high-quality cutout size`);
+    assert(fs.statSync(path.join("public", plan.thumbnail)).size < 100_000, "Minimaps stay on small thumbnails");
   }
 });
 

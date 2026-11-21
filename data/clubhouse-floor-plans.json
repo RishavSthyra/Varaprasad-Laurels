@@ -6,8 +6,8 @@
     "width": 2164,
     "height": 1608,
     "sourceFile": "20260528-CLUB HOUSE- GROUND FLOOR PLAN-R0-CLUB HOUSE PLANS.png",
-    "image": "/clubhouse-floor-plans/ground.avif",
-    "thumbnail": "/clubhouse-floor-plans/ground-small.avif",
+    "image": "/clubhouse-floor-plans/ground-nobg.avif",
+    "thumbnail": "/clubhouse-floor-plans/ground-nobg-small.avif",
     "markers": [
       {
         "number": 1,
@@ -145,8 +145,8 @@
     "width": 1583,
     "height": 2196,
     "sourceFile": "20260528-CLUB HOUSE- FIRSTT FLOOR PLAN-R0-CLUB HOUSE PLANS.png",
-    "image": "/clubhouse-floor-plans/first.avif",
-    "thumbnail": "/clubhouse-floor-plans/first-small.avif",
+    "image": "/clubhouse-floor-plans/first-nobg.avif",
+    "thumbnail": "/clubhouse-floor-plans/first-nobg-small.avif",
     "markers": [
       {
         "number": 17,
@@ -227,8 +227,8 @@
     "width": 2184,
     "height": 1496,
     "sourceFile": "20260528-CLUB HOUSE-SECOND PLAN-R0-CLUB HOUSE PLANS.png",
-    "image": "/clubhouse-floor-plans/second.avif",
-    "thumbnail": "/clubhouse-floor-plans/second-small.avif",
+    "image": "/clubhouse-floor-plans/second-nobg.avif",
+    "thumbnail": "/clubhouse-floor-plans/second-nobg-small.avif",
     "markers": [
       {
         "number": 25,
@@ -337,8 +337,8 @@
     "width": 2212,
     "height": 1518,
     "sourceFile": "20260528-CLUB HOUSE-THIRD FLOOR PLAN-R0-CLUB HOUSE PLANS.png",
-    "image": "/clubhouse-floor-plans/third.avif",
-    "thumbnail": "/clubhouse-floor-plans/third-small.avif",
+    "image": "/clubhouse-floor-plans/third-nobg.avif",
+    "thumbnail": "/clubhouse-floor-plans/third-nobg-small.avif",
     "markers": [
       {
         "number": 37,
@@ -489,8 +489,8 @@
     "width": 2222,
     "height": 1459,
     "sourceFile": "20260528-CLUB HOUSE-TERRACE FLOOR PLAN-R0-CLUB HOUSE PLANS.png",
-    "image": "/clubhouse-floor-plans/fourth.avif",
-    "thumbnail": "/clubhouse-floor-plans/fourth-small.avif",
+    "image": "/clubhouse-floor-plans/fourth-nobg.avif",
+    "thumbnail": "/clubhouse-floor-plans/fourth-nobg-small.avif",
     "markers": [
       {
         "number": 62,

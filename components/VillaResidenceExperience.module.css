@@ -75,6 +75,7 @@
 .planImage { position: relative; display: block; width: 100%; height: 100%; padding: 0; overflow: hidden; border: 0; background: #f1ecdf; cursor: zoom-in; }
 .planImage img { object-fit: contain; padding: 10px; }
 .planImage img.exteriorImage { object-fit: cover; padding: 0; }
+.imageSection[data-floor-plan-cutout="true"], .imageSection[data-floor-plan-cutout="true"] .planImage { background: transparent; }
 .sharedPlanNote { position: absolute; left: 7px; bottom: 7px; padding: 4px 7px; border-radius: 6px; background: rgba(248,245,235,.95); color: var(--muted); font-size: 8px; line-height: 12px; }
 .imageClose { position: absolute; top: 12px; right: 12px; background: rgba(248,245,235,.93); color: #333831; border-color: rgba(60,55,40,.2); box-shadow: 0 3px 12px #0002; }
 .planPlaceholder { height: 100%; display: flex; flex-direction: column; gap: 9px; align-items: center; justify-content: center; color: var(--muted); background: radial-gradient(ellipse at center,#f6f3e9,#dedacd); }

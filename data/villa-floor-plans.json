@@ -6,8 +6,8 @@
     "height": 1854,
     "sourceFile": "villa 1 GF.png",
     "markerStyle": "dot",
-    "image": "/villa-floor-plans/villa-1/ground.avif",
-    "thumbnail": "/villa-floor-plans/villa-1/ground-small.avif",
+    "image": "/villa-floor-plans/villa-1/ground-nobg.avif",
+    "thumbnail": "/villa-floor-plans/villa-1/ground-nobg-small.avif",
     "markers": [
       {
         "number": 1,
@@ -165,8 +165,8 @@
     "height": 1825,
     "sourceFile": "villa 1 FF.png",
     "markerStyle": "dot",
-    "image": "/villa-floor-plans/villa-1/first.avif",
-    "thumbnail": "/villa-floor-plans/villa-1/first-small.avif",
+    "image": "/villa-floor-plans/villa-1/first-nobg.avif",
+    "thumbnail": "/villa-floor-plans/villa-1/first-nobg-small.avif",
     "markers": [
       {
         "number": 22,
@@ -324,8 +324,8 @@
     "height": 2234,
     "sourceFile": "villa 1 SF.png",
     "markerStyle": "dot",
-    "image": "/villa-floor-plans/villa-1/second.avif",
-    "thumbnail": "/villa-floor-plans/villa-1/second-small.avif",
+    "image": "/villa-floor-plans/villa-1/second-nobg.avif",
+    "thumbnail": "/villa-floor-plans/villa-1/second-nobg-small.avif",
     "markers": [
       {
         "number": 41,

@@ -59,6 +59,14 @@ export function isSharedVillaFloorPlan(villa: VillaCatalogEntry, floor: VillaFlo
   return !plans[villa.typeId]?.[floor] && Boolean(getVillaFloorPlan(villa, floor));
 }
 
+/** Keep small sidebar cards on the thumbnail; load the full-resolution cutout
+ * only when enlarged. A future type-specific full image remains its fallback.
+ */
+export function getVillaFloorPlanThumbnail(villa: VillaCatalogEntry, floor: VillaFloor) {
+  if (!isSharedVillaFloorPlan(villa, floor)) return getVillaFloorPlan(villa, floor);
+  return floorPlans.find(plan => plan.id === floor)?.thumbnail ?? getVillaFloorPlan(villa, floor);
+}
+
 export function getVillaWalkthroughHref(villa: VillaCatalogEntry) {
   const tours = residenceConfig.interiorTours as Record<string, { path: string; nodeId?: string }>;
   const tour = tours[villa.typeId];

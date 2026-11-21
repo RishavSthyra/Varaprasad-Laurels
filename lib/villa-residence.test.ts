@@ -5,7 +5,7 @@ import path from "node:path";
 import panoConfig from "../data/villa-panos.json";
 import { villaCatalog } from "./villas";
 import {
-  getVillaFloorArea, getVillaFloorPlan, isSharedVillaFloorPlan, getVillaFloorRooms, getVillaNumberFromId,
+  getVillaFloorArea, getVillaFloorPlan, getVillaFloorPlanThumbnail, isSharedVillaFloorPlan, getVillaFloorRooms, getVillaNumberFromId,
   getVillaPano, getVillaPanoAssetUrl, getVillaPanoBaseUrl, getVillaPanoInitialPitch, getVillaRecord, getVillaWalkthroughHref,
 } from "./villa-residence";
 
@@ -71,7 +71,8 @@ test("villa details, per-floor areas and dimensions come from each villa's actua
 test("all villa types share the new villa preview without using old apartment assets or plans", () => {
   for (const villa of villaCatalog) {
     for (const floor of ["ground", "first", "second"] as const) {
-      assert.equal(getVillaFloorPlan(villa, floor), `/villa-floor-plans/villa-1/${floor}.avif`);
+      assert.equal(getVillaFloorPlan(villa, floor), `/villa-floor-plans/villa-1/${floor}-nobg.avif`);
+      assert.equal(getVillaFloorPlanThumbnail(villa, floor), `/villa-floor-plans/villa-1/${floor}-nobg-small.avif`);
       assert(isSharedVillaFloorPlan(villa, floor));
       assert(fs.statSync(path.join("public", getVillaFloorPlan(villa, floor)!)).size > 0);
     }

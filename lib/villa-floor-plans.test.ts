@@ -89,19 +89,21 @@ test("compact minimaps hide the entire controls column and desktop enlargement h
   assert(villa.includes('className="hidden sm:inline"'));
 });
 
-test("all three villa floors have original-resolution AVIFs and small same-aspect thumbnails", async () => {
+test("all three villa floors have original-resolution AVIF cutouts and small AVIF thumbnails", async () => {
   assert.deepEqual(Object.keys(VILLA_FLOOR_PLANS), VILLA_INTERIOR_SECTIONS.map(section => section.id));
   for (const plan of Object.values(VILLA_FLOOR_PLANS)) {
     const imagePath = path.join("public", plan.image);
     const full = await sharp(imagePath).metadata();
     const small = await sharp(path.join("public", plan.thumbnail)).metadata();
     assert.equal(full.compression, "av1");
+    assert.equal(full.hasAlpha, true);
     assert.equal(small.compression, "av1");
     assert.equal(full.width, plan.width);
     assert.equal(full.height, plan.height);
     assert(Math.max(small.width!, small.height!) <= 640);
     assert(Math.abs(small.width! / small.height! - plan.width / plan.height) < 0.004);
-    assert(fs.statSync(imagePath).size < 500_000);
+    assert(fs.statSync(imagePath).size < 1_500_000);
+    assert(fs.statSync(path.join("public", plan.thumbnail)).size < 100_000);
   }
 });
 

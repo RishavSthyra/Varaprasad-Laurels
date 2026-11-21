@@ -8,7 +8,7 @@ import type { Viewer } from "@photo-sphere-viewer/core";
 import "@photo-sphere-viewer/core/index.css";
 import type { InventoryApartment } from "@/types/inventory";
 import {
-  getVillaFloorArea, getVillaFloorPlan, isSharedVillaFloorPlan, getVillaFloorRooms, getVillaPano, getVillaPanoInitialPitch,
+  getVillaFloorArea, getVillaFloorPlan, getVillaFloorPlanThumbnail, isSharedVillaFloorPlan, getVillaFloorRooms, getVillaPano, getVillaPanoInitialPitch,
   getVillaRecord, getVillaWalkthroughHref, VILLA_FLOORS, type VillaFloor,
 } from "@/lib/villa-residence";
 import { villaPanoAssets } from "@/lib/villa-pano-preload";
@@ -152,6 +152,7 @@ export default function VillaResidenceExperience({ apartment, onClose }: {
   };
   const changeTab = (next: DetailTab) => { setDetailTab(next); setRoomPage(0); };
   const detailImage = detailTab === "villa" ? villa.image : floorPlan;
+  const detailPreview = detailTab === "villa" ? villa.image : getVillaFloorPlanThumbnail(villa, floor);
   const sharedPlan = detailTab !== "villa" && isSharedVillaFloorPlan(villa, floor);
   const planAlt = sharedPlan ? `Villa 1 reference: ${floor} floor plan` : `Villa ${villaNumber} ${detailTab === "villa" ? "exterior" : `${floor} floor plan`}`;
   const facts = [
@@ -205,9 +206,9 @@ export default function VillaResidenceExperience({ apartment, onClose }: {
       <div className={`${styles.panels} ${showDetails ? styles.panelsVisible : ""} ${!panelsOpen ? styles.panelsCollapsed : ""}`}
         data-villa-panels-open={panelsOpen} inert={!showDetails || !panelsOpen} aria-hidden={!showDetails || !panelsOpen}>
         <aside id="villa-plan-sidebar" className={`${styles.panel} ${styles.planPanel}`} aria-label="Floor details" data-scroll-area="villa-rooms">
-          <div className={styles.imageSection}>
+          <div className={styles.imageSection} data-floor-plan-cutout={detailTab !== "villa"}>
             {detailImage ? <button type="button" className={styles.planImage} onClick={() => setExpandedPlan(true)} aria-label={`Enlarge Villa ${villaNumber} ${detailTab === "villa" ? "image" : `${detailTab} floor plan`}`}>
-              <Image src={detailImage} alt={planAlt} fill sizes="(min-width: 1100px) 328px, 90vw" unoptimized className={detailTab === "villa" ? styles.exteriorImage : ""} />
+              <Image src={detailPreview ?? detailImage} alt={planAlt} fill sizes="(min-width: 1100px) 328px, 90vw" unoptimized className={detailTab === "villa" ? styles.exteriorImage : ""} />
               <span><Expand size={14} /></span>
               {sharedPlan ? <small className={styles.sharedPlanNote}>Villa 1 reference plan</small> : null}
             </button> : <div className={styles.planPlaceholder}><LayoutGrid size={25} strokeWidth={1} /><strong>{DETAIL_TABS.find((item) => item.id === detailTab)?.label} floor</strong><span>Plan image not available yet</span></div>}
