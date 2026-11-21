@@ -5,7 +5,7 @@ import path from "node:path";
 import panoConfig from "../data/villa-panos.json";
 import { villaCatalog } from "./villas";
 import {
-  getVillaFloorArea, getVillaFloorPlan, getVillaFloorRooms, getVillaNumberFromId,
+  getVillaFloorArea, getVillaFloorPlan, isSharedVillaFloorPlan, getVillaFloorRooms, getVillaNumberFromId,
   getVillaPano, getVillaPanoAssetUrl, getVillaPanoBaseUrl, getVillaPanoInitialPitch, getVillaRecord, getVillaWalkthroughHref,
 } from "./villa-residence";
 
@@ -70,12 +70,26 @@ test("villa details, per-floor areas and dimensions come from each villa's actua
 
 test("all villa types share the new villa preview without using old apartment assets or plans", () => {
   for (const villa of villaCatalog) {
-    assert.equal(getVillaFloorPlan(villa, "ground"), null);
+    for (const floor of ["ground", "first", "second"] as const) {
+      assert.equal(getVillaFloorPlan(villa, floor), `/villa-floor-plans/villa-1/${floor}.avif`);
+      assert(isSharedVillaFloorPlan(villa, floor));
+      assert(fs.statSync(path.join("public", getVillaFloorPlan(villa, floor)!)).size > 0);
+    }
+    assert.equal(getVillaFloorPlan(villa, "terrace"), null, "Do not invent an unsupplied terrace plan");
     const url = new URL(getVillaWalkthroughHref(villa)!, "https://example.test");
     assert.equal(url.pathname, "/villa-walkthrough");
     assert.equal(url.searchParams.get("villa"), String(villa.villaNumber));
     assert.equal(url.searchParams.get("facing"), villa.details.facing);
   }
+});
+
+test("residence sidebar and expanded floor plans use the existing uncropped shared reference drawings", () => {
+  const source = fs.readFileSync("components/VillaResidenceExperience.tsx", "utf8");
+  const css = fs.readFileSync("components/VillaResidenceExperience.module.css", "utf8");
+  assert(source.includes("Villa 1 reference plan"));
+  assert(source.includes("alt={planAlt}"));
+  assert(source.includes('detailTab === "villa" ? villa.image : floorPlan'));
+  assert(css.includes("object-fit: contain"));
 });
 
 const root = path.resolve("public/varaprasad_villa_panos");

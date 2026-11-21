@@ -1,5 +1,6 @@
 import panoConfig from "@/data/villa-panos.json";
 import residenceConfig from "@/data/villa-residence-config.json";
+import floorPlans from "@/data/villa-floor-plans.json";
 import { villaCatalog, type VillaCatalogEntry } from "@/lib/villas";
 
 export type VillaPanoEntry = (typeof panoConfig.panos)[number];
@@ -49,7 +50,13 @@ export function getVillaFloorArea(villa: VillaCatalogEntry, floor: VillaFloor) {
 
 export function getVillaFloorPlan(villa: VillaCatalogEntry, floor: VillaFloor) {
   const plans = residenceConfig.floorPlans as Record<string, Partial<Record<VillaFloor, string>>>;
-  return plans[villa.typeId]?.[floor] ?? null;
+  return plans[villa.typeId]?.[floor] ?? (residenceConfig.sharedFloorPlanSet === "villa-1"
+    ? floorPlans.find(plan => plan.id === floor)?.image ?? null : null);
+}
+
+export function isSharedVillaFloorPlan(villa: VillaCatalogEntry, floor: VillaFloor) {
+  const plans = residenceConfig.floorPlans as Record<string, Partial<Record<VillaFloor, string>>>;
+  return !plans[villa.typeId]?.[floor] && Boolean(getVillaFloorPlan(villa, floor));
 }
 
 export function getVillaWalkthroughHref(villa: VillaCatalogEntry) {

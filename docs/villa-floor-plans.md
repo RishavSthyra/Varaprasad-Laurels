@@ -5,6 +5,16 @@ the mistakenly supplied Villa 2 plans and are used
 across the current shared villa interior tour, not treated as separately verified
 as-built layouts for every villa. The originals are preserved.
 
+The masterplan's villa residence panel now uses the same three drawings through
+`data/villa-residence-config.json`'s explicit `sharedFloorPlanSet: "villa-1"`.
+Ground/First/Second tabs and their enlarged view render the full AVIF uncropped.
+The sidebar labels them "Villa 1 reference plan"; each villa's CAD room schedule
+and dimensions remain its own data. Future type-specific `floorPlans` entries
+override this shared preview. No terrace image is invented, and no legacy
+apartment floor plan is substituted. Check with
+`node scripts/verify-villa-residence-plans.cjs` (actual Villa 51 panel and phone
+layout) and `npx tsx --test lib/villa-residence.test.ts` (all villa types).
+
 Runtime assets are in `public/villa-floor-plans/villa-1/`: three full-resolution
 AVIF plans and three thumbnails, totalling 1,062,826 bytes (94.3% smaller than
 the 18,734,655 bytes of PNG originals). Separate Villa 1 URLs prevent cached

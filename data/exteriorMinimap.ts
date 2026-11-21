@@ -16,7 +16,8 @@ export type ExteriorMinimapLocation = {
 export const EXTERIOR_MINIMAP_IMAGE_URL =
   "https://cdn.sthyra.com/Varaprasad_Laurels/Images/ortho.avif";
 
-// Maps exterior render-world metres to the replacement 16:9 minimap.
+// Legacy amenity-menu coordinates only. Current pano positions are registered
+// from confirmed world/image pairs in lib/exterior-tour/minimap-position.ts.
 export const EXTERIOR_MINIMAP_PROJECTION = {
   left: {
     x: 0.002544112514,

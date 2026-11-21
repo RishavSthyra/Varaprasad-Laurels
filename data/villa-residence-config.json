@@ -1,7 +1,8 @@
 {
   "unavailablePanoVillaNumbers": [7],
-  "notes": "Only use verified villa assets here. All villa types temporarily share the supplied Villa 1 interior preview at /villa-walkthrough. This is not a claim of a type-specific or mirrored interior. Empty floorPlans never fall back to old apartment plans. Interior tours can be replaced independently by typeId later.",
+  "notes": "All villa types temporarily share the supplied Villa 1 interior preview and its floor-plan reference set. These are explicitly labelled shared reference plans, not verified as-built plans for each CAD type. Type-specific floorPlans override the shared set when supplied; old apartment plans are never used.",
   "floorPlans": {},
+  "sharedFloorPlanSet": "villa-1",
   "interiorTours": {
     "type-a-351-east": { "path": "/villa-walkthrough" },
     "type-a-351-west": { "path": "/villa-walkthrough" },

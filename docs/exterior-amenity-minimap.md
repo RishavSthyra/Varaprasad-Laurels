@@ -54,6 +54,31 @@ was moved. This is visual plan-to-ortho registration, not a land survey.
 Surrounding forest/private gardens are excluded. Road-anchor residuals are
 below 10 pixels on the 1920-wide registration image.
 
+## Current location registration
+
+The current-location marker no longer uses the unrelated legacy amenity-menu
+projection or negates the exported Y axis. `lib/exterior-tour/minimap-position.ts`
+derives an affine world-to-image fit from all 19 confirmed pano/POI pairs, using
+the original centimetre coordinates and existing registered ortho dot positions.
+An inverse-distance-weighted interpolation of the fit residuals passes through
+each confirmed point and stays continuous when walking away from it. No pano
+coordinates, navigation links, POI positions, camera headings or arrival views
+are edited. This is registration to user-confirmed feature locations, not a
+surveyed camera/GPS overlay; intermediate locations are interpolated.
+
+All 285 supplied pano positions fall within the ortho without edge clamping.
+At every assigned POI pano the compact follow view centres its dot and the
+expanded current marker sits exactly on the dot. Current location and selected
+POIs share the existing blue `#2f7fb5`; inactive POIs remain gold. Selection is
+derived from the actual active pano, including direct entry and arrow walking,
+not just the last clicked button.
+
+Checks: `npx tsx --test lib/exterior-tour/minimap-position.test.ts` covers all
+285 positions, exact registration for all 19 points and local continuity.
+The browser runner also checks compact/expanded player-to-dot centre alignment
+and active blue after navigation. Set `EXTERIOR_POI_REFS=1,25,40` for a shorter
+desktop run; phone/compact coverage is retained.
+
 ## Checks
 
 - `npx tsx --test lib/exterior-tour/amenity-minimap.test.ts lib/exterior-tour/minimap.test.ts lib/exterior-tour/remaining.test.ts lib/exterior-tour/view-navigation.test.ts`

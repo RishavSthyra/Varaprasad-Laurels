@@ -10,6 +10,7 @@ import { AnimatePresence } from "framer-motion";
 import ExteriorWalkthroughPreloader from "@/components/ui/ExteriorWalkthroughPreloader";
 import ExteriorAmenityMinimapPoints from "./ExteriorAmenityMinimapPoints";
 import type { ExteriorAmenityReference } from "@/lib/exterior-tour/amenity-minimap";
+import { getExteriorPlayerMinimapPoint } from "@/lib/exterior-tour/minimap-position";
 import PanoDebugPanel from "./PanoDebugPanel";
 import {
   ArrowDown,
@@ -50,7 +51,6 @@ import {
   EXTERIOR_MINIMAP_IMAGE_URL,
   EXTERIOR_MINIMAP_LOCATIONS,
   EXTERIOR_MINIMAP_PROJECTION,
-  EXTERIOR_PANO_WORLD_UNITS_PER_METRE,
   type ExteriorMinimapLocation,
 } from "@/data/exteriorMinimap";
 import {
@@ -639,7 +639,8 @@ function ExteriorMinimapGraphic({
       {!isCompact ? (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute z-20 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white/95 bg-[#78e89a] shadow-[0_0_0_5px_rgba(39,119,62,0.3),0_0_18px_rgba(134,243,169,0.95)]"
+          data-exterior-player-marker="expanded"
+          className="pointer-events-none absolute z-20 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white/95 bg-[#2f7fb5] shadow-[0_0_0_5px_rgba(47,127,181,0.2)]"
           style={{
             left: `${activeMinimapPoint.leftPercent * 100}%`,
             top: `${activeMinimapPoint.topPercent * 100}%`,
@@ -676,9 +677,9 @@ function ExteriorMinimapGraphic({
         </div>
 
         <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,transparent_48%,rgba(0,0,0,0.34)_82%,rgba(0,0,0,0.66)_100%)] shadow-[inset_0_0_0_5px_rgba(234,217,181,0.48)]" />
-        <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 h-8 w-8 -translate-x-1/2 -translate-y-1/2">
-          <span className="walkthrough-minimap-player-pulse absolute inset-0 rounded-full border border-[#86f3a9]/70 bg-[#78e89a]/18 shadow-[0_0_20px_rgba(120,232,154,0.46)]" />
-          <span className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white/90 bg-[#86f3a9] shadow-[0_0_0_3px_rgba(39,119,62,0.4),0_0_16px_rgba(134,243,169,0.95)]" />
+        <div data-exterior-player-marker="compact" className="pointer-events-none absolute left-1/2 top-1/2 z-20 h-8 w-8 -translate-x-1/2 -translate-y-1/2">
+          <span className="walkthrough-minimap-player-pulse absolute inset-0 rounded-full border border-[#2f7fb5]/70 bg-[#2f7fb5]/18" />
+          <span className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white/90 bg-[#2f7fb5] shadow-[0_0_0_3px_rgba(47,127,181,0.3)]" />
         </div>
       </div>
     );
@@ -1170,20 +1171,9 @@ export default function ExteriorPanoWalkthrough({
     },
     [],
   );
-  const activeMinimapPoint = useMemo<MinimapPoint>(() => {
-    if (activeAmenity) {
-      return projectMinimapPoint(activeAmenity.coordinate);
-    }
-
-    if (!activeNode) {
-      return { leftPercent: 0.5, topPercent: 0.5 };
-    }
-
-    return projectMinimapPoint({
-      x: activeNode.rawPosition.x / EXTERIOR_PANO_WORLD_UNITS_PER_METRE,
-      y: -activeNode.rawPosition.y / EXTERIOR_PANO_WORLD_UNITS_PER_METRE,
-    });
-  }, [activeAmenity, activeNode, projectMinimapPoint]);
+  const activeMinimapPoint = useMemo<MinimapPoint>(
+    () => getExteriorPlayerMinimapPoint(activeNode), [activeNode],
+  );
   const updateMinimapHeading = useCallback(
     (yaw: number) => {
       const node = graph.byId[activeNodeIdRef.current];

@@ -20,6 +20,17 @@ const base = process.env.STARTUP_TEST_URL || "http://localhost:3000";
     await page.getByRole("button", { name: "Expand minimap", exact: true }).last().click();
     await expanded.waitFor();
     assert.equal(await expanded.locator("button").count(), plan.markers.length);
+    const activeNode = await root.getAttribute("data-exterior-node");
+    const reference = plan.markers.find(marker => marker.nodeId === activeNode);
+    if (reference) {
+      const dot = expanded.locator(`[data-exterior-amenity-number="${reference.number}"]`);
+      assert.equal(await dot.getAttribute("aria-pressed"), "true");
+      const player = page.locator('[data-exterior-player-marker="expanded"]');
+      const [a, b] = await Promise.all([dot.boundingBox(), player.boundingBox()]);
+      assert(Math.hypot(a.x + a.width / 2 - b.x - b.width / 2, a.y + a.height / 2 - b.y - b.height / 2) < 1.5,
+        `Current-location marker must sit on active reference ${reference.number}`);
+      assert.equal(await player.evaluate(el => getComputedStyle(el).backgroundColor), "rgb(47, 127, 181)");
+    }
   };
   const choose = async marker => {
     await openMap();
@@ -29,6 +40,12 @@ const base = process.env.STARTUP_TEST_URL || "http://localhost:3000";
     await ready();
     await expanded.waitFor({ state: "detached" });
     assert.equal(await root.getAttribute("data-exterior-pano"), marker.panoFolder);
+    const compactDot = page.locator(`[data-exterior-amenity-references="compact"] [data-exterior-amenity-number="${marker.number}"]`);
+    const player = page.locator('[data-exterior-player-marker="compact"]');
+    const [a, b] = await Promise.all([compactDot.boundingBox(), player.boundingBox()]);
+    assert.equal(await compactDot.getAttribute("aria-pressed"), "true");
+    assert(Math.hypot(a.x + a.width / 2 - b.x - b.width / 2, a.y + a.height / 2 - b.y - b.height / 2) < 1.5,
+      `Compact map must centre active reference ${marker.number}`);
     await page.waitForFunction(view => {
       const el = document.querySelector("[data-debug-pano-view]");
       const yaw = +el?.getAttribute("data-yaw"), pitch = +el?.getAttribute("data-pitch"), zoom = +el?.getAttribute("data-zoom");
@@ -67,7 +84,8 @@ const base = process.env.STARTUP_TEST_URL || "http://localhost:3000";
     assert.equal(await expanded.innerText(), "", "Points render as dots, not numbers");
     await page.screenshot({ path: ".tmp-exterior-amenities-desktop.png" });
     await page.getByRole("button", { name: "Collapse exterior minimap", exact: true }).click();
-    for (const marker of process.env.EXTERIOR_POI_MOBILE_ONLY ? [] : plan.markers) {
+    const requestedRefs = process.env.EXTERIOR_POI_REFS?.split(",").map(Number);
+    for (const marker of process.env.EXTERIOR_POI_MOBILE_ONLY ? [] : plan.markers.filter(marker => !requestedRefs || requestedRefs.includes(marker.number))) {
       await choose(marker);
       console.log(`PASS desktop ref ${marker.number} -> pano ${marker.panoNumber}: real cloud pano and exact arrival view`);
     }

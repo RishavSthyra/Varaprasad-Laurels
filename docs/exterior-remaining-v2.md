@@ -74,10 +74,13 @@ All 57 exterior unit tests, TypeScript and scoped ESLint checks passed.
 `showAmenities={false}` hides the exterior POI markers, current-amenity card and
 desktop/mobile amenities menu without deleting their configuration. The ortho
 minimap, zoom/pan/expand controls and current-position indicator remain enabled.
-The existing minimap projection is unchanged. It projects 79 original stops and
-12 added stops beyond the ortho image bounds, where the old UI clamps the marker
-to the edge. Correcting this pre-existing calibration needs verified matching
-world/image reference points, not adjusted panorama coordinates.
+The former legacy minimap projection placed 79 original stops and 12 added
+stops outside the ortho. The location overlay now derives registration from
+the 19 user-confirmed world/image POI pairs instead; all 285 current positions
+fall within the image without edge clamping. Confirmed pano positions meet
+their exact dots, with continuous interpolation between them. The exported
+camera coordinates are unchanged. See `exterior-amenity-minimap.md` for the
+registration method and its visual-reference (not survey) precision.
 
 Checks: `npx tsx --test lib/exterior-tour/remaining.test.ts
 lib/exterior-tour/pano.test.ts lib/exterior-tour/villa-hotspots.test.ts`.
