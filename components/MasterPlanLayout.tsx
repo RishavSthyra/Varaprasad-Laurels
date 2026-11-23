@@ -2150,13 +2150,13 @@ export default function MasterPlanLayout({
 
       if (e.key === "ArrowLeft") {
         e.preventDefault();
-        goToHotspot(-1);
+        goToHotspot(1);
         return;
       }
 
       if (e.key === "ArrowRight") {
         e.preventDefault();
-        goToHotspot(1);
+        goToHotspot(-1);
         return;
       }
     };
@@ -2239,8 +2239,8 @@ export default function MasterPlanLayout({
         >
           <MasterPlanHotspotControls
             compact={shouldUseCompactLayout}
-            onPrevious={() => goToHotspot(-1)}
-            onNext={() => goToHotspot(1)}
+            onPrevious={() => goToHotspot(1)}
+            onNext={() => goToHotspot(-1)}
           />
         </div>
       ) : null}

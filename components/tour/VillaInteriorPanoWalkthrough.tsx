@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { ArrowLeft } from "lucide-react";
 import { VILLA_FLOOR_PLANS } from "@/lib/villa-floor-plans";
+import { VILLA_FLOOR_MARKERS, VILLA_TRANSITION_ENTRY_VIEWS } from "@/lib/villa-floor-transitions";
 import {
   getVillaInteriorTour, VILLA_INTERIOR_ENTRY_VIEWS, VILLA_BALCONY_DESTINATIONS, VILLA_BALCONY_ENTRY_VIEWS,
   VILLA_INTERIOR_NAVIGATION_PAIRS, VILLA_INTERIOR_SECTIONS,
@@ -25,12 +26,14 @@ export default function VillaInteriorPanoWalkthrough({ initialNodeId, villaNumbe
     <InteriorPanoWalkthrough
       initialNodeId={initialNodeId} config={tour.config}
       verifiedPanoFolders={tour.folders} navigationSections={VILLA_INTERIOR_SECTIONS}
-      entryViews={VILLA_INTERIOR_ENTRY_VIEWS} nodeLabels={tour.labels}
+      entryViews={{ ...VILLA_INTERIOR_ENTRY_VIEWS, ...VILLA_TRANSITION_ENTRY_VIEWS }}
+      floorMarkers={VILLA_FLOOR_MARKERS} nodeLabels={tour.labels}
       panoEntryViews={VILLA_BALCONY_ENTRY_VIEWS}
       numberedFloorPlans={VILLA_FLOOR_PLANS}
       floorControlsPositionClassName="right-4 top-4 md:right-6 md:top-6"
       showViewpointSelector={false} balconyDestinations={VILLA_BALCONY_DESTINATIONS}
       priorityPreloading blockedNavigationPairs={NO_PAIRS}
+      showPanoDebug
       additionalNavigationPairs={VILLA_INTERIOR_NAVIGATION_PAIRS} navigationYawOverrides={NO_YAW_OVERRIDES}
       panoOnly showMinimap={false} showModeToggle={false} showDimensionsToggle={false}
       className="h-full w-full rounded-none border-0"

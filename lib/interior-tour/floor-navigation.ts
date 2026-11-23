@@ -10,6 +10,7 @@ export type InteriorFloorMarker = {
   yaw: number;
   pitch: number;
   wallYaw: number;
+  scale?: number;
   presentation?: "wall" | "floating";
 };
 export type InteriorFloorMarkers = Readonly<Record<string, readonly InteriorFloorMarker[]>>;
@@ -19,9 +20,11 @@ export type InteriorEntryViews = Readonly<Record<string, InteriorEntryView>>;
  * No live camera position is involved: looking around must never reorient them.
  */
 export function getFloorMarkerProjection(marker: InteriorFloorMarker) {
+  const scale = marker.scale ?? 1;
+  const baseSize = marker.presentation === "floating" ? { width: 160, height: 144 } : { width: 216, height: 154 };
   return {
     position: { yaw: marker.yaw, pitch: marker.pitch },
-    size: marker.presentation === "floating" ? { width: 160, height: 144 } : { width: 216, height: 154 },
+    size: { width: baseSize.width * scale, height: baseSize.height * scale },
     rotation: { yaw: `${marker.wallYaw}deg`, pitch: "0deg", roll: "0deg" },
     hoverScale: false as const,
   };

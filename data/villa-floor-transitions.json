@@ -1,0 +1,51 @@
+{
+  "entryViews": {
+    "FF_CAM1_F0000": { "yaw":0.0, "pitch": -0.8, "zoom": 0 },
+    "SF_CAM1_F0000": { "yaw": -4.67, "pitch": -3.61, "zoom": 0.05 }
+  },
+  "panos": {
+    "GF_CAM2_F0002": [
+      {
+        "id": "villa-ground-stairs-up",
+        "direction": "up",
+        "label": "First floor",
+        "targetNodeId": "FF_CAM1_F0000",
+        "yaw": -2.5,
+        "pitch": 9.6,
+        "wallYaw": 0
+      }
+    ],
+    "FF_CAM1_F0000": [
+      {
+        "id": "villa-first-entry-stairs-up",
+        "direction": "up",
+        "label": "Second floor",
+        "targetNodeId": "SF_CAM1_F0000",
+        "yaw": -7.59,
+        "pitch": 13,
+        "wallYaw": 9.59
+      },
+      {
+        "id": "villa-first-entry-stairs-down",
+        "direction": "down",
+        "label": "Ground floor",
+        "targetNodeId": "GF_CAM5_F0000",
+        "yaw": 9.5,
+        "pitch": -10,
+        "wallYaw": -5
+      }
+    ],
+    "SF_CAM1_F0000": [
+      {
+        "id": "villa-second-stairs-down",
+        "direction": "down",
+        "label": "First floor",
+        "targetNodeId": "FF_CAM5_F0002",
+        "yaw": -176.67,
+        "pitch": -16.61,
+        "wallYaw": -1,
+        "scale": 2
+      }
+    ]
+  }
+}

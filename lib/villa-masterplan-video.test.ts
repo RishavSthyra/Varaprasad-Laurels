@@ -90,12 +90,14 @@ test("warmup reuses one media element and the stage GLTF cache after the homepag
   assert(!hero.includes("idleWarmVideoRef"), "No duplicate hidden masterplan decoder");
 });
 
-test("desktop filters start closed, arrows preserve their direction, and card AVIF files exist", () => {
+test("desktop filters start closed, buttons and keyboard reverse orbit direction, and card AVIF files exist", () => {
   const layout = fs.readFileSync("components/MasterPlanLayout.tsx", "utf8");
   assert(layout.includes("[isMobileSheetOpen, setIsMobileSheetOpen] = useState(false)"));
   assert(layout.includes("[isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false)"));
-  assert(layout.includes("onPrevious={() => goToHotspot(-1)}"));
-  assert(layout.includes("onNext={() => goToHotspot(1)}"));
+  assert(layout.includes("onPrevious={() => goToHotspot(1)}"));
+  assert(layout.includes("onNext={() => goToHotspot(-1)}"));
+  assert.match(layout, /if \(e\.key === "ArrowLeft"\) \{\s*e\.preventDefault\(\);\s*goToHotspot\(1\);/);
+  assert.match(layout, /if \(e\.key === "ArrowRight"\) \{\s*e\.preventDefault\(\);\s*goToHotspot\(-1\);/);
   assert(layout.includes("setOrbitMotion(previous => ({ direction"));
   assert(fs.statSync("public/villa center image2.avif").size > 0);
   assert(fs.statSync("public/villa corner image.avif").size > 0);
