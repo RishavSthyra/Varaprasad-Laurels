@@ -13,6 +13,7 @@ import { getVillaPointers } from "@/lib/exterior-tour/villa-hotspots";
 import {
   EXTERIOR_ASSET_INITIAL_NODE_ID,
   EXTERIOR_ASSET_INITIAL_PREVIEW_KEY,
+  EXTERIOR_ASSET_INITIAL_VIEW,
   EXTERIOR_PANO_ASSET_BASE_URL,
 } from "@/lib/exterior-tour/assets";
 
@@ -101,12 +102,14 @@ export default async function ExteriorTourPage({
           nodes={exteriorTourNodes}
           cdnBaseUrl={exterior.panoBasePath}
           initialNodeId={preferredInitialNodeId}
+          initialView={preferredInitialNodeId === EXTERIOR_ASSET_INITIAL_NODE_ID
+            ? EXTERIOR_ASSET_INITIAL_VIEW : undefined}
           initialYawOffsetDegrees={requestedNode
             ? (previewPointer ? previewPointer.position.yawDegrees - requestedNode.yaw
               // New images already face their exported camera heading. The
               // viewer uses local yaw; don't apply the world heading twice.
               : requestedNode.route_id ? -requestedNode.yaw : 0)
-            : 172}
+            : 0}
           initialSignedAssetUrls={signedExteriorMenuAssets}
           amenities={[]}
           showAmenities={false}

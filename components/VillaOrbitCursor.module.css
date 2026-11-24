@@ -1,0 +1,11 @@
+.grab {
+  cursor: url("/cursors/orbit-grab.svg") 24 20, grab;
+}
+
+.grab:active {
+  cursor: url("/cursors/orbit-grabbing.svg") 24 20, grabbing;
+}
+
+.scrubbing {
+  cursor: url("/cursors/orbit-scrub.svg") 24 20, ew-resize;
+}

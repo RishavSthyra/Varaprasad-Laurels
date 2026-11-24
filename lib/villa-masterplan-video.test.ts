@@ -3,7 +3,7 @@ import test from "node:test";
 import fs from "node:fs";
 import { getVillasMasterPlanConfig } from "./villas-master-plan-config";
 import { getNearestMasterPlanHotspot } from "./master-plan-hotspots";
-import { getVillaMasterPlanVideoTime, getVillaOrbitTravel, wrapVillaOrbitFrame, nearestVillaOrbitStop, getVillaOrbitMidpointFrames, getVillaOrbitStopFrames, getVillaOrbitReleaseStop, VILLA_MASTERPLAN_VIDEO_KEY, VILLA_MASTERPLAN_VIDEO_URL } from "./villa-masterplan-video";
+import { getVillaMasterPlanVideoTime, getVillaOrbitTravel, getVillaOrbitDragDelta, wrapVillaOrbitFrame, nearestVillaOrbitStop, getVillaOrbitMidpointFrames, getVillaOrbitStopFrames, getVillaOrbitReleaseStop, VILLA_MASTERPLAN_VIDEO_KEY, VILLA_MASTERPLAN_VIDEO_URL } from "./villa-masterplan-video";
 
 test("villa orbit uses the verified Cloudflare GOP3 encode without depending on a local video", () => {
   const config = getVillasMasterPlanConfig();
@@ -92,6 +92,39 @@ test("two transition-only pauses bisect both routes without adding any camera ca
   const layout = fs.readFileSync("components/MasterPlanLayout.tsx", "utf8");
   assert(layout.includes("masterPlanNavigationFrames.find("));
   assert(layout.includes("const targetView = masterPlanSnapFrames.map("), "Automatic filter views must still target cameras only");
+});
+
+test("dragging right advances the scrub, dragging left rewinds, and release follows the reversed direction", () => {
+  const stops = [1, 82, 162, 236];
+  assert(Math.abs(getVillaOrbitDragDelta(100, 1000) - 30.9) < 1e-9);
+  assert(Math.abs(getVillaOrbitDragDelta(-100, 1000) + 30.9) < 1e-9);
+  assert.equal(getVillaOrbitDragDelta(0, 1000), 0);
+  assert(Number.isFinite(getVillaOrbitDragDelta(4, 0)));
+  stops.forEach((frame, i) => {
+    assert.equal(getVillaOrbitReleaseStop(frame, getVillaOrbitDragDelta(4, 1600), stops), stops[(i + 1) % stops.length]);
+    assert.equal(getVillaOrbitReleaseStop(frame, getVillaOrbitDragDelta(-4, 1600), stops), stops[(i + 3) % stops.length]);
+  });
+  const stage = fs.readFileSync("components/VillasMasterPlanStage.tsx", "utf8");
+  assert(stage.includes("getVillaOrbitDragDelta(dx, event.currentTarget.clientWidth, totalFrames)"));
+});
+
+test("orbit cursors separate the open palm, pressed palm and arrows-only scrubbing states", () => {
+  const stage = fs.readFileSync("components/VillasMasterPlanStage.tsx", "utf8");
+  const styles = fs.readFileSync("components/VillaOrbitCursor.module.css", "utf8");
+  assert(stage.includes('isDragging ? cursorStyles.scrubbing : hoveredVilla ? "cursor-pointer" : dragEnabled ? cursorStyles.grab : "cursor-default"'));
+  assert(styles.includes(".grab:active"));
+  for (const name of ["orbit-grab", "orbit-grabbing"]) {
+    assert(styles.includes(`/cursors/${name}.svg`));
+    const svg = fs.readFileSync(`public/cursors/${name}.svg`, "utf8");
+    assert(svg.includes('width="48" height="40"'));
+    assert(!svg.includes('M4 20h40'), "Palm cursors must not include arrows");
+    assert.equal((svg.match(/<path /g) ?? []).length, name === "orbit-grab" ? 1 : 2);
+  }
+  assert(styles.includes('.scrubbing'));
+  assert(styles.includes('/cursors/orbit-scrub.svg'));
+  const scrub = fs.readFileSync("public/cursors/orbit-scrub.svg", "utf8");
+  assert(scrub.includes('M4 20h40'));
+  assert(!scrub.includes('translate('), "Scrubbing shows only arrows, no palm");
 });
 
 test("tiny drags advance from every pause in either direction without snapping back", () => {

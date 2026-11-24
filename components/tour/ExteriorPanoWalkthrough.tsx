@@ -181,6 +181,7 @@ type ExteriorPanoWalkthroughProps = {
   nodes: ExteriorPanoNodeSource[];
   cdnBaseUrl: string;
   initialNodeId?: string;
+  initialView?: { yaw: number; pitch: number; zoom: number };
   initialYawOffsetDegrees?: number;
   initialSignedAssetUrls?: Record<string, string>;
   amenities?: ExteriorAmenity[];
@@ -887,6 +888,7 @@ export default function ExteriorPanoWalkthrough({
   nodes,
   cdnBaseUrl,
   initialNodeId,
+  initialView,
   initialYawOffsetDegrees = 0,
   initialSignedAssetUrls = {},
   amenities = exteriorAmenities,
@@ -1736,20 +1738,17 @@ export default function ExteriorPanoWalkthrough({
       const initialAmenity = amenities.find(
         (amenity) => amenity.startingPano.nodeId === initialResolved.nodeId,
       );
-      const initialYawDegrees = initialAmenity
+      const entryView = initialResolved.nodeId === initialRequestedNodeId ? initialView : undefined;
+      const initialYawDegrees = entryView?.yaw ?? (initialAmenity
         ? initialAmenity.startingPano.viewYaw
-        : (initialNode?.yaw ?? 0);
-      const initialYaw = degToRad(initialYawDegrees + initialYawOffsetDegrees);
-      const initialPitch = initialAmenity
-        ? clamp(
-            degToRad(initialAmenity.startingPano.viewPitch),
-            MIN_PITCH,
-            MAX_PITCH,
-          )
-        : initialNode
-          ? clamp(degToRad(initialNode.pitch), MIN_PITCH, MAX_PITCH)
-          : 0;
-      const initialZoom = initialAmenity?.startingPano.viewZoom ?? DEFAULT_ZOOM;
+        : (initialNode?.yaw ?? 0));
+      const initialYaw = degToRad(initialYawDegrees + (entryView ? 0 : initialYawOffsetDegrees));
+      const initialPitch = clamp(
+        degToRad(entryView?.pitch ?? initialAmenity?.startingPano.viewPitch ?? initialNode?.pitch ?? 0),
+        MIN_PITCH,
+        MAX_PITCH,
+      );
+      const initialZoom = entryView?.zoom ?? initialAmenity?.startingPano.viewZoom ?? DEFAULT_ZOOM;
       const initialPreviewFallback = buildPreviewOnlyFallback(
         initialResolved.panorama,
         initialResolved.previewUrl,
@@ -1923,6 +1922,7 @@ export default function ExteriorPanoWalkthrough({
     graph,
     hidePreviewOverlay,
     initialRequestedNodeId,
+    initialView,
     initialYawOffsetDegrees,
     isAppleTouchFallbackMode,
     resolvePano,

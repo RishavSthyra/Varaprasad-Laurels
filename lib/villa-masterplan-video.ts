@@ -15,6 +15,11 @@ export function getVillaMasterPlanVideoTime(frame: number, fps = VILLA_MASTERPLA
 
 export type VillaOrbitMotion = { direction: 1 | -1; id: number };
 
+/** Follow the hand: dragging right advances the video, left rewinds it. */
+export function getVillaOrbitDragDelta(deltaX: number, width: number, totalFrames = VILLA_MASTERPLAN_VIDEO_FRAMES) {
+  return deltaX / Math.max(1, width) * totalFrames;
+}
+
 export function wrapVillaOrbitFrame(frame: number, totalFrames = VILLA_MASTERPLAN_VIDEO_FRAMES) {
   return ((Math.round(frame) - 1) % totalFrames + totalFrames) % totalFrames + 1;
 }

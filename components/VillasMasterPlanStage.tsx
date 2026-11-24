@@ -2,6 +2,7 @@
 
 import { MasterPlanPreview } from "./MasterPlanPreview";
 import viewportStyles from "./MasterPlanViewport.module.css";
+import cursorStyles from "./VillaOrbitCursor.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -31,7 +32,7 @@ import {
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { clone as cloneSkeleton } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { getMasterPlanModelTargets, getVillaNumberForModelTarget, MASTERPLAN_CLUBHOUSE_HREF, VILLA_MASTERPLAN_MODEL_URL } from "@/lib/villa-masterplan-model";
-import { VILLA_MASTERPLAN_VIDEO_URL, VILLA_MASTERPLAN_SECOND_STOP_SOURCE_FRAME, wrapVillaOrbitFrame, getVillaOrbitStopFrames, getVillaOrbitReleaseStop, type VillaOrbitMotion } from "@/lib/villa-masterplan-video";
+import { VILLA_MASTERPLAN_VIDEO_URL, VILLA_MASTERPLAN_SECOND_STOP_SOURCE_FRAME, wrapVillaOrbitFrame, getVillaOrbitDragDelta, getVillaOrbitStopFrames, getVillaOrbitReleaseStop, type VillaOrbitMotion } from "@/lib/villa-masterplan-video";
 import VillaMasterPlanVideo from "./VillaMasterPlanVideo";
 
 import type { MasterPlanDeveloperConfig } from "@/types/developer-config";
@@ -719,7 +720,7 @@ export default function VillasMasterPlanStage({
       handleVideoMotion();
     }
     event.preventDefault(); event.stopPropagation();
-    drag.deltaFrames = -dx / Math.max(1, event.currentTarget.clientWidth) * totalFrames;
+    drag.deltaFrames = getVillaOrbitDragDelta(dx, event.currentTarget.clientWidth, totalFrames);
     drag.next = wrapVillaOrbitFrame(drag.frame + drag.deltaFrames, totalFrames);
     cancelAnimationFrame(dragRaf.current);
     dragRaf.current = requestAnimationFrame(() => onSetFrame(drag.next));
@@ -743,7 +744,7 @@ export default function VillasMasterPlanStage({
   return (
     <section
       className={`absolute inset-0 overflow-hidden bg-[#00142b] ${
-        hoveredVilla ? "cursor-pointer" : "cursor-default"
+        isDragging ? cursorStyles.scrubbing : hoveredVilla ? "cursor-pointer" : dragEnabled ? cursorStyles.grab : "cursor-default"
       }`}
       onPointerLeave={() => handleHover(null)}
       style={{ containerType: "size" }}
