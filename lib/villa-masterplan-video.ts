@@ -31,3 +31,32 @@ export function nearestVillaOrbitStop(frame: number, stops: readonly number[], t
     Math.abs(getVillaOrbitTravel(frame, stop, totalFrames)) < Math.abs(getVillaOrbitTravel(frame, best, totalFrames)) ? stop : best,
   stops[0] ?? 1);
 }
+
+export function getVillaOrbitStopFrames(cameraFrames: readonly number[], pauseFrames: readonly number[] = [], totalFrames = VILLA_MASTERPLAN_VIDEO_FRAMES) {
+  return [...new Set([...cameraFrames, ...pauseFrames].filter(Number.isFinite).map(frame => wrapVillaOrbitFrame(frame, totalFrames)))].sort((a, b) => a - b);
+}
+
+export function getVillaOrbitMidpointFrames(cameraFrames: readonly number[], totalFrames = VILLA_MASTERPLAN_VIDEO_FRAMES) {
+  const cameras = getVillaOrbitStopFrames(cameraFrames, [], totalFrames);
+  if (cameras.length < 2) return [];
+  return cameras.map((frame, index) => wrapVillaOrbitFrame(
+    frame + getVillaOrbitTravel(frame, cameras[(index + 1) % cameras.length], totalFrames, 1) / 2,
+    totalFrames,
+  ));
+}
+
+/** Snap ahead in the gesture's direction, never back to its starting stop just
+ * because the drag did not cross a halfway threshold (or rounded to one frame). */
+export function getVillaOrbitReleaseStop(startFrame: number, deltaFrames: number, stops: readonly number[], totalFrames = VILLA_MASTERPLAN_VIDEO_FRAMES) {
+  const normalizedStops = getVillaOrbitStopFrames(stops, [], totalFrames);
+  if (!normalizedStops.length) return wrapVillaOrbitFrame(startFrame, totalFrames);
+  if (!Number.isFinite(deltaFrames) || Math.abs(deltaFrames) <= Number.EPSILON) return nearestVillaOrbitStop(startFrame, normalizedStops, totalFrames);
+  const direction = deltaFrames > 0 ? 1 : -1;
+  // Preserve sub-frame movement: rounding a tiny drag first loses its intent.
+  const release = ((startFrame - 1 + deltaFrames) % totalFrames + totalFrames) % totalFrames + 1;
+  const exactStop = normalizedStops.find(stop => Math.abs(getVillaOrbitTravel(release, stop, totalFrames)) <= 0.5);
+  if (exactStop !== undefined && (exactStop !== wrapVillaOrbitFrame(startFrame, totalFrames) || Math.abs(deltaFrames) >= totalFrames - 0.5)) return exactStop;
+  return normalizedStops.reduce((best, stop) =>
+    Math.abs(getVillaOrbitTravel(release, stop, totalFrames, direction)) < Math.abs(getVillaOrbitTravel(release, best, totalFrames, direction)) ? stop : best,
+  normalizedStops[0]);
+}

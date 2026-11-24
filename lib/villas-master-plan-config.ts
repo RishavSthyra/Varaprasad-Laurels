@@ -2,7 +2,7 @@ import { Euler, Matrix4, Quaternion, Vector3 } from "three";
 
 import { getThreeDsMaxMasterPlanConfig } from "@/lib/master-plan-3dsmax-trial";
 import { VILLA_MASTERPLAN_BACKGROUND_KEY, VILLA_MASTERPLAN_MODEL_KEY } from "@/lib/villa-masterplan-model";
-import { VILLA_MASTERPLAN_SECOND_STOP_SOURCE_FRAME, VILLA_MASTERPLAN_VIDEO_FPS, VILLA_MASTERPLAN_VIDEO_FRAMES, VILLA_MASTERPLAN_VIDEO_KEY } from "@/lib/villa-masterplan-video";
+import { getVillaOrbitMidpointFrames, VILLA_MASTERPLAN_SECOND_STOP_SOURCE_FRAME, VILLA_MASTERPLAN_VIDEO_FPS, VILLA_MASTERPLAN_VIDEO_FRAMES, VILLA_MASTERPLAN_VIDEO_KEY } from "@/lib/villa-masterplan-video";
 import type {
   MasterPlanCameraConfig,
   MasterPlanDeveloperConfig,
@@ -224,6 +224,7 @@ export function getVillasMasterPlanConfig(): MasterPlanDeveloperConfig {
     interactionVideoKey: VILLA_MASTERPLAN_VIDEO_KEY,
     fallbackImageKey: VILLA_MASTERPLAN_BACKGROUND_KEY,
     hotspotFrames: hotspots.map((hotspot) => hotspot.frame),
+    pauseFrames: getVillaOrbitMidpointFrames(hotspots.map(hotspot => hotspot.frame), VILLA_MASTERPLAN_VIDEO_FRAMES),
     hotspots,
     previewLabel: "Villas master plan",
     towerAModelKey: VILLA_MASTERPLAN_MODEL_KEY,

@@ -3,7 +3,7 @@ import test from "node:test";
 import fs from "node:fs";
 import { getVillasMasterPlanConfig } from "./villas-master-plan-config";
 import { getNearestMasterPlanHotspot } from "./master-plan-hotspots";
-import { getVillaMasterPlanVideoTime, getVillaOrbitTravel, wrapVillaOrbitFrame, nearestVillaOrbitStop, VILLA_MASTERPLAN_VIDEO_KEY, VILLA_MASTERPLAN_VIDEO_URL } from "./villa-masterplan-video";
+import { getVillaMasterPlanVideoTime, getVillaOrbitTravel, wrapVillaOrbitFrame, nearestVillaOrbitStop, getVillaOrbitMidpointFrames, getVillaOrbitStopFrames, getVillaOrbitReleaseStop, VILLA_MASTERPLAN_VIDEO_KEY, VILLA_MASTERPLAN_VIDEO_URL } from "./villa-masterplan-video";
 
 test("villa orbit uses the verified Cloudflare GOP3 encode without depending on a local video", () => {
   const config = getVillasMasterPlanConfig();
@@ -58,7 +58,7 @@ test("arrows traverse opposite halves at both stops, including the end/start sea
   assert.equal(getVillaOrbitTravel(160, 160, 309, -1), 0);
 });
 
-test("drag frames wrap in either direction and release to a calibrated camera only", () => {
+test("drag frames wrap in either direction and release directionally to camera or video-only stops", () => {
   assert.equal(wrapVillaOrbitFrame(-618), 309);
   assert.equal(wrapVillaOrbitFrame(619), 1);
   assert.equal(wrapVillaOrbitFrame(310), 1);
@@ -69,9 +69,54 @@ test("drag frames wrap in either direction and release to a calibrated camera on
   assert(stage.includes("onPointerMoveCapture={moveDrag}"));
   assert(stage.includes("onPointerCancelCapture={finishDrag}"));
   assert(stage.includes("setPointerCapture(event.pointerId)"));
-  assert(stage.includes("nearestVillaOrbitStop(drag.next, stopFrames, totalFrames)"));
+  assert(stage.includes("getVillaOrbitReleaseStop(drag.frame, drag.deltaFrames, stopFrames, totalFrames)"));
+  assert(stage.includes("drag.deltaFrames === 0 ? undefined : drag.deltaFrames > 0 ? 1 : -1"));
   assert(stage.includes("motion={orbitMotion}"));
   assert(stage.includes("scrubbing={isDragging}"));
+});
+
+test("two transition-only pauses bisect both routes without adding any camera calibration", () => {
+  const config = getVillasMasterPlanConfig();
+  assert.deepEqual(config.hotspotFrames, [1, 162]);
+  assert.deepEqual(config.pauseFrames, [82, 236]);
+  assert.deepEqual(getVillaOrbitMidpointFrames([1, 162]), [82, 236]);
+  assert.deepEqual(getVillaOrbitStopFrames(config.hotspotFrames, config.pauseFrames), [1, 82, 162, 236]);
+  assert.equal(config.hotspots.length, 2);
+  assert.deepEqual(Object.keys(config.towerACameras), ["A1", "A2"]);
+  assert.deepEqual(Object.keys(config.towerBCameras), ["A1", "A2"]);
+  for (const frame of config.pauseFrames!) {
+    assert(!config.hotspots.some(hotspot => hotspot.frame === frame), "Pause frames must never enable calibrated GLB hovering");
+  }
+  const stage = fs.readFileSync("components/VillasMasterPlanStage.tsx", "utf8");
+  assert(stage.includes("config?.hotspots.some((hotspot) => hotspot.frame === settledFrame)"));
+  const layout = fs.readFileSync("components/MasterPlanLayout.tsx", "utf8");
+  assert(layout.includes("masterPlanNavigationFrames.find("));
+  assert(layout.includes("const targetView = masterPlanSnapFrames.map("), "Automatic filter views must still target cameras only");
+});
+
+test("tiny drags advance from every pause in either direction without snapping back", () => {
+  const stops = [1, 82, 162, 236];
+  stops.forEach((frame, index) => {
+    for (const delta of [0.01, 0.1, 1, 3]) {
+      assert.equal(getVillaOrbitReleaseStop(frame, delta, stops), stops[(index + 1) % stops.length]);
+      assert.equal(getVillaOrbitReleaseStop(frame, -delta, stops), stops[(index + stops.length - 1) % stops.length]);
+    }
+    assert.equal(getVillaOrbitReleaseStop(frame, 0, stops), frame, "A click without dragging does not navigate");
+  });
+});
+
+test("long scrubs, seam crossing and exact stop landings retain their intended stop", () => {
+  const stops = [1, 82, 162, 236];
+  assert.equal(getVillaOrbitReleaseStop(1, 100, stops), 162);
+  assert.equal(getVillaOrbitReleaseStop(1, 170, stops), 236);
+  assert.equal(getVillaOrbitReleaseStop(1, 240, stops), 1);
+  assert.equal(getVillaOrbitReleaseStop(1, 161, stops), 162);
+  assert.equal(getVillaOrbitReleaseStop(82, -81, stops), 1);
+  assert.equal(getVillaOrbitReleaseStop(1, -1, stops), 236);
+  assert.equal(getVillaOrbitReleaseStop(236, 80, stops), 82);
+  assert.equal(getVillaOrbitReleaseStop(1, 309, stops), 1);
+  assert.equal(getVillaOrbitReleaseStop(1, -309, stops), 1);
+  assert.equal(getVillaOrbitReleaseStop(1, 309 + 100, stops), 162);
 });
 
 test("warmup reuses one media element and the stage GLTF cache after the homepage reveal", () => {

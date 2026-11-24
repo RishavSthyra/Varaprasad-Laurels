@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getVillaMasterPlanVideo, warmCompleteVillaMasterPlanVideo } from "@/lib/villa-masterplan-preload";
 import { getMasterplanVideoCache } from "@/lib/masterplan-video-cache";
+import { animateVillaOrbitReverse } from "@/lib/villa-orbit-reverse";
 import { getVillaMasterPlanVideoTime, getVillaOrbitTravel, VILLA_MASTERPLAN_VIDEO_URL, type VillaOrbitMotion } from "@/lib/villa-masterplan-video";
 
 type Props = {
@@ -110,6 +111,7 @@ export default function VillaMasterPlanVideo({ src, poster = "", frame, fps, tot
     const start = video.currentTime;
     const travel = getVillaOrbitTravel(start, target, period, motion?.direction);
     let raf = 0, timer = 0, presentation = 0;
+    let stopReverse: (() => void) | undefined;
     let cancelled = false, finishing = false, settled = false;
     const complete = () => {
       if (cancelled || settled || video.seeking || video.readyState < 2 || Math.abs(video.currentTime - target) > 0.5 / fps) return;
@@ -155,20 +157,11 @@ export default function VillaMasterPlanVideo({ src, poster = "", frame, fps, tot
       void video.play().then(() => { if (!cancelled) raf = requestAnimationFrame(forward); })
         .catch(() => { if (!cancelled) finish(); });
     } else {
-      const started = performance.now();
-      const reverse = (now: number) => {
-        if (cancelled) return;
-        if (!video.seeking) {
-          const distance = Math.min(-travel, (now - started) / 1000 * 1.35);
-          if (distance >= -travel) { finish(); return; }
-          video.currentTime = ((start - distance) % period + period) % period;
-        }
-        raf = requestAnimationFrame(reverse);
-      };
-      raf = requestAnimationFrame(reverse);
+      stopReverse = animateVillaOrbitReverse({ video, start, target, travel, period, fps, onComplete: finish });
     }
     return () => {
       cancelled = true;
+      stopReverse?.();
       idleRef.current = false;
       video.pause(); video.loop = false;
       cancelAnimationFrame(raf); window.clearTimeout(timer);

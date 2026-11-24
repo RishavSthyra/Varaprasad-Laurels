@@ -724,6 +724,12 @@ export default function MasterPlanLayout({
     () => normalizeMasterPlanSnapFrames(masterPlanHotspotFrames, masterPlanTotalFrames),
     [masterPlanHotspotFrames, masterPlanTotalFrames],
   );
+  // Navigation pauses are not cameras: keep filter targeting and GLB calibration
+  // on masterPlanSnapFrames, and use the extra stops only for orbit navigation.
+  const masterPlanNavigationFrames = useMemo(
+    () => normalizeMasterPlanSnapFrames([...masterPlanHotspotFrames, ...(masterPlanConfig?.pauseFrames ?? [])], masterPlanTotalFrames),
+    [masterPlanHotspotFrames, masterPlanConfig?.pauseFrames, masterPlanTotalFrames],
+  );
   const masterPlanHotspotKeys = useMemo(() => {
     const configuredKeys = masterPlanConfig?.hotspots
       ?.map((hotspot) => hotspot.key)
@@ -1960,9 +1966,9 @@ export default function MasterPlanLayout({
   );
 
   const setWrappedFrame = useCallback(
-    (frame: number) => {
+    (frame: number, direction?: 1 | -1) => {
       const nextFrame = wrapFrame(frame);
-      setOrbitMotion(null);
+      setOrbitMotion(previous => direction ? { direction, id: (previous?.id ?? 0) + 1 } : null);
       currentFrameRef.current = nextFrame;
       setCurrentFrame(nextFrame);
     },
@@ -1975,19 +1981,19 @@ export default function MasterPlanLayout({
 
       if (direction === 1) {
         return (
-          masterPlanSnapFrames.find(
+          masterPlanNavigationFrames.find(
             (snapFrame) => snapFrame > normalizedFrame,
-          ) ?? masterPlanSnapFrames[0]
+          ) ?? masterPlanNavigationFrames[0]
         );
       }
 
-      const previousSnapFrames = masterPlanSnapFrames.filter(
+      const previousSnapFrames = masterPlanNavigationFrames.filter(
         (snapFrame) => snapFrame < normalizedFrame,
       );
 
-      return previousSnapFrames.at(-1) ?? masterPlanSnapFrames.at(-1) ?? 1;
+      return previousSnapFrames.at(-1) ?? masterPlanNavigationFrames.at(-1) ?? 1;
     },
-    [masterPlanSnapFrames, wrapFrame],
+    [masterPlanNavigationFrames, wrapFrame],
   );
 
   const goToHotspot = useCallback(

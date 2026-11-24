@@ -62,6 +62,8 @@ export type MasterPlanDeveloperConfig = {
   aspectRatio: number;
   mediaFit?: "cover" | "contain";
   hotspotFrames: number[];
+  /** Video-only navigation pauses, without calibrated cameras or GLB hover. */
+  pauseFrames?: number[];
   hotspots: MasterPlanHotspotConfig[];
   towerAModelKey: R2AssetKey;
   towerBModelKey: R2AssetKey;

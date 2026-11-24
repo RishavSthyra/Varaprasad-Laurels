@@ -32,15 +32,15 @@
         "targetNodeId": "GF_CAM5_F0000",
         "yaw": 9.5,
         "pitch": -10,
-        "wallYaw": -5
+        "wallYaw": -5 
       }
-    ],
+    ], 
     "SF_CAM1_F0000": [
       {
         "id": "villa-second-stairs-down",
         "direction": "down",
         "label": "First floor",
-        "targetNodeId": "FF_CAM5_F0002",
+        "targetNodeId": "FF_CAM1_F0000",
         "yaw": -176.67,
         "pitch": -16.61,
         "wallYaw": -1,

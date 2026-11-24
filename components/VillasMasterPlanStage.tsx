@@ -31,7 +31,7 @@ import {
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { clone as cloneSkeleton } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { getMasterPlanModelTargets, getVillaNumberForModelTarget, MASTERPLAN_CLUBHOUSE_HREF, VILLA_MASTERPLAN_MODEL_URL } from "@/lib/villa-masterplan-model";
-import { VILLA_MASTERPLAN_VIDEO_URL, wrapVillaOrbitFrame, nearestVillaOrbitStop, type VillaOrbitMotion } from "@/lib/villa-masterplan-video";
+import { VILLA_MASTERPLAN_VIDEO_URL, VILLA_MASTERPLAN_SECOND_STOP_SOURCE_FRAME, wrapVillaOrbitFrame, getVillaOrbitStopFrames, getVillaOrbitReleaseStop, type VillaOrbitMotion } from "@/lib/villa-masterplan-video";
 import VillaMasterPlanVideo from "./VillaMasterPlanVideo";
 
 import type { MasterPlanDeveloperConfig } from "@/types/developer-config";
@@ -78,7 +78,7 @@ type VillasMasterPlanStageProps = {
   ) => void;
   onInteractionChange?: (isInteracting: boolean) => void;
   onApartmentIntent?: (villaNumber: number) => void;
-  onSetFrame: (frame: number) => void;
+  onSetFrame: (frame: number, direction?: 1 | -1) => void;
   selectedApartmentId: string | null;
   selectedTower: TowerType | null;
   touchHighlightProfile?: "desktop" | "tablet" | "mobile";
@@ -575,11 +575,15 @@ export default function VillasMasterPlanStage({
   const [videoFailed, setVideoFailed] = useState(false);
   const [modelReady, setModelReady] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const dragRef = useRef<{ id: number; x: number; frame: number; next: number; moved: boolean } | null>(null);
+  const dragRef = useRef<{ id: number; x: number; frame: number; next: number; deltaFrames: number; moved: boolean } | null>(null);
   const dragRaf = useRef(0);
   const suppressClickUntil = useRef(0);
   const totalFrames = config?.totalFrames ?? 309;
-  const stopFrames = config?.hotspotFrames ?? [1, 160];
+  const stopFrames = useMemo(() => getVillaOrbitStopFrames(
+    config?.hotspotFrames ?? [1, VILLA_MASTERPLAN_SECOND_STOP_SOURCE_FRAME + 1],
+    config?.pauseFrames,
+    totalFrames,
+  ), [config?.hotspotFrames, config?.pauseFrames, totalFrames]);
   const handleModelReady = useCallback(() => setModelReady(true), []);
   const videoUrl = config?.scrubVideoKey?.startsWith("local:")
     ? `/${config.scrubVideoKey.slice(6).replace(/^\/+/, "")}`
@@ -701,13 +705,13 @@ export default function VillasMasterPlanStage({
 
   const startDrag = (event: ReactPointerEvent<HTMLElement>) => {
     if (!dragEnabled || !event.isPrimary || event.button !== 0) return;
-    dragRef.current = { id: event.pointerId, x: event.clientX, frame: currentFrame, next: currentFrame, moved: false };
+    dragRef.current = { id: event.pointerId, x: event.clientX, frame: currentFrame, next: currentFrame, deltaFrames: 0, moved: false };
   };
   const moveDrag = (event: ReactPointerEvent<HTMLElement>) => {
     const drag = dragRef.current;
     if (!drag || drag.id !== event.pointerId) return;
     const dx = event.clientX - drag.x;
-    if (!drag.moved && Math.abs(dx) < 7) return;
+    if (!drag.moved && Math.abs(dx) < 3) return;
     if (!drag.moved) {
       drag.moved = true;
       event.currentTarget.setPointerCapture(event.pointerId);
@@ -715,7 +719,8 @@ export default function VillasMasterPlanStage({
       handleVideoMotion();
     }
     event.preventDefault(); event.stopPropagation();
-    drag.next = wrapVillaOrbitFrame(drag.frame - dx / Math.max(1, event.currentTarget.clientWidth) * totalFrames, totalFrames);
+    drag.deltaFrames = -dx / Math.max(1, event.currentTarget.clientWidth) * totalFrames;
+    drag.next = wrapVillaOrbitFrame(drag.frame + drag.deltaFrames, totalFrames);
     cancelAnimationFrame(dragRaf.current);
     dragRaf.current = requestAnimationFrame(() => onSetFrame(drag.next));
   };
@@ -728,7 +733,10 @@ export default function VillasMasterPlanStage({
     event.preventDefault(); event.stopPropagation();
     suppressClickUntil.current = performance.now() + 350;
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
-    onSetFrame(nearestVillaOrbitStop(drag.next, stopFrames, totalFrames));
+    onSetFrame(
+      getVillaOrbitReleaseStop(drag.frame, drag.deltaFrames, stopFrames, totalFrames),
+      drag.deltaFrames === 0 ? undefined : drag.deltaFrames > 0 ? 1 : -1,
+    );
     setIsDragging(false);
   };
 
